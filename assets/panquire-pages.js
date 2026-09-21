@@ -130,17 +130,14 @@
   const setupStory = root => {
     if (cleanups.has(root)) return;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
-    const elements = [...root.querySelectorAll('[data-pq-reveal]')];
     const backgrounds = [...root.querySelectorAll('[data-pq-parallax]')];
     const visibleBackgrounds = new Set();
     let frame = 0;
-    let revealObserver;
     let backgroundObserver;
     const clear = () => {
-      revealObserver?.disconnect(); backgroundObserver?.disconnect();
+      backgroundObserver?.disconnect();
       window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule);
       cancelAnimationFrame(frame); frame = 0; visibleBackgrounds.clear();
-      elements.forEach(el => el.classList.remove('pq-reveal-pending','pq-reveal-active'));
       backgrounds.forEach(el => el.style.removeProperty('--pq-parallax'));
     };
     const move = () => {
@@ -155,14 +152,6 @@
     const configure = () => {
       clear();
       if (preference.matches || !('IntersectionObserver' in window) || document.documentElement.classList.contains('shopify-design-mode')) return;
-      revealObserver = new IntersectionObserver(entries => entries.forEach(({ target, isIntersecting }) => {
-        if (isIntersecting) { target.classList.remove('pq-reveal-pending'); revealObserver.unobserve(target); }
-      }), { rootMargin: '0px 0px -24px 0px', threshold: 0 });
-      elements.forEach(el => {
-        if (el.getBoundingClientRect().top >= innerHeight) {
-          el.classList.add('pq-reveal-active','pq-reveal-pending'); revealObserver.observe(el);
-        }
-      });
       backgroundObserver = new IntersectionObserver(entries => {
         entries.forEach(({target,isIntersecting}) => isIntersecting ? visibleBackgrounds.add(target) : visibleBackgrounds.delete(target)); schedule();
       });
@@ -170,7 +159,6 @@
       window.addEventListener('scroll', schedule, { passive: true });
       window.addEventListener('resize', schedule, { passive: true });
     };
-    root.addEventListener('focusin', event => event.target.closest('[data-pq-reveal]')?.classList.remove('pq-reveal-pending'));
     preference.addEventListener('change', configure);
     configure();
     cleanups.set(root, () => { clear(); preference.removeEventListener('change', configure); });

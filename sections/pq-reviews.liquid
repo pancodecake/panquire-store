@@ -1,6 +1,6 @@
 <section class="pq pq-section pq-reviews pq-reviews--{{ section.settings.layout }}" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-carousel>
-  <div class="pq-container"><h2 class="pq-section-title">{{ section.settings.heading | escape }}</h2>{% if section.settings.text != blank %}<p class="pq-review-intro">{{ section.settings.text | escape }}</p>{% endif %}</div>
-  <div class="pq-review-track" data-pq-track>
+  <div class="pq-container" data-pq-reveal><h2 class="pq-section-title">{{ section.settings.heading | escape }}</h2>{% if section.settings.text != blank %}<p class="pq-review-intro">{{ section.settings.text | escape }}</p>{% endif %}</div>
+  <div class="pq-review-track" data-pq-track data-pq-reveal style="--pq-reveal-delay: 50ms;">
     {% for block in section.blocks %}
       <article class="pq-review" data-pq-item {{ block.shopify_attributes }}>
         <div class="pq-review-person"><div class="pq-review-avatar">{% assign media_label = 'panquire.reviewer_image' | t %}{% render 'pq-media', image: block.settings.image, label: media_label, sizes: '80px' %}</div><p>{% if block.settings.name != blank %}{{ block.settings.name | escape }}{% elsif section.settings.layout == 'expert' %}{{ 'panquire.sample_expert' | t }}{% else %}{{ 'panquire.sample_reviewer' | t }}{% endif %}</p></div>

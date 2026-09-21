@@ -1,12 +1,12 @@
 <article class="pq pq-partners">
-  <header class="pq-container pq-page-intro"><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.heading | escape }}</h1><div class="pq-prose">{{ section.settings.intro }}</div></header>
+  <header class="pq-container pq-page-intro" data-pq-reveal><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.heading | escape }}</h1><div class="pq-prose">{{ section.settings.intro }}</div></header>
   <div class="pq-container pq-partner-layout">
     <nav class="pq-partner-nav" aria-label="{{ section.settings.navigation_label | escape }}">
       {% for block in section.blocks %}<a href="#{{ block.settings.anchor | default: block.id | handleize }}">{{ block.settings.heading | escape }}</a>{% endfor %}
     </nav>
     <div class="pq-partner-sections">
       {% for block in section.blocks %}
-        <section class="pq-partner-section" id="{{ block.settings.anchor | default: block.id | handleize }}" aria-labelledby="PartnerHeading-{{ block.id }}" {{ block.shopify_attributes }}>
+        <section class="pq-partner-section" id="{{ block.settings.anchor | default: block.id | handleize }}" aria-labelledby="PartnerHeading-{{ block.id }}" data-pq-reveal {{ block.shopify_attributes }}>
           {% if block.settings.anchor == 'affiliate-terms' %}<span id="affiliate-program" class="pq-anchor" aria-hidden="true"></span>{% endif %}
           <h2 id="PartnerHeading-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
           <div class="pq-prose">{{ block.settings.body }}</div>

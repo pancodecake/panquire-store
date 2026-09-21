@@ -1,8 +1,8 @@
 <section class="pq pq-section pq-product-features" style="--pq-space: {{ section.settings.spacing }}px;">
   <div class="pq-container">
-    <h2 class="pq-product-heading">{{ section.settings.heading | escape }}</h2>
-    {% if section.settings.text != blank %}<p class="pq-product-intro">{{ section.settings.text | escape }}</p>{% endif %}
-    <div class="pq-feature-mosaic">
+    <h2 class="pq-product-heading" data-pq-reveal>{{ section.settings.heading | escape }}</h2>
+    {% if section.settings.text != blank %}<p class="pq-product-intro" data-pq-reveal style="--pq-reveal-delay: 50ms;">{{ section.settings.text | escape }}</p>{% endif %}
+    <div class="pq-feature-mosaic" data-pq-reveal style="--pq-reveal-delay: 100ms;">
       {% for block in section.blocks %}
         <article class="pq-feature-tile" {{ block.shopify_attributes }}>
           <div class="pq-feature-tile-media">{% render 'pq-media', image: block.settings.image, label: block.settings.media_label, sizes: '(min-width: 750px) 520px, 100vw' %}</div>

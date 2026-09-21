@@ -1,7 +1,7 @@
 <section class="pq pq-section pq-tiles pq-tiles--{{ section.settings.layout }}" style="--pq-space: {{ section.settings.spacing }}px; --pq-columns: {{ section.settings.columns }};" data-pq-carousel>
   <div class="pq-container pq-tiles-layout">
-    {% if section.settings.heading != blank %}<div class="pq-tiles-intro"><h2 class="pq-section-title">{{ section.settings.heading | escape }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text | escape }}</p>{% endif %}{% if section.settings.link != blank and section.settings.button != blank %}<a class="pq-button" href="{{ section.settings.link }}">{{ section.settings.button | escape }}</a>{% endif %}</div>{% endif %}
-    <div class="pq-tiles-content">
+    {% if section.settings.heading != blank %}<div class="pq-tiles-intro" data-pq-reveal><h2 class="pq-section-title">{{ section.settings.heading | escape }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text | escape }}</p>{% endif %}{% if section.settings.link != blank and section.settings.button != blank %}<a class="pq-button" href="{{ section.settings.link }}">{{ section.settings.button | escape }}</a>{% endif %}</div>{% endif %}
+    <div class="pq-tiles-content" data-pq-reveal style="--pq-reveal-delay: 50ms;">
       <div class="pq-tile-track" data-pq-track>
         {% for block in section.blocks %}
           <article class="pq-tile" data-pq-item {{ block.shopify_attributes }}>

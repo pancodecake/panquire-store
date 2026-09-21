@@ -1,7 +1,7 @@
 <section class="pq pq-section" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-carousel>
   <div class="pq-container">
-    <h2 class="pq-section-title"><span>{{ section.settings.heading | escape }}</span><small>{{ section.settings.subtitle | escape }}</small></h2>
-    <div class="pq-product-track" data-pq-track style="--pq-columns: {{ section.settings.columns }};">
+    <h2 class="pq-section-title" data-pq-reveal><span>{{ section.settings.heading | escape }}</span><small>{{ section.settings.subtitle | escape }}</small></h2>
+    <div class="pq-product-track" data-pq-track data-pq-reveal style="--pq-columns: {{ section.settings.columns }}; --pq-reveal-delay: 50ms;">
       {% if section.settings.collection != blank %}
         {% for product in section.settings.collection.products limit: 8 %}<div data-pq-item>{% render 'pq-product-card', product: product %}</div>{% else %}{% for block in section.blocks %}<div data-pq-item {{ block.shopify_attributes }}>{% render 'pq-product-card', product: block.settings.product, card: block.settings %}</div>{% endfor %}{% endfor %}
       {% else %}

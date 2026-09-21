@@ -1,5 +1,53 @@
 (() => {
+  const revealCleanups = new WeakMap();
+
+  const setupReveals = (root) => {
+    if (revealCleanups.has(root)) return;
+    const elements = [...root.querySelectorAll('[data-pq-reveal]')];
+    if (!elements.length) return;
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    let observer;
+
+    const clear = () => {
+      observer?.disconnect();
+      observer = undefined;
+      elements.forEach((element) => element.classList.remove('pq-reveal-pending', 'pq-reveal-active'));
+    };
+
+    const configure = () => {
+      clear();
+      if (preference.matches || !('IntersectionObserver' in window) || document.documentElement.classList.contains('shopify-design-mode')) return;
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) return;
+          target.classList.remove('pq-reveal-pending');
+          observer.unobserve(target);
+        });
+      }, { rootMargin: '0px 0px -24px 0px', threshold: 0 });
+      elements.forEach((element) => {
+        if (element.getBoundingClientRect().top < innerHeight) return;
+        element.classList.add('pq-reveal-active', 'pq-reveal-pending');
+        observer.observe(element);
+      });
+    };
+
+    const revealFocusedContent = (event) => event.target.closest('[data-pq-reveal]')?.classList.remove('pq-reveal-pending');
+    root.addEventListener('focusin', revealFocusedContent);
+    preference.addEventListener('change', configure);
+    configure();
+    revealCleanups.set(root, () => {
+      clear();
+      root.removeEventListener('focusin', revealFocusedContent);
+      preference.removeEventListener('change', configure);
+    });
+  };
+
   const initialize = (scope = document) => {
+    if (scope === document) {
+      document.querySelectorAll('.shopify-section').forEach(setupReveals);
+    } else {
+      setupReveals(scope);
+    }
     scope.querySelectorAll('[data-pq-carousel]').forEach((root) => {
       if (root.dataset.pqReady) return;
       const track = root.querySelector('[data-pq-track]');
@@ -67,5 +115,9 @@
   };
   initialize();
   document.addEventListener('shopify:section:load', (event) => initialize(event.target));
-  document.addEventListener('shopify:section:unload', (event) => event.target.querySelectorAll('[data-pq-carousel]').forEach((root) => root.dispatchEvent(new Event('pq:dispose'))));
+  document.addEventListener('shopify:section:unload', (event) => {
+    event.target.querySelectorAll('[data-pq-carousel]').forEach((root) => root.dispatchEvent(new Event('pq:dispose')));
+    revealCleanups.get(event.target)?.();
+    revealCleanups.delete(event.target);
+  });
 })();

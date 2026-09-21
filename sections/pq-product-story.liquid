@@ -1,6 +1,6 @@
 <section class="pq pq-story pq-story--{{ section.settings.layout }}" style="--pq-story-height: {{ section.settings.height }}px; --pq-space: {{ section.settings.spacing }}px;">
   <div class="{% unless section.settings.full_width %}pq-container{% endunless %} pq-story-layout">
-    <div class="pq-story-media">
+    <div class="pq-story-media" data-pq-reveal>
       {% if section.settings.video != blank %}
         {{ section.settings.video | video_tag: controls: true, autoplay: false, loop: false, preload: 'none', image_size: '1600x' }}
       {% else %}
@@ -8,7 +8,7 @@
       {% endif %}
     </div>
     {% if section.settings.heading != blank or section.settings.text != blank %}
-      <div class="pq-story-copy">
+      <div class="pq-story-copy" data-pq-reveal style="--pq-reveal-delay: 50ms;">
         {% if section.settings.eyebrow != blank %}<p class="pq-story-eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
         {% if section.settings.heading != blank %}<h2>{{ section.settings.heading | escape | newline_to_br }}</h2>{% endif %}
         {% if section.settings.text != blank %}<div class="rte">{{ section.settings.text }}</div>{% endif %}

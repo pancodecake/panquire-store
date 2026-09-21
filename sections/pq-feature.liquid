@@ -1,8 +1,8 @@
 <section class="pq pq-section pq-feature" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-feature>
   {% if section.settings.show_campaign %}<div class="pq-campaign" style="--pq-campaign-height: {{ section.settings.campaign_height }}px;">{% assign media_label = 'panquire.campaign_media' | t %}{% render 'pq-media', image: section.settings.campaign_image, label: media_label, sizes: '100vw' %}</div>{% endif %}
   <div class="pq-container">
-    <h2 class="pq-section-title"><span>{{ section.settings.heading | escape }}</span>{% if section.settings.subtitle != blank %}<small>{{ section.settings.subtitle | escape }}</small>{% endif %}</h2>
-    <div class="pq-feature-layout">
+    <h2 class="pq-section-title" data-pq-reveal><span>{{ section.settings.heading | escape }}</span>{% if section.settings.subtitle != blank %}<small>{{ section.settings.subtitle | escape }}</small>{% endif %}</h2>
+    <div class="pq-feature-layout" data-pq-reveal style="--pq-reveal-delay: 50ms;">
       <div class="pq-feature-panels">
         {% for block in section.blocks %}
           <article class="pq-feature-panel" id="Feature-{{ section.id }}-{{ block.id }}" data-pq-panel {{ block.shopify_attributes }}>
