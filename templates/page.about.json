@@ -1,43 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "pq-about-story",
-      "settings": {},
       "blocks": {
         "item1": {
           "type": "chapter",
           "settings": {
             "heading": "Who We Are",
-            "placeholder": "Open landscape · background image placeholder",
             "body": "<p>Panquire begins with a simple idea: the way we move can change the way we experience the world. A familiar route can become a moment of discovery. Time outside can create space to think. A ride can be more than the distance between two places.</p><p>We are building a brand around that possibility. Our focus is electric riding, but our interest is in the people behind it: those finding a new interest, returning to an old one, or simply looking for a different way to spend their time. We want Panquire to make room for each of those stories.</p><p>Our team and our mission share the same starting point: pay attention to what matters to the rider. Be clear about what we offer. Stay curious about what could be better. Build a relationship that continues beyond the first purchase.</p>",
-            "bridge": "That sense of purpose shapes a philosophy: thoughtful choices make meaningful experiences."
+            "bridge": "That sense of purpose shapes a philosophy: thoughtful choices make meaningful experiences.",
+            "placeholder": "Open landscape · background image placeholder"
           }
         },
         "item2": {
           "type": "chapter",
           "settings": {
             "heading": "Our Philosophy",
-            "placeholder": "Light across a quiet surface · background image placeholder",
             "body": "<p>We believe good design makes itself understood. It brings the right things into focus and gives everything else room to breathe. For Panquire, that means looking beyond appearance to consider how something feels, how it is used, and how naturally it fits into a person’s life.</p><p>Progress does not always have to announce itself. Sometimes it is a clearer explanation, a more considered choice, or a detail that makes the experience easier to understand. We value that quiet kind of progress: purposeful, measured, and rooted in the needs of the people we hope to serve.</p><p>We also believe that confidence begins with clarity. Riders should have the information they need to make their own decisions, with space for questions and honest answers. The experience surrounding a product deserves the same attention as the product itself.</p>",
-            "bridge": "A philosophy only matters when it informs the work. This is how we put ours into practice."
+            "bridge": "A philosophy only matters when it informs the work. This is how we put ours into practice.",
+            "placeholder": "Light across a quiet surface · background image placeholder"
           }
         },
         "item3": {
           "type": "chapter",
           "settings": {
             "heading": "How We Work",
-            "placeholder": "Materials and considered details · background image placeholder",
             "body": "<p>Our approach starts with listening. What are people looking for in their next ride? What feels complicated? Which details matter most when choosing a model, planning a purchase, or getting ready to head outside? Those questions give the work a useful direction.</p><p>From there, we aim to connect the details into a coherent experience. Product information should be easy to find. Choices should be explained in everyday language. Partnerships should have a clear purpose. Support should begin with understanding the question, rather than assuming the answer.</p><p>This is an ongoing practice, not a finished statement. We want to learn from conversations with riders, from the questions that keep coming back, and from the ideas shared by people who see things differently. Each offers an opportunity to make the next decision more considered than the last.</p>",
-            "bridge": "The work is never static. What we learn today helps define where we go next."
+            "bridge": "The work is never static. What we learn today helps define where we go next.",
+            "placeholder": "Materials and considered details · background image placeholder"
           }
         },
         "item4": {
           "type": "chapter",
           "settings": {
             "heading": "Where We’re Going",
-            "placeholder": "A distant horizon · background image placeholder",
-            "body": "<p>We see Panquire growing through the experiences people choose to create with it. The ambition is not simply to offer more, but to make each addition meaningful: a useful choice, a clearer connection, or a new reason to get outside and explore.</p><p>We want to build a community that welcomes different perspectives. Riders, partners, and people discovering electric riding for the first time all have something to contribute. Their questions and ideas can help us understand where the brand should go, and what it should continue to stand for.</p><p>The next chapter will be shaped one thoughtful step at a time. We will keep returning to the same principles: clarity, purpose, curiosity, and attention to the people at the center of the experience. Wherever the road leads, that is the direction we want to take.</p>",
-            "bridge": "The story continues with the people who choose to ride with us."
+            "body": "<p>Panquire was established by a group of electric motorcycle enthusiasts who were unsatisfied with the current state of the industry.</p><p>It all started with our future CEO, Tom. His career took an unusual path, from working as a manager at Stanley to building his own engineering business in the vehicle parts industry. No matter where his career took him, one thing never changed: his love for electric two-wheelers</p><p>From powerful electric dirt bikes to simple e-bikes, Tom spent many weekends enjoying electric rides. Over the years, however, he began to notice problems within the industry he cared about.</p><p>Whenever he tried to bring more people along on his weekend rides, his friends often struggled to find a proper entrance to this niche..There was very little middle ground between affordability and quality, and new riders were often forced to sacrifice one for the other.</p><p>Because of this, Tom decided to  fill that gap himself.</p><p>After years of searching for the right manufacturers, speaking with engineers, and bringing together a team of electric motorcycle and e-bike enthusiasts like himself, Panquire was created to build electric motorbikes that offered a balanced choice to other riders, and of course, himself.</p>",
+            "bridge": "Fix this as well: We will continue satisfing the riders that could not find the right ride for themsevls, and as long as they are satisfied, we will grow until every potential gap in electric 2 wheel industry is filled with our passion.",
+            "placeholder": "A distant horizon · background image placeholder"
           }
         }
       },
@@ -46,7 +54,14 @@
         "item2",
         "item3",
         "item4"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "About Panquire",
+        "title": "A different way forward.",
+        "chapter_label": "The Panquire story",
+        "button": "Explore our collection",
+        "link": "shopify://collections/all"
+      }
     }
   },
   "order": [
