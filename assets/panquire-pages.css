@@ -41,26 +41,26 @@
 .pq-partner-nav a { padding-block: 12px; color: var(--text-muted); line-height: 1.5; }
 .pq-partner-nav a:hover { color: var(--text); }
 .pq-partner-section { position: relative; padding-block: 16px 64px; scroll-margin-top: 140px; }
-.pq-partner-section + .pq-partner-section { padding-top: 56px; border-top: 1px solid #ffffff14; }
+.pq-partner-section + .pq-partner-section { padding-top: 56px; border-top: 1px solid var(--color-border); }
 .pq-partner-section > h2 { font-size: clamp(28px,3vw,42px); letter-spacing: -.035em; margin-bottom: 26px; }
 .pq-partner-section > .pq-button { margin-top: 32px; }
 .pq-anchor { position: absolute; top: 0; scroll-margin-top: 140px; }
 .pq-terms { padding-bottom: 100px; }
 .pq-policy-search { max-width: 760px; margin-bottom: 34px; }
 .pq-policy-search label { display: block; margin-bottom: 12px; font-size: 14px; color: var(--text-muted); }
-.pq-policy-search-row { display: flex; gap: 14px; align-items: center; border: 1px solid #767881; background: var(--surface); padding: 8px 12px 8px 20px; border-radius: 4px; }
+.pq-policy-search-row { display: flex; gap: 14px; align-items: center; border: 1px solid var(--color-border-strong); background: var(--surface); padding: 8px 12px 8px 20px; border-radius: 2px; }
 .pq-policy-search-row > svg { flex: 0 0 22px; }
 .pq-policy-search input { min-width: 0; width: 100%; min-height: 44px; border: 0; background: transparent; color: var(--text); font-size: 16px; }
 .pq-policy-search input::placeholder { color: var(--text-muted); opacity: 1; }
-.pq-policy-search button { min-height: 44px; padding: 10px 16px; border: 0; border-radius: 3px; background: var(--silver-gradient); color: var(--carbon-base); font-size: 14px; }
+.pq-policy-search button { min-height: 44px; padding: 10px 16px; border: 0; border-radius: 2px; background: var(--color-secondary-solid); color: var(--color-text-on-secondary); font-size: 14px; }
 .pq-policy-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-.pq-policy-tabs button { padding: 14px 20px; min-height: 48px; border: 1px solid var(--pq-line); background: transparent; color: var(--text-muted); border-radius: 3px; }
-.pq-policy-tabs button[aria-selected='true'] { color: var(--carbon-base); background: var(--silver-gradient); border-color: transparent; font-weight: 700; }
+.pq-policy-tabs button { padding: 14px 20px; min-height: 48px; border: 1px solid var(--pq-line); background: transparent; color: var(--text-muted); border-radius: 2px; }
+.pq-policy-tabs button[aria-selected='true'] { color: var(--color-text-on-accent); background: var(--color-accent-solid); border-color: var(--color-accent-solid); font-weight: 700; }
 .pq-policy-tabs button[aria-selected='true']::after { content: ''; display: block; height: 2px; background: currentColor; margin-top: 4px; }
 .pq-policy-status { font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 40px !important; }
 .pq-policy-category { scroll-margin-top: 140px; }
 .pq-policy-category > h2 { font-size: 26px; margin-block: 40px 20px; }
-.pq-policy-question { border-bottom: 1px solid #55575f; }
+.pq-policy-question { border-bottom: 1px solid var(--color-border); }
 .pq-policy-question summary { list-style: none; padding: 24px 0; display: flex; justify-content: space-between; align-items: center; gap: 24px; cursor: pointer; font-size: 17px; font-weight: 600; line-height: 1.6; }
 .pq-policy-question summary::-webkit-details-marker { display: none; }
 .pq-policy-toggle { flex: 0 0 20px; width: 20px; height: 20px; position: relative; }
@@ -68,7 +68,7 @@
 .pq-policy-toggle::after { transform: rotate(90deg); }
 .pq-policy-question[open] .pq-policy-toggle::after { display: none; }
 .pq-policy-answer { padding: 0 40px 30px 0; }
-.pq-policy-answer mark, .pq-policy-question summary mark { color: var(--carbon-base); background: #e5e6e8; padding-inline: 1px; border-radius: 1px; }
+.pq-policy-answer mark, .pq-policy-question summary mark { color: var(--color-text-on-secondary); background: var(--color-secondary-solid); padding-inline: 1px; border-radius: 1px; }
 .pq-policy-empty { padding: 40px 24px; background: var(--surface); font-size: 16px; line-height: 1.7; }
 .pq-contact-page { padding-bottom: 100px; }
 .pq-contact-form { max-width: 700px; }

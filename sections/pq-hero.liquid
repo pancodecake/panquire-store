@@ -17,10 +17,10 @@
           {% if hero.settings.text != blank %}<p class="pq-hero-description">{{ hero.settings.text | escape }}</p>{% endif %}
           <div class="pq-hero-actions">
             {% if hero.settings.link != blank and hero.settings.button != blank %}
-              <a class="pq-button pq-button--crimson" href="{{ hero.settings.link }}">{{ hero.settings.button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
+              <a class="pq-button pq-button--primary" href="{{ hero.settings.link }}">{{ hero.settings.button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
             {% endif %}
             {% if hero.settings.secondary_link != blank and hero.settings.secondary_button != blank %}
-              <a class="pq-button pq-button--silver" href="{{ hero.settings.secondary_link }}">{{ hero.settings.secondary_button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
+              <a class="pq-button pq-button--secondary" href="{{ hero.settings.secondary_link }}">{{ hero.settings.secondary_button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
             {% endif %}
           </div>
         </div>
@@ -45,11 +45,11 @@
     { "type": "text", "id": "kicker", "label": "Small heading", "default": "Introducing Panquire" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Go small. Ride big." },
     { "type": "text", "id": "text", "label": "Description", "default": "Find your next adventure with a ride designed for everyday freedom." },
-    { "type": "text", "id": "button", "label": "Red button label", "default": "Explore products" },
-    { "type": "url", "id": "link", "label": "Red button link" },
-    { "type": "text", "id": "secondary_button", "label": "Silver button label", "default": "Our story" },
-    { "type": "url", "id": "secondary_link", "label": "Silver button link" },
-    { "type": "color", "id": "text_color", "label": "Text color", "default": "#f0f0f2" }
+    { "type": "text", "id": "button", "label": "Primary button label", "default": "Explore products" },
+    { "type": "url", "id": "link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_button", "label": "Secondary button label", "default": "Our story" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "color", "id": "text_color", "label": "Text color", "default": "#F3F3F1" }
   ] }],
   "presets": [{ "name": "Panquire hero", "blocks": [{ "type": "slide" }] }]
 }

@@ -1,15 +1,34 @@
 {% doc %}
-  Merchant-editable carbon, silver and crimson palette shared by all pages.
+  Merchant-editable carbon, bronze and silver palette shared by all pages.
 {% enddoc %}
 {% style %}
   :root {
-    --carbon-base: {{ settings.pq_background | default: '#08090b' }};
-    --carbon-gradient: {{ settings.pq_carbon_gradient | default: 'linear-gradient(135deg, #08090b 0%, #141518 50%, #0a0b0d 100%)' }};
-    --silver-gradient: {{ settings.pq_silver_gradient | default: 'linear-gradient(110deg, #a5a7ac 0%, #e5e6e8 50%, #b5b7bc 100%)' }};
-    --crimson-gradient: {{ settings.pq_crimson_gradient | default: 'linear-gradient(135deg, #650f20 0%, #951c32 50%, #741226 100%)' }};
-    --surface: {{ settings.pq_surface | default: '#18191d' }};
-    --text: {{ settings.pq_text | default: '#f0f0f2' }};
-    --text-muted: {{ settings.pq_text_muted | default: '#b5b6be' }};
-    --pq-crimson: {{ settings.pq_accent | default: '#951c32' }};
+    --neutral-950: {{ settings.pq_background | default: '#08090b' }};
+    --neutral-900: {{ settings.pq_surface | default: '#151619' }};
+    --neutral-700: {{ settings.pq_border | default: '#34363B' }};
+    --neutral-300: {{ settings.pq_text_muted | default: '#B8B9BD' }};
+    --neutral-100: {{ settings.pq_text | default: '#F3F3F1' }};
+    --bronze-600: {{ settings.pq_accent | default: '#A97832' }};
+    --bronze-500: #BA8842;
+    --silver-300: {{ settings.pq_secondary | default: '#D5D6D8' }};
+
+    --color-bg-page: var(--neutral-950);
+    --color-bg-surface: var(--neutral-900);
+    --color-text-primary: var(--neutral-100);
+    --color-text-secondary: var(--neutral-300);
+    --color-border: var(--neutral-700);
+    --color-border-strong: #4B4D53;
+    --color-focus-ring: var(--silver-300);
+    --color-accent-solid: var(--bronze-600);
+    --color-accent-solid-hover: var(--bronze-500);
+    --color-text-on-accent: var(--neutral-950);
+    --color-secondary-solid: var(--silver-300);
+    --color-text-on-secondary: var(--neutral-950);
+
+    --carbon-base: var(--color-bg-page);
+    --carbon-gradient: {{ settings.pq_carbon_gradient | default: 'linear-gradient(135deg, #08090b 0%, #111216 55%, #090a0c 100%)' }};
+    --surface: var(--color-bg-surface);
+    --text: var(--color-text-primary);
+    --text-muted: var(--color-text-secondary);
   }
 {% endstyle %}

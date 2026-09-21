@@ -23,8 +23,14 @@
       {
         "type": "color",
         "id": "pq_accent",
-        "label": "Crimson accent",
-        "default": "#951c32"
+        "label": "Bronze primary",
+        "default": "#A97832"
+      },
+      {
+        "type": "color",
+        "id": "pq_secondary",
+        "label": "Silver secondary",
+        "default": "#D5D6D8"
       },
       {
         "type": "url",
@@ -53,34 +59,28 @@
         "default": "linear-gradient(135deg, #08090b 0%, #141518 50%, #0a0b0d 100%)"
       },
       {
-        "type": "color_background",
-        "id": "pq_silver_gradient",
-        "label": "Silver gradient",
-        "default": "linear-gradient(110deg, #a5a7ac 0%, #e5e6e8 50%, #b5b7bc 100%)"
-      },
-      {
-        "type": "color_background",
-        "id": "pq_crimson_gradient",
-        "label": "Crimson gradient",
-        "default": "linear-gradient(135deg, #650f20 0%, #951c32 50%, #741226 100%)"
-      },
-      {
         "type": "color",
         "id": "pq_surface",
         "label": "Card surface",
-        "default": "#18191d"
+        "default": "#151619"
+      },
+      {
+        "type": "color",
+        "id": "pq_border",
+        "label": "Borders and separators",
+        "default": "#34363B"
       },
       {
         "type": "color",
         "id": "pq_text",
         "label": "Text",
-        "default": "#f0f0f2"
+        "default": "#F3F3F1"
       },
       {
         "type": "color",
         "id": "pq_text_muted",
         "label": "Secondary text",
-        "default": "#b5b6be"
+        "default": "#B8B9BD"
       }
     ]
   },

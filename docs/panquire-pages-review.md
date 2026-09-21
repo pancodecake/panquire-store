@@ -10,7 +10,7 @@ Scope: new About, Partners, Terms, and Contact templates, shared footer, new pag
 | Layout | About consistent chapter alignment, controlled reading measure, fades, mobile wrapping; policy two-column tabs and footer at 320px | Clear: 310px document width at 320px viewport; no duplicate policy IDs |
 | Writing | All 59 supplied Q&As, 5 affiliate subsections, 8 corporate subsections, four drafted About chapters | Content preserved; placeholders and ambiguous source answers explicitly recorded in the editing guide |
 | Typography | Heading hierarchy and readable paragraph spacing; 16px mobile/17–18px desktop body; ~57–66ch reading measure | Clear in source and inspected About/Terms views |
-| Colors | Existing carbon/silver/crimson tokens retained; About imagery uses grayscale and strong overlays | Clear in inspected placeholder views; user-uploaded imagery still needs visual review |
+| Colors | Carbon/bronze/silver semantic tokens; About imagery uses grayscale and strong overlays | Clear in inspected placeholder views; user-uploaded imagery still needs visual review |
 | UI | Native controls, clear/reset, query highlights created as text nodes, no-results recovery, hash-based policy selection | Browser checks passed; no new library or scroll hijacking |
 
 No actionable interface findings remain in the inspected scope.

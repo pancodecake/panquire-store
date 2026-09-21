@@ -36,7 +36,7 @@ Affiliate rate `[X%]`, attribution window `[X days]`, and `[Not specified in sou
 
 1. Open the theme editor and choose **Home page** or **Products → Default product**.
 2. Select any Panquire section to edit headings, copy, spacing, placeholder media, and links. Add, remove, and reorder sections without editing code.
-3. In **Theme settings → Panquire storefront**, edit the carbon, silver, and crimson gradients and text/surface colors. The initial values match the supplied palette.
+3. In **Theme settings → Panquire storefront**, edit the carbon background, bronze primary, silver secondary, border, and text/surface colors. Bronze is reserved for primary actions and selected states; silver is the secondary action color.
 4. In **Header**, choose a Shopify navigation menu. The existing configurable page links remain the fallback. Configure those links only to pages that exist in your store.
 5. In **Footer**, add navigation menus to the four columns, edit contact text, and add social links. Policy links automatically use the store's configured policies.
 

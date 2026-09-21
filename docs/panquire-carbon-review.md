@@ -10,7 +10,7 @@ Scope: homepage, product template, shared header/footer, and the local Liquid pr
 | Layout | Existing responsive homepage rules; split/product grids; wrapping table cells; small-screen stacked feature/specification layouts | Desktop product and narrow homepage visually inspected; homepage DOM width 443px within 445px viewport |
 | Writing | Placeholder labels, neutral specification values, actual product-backed title/price bindings, editable disclosures | Clear; competitor claims and testimonials were not imported |
 | Typography | Display/body roles, clamped heading sizes, native product typography, 12–16px supporting text | Clear in source and inspected views; comprehensive zoom/font-metric testing not performed |
-| Colors | Supplied tokens; dark card surfaces; primary and secondary gradient buttons; native palette defaults | Measured main pairs pass AA; see ratios below |
+| Colors | Semantic carbon, bronze, and silver tokens; dark card surfaces; solid primary and secondary buttons | Measured main pairs pass AA; see ratios below |
 | UI | Existing manual rails and model selector retained; native disclosure controls; disabled recommendations; placeholder media toggle | Clear in source; no new animation or JS framework |
 
 No actionable interface findings remain in the inspected scope. Specifications use native expandable groups rather than recreating the reference's custom tabs. Placeholder media cannot reproduce the visual effect of the original photographs; section composition and editable content regions are provided.
@@ -22,7 +22,7 @@ No actionable interface findings remain in the inspected scope. Specifications u
 - `node --check assets/panquire.js` and `node --check docs/preview-server.cjs`: passed.
 - `git -c core.safecrlf=false diff --check`: passed.
 - Both local routes returned HTTP 200 and were opened in the browser. Inspected narrow homepage and desktop purchase-area screenshots, plus the rendered product section accessibility tree.
-- Calculated contrast using WCAG linear-sRGB luminance: #f0f0f2 on #18191d = **15.43:1**; #b5b6be on #18191d = **8.70:1**; #f0f0f2 on the brightest crimson stop #951c32 = **7.41:1**; #08090b on the darkest silver stop #a5a7ac = **8.27:1**.
+- Calculated contrast using WCAG linear-sRGB luminance: #F3F3F1 on #151619 = **16.28:1**; #B8B9BD on #151619 = **9.23:1**; #08090b on bronze #A97832 = **5.14:1**; #08090b on silver #D5D6D8 = **13.70:1**.
 
 ## Not verified
 
