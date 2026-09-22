@@ -22,32 +22,32 @@
             "payment_1": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "What currencies does Shopify display and charge?",
-                "answer": "<p>USD or EUR.</p>"
+                "question": "What currencies do you display and charge?",
+                "answer": "<p>Prices and payments are available in <strong>U.S. Dollars (USD)</strong> and <strong>Euros (EUR)</strong>. The applicable transaction currency will be displayed at checkout before you confirm your order.</p>"
               },
               "blocks": {}
             },
             "payment_2": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "What payment methods do you accept through Shopify?",
-                "answer": "<p>Direct payment when placing the order.</p>"
+                "question": "What payment methods do you accept?",
+                "answer": "<p>We accept direct payment through the payment methods made available at checkout. Available payment options will be displayed before you complete your purchase.</p>"
               },
               "blocks": {}
             },
             "payment_3": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Do you offer financing or installment payments? If yes, who is the provider?",
-                "answer": "<p>No.</p>"
+                "question": "Do you offer financing or installment payments?",
+                "answer": "<p>No. We currently do not offer financing or installment-payment plans.</p><p>Unless otherwise stated for a pre-order or deposit, payment is due in full according to the terms displayed at checkout.</p>"
               },
               "blocks": {}
             },
             "payment_4": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "When is the customer charged?",
-                "answer": "<ul><li>At checkout.</li><li>When the order is accepted: <strong>Yes</strong>.</li><li>When the product is shipped.</li><li>Other.</li></ul>"
+                "question": "When will I be charged?",
+                "answer": "<p>Payment details are submitted at checkout. Your payment is processed when we accept your order.</p><p>Submitting an order does not automatically mean that the order has been accepted. We reserve the right to review an order before accepting it.</p><p>If an order cannot be accepted after payment has already been processed, the applicable amount will be refunded to the original payment method.</p>"
               },
               "blocks": {}
             },
@@ -55,47 +55,47 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Do you accept deposits or pre-orders?",
-                "answer": "<p>Yes.</p>"
+                "answer": "<p>Yes. Selected products may be offered for pre-order or reservation with a deposit.</p><p>The applicable deposit amount, estimated availability, remaining balance requirements, and any product-specific pre-order conditions will be displayed before purchase.</p><p>Estimated shipping or availability dates are estimates and may change due to production, transportation, customs, regulatory, or other circumstances outside our reasonable control.</p><p>If a significant delay occurs, we will provide the customer with the available options, which may include continuing with the order, transferring the deposit, or requesting a refund where applicable.</p>"
               },
               "blocks": {}
             },
             "payment_6": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "If accepted, is the deposit refundable, transferable, or non-refundable?",
-                "answer": "<p>Transferable.</p>"
+                "question": "Are deposits refundable or transferable?",
+                "answer": "<p>Unless otherwise clearly stated before purchase, deposits and eligible pre-order payments are <strong>refundable</strong> and may also be transferred to another eligible product or order with our approval.</p><p>Product-specific pre-order conditions may apply and will be disclosed before payment.</p>"
               },
               "blocks": {}
             },
             "payment_7": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Are prices inclusive of sales tax or VAT, or is tax added at checkout?",
-                "answer": "<p>No additional taxes are charged.</p>"
+                "question": "Are sales tax or VAT added after checkout?",
+                "answer": "<p>The total amount displayed at checkout is intended to represent the final amount payable by the customer.</p><p>Where applicable, sales tax or VAT is included in the displayed price or checkout total or otherwise borne by us.</p><p>We will not add undisclosed taxes after the customer completes the order.</p>"
               },
               "blocks": {}
             },
             "payment_8": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Who bears tariffs, import taxes, customs fees, and other international charges?",
-                "answer": "<p>The seller/we bear them.</p>"
+                "question": "Who pays tariffs, customs duties, and import charges?",
+                "answer": "<p>We bear applicable tariffs, customs duties, import charges, and other seller-arranged international import costs for shipments covered by our shipping policy.</p><p>Customers will not normally be required to pay additional import charges unless an exception has been clearly disclosed before purchase or the charge results from circumstances outside the agreed delivery arrangement.</p>"
               },
               "blocks": {}
             },
             "payment_9": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Is shipping shown at checkout or calculated separately?",
-                "answer": "<p>Shipping is shown at checkout.</p>"
+                "question": "How are shipping costs calculated?",
+                "answer": "<p>Any applicable shipping charge will be displayed at checkout before payment is submitted.</p><p>You will be able to review the total purchase amount before completing the order.</p>"
               },
               "blocks": {}
             },
-            "payment_12": {
+            "payment_10": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "After an approved cancellation or return, how long does a refund usually take?",
-                "answer": "<p>1–3 days.</p>"
+                "question": "How long do refunds take?",
+                "answer": "<p>Once a cancellation, return, or refund has been approved, we will initiate the refund to the original payment method within <strong>1–3 business days</strong>.</p><p>Additional processing time may be required by your bank, card issuer, or payment provider after the refund has been issued by us.</p>"
               },
               "blocks": {}
             }
@@ -110,7 +110,7 @@
             "payment_7",
             "payment_8",
             "payment_9",
-            "payment_12"
+            "payment_10"
           ]
         },
         "shipping": {
@@ -123,96 +123,88 @@
             "shipping_1": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Which countries, states, provinces, or regions do you ship to?",
-                "answer": "<p>Shipping Globaly</p>"
+                "question": "Where do you currently ship?",
+                "answer": "<p>We currently ship to eligible addresses on the <strong>U.S. West Coast</strong> and to selected European markets, including <strong>Germany and Poland</strong>.</p><p>Destination availability will be confirmed at checkout.</p><p>Certain remote areas or destinations that cannot be served safely or legally may not be available for delivery.</p>"
               },
               "blocks": {}
             },
             "shipping_2": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Which carriers and shipping methods do you use?",
-                "answer": "<p>FedEx.</p>"
+                "question": "Which carriers do you use?",
+                "answer": "<p>We primarily use <strong>FedEx</strong>.</p><p>Depending on the size, weight, destination, battery classification, and transportation requirements of the order, shipments may be handled through parcel, express, freight, or other appropriate logistics services.</p>"
               },
               "blocks": {}
             },
             "shipping_3": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Are complete electric off-road motorcycles shipped by freight, express, or both?",
-                "answer": "<p>Both</p>"
+                "question": "How are complete electric dirt bikes shipped?",
+                "answer": "<p>Complete electric off-road motorcycles may be shipped by <strong>express service or freight</strong>, depending on the model, destination, shipment size, and applicable transportation requirements.</p><p>Tracking information will be provided after dispatch when available.</p>"
               },
               "blocks": {}
             },
             "shipping_4": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Are there separate shipping or dangerous goods restrictions for batteries?",
-                "answer": "<p>Batteries have separate dangerous goods certificates.</p>"
+                "question": "Are lithium-ion batteries subject to special shipping requirements?",
+                "answer": "<p>Yes.</p><p>Lithium-ion batteries are subject to additional dangerous-goods transportation requirements.</p><p>Battery shipments are prepared and handled in accordance with applicable transportation regulations for the destination and shipping method.</p><p>Where required, applicable battery transportation documentation, including the relevant <strong>UN 38.3 test summary</strong>, will be maintained or made available for the battery design.</p>"
+              },
+              "blocks": {}
+            },
+            "shipping_5": {
+              "type": "pq-policy-question",
+              "settings": {
+                "question": "Will I receive tracking information?",
+                "answer": "<p>Yes.</p><p>Once your order has been dispatched and tracking becomes available, we will provide a shipping confirmation containing the applicable tracking information.</p><p>Freight shipments may use a different tracking system from standard parcel shipments.</p>"
               },
               "blocks": {}
             },
             "shipping_6": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Will customers receive tracking information?",
-                "answer": "<p>Yes.</p>"
+                "question": "What should I do if my order is delayed, lost, or marked as delivered but I did not receive it?",
+                "answer": "<p>Contact our customer-support team as soon as possible and provide your order number and available tracking information.</p><p>We will review the shipment and, where appropriate, coordinate a claim or investigation with the carrier or shipping insurer.</p><p>You may be asked to provide additional information or cooperate with the carrier's investigation.</p><p>If the shipment is confirmed lost, we will provide an appropriate replacement, refund, or other resolution in accordance with this policy and applicable law.</p>"
               },
               "blocks": {}
             },
             "shipping_7": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "If an order is delayed, lost, or shows delivered but the customer did not receive it, what should the customer do?",
-                "answer": "<p>Claim with the courier or insurance.</p>"
+                "question": "What should I do if my bike arrives damaged?",
+                "answer": "<p>If your shipment arrives with visible damage:</p><ul><li>Do not discard the shipping carton, pallet, protective materials, shipping labels, or included documentation.</li><li>Take clear photographs and/or video of the outer packaging before fully unpacking the product.</li><li>Photograph the shipping label, complete vehicle, battery, packaging, and all visible damaged areas.</li><li>Where possible, note visible damage with the carrier at the time of delivery.</li><li>Do not operate or charge a visibly damaged vehicle or battery.</li><li>Contact our customer-support team as soon as possible.</li></ul><p>After reviewing the claim, we may provide replacement parts, repair assistance, arrange a return, replace the product, or provide another appropriate remedy.</p>"
               },
               "blocks": {}
             },
             "shipping_8": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "If the vehicle or package arrives visibly damaged, what must the customer do?",
-                "answer": "<p>Take photos/videos; it can be returned and reshipped.</p>"
+                "question": "How quickly should shipping damage be reported?",
+                "answer": "<p>Please report visible shipping damage within <strong>3 calendar days of delivery whenever reasonably possible</strong>.</p><p>Early reporting allows us to document the condition of the shipment and pursue the carrier or shipping-insurance claim more effectively.</p><p>Failure to report visible damage within this requested period does not limit any consumer, warranty, or statutory rights that cannot legally be excluded.</p>"
               },
               "blocks": {}
             },
             "shipping_9": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "How long does the customer have to report shipping damage?",
-                "answer": "<p>1–3 days.</p>"
+                "question": "What evidence is required for a shipping-damage claim?",
+                "answer": "<p>We may request:</p><ul><li>Order number</li><li>Tracking information</li><li>Shipping label photographs</li><li>Photographs or video of the outer packaging</li><li>Photographs of the complete product</li><li>Close-up photographs or video of damaged areas</li><li>Battery photographs where relevant</li><li>Additional documentation reasonably required to verify the claim</li></ul><p>Please retain the original packaging until your claim has been resolved.</p>"
               },
               "blocks": {}
             },
             "shipping_10": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "What photos or documents are required for shipping damage claims?",
-                "answer": "<p>Take photos/videos of all damaged parts upon receipt.</p>"
+                "question": "Who pays return shipping?",
+                "answer": "<p>For an eligible <strong>change-of-mind or non-quality return</strong>, the customer is responsible for return shipping unless otherwise required by applicable law.</p><p>For a <strong>confirmed defective product</strong>, we are responsible for the applicable return-shipping costs.</p><p>If we send the <strong>wrong product</strong>, we are responsible for return shipping.</p><p>For <strong>confirmed shipping damage</strong>, we are responsible for the applicable return-shipping costs.</p>"
               },
               "blocks": {}
             },
             "shipping_11": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Who bears return shipping costs in the following cases?",
-                "answer": "<ul><li>Non-quality return: <strong>Buyer</strong></li><li>Defective product: <strong>Seller</strong></li><li>Wrong product: <strong>Seller</strong></li><li>Shipping damage: <strong>Seller</strong></li></ul>"
-              },
-              "blocks": {}
-            },
-            "shipping_12": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "When do ownership and risk transfer to the customer?",
-                "answer": "<p>After full payment, ownership belongs to the customer.</p><p></p>"
-              },
-              "blocks": {}
-            },
-            "shipping_13": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What trust badges and qualifications can we show buyers?",
-                "answer": "<p>Provide the corresponding documents.</p>"
+                "question": "What certifications or trust badges may appear on the website?",
+                "answer": "<p>We display certifications, safety claims, and compliance marks only where we hold the applicable documentation for the relevant product or component.</p><p>Depending on the product, these may include documentation related to:</p><ul><li>UN 38.3 lithium-battery transportation testing</li><li>Applicable CE or EU conformity documentation</li><li>Applicable UL certification or testing</li><li>Manufacturer or authorized-seller status</li><li>Product warranty coverage</li><li>Duties and import-fee arrangements</li><li>Verified</li></ul>"
               },
               "blocks": {}
             }
@@ -222,346 +214,24 @@
             "shipping_2",
             "shipping_3",
             "shipping_4",
+            "shipping_5",
             "shipping_6",
             "shipping_7",
             "shipping_8",
             "shipping_9",
             "shipping_10",
-            "shipping_11",
-            "shipping_12",
-            "shipping_13"
-          ]
-        },
-        "warranty": {
-          "type": "pq-policy-category",
-          "settings": {
-            "heading": "Warranty",
-            "anchor": "warranty"
-          },
-          "blocks": {
-            "warranty_1": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Which products and components are covered, and what is the warranty period for each?",
-                "answer": "<ul><li>Complete vehicle: <strong>2 years</strong></li><li>Battery: <strong>2 years</strong></li><li>Motor: <strong>2 years</strong></li><li>Controller: <strong>2 years</strong></li><li>Charger: <strong>2 years</strong></li><li>Frame: <strong>2 years</strong></li><li>Electronic components: <strong>2 years</strong></li><li>Parts and accessories: Tires, brakes, and wear parts are <strong>not covered</strong>.</li></ul>"
-              },
-              "blocks": {}
-            },
-            "warranty_2": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "When does the warranty start?",
-                "answer": "<ul><li>Purchase date.</li><li>Delivery date: <strong>Starts on delivery date</strong>.</li><li>Registration date.</li><li>First use date.</li></ul>"
-              },
-              "blocks": {}
-            },
-            "warranty_3": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Does the warranty require proof of purchase or product registration?",
-                "answer": "<p>Proof of purchase is required.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_4": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Who is eligible for warranty, and can the warranty be transferred to a subsequent owner?",
-                "answer": "<p>Cannot be transferred to a subsequent owner.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_5": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What defects or failures are covered? Does it include parts, labor, diagnostic fees, and shipping?",
-                "answer": "<p>[Not specified in source]</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_6": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "For an approved warranty repair or replacement, who bears shipping?",
-                "answer": "<p>We provide new parts for replacement.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_7": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What is the warranty claim process? Where should claims be submitted?",
-                "answer": "<p>On the website or by phone/video.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_8": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What documents, photos, videos, serial numbers, or diagnostic information are required for warranty claims?",
-                "answer": "<p>Everything that can be provided</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_9": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Is prior authorization required before returning a product?",
-                "answer": "<p>Yes.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_10": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Who performs warranty repairs?",
-                "answer": "<ul><li>Manufacturer.</li><li>Authorized service center: <strong>Yes</strong>.</li><li>Customer.</li></ul>"
-              },
-              "blocks": {}
-            },
-            "warranty_11": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are replacement parts or repaired products new, refurbished, or equivalent?",
-                "answer": ""
-              },
-              "blocks": {}
-            },
-            "warranty_12": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Which events or conditions void or are not covered by warranty?",
-                "answer": "<ul><li>Accident or collision: <strong>No</strong></li><li>Competition or racing use: <strong>No</strong></li><li>Misuse or abuse: <strong>No</strong></li><li>Water or moisture damage: <strong>No</strong></li><li>Unauthorized modification: <strong>No</strong></li><li>Improper assembly: <strong>No</strong></li><li>Improper maintenance: <strong>No</strong></li><li>Normal wear: <strong>No</strong></li><li>Use of incompatible parts or charger: <strong>No</strong></li></ul>"
-              },
-              "blocks": {}
-            },
-            "warranty_13": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Which parts are normal wear items?",
-                "answer": "<p>Tires, brake pads, chain.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_14": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Is battery capacity decline or reduced range covered?",
-                "answer": "<p>Covered within a reasonable range.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_15": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are software or firmware issues covered?",
-                "answer": "<p>Yes.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_16": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Does repair or replacement restart or extend the warranty?",
-                "answer": "<p>Replaced parts restart the warranty.</p>"
-              },
-              "blocks": {}
-            },
-            "warranty_17": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "If the product cannot be repaired, what happens?",
-                "answer": "<p>Explain the situation and why it cannot be repaired.</p>"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "warranty_1",
-            "warranty_2",
-            "warranty_3",
-            "warranty_4",
-            "warranty_5",
-            "warranty_6",
-            "warranty_7",
-            "warranty_8",
-            "warranty_9",
-            "warranty_10",
-            "warranty_11",
-            "warranty_12",
-            "warranty_13",
-            "warranty_14",
-            "warranty_15",
-            "warranty_16",
-            "warranty_17"
-          ]
-        },
-        "returns-refunds": {
-          "type": "pq-policy-category",
-          "settings": {
-            "heading": "Returns and Refunds",
-            "anchor": "returns-refunds"
-          },
-          "blocks": {
-            "returns_refunds_1": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What is the return period, and when does it start?",
-                "answer": "<ul><li>Order date.</li><li>Delivery date: <strong>7 days for non-quality issues</strong>.</li><li>First attempted delivery date.</li></ul>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_2": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Which products can be returned? This includes assembled or ridden vehicles, batteries, chargers, parts, accessories, clothing, and opened packaging.",
-                "answer": "<p>Quality issues can be returned within <strong>3 days of receipt</strong>.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_3": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What condition must the product be in? Must original packaging be retained?",
-                "answer": "<p>Original packaging must be retained.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_4": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are restocking, inspection, repackaging, or depreciation fees charged?",
-                "answer": "<p>No.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_5": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Who bears return shipping? Is it different for non-quality, defective, wrong, or damaged products?",
-                "answer": "<p>Non-quality issues: <strong>Buyer</strong>.</p><p>Defective or wrong product: <strong>Seller</strong>.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_6": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are deposits or pre-order payments refundable?",
-                "answer": "<p>Yes.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_7": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are custom, modified, clearance, final-sale, or used products excluded from returns?",
-                "answer": "<p>Quality issues can be returned; non-quality issues cannot.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_8": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What is the return authorization and submission process? Include the return address and the return deadline after approval.",
-                "answer": "<p>Upload photos/videos to the website; the return address is sent separately to the customer.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_9": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "How are returned products inspected? How are incomplete, damaged, modified, or excessively used products handled?",
-                "answer": "<p>[Not specified in source]</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_10": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "When and how are refunds issued? Does it include original shipping?",
-                "answer": "<p>1–3 days.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_11": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are tariffs, import taxes, customs fees, or international shipping refundable?",
-                "answer": "<p>No.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_12": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "How are defective products handled?",
-                "answer": "<p>Destroy directly.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_13": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "How are products damaged during return shipping handled?",
-                "answer": "<p>Same as above; not repeated.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_14": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Are exchanges offered, or must the original product be returned and a new order placed?",
-                "answer": "<p>The original product must be returned and a new order placed for shipment.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_15": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What rights apply when a product is defective or not as described?",
-                "answer": "<p>[Not specified in source]</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_16": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "What statutory cancellation or cooling-off rights apply in the country of sale?",
-                "answer": "<p>[Not specified in source]</p>"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "returns_refunds_1",
-            "returns_refunds_2",
-            "returns_refunds_3",
-            "returns_refunds_4",
-            "returns_refunds_5",
-            "returns_refunds_6",
-            "returns_refunds_7",
-            "returns_refunds_8",
-            "returns_refunds_9",
-            "returns_refunds_10",
-            "returns_refunds_11",
-            "returns_refunds_12",
-            "returns_refunds_13",
-            "returns_refunds_14",
-            "returns_refunds_15",
-            "returns_refunds_16"
+            "shipping_11"
           ]
         }
       },
       "block_order": [
         "payment",
-        "shipping",
-        "warranty",
-        "returns-refunds"
+        "shipping"
       ],
       "settings": {
         "eyebrow": "Customer care",
         "heading": "Terms of Service",
-        "intro": "<p>Payment, delivery, warranty, and returns. Find the information you need for your order.</p>",
+        "intro": "<p>Payment and shipping information for your Panquire order.</p>",
         "search_label": "Search all policies",
         "placeholder": "Try battery, shipping, or refund",
         "clear_label": "Clear",
