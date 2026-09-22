@@ -1,0 +1,26 @@
+{% comment %}Server-side adapters only. Specification interpretation lives in vs-competition.js.{% endcomment %}
+{%- liquid
+  if kind == 'product'
+    assign fields = record.metafields.comparison
+    assign record_name = record.title | default: fallback_name
+    assign record_handle = record.handle | default: fallback_handle
+    assign record_image = record.featured_image
+  else
+    assign fields = record
+    assign record_name = record.name.value
+    assign record_handle = record.system.handle
+    assign record_image = record.image.value
+  endif
+  assign keys = 'continuous_motor_power,peak_motor_power,maximum_speed,battery_voltage,battery_energy,battery_capacity,claimed_range,claimed_range_display,maximum_load,ready_to_ride_weight,front_wheel_size,rear_wheel_size,maximum_climbing_ability,maximum_climbing_ability_display,charger_voltage,charger_amperage' | split: ','
+-%}
+{
+  "id": {% if kind == 'product' %}{{ record.id | json }}{% else %}{{ record.system.id | json }}{% endif %},
+  "handle": {{ record_handle | json }},
+  "name": {{ record_name | json }},
+  "brand": {% if kind == 'product' %}{{ record.vendor | default: 'Panquire' | json }}{% else %}{{ record.brand.value | json }}{% endif %},
+  "ready": {% if kind == 'product' %}true{% else %}{{ record.ready.value | default: false | json }}{% endif %},
+  "image": {% if record_image != blank %}{"src": {{ record_image | image_url: width: 1000 | json }}, "small": {{ record_image | image_url: width: 400 | json }}, "medium": {{ record_image | image_url: width: 700 | json }}, "alt": {{ record_image.alt | default: record_name | json }}}{% else %}null{% endif %},
+  "price": {"amount": {% if kind == 'product' %}{% if record != blank %}{{ record.price | divided_by: 100.0 | json }}{% else %}null{% endif %}{% else %}{{ record.price.value | json }}{% endif %}, "currency": {% if kind == 'product' %}{{ cart.currency.iso_code | default: shop.currency | json }}{% else %}{{ record.currency.value | json }}{% endif %}},
+  "sourceUrl": {{ fields.source_url.value | json }},
+  "fields": { {% for key in keys %}{{ key | json }}: {{ fields[key].value | json }}{% unless forloop.last %},{% endunless %}{% endfor %} }
+}
