@@ -39,10 +39,79 @@
     const questions = panels.map(panel => [...panel.querySelectorAll('[data-pq-policy-question]')]);
     const searchable = new Map(questions.flat().map(q => [q, q.textContent.toLocaleLowerCase()]));
     const initialOpen = new Map(questions.flat().map(q => [q, q.open]));
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const running = new WeakMap();
     let active = 0;
     let query = '';
     let timer;
     if (!panels.length) return;
+    const resetQuestionMotion = item => {
+      running.get(item)?.cancel();
+      running.delete(item);
+      item.getAnimations().forEach(animation => animation.cancel());
+      item.querySelectorAll('[data-pq-answer],[data-pq-policy-flare]').forEach(element => element.getAnimations().forEach(animation => animation.cancel()));
+      item.style.removeProperty('height');
+      item.style.removeProperty('overflow');
+      delete item.dataset.pqState;
+    };
+    const animateQuestion = (item, shouldOpen, flare = false) => {
+      const summary = item.querySelector('summary');
+      const answer = item.querySelector('[data-pq-answer]');
+      const colorFlare = item.querySelector('[data-pq-policy-flare]');
+      const startHeight = item.getBoundingClientRect().height;
+      resetQuestionMotion(item);
+      if (reducedMotion.matches || document.documentElement.classList.contains('shopify-design-mode')) {
+        item.open = shouldOpen;
+        return;
+      }
+      if (shouldOpen) item.open = true;
+      item.dataset.pqState = shouldOpen ? 'opening' : 'closing';
+      const endHeight = shouldOpen ? item.scrollHeight : summary.getBoundingClientRect().height;
+      item.style.height = `${startHeight}px`;
+      item.style.overflow = 'clip';
+      const animation = item.animate(
+        [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
+        { duration: 260, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'both' }
+      );
+      running.set(item, animation);
+      if (answer) {
+        answer.animate(
+          shouldOpen
+            ? [{ opacity: 0, filter: 'blur(3px)', transform: 'translateY(-6px)' }, { opacity: 1, filter: 'blur(0)', transform: 'translateY(0)' }]
+            : [{ opacity: 1, filter: 'blur(0)', transform: 'translateY(0)' }, { opacity: 0, filter: 'blur(2px)', transform: 'translateY(-4px)' }],
+          { duration: shouldOpen ? 220 : 140, delay: shouldOpen ? 45 : 0, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'both' }
+        );
+      }
+      if (shouldOpen && flare && colorFlare) {
+        colorFlare.animate(
+          [
+            { opacity: 0, transform: 'translateX(-45%)' },
+            { opacity: .92, transform: 'translateX(-8%)', offset: .34 },
+            { opacity: 0, transform: 'translateX(38%)' }
+          ],
+          { duration: 680, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+        );
+      }
+      animation.onfinish = () => {
+        if (running.get(item) !== animation) return;
+        if (!shouldOpen) item.open = false;
+        running.delete(item);
+        item.style.removeProperty('height');
+        item.style.removeProperty('overflow');
+        delete item.dataset.pqState;
+      };
+    };
+    questions.forEach(items => items.forEach(item => {
+      const summary = item.querySelector('summary');
+      listen(summary, 'click', event => {
+        event.preventDefault();
+        const shouldOpen = !(item.open && item.dataset.pqState !== 'closing');
+        if (shouldOpen) items.forEach(other => {
+          if (other !== item && other.open && other.dataset.pqState !== 'closing') animateQuestion(other, false);
+        });
+        animateQuestion(item, shouldOpen, shouldOpen);
+      });
+    }));
     const buttons = panels.map((panel, i) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -87,6 +156,7 @@
       questions.forEach((items, i) => {
         let matches = 0;
         items.forEach(item => {
+          resetQuestionMotion(item);
           const match = !query || searchable.get(item).includes(query);
           item.hidden = !match;
           item.open = query ? match : initialOpen.get(item);
@@ -120,11 +190,11 @@
       if (index < 0) return;
       input.value = ''; filter(); select(index);
       const item = event.target.closest('[data-pq-policy-question]');
-      if (item) item.open = true;
+      if (item) animateQuestion(item, true, true);
     });
     root.querySelector('[data-pq-terms-tools]').hidden = false;
     filter(); fromHash();
-    cleanups.set(root, () => { controller.abort(); clearTimeout(timer); });
+    cleanups.set(root, () => { controller.abort(); clearTimeout(timer); questions.flat().forEach(resetQuestionMotion); });
   };
 
   const setupStory = root => {
