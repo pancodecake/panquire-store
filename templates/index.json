@@ -1,15 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "pq-hero",
-      "settings": {
-        "label": "Featured collection",
-        "desktop_height": 680,
-        "mobile_height": 620,
-        "overlay_opacity": 70,
-        "image_position": 50,
-        "content_width": 520
-      },
       "blocks": {
         "item1": {
           "type": "slide",
@@ -21,17 +22,24 @@
             "link": "/pages/products",
             "secondary_button": "Our story",
             "secondary_link": "/pages/about",
-            "text_color": "#F3F3F1"
+            "text_color": "#f3f3f1"
           }
         }
       },
       "block_order": [
         "item1"
-      ]
+      ],
+      "settings": {
+        "label": "Featured collection",
+        "desktop_height": 680,
+        "mobile_height": 620,
+        "overlay_opacity": 70,
+        "image_position": 50,
+        "content_width": 520
+      }
     },
     "benefits": {
       "type": "pq-benefits",
-      "settings": {},
       "blocks": {
         "item1": {
           "type": "benefit",
@@ -67,17 +75,11 @@
         "item2",
         "item3",
         "item4"
-      ]
+      ],
+      "settings": {}
     },
     "feature": {
       "type": "pq-feature",
-      "settings": {
-        "heading": "Adventure",
-        "subtitle": "Find your next ride",
-        "show_campaign": true,
-        "campaign_height": 1000,
-        "spacing": 70
-      },
       "blocks": {
         "item1": {
           "type": "model",
@@ -85,6 +87,7 @@
             "model": "Model 01",
             "heading": "Everyday adventure",
             "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "product": "",
             "label_1": "Performance",
             "value_1": "Coming soon",
             "label_2": "Power",
@@ -99,6 +102,7 @@
             "model": "Model 02",
             "heading": "Go further",
             "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "product": "",
             "label_1": "Performance",
             "value_1": "Coming soon",
             "label_2": "Power",
@@ -113,6 +117,7 @@
             "model": "Model 03",
             "heading": "City explorer",
             "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "product": "",
             "label_1": "Performance",
             "value_1": "Coming soon",
             "label_2": "Power",
@@ -127,6 +132,7 @@
             "model": "Model 04",
             "heading": "Street ready",
             "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "product": "",
             "label_1": "Performance",
             "value_1": "Coming soon",
             "label_2": "Power",
@@ -141,6 +147,7 @@
             "model": "Model 05",
             "heading": "Compact fun",
             "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "product": "",
             "label_1": "Performance",
             "value_1": "Coming soon",
             "label_2": "Power",
@@ -156,91 +163,54 @@
         "item3",
         "item4",
         "item5"
-      ]
-    },
-    "products": {
-      "type": "pq-products",
+      ],
       "settings": {
-        "heading": "Discover",
-        "subtitle": "The Panquire collection",
-        "columns": 3,
-        "spacing": 50
-      },
-      "blocks": {
-        "item1": {
-          "type": "product",
-          "settings": {
-            "title": "Panquire 01",
-            "subtitle": "A new way to ride",
-            "details": "Specifications coming soon"
-          }
-        },
-        "item2": {
-          "type": "product",
-          "settings": {
-            "title": "Panquire 02",
-            "subtitle": "A new way to ride",
-            "details": "Specifications coming soon"
-          }
-        },
-        "item3": {
-          "type": "product",
-          "settings": {
-            "title": "Panquire 03",
-            "subtitle": "A new way to ride",
-            "details": "Specifications coming soon"
-          }
-        },
-        "item4": {
-          "type": "product",
-          "settings": {
-            "title": "Panquire 04",
-            "subtitle": "A new way to ride",
-            "details": "Specifications coming soon"
-          }
-        }
-      },
-      "block_order": [
-        "item1",
-        "item2",
-        "item3",
-        "item4"
-      ]
+        "heading": "Adventure",
+        "subtitle": "Find your next ride",
+        "show_campaign": true,
+        "campaign_height": 1000,
+        "spacing": 70
+      }
     },
     "experts": {
       "type": "pq-reviews",
-      "settings": {
-        "layout": "expert",
-        "heading": "Independent perspectives",
-        "text": "A space for independent reviews and rider experiences.",
-        "spacing": 90
-      },
       "blocks": {
         "item1": {
           "type": "review",
-          "settings": {}
+          "settings": {
+            "name": "",
+            "quote": ""
+          }
         },
         "item2": {
           "type": "review",
-          "settings": {}
+          "settings": {
+            "name": "",
+            "quote": ""
+          }
         },
         "item3": {
           "type": "review",
-          "settings": {}
+          "settings": {
+            "name": "",
+            "quote": ""
+          }
         }
       },
       "block_order": [
         "item1",
         "item2",
         "item3"
-      ]
+      ],
+      "settings": {
+        "layout": "expert",
+        "heading": "Independent perspectives",
+        "text": "A space for independent reviews and rider experiences.",
+        "spacing": 90
+      }
     },
     "newsletter": {
       "type": "pq-newsletter",
-      "settings": {
-        "heading": "Subscribe to our newsletter",
-        "text": "Keep up with new arrivals and news from Panquire."
-      },
       "blocks": {
         "item1": {
           "type": "image",
@@ -274,14 +244,17 @@
         "item4",
         "item5",
         "item6"
-      ]
+      ],
+      "settings": {
+        "heading": "Subscribe to our newsletter",
+        "text": "Keep up with new arrivals and news from Panquire."
+      }
     }
   },
   "order": [
     "hero",
     "benefits",
     "feature",
-    "products",
     "experts",
     "newsletter"
   ]
