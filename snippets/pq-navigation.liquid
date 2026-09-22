@@ -2,9 +2,8 @@
   Shared Panquire navigation. Page destinations are configured in theme settings.
 {% enddoc %}
 {% if section.settings.menu != blank %}
-  {% for link in section.settings.menu.links %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{% endfor %}
+  {% for link in section.settings.menu.links %}{% unless link.url == routes.root_url %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{% endunless %}{% endfor %}
 {% else %}
-<a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} aria-current="page"{% endif %}>{{ 'panquire.front_page' | t }}</a>
 <a href="{{ settings.pq_products_url | default: '/pages/products' }}"{% if page.handle == 'products' %} aria-current="page"{% endif %}>{{ 'panquire.products' | t }}</a>
 <a href="{{ settings.pq_about_url | default: '/pages/about' }}"{% if page.handle == 'about' %} aria-current="page"{% endif %}>{{ 'panquire.about' | t }}</a>
 <a href="{{ settings.pq_partners_url | default: '/pages/partners' }}"{% if page.handle == 'partners' %} aria-current="page"{% endif %}>{{ 'panquire.partners' | t }}</a>
