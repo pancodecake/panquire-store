@@ -131,6 +131,9 @@
     if (cleanups.has(root)) return;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     const backgrounds = [...root.querySelectorAll('[data-pq-parallax]')];
+    const accordions = [...root.querySelectorAll('[data-pq-about-accordion]')];
+    const controller = new AbortController();
+    const { signal } = controller;
     const visibleBackgrounds = new Set();
     let frame = 0;
     let backgroundObserver;
@@ -160,8 +163,19 @@
       window.addEventListener('resize', schedule, { passive: true });
     };
     preference.addEventListener('change', configure);
+    accordions.forEach(accordion => accordion.addEventListener('toggle', () => {
+      if (!accordion.open) return;
+      accordions.forEach(other => { if (other !== accordion) other.open = false; });
+      schedule();
+    }, { signal }));
+    root.addEventListener('shopify:block:select', event => {
+      const accordion = event.target.closest('[data-pq-about-accordion]');
+      if (!accordion) return;
+      accordion.open = true;
+      accordion.scrollIntoView({ block: 'center', behavior: preference.matches ? 'auto' : 'smooth' });
+    }, { signal });
     configure();
-    cleanups.set(root, () => { clear(); preference.removeEventListener('change', configure); });
+    cleanups.set(root, () => { clear(); controller.abort(); preference.removeEventListener('change', configure); });
   };
   const initialize = (scope = document) => {
     scope.querySelectorAll('[data-pq-terms]').forEach(setupTerms);

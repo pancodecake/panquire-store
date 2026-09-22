@@ -1,29 +1,36 @@
-<div class="pq pq-about" data-pq-story>
+<div class="pq pq-about" style="--pq-about-accordion-background: {{ section.settings.accordion_background }}; --pq-about-accordion-active: {{ section.settings.accordion_active_background }};" data-pq-story>
   <div class="pq-container pq-about-intro"><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.title | escape }}</h1></div>
-  {% for block in section.blocks %}
-    <section class="pq-about-chapter" id="Chapter-{{ section.id }}-{{ block.id }}" aria-labelledby="ChapterHeading-{{ block.id }}" {{ block.shopify_attributes }}>
-      <div class="pq-about-atmosphere" aria-hidden="true">
-        <div class="pq-about-background" data-pq-parallax>
-          {% if block.settings.image != blank %}
-            <picture>
-              {% if block.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">{% endif %}
-              {{ block.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1600, 2400', sizes: '100vw', loading: 'lazy', alt: '' }}
-            </picture>
-          {% else %}<div class="pq-about-image-placeholder"></div>{% endif %}
-        </div>
-      </div>
-      <div class="pq-container pq-about-content" data-pq-reveal>
-        <p class="pq-chapter-marker"><span>{{ forloop.index | prepend: '0' }}</span><span>{{ section.settings.chapter_label | escape }}</span></p>
-        <div class="pq-about-narrative">
-          <h2 id="ChapterHeading-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
-          <div class="pq-prose">{{ block.settings.body }}</div>
-          {% if block.settings.bridge != blank %}<p class="pq-about-bridge">{{ block.settings.bridge | escape }}</p>{% endif %}
-          {% if forloop.last and section.settings.link != blank %}<a class="pq-button pq-button--dark" href="{{ section.settings.link }}">{{ section.settings.button | escape }}</a>{% endif %}
-        </div>
-      </div>
-      {% if block.settings.image == blank %}<span class="pq-about-placeholder-label" aria-hidden="true">{{ block.settings.placeholder | escape }}</span>{% endif %}
-    </section>
-  {% endfor %}
+  <div class="pq-container pq-about-accordion-list" data-pq-reveal>
+    {% for block in section.blocks %}
+      <section class="pq-about-chapter" id="Chapter-{{ section.id }}-{{ block.id }}" aria-labelledby="ChapterHeading-{{ block.id }}" {{ block.shopify_attributes }}>
+        <details class="pq-about-accordion" data-pq-about-accordion{% if forloop.first and section.settings.open_first %} open{% endif %}>
+          <summary>
+            <span class="pq-chapter-marker"><span>{{ forloop.index | prepend: '0' }}</span><span>{{ section.settings.chapter_label | escape }}</span></span>
+            <h2 id="ChapterHeading-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
+            <span class="pq-about-accordion-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="pq-about-accordion-content">
+            <div class="pq-about-atmosphere" aria-hidden="true">
+              <div class="pq-about-background" data-pq-parallax>
+                {% if block.settings.image != blank %}
+                  <picture>
+                    {% if block.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">{% endif %}
+                    {{ block.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1600, 2400', sizes: '(min-width: 1100px) 1050px, calc(100vw - 48px)', loading: 'lazy', alt: '' }}
+                  </picture>
+                {% else %}<div class="pq-about-image-placeholder"></div>{% endif %}
+              </div>
+            </div>
+            <div class="pq-about-narrative">
+              <div class="pq-prose">{{ block.settings.body }}</div>
+              {% if block.settings.bridge != blank %}<p class="pq-about-bridge">{{ block.settings.bridge | escape }}</p>{% endif %}
+              {% if forloop.last and section.settings.link != blank %}<a class="pq-button pq-button--dark" href="{{ section.settings.link }}">{{ section.settings.button | escape }}</a>{% endif %}
+            </div>
+            {% if block.settings.image == blank %}<span class="pq-about-placeholder-label" aria-hidden="true">{{ block.settings.placeholder | escape }}</span>{% endif %}
+          </div>
+        </details>
+      </section>
+    {% endfor %}
+  </div>
 </div>
 {% schema %}
 {
@@ -33,7 +40,11 @@
     {"type":"text","id":"title","label":"Page heading","default":"A different way forward."},
     {"type":"text","id":"chapter_label","label":"Chapter marker","default":"The Panquire story"},
     {"type":"text","id":"button","label":"Closing button","default":"Explore our collection"},
-    {"type":"url","id":"link","label":"Closing link","default":"/collections/all"}
+    {"type":"url","id":"link","label":"Closing link","default":"/collections/all"},
+    {"type":"header","content":"Chapter accordion"},
+    {"type":"checkbox","id":"open_first","label":"Open first chapter by default","default":true},
+    {"type":"color","id":"accordion_background","label":"Closed chapter background","default":"#232323"},
+    {"type":"color_background","id":"accordion_active_background","label":"Open chapter background","default":"linear-gradient(135deg, #44331F 0%, #2C2924 42%, #232323 100%)"}
   ],
   "blocks":[{"type":"chapter","name":"Story chapter","settings":[
     {"type":"text","id":"heading","label":"Heading","default":"Who We Are"},
