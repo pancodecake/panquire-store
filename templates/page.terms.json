@@ -55,7 +55,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Are taxes included in the displayed price?",
-                "answer": "<p>The total price shown at checkout is intended to represent the final amount payable by the customer.</p><p>Where applicable, sales tax or VAT will be included in the displayed or checkout total or otherwise borne by [Store Name].</p><p>We will not add undisclosed taxes to an order after checkout has been completed.</p>"
+                "answer": "<p>The total price shown at checkout is intended to represent the final amount payable by the customer.</p><p>Where applicable, sales tax or VAT will be included in the displayed or checkout total or otherwise borne by Panquire.</p><p>We will not add undisclosed taxes to an order after checkout has been completed.</p>"
               },
               "blocks": {}
             },
@@ -63,7 +63,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays tariffs, customs duties, and import charges?",
-                "answer": "<p>For shipments covered by this policy, <strong>[Store Name] bears applicable tariffs, customs duties, import charges, and seller-arranged international import costs</strong>.</p><p>Customers should not be required to pay additional import charges unless an exception was clearly disclosed before purchase or the charge results from circumstances outside the agreed delivery arrangement.</p>"
+                "answer": "<p>For shipments covered by this policy, Panquire<strong> bears applicable tariffs, customs duties, import charges, and seller-arranged international import costs</strong>.</p><p>Customers should not be required to pay additional import charges unless an exception was clearly disclosed before purchase or the charge results from circumstances outside the agreed delivery arrangement.</p>"
               },
               "blocks": {}
             },
@@ -155,7 +155,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What should I do if my order is delayed, lost, or marked as delivered but has not arrived?",
-                "answer": "<p>Contact [Store Name] as soon as possible through <strong>[support email / support form]</strong> and provide your order number and tracking information.</p><p>We will review the shipment and, where appropriate, open or coordinate a claim with the carrier or shipping insurer.</p><p>You may be asked to provide additional information or cooperate with the carrier's investigation.</p><p>If the shipment is confirmed lost, we will provide an appropriate replacement, refund, or other resolution in accordance with this policy and applicable law.</p>"
+                "answer": "<p>Contact Panquire as soon as possible through <strong>[support email / support form]</strong> and provide your order number and tracking information.</p><p>We will review the shipment and, where appropriate, open or coordinate a claim with the carrier or shipping insurer.</p><p>You may be asked to provide additional information or cooperate with the carrier's investigation.</p><p>If the shipment is confirmed lost, we will provide an appropriate replacement, refund, or other resolution in accordance with this policy and applicable law.</p>"
               },
               "blocks": {}
             },
@@ -187,7 +187,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays return shipping?",
-                "answer": "<p>For an eligible <strong>change-of-mind or non-quality return</strong>, the customer is responsible for return shipping.</p><p>For a <strong>confirmed defective product</strong>, <strong>incorrect product</strong>, or <strong>confirmed shipping-damaged product</strong>, [Store Name] will cover the applicable return-shipping cost.</p>"
+                "answer": "<p>For an eligible <strong>change-of-mind or non-quality return</strong>, the customer is responsible for return shipping.</p><p>For a <strong>confirmed defective product</strong>, <strong>incorrect product</strong>, or <strong>confirmed shipping-damaged product</strong>, Panquire will cover the applicable return-shipping cost.</p>"
               },
               "blocks": {}
             },
@@ -234,7 +234,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Two-Year Limited Commercial Warranty",
-                "answer": "<p>[Store Name] provides a <strong>two-year limited commercial warranty</strong> on the covered components described below.</p><p>This commercial warranty is provided in addition to, and does not replace or reduce, any statutory consumer rights or legal guarantees that cannot legally be excluded.</p>"
+                "answer": "<p><em><strong>Panquire </strong></em>provides a <strong>two-year limited commercial warranty</strong> on the covered components described below.</p><p>This commercial warranty is provided in addition to, and does not replace or reduce, any statutory consumer rights or legal guarantees that cannot legally be excluded.</p>"
               },
               "blocks": {}
             },
@@ -440,7 +440,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Do you charge restocking fees?",
-                "answer": "<p>No.</p><p>[Store Name] does not charge a standard:</p><ul><li>restocking fee;</li><li>inspection fee;</li><li>or repackaging fee</li></ul><p>for an otherwise eligible return.</p><p>However, where permitted by applicable law, we may account for material damage, missing components, or loss in value caused by handling beyond what is reasonably necessary to inspect the product.</p>"
+                "answer": "<p>No.</p><p><em><strong>Panquire </strong></em>does not charge a standard:</p><ul><li>restocking fee;</li><li>inspection fee;</li><li>or repackaging fee</li></ul><p>for an otherwise eligible return.</p><p>However, where permitted by applicable law, we may account for material damage, missing components, or loss in value caused by handling beyond what is reasonably necessary to inspect the product.</p>"
               },
               "blocks": {}
             },
@@ -448,7 +448,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays return shipping?",
-                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer is responsible for return shipping.</p><p>[Store Name] pays applicable return shipping for:</p><ul><li>confirmed defective products;</li><li>incorrect products sent by us;</li><li>and confirmed transit-damaged products.</li></ul>"
+                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer is responsible for return shipping.</p><p><em><strong>Panquire </strong></em>pays applicable return shipping for:</p><ul><li>confirmed defective products;</li><li>incorrect products sent by us;</li><li>and confirmed transit-damaged products.</li></ul>"
               },
               "blocks": {}
             },
@@ -472,7 +472,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "How do I request a return?",
-                "answer": "<p>Before returning any product, submit a return request through <strong>[return/warranty URL]</strong>.</p><p>Please include:</p><ul><li>your order number;</li><li>the reason for the return;</li><li>and any requested photographs or video.</li></ul><p>Do not ship the product until you receive written return authorization and shipping instructions from [Store Name].</p><p>Once the return is approved, we will provide the applicable return address and instructions.</p><p>The product must be shipped within the period specified in the authorization.</p>"
+                "answer": "<p>Before returning any product, submit a return request through <strong>[return/warranty URL]</strong>.</p><p>Please include:</p><ul><li>your order number;</li><li>the reason for the return;</li><li>and any requested photographs or video.</li></ul><p>Do not ship the product until you receive written return authorization and shipping instructions from <em><strong>Panquire</strong></em>.</p><p>Once the return is approved, we will provide the applicable return address and instructions.</p><p>The product must be shipped within the period specified in the authorization.</p>"
               },
               "blocks": {}
             },
@@ -488,7 +488,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Are customs duties and import charges refunded?",
-                "answer": "<p>Because [Store Name] bears the applicable tariffs, customs duties, and import charges covered by our shipping policy, those amounts are generally not separately paid by the customer and therefore do not normally constitute a separate refund item.</p><p>If a customer was required to pay an import charge directly with our authorization, the amount will be reviewed based on the specific circumstances and applicable law.</p>"
+                "answer": "<p>Because <em><strong>Panquire </strong></em>bears the applicable tariffs, customs duties, and import charges covered by our shipping policy, those amounts are generally not separately paid by the customer and therefore do not normally constitute a separate refund item.</p><p>If a customer was required to pay an import charge directly with our authorization, the amount will be reviewed based on the specific circumstances and applicable law.</p>"
               },
               "blocks": {}
             },
@@ -496,7 +496,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What should I do with a defective product or battery?",
-                "answer": "<p>Do <strong>not</strong> destroy, dispose of, dismantle, or return a defective vehicle, component, or battery unless [Store Name] has provided written instructions.</p><p>After reviewing your claim, we may authorize:</p><ul><li>repair;</li><li>replacement parts;</li><li>product return;</li><li>product replacement;</li><li>refund;</li><li>or approved disposal instructions.</li></ul><p>A battery that is damaged, swollen, leaking, overheated, punctured, or otherwise appears unsafe must not be shipped through a normal parcel-return process unless specifically authorized and prepared in accordance with the applicable dangerous-goods requirements.</p>"
+                "answer": "<p>Do <strong>not</strong> destroy, dispose of, dismantle, or return a defective vehicle, component, or battery unless <em><strong>Panquire </strong></em>has provided written instructions.</p><p>After reviewing your claim, we may authorize:</p><ul><li>repair;</li><li>replacement parts;</li><li>product return;</li><li>product replacement;</li><li>refund;</li><li>or approved disposal instructions.</li></ul><p>A battery that is damaged, swollen, leaking, overheated, punctured, or otherwise appears unsafe must not be shipped through a normal parcel-return process unless specifically authorized and prepared in accordance with the applicable dangerous-goods requirements.</p>"
               },
               "blocks": {}
             },
@@ -520,15 +520,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Mandatory Consumer Rights",
-                "answer": "<p>Nothing in this Payment Policy, Shipping Policy, Warranty Policy, Return &amp; Refund Policy, or related Terms of Service is intended to exclude, restrict, or modify any consumer right, legal guarantee, remedy, or liability that cannot legally be excluded, restricted, or modified.</p><p>Where mandatory law provides the customer with greater protection than this policy, the mandatory legal protection will apply.</p>"
-              },
-              "blocks": {}
-            },
-            "returns_refunds_15": {
-              "type": "pq-policy-question",
-              "settings": {
-                "question": "Contact Information",
-                "answer": "<p><strong>Legal company name:</strong> [Full registered company name]<br><strong>Store name:</strong> [Store Name]<br><strong>Business address:</strong> [Business address]<br><strong>Customer support email:</strong> [Email]<br><strong>Customer support phone:</strong> [Phone]<br><strong>Company registration number:</strong> [If applicable]<br><strong>VAT number:</strong> [If applicable]</p>"
+                "answer": "<p>Nothing in this Payment Policy, Shipping Policy, Warranty Policy, Return & Refund Policy, or related Terms of Service is intended to exclude, restrict, or modify any consumer right, legal guarantee, remedy, or liability that cannot legally be excluded, restricted, or modified.</p><p>Where mandatory law provides the customer with greater protection than this policy, the mandatory legal protection will apply.</p>"
               },
               "blocks": {}
             }
@@ -547,8 +539,7 @@
             "returns_refunds_11",
             "returns_refunds_12",
             "returns_refunds_13",
-            "returns_refunds_14",
-            "returns_refunds_15"
+            "returns_refunds_14"
           ]
         }
       },
@@ -569,7 +560,10 @@
         "results_label": "results across all topics",
         "topic_label": "in this topic",
         "searching_label": "Search covers every topic. Choose a tab to view its matching answers.",
-        "empty_label": "No results in this topic. Try another tab, change your search, or select Clear to see all questions."
+        "empty_label": "No results in this topic. Try another tab, change your search, or select Clear to see all questions.",
+        "panel_background": "#232323",
+        "panel_text": "#ffffff",
+        "panel_radius": 24
       }
     }
   },
