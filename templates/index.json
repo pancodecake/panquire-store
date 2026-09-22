@@ -16,8 +16,8 @@
           "type": "slide",
           "settings": {
             "kicker": "Introducing Panquire",
-            "heading": "Built to be above the ordinary.",
-            "text": "Great ride, doesn't have to come at a great cost..",
+            "heading": "Balance From All Aspects",
+            "text": "Great ride, doesn't have to come at a great cost",
             "button": "Explore products",
             "link": "/pages/products",
             "secondary_button": "Our story",
@@ -44,29 +44,29 @@
         "item1": {
           "type": "benefit",
           "settings": {
-            "heading": "Delivery",
-            "text": "Delivery details coming soon."
+            "heading": "Worldwide Shipping",
+            "text": ""
           }
         },
         "item2": {
           "type": "benefit",
           "settings": {
-            "heading": "Returns",
-            "text": "Returns details coming soon."
+            "heading": "1-Year Warranty",
+            "text": ""
           }
         },
         "item3": {
           "type": "benefit",
           "settings": {
-            "heading": "Warranty",
-            "text": "Warranty details coming soon."
+            "heading": "Fast & Secure Checkout",
+            "text": ""
           }
         },
         "item4": {
           "type": "benefit",
           "settings": {
-            "heading": "Rider support",
-            "text": "Rider support details coming soon."
+            "heading": "Factory Direct",
+            "text": ""
           }
         }
       },

@@ -124,7 +124,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Which countries, states, provinces, or regions do you ship to?",
-                "answer": "<p>U.S. West Coast / Europe: Germany or Poland.</p>"
+                "answer": "<p>Shipping Globaly</p>"
               },
               "blocks": {}
             },
