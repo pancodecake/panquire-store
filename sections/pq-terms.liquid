@@ -1,4 +1,4 @@
-<section class="pq pq-terms" data-pq-terms data-result-label="{{ section.settings.results_label | escape }}" data-topic-label="{{ section.settings.topic_label | escape }}" data-searching-label="{{ section.settings.searching_label | escape }}">
+<section class="pq pq-terms" style="--pq-policy-panel-background: {{ section.settings.panel_background }}; --pq-policy-panel-text: {{ section.settings.panel_text }}; --pq-policy-panel-radius: {{ section.settings.panel_radius }}px;" data-pq-terms data-result-label="{{ section.settings.results_label | escape }}" data-topic-label="{{ section.settings.topic_label | escape }}" data-searching-label="{{ section.settings.searching_label | escape }}">
   <div class="pq-container">
     <header class="pq-page-intro"><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.heading | escape }}</h1><div class="pq-prose">{{ section.settings.intro }}</div></header>
     <div class="pq-terms-tools" data-pq-terms-tools hidden>
@@ -31,7 +31,11 @@
     {"type":"text","id":"results_label","label":"Result count text","default":"results across all topics"},
     {"type":"text","id":"topic_label","label":"Topic count text","default":"in this topic"},
     {"type":"text","id":"searching_label","label":"Search scope message","default":"Search covers every topic. Choose a tab to view its matching answers."},
-    {"type":"text","id":"empty_label","label":"No results message","default":"No results in this topic. Try another tab, change your search, or select Clear to see all questions."}
+    {"type":"text","id":"empty_label","label":"No results message","default":"No results in this topic. Try another tab, change your search, or select Clear to see all questions."},
+    {"type":"header","content":"Accordion appearance"},
+    {"type":"color_background","id":"panel_background","label":"Accordion background","default":"linear-gradient(135deg, #565653 0%, #444543 50%, #3B3C3E 100%)"},
+    {"type":"color","id":"panel_text","label":"Accordion text","default":"#FFFFFF"},
+    {"type":"range","id":"panel_radius","label":"Accordion corner radius","min":12,"max":32,"step":2,"unit":"px","default":24}
   ],
   "blocks":[{"type":"pq-policy-category"}],
   "presets":[{"name":"Panquire terms & policies","blocks":[{"type":"pq-policy-category"}]}]

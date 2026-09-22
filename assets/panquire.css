@@ -31,12 +31,12 @@
 .pq-product-card :focus-visible, .pq-hero :focus-visible { outline-color: var(--color-focus-ring); }
 .pq-container { width: min(1050px, calc(100% - 48px)); margin-inline: auto; }
 .pq-section { padding-block: var(--pq-space, 70px); }
-.pq-section-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 20px; margin-block-end: 36px !important; font-size: clamp(28px, 2.5vw, 40px); letter-spacing: -.035em; }
-.pq-section-title small { font-size: clamp(16px, 1.4vw, 23px); letter-spacing: .01em; }
-.pq-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 44px; padding: 10px 24px; border: 1px solid var(--color-accent-solid); border-radius: 999px; background: var(--color-accent-solid); color: var(--color-text-on-accent) !important; font-weight: 700; text-align: center; transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease, color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
-.pq-button--accent, .pq-button--primary, .pq-button--dark { background: var(--color-accent-solid); color: var(--color-text-on-accent) !important; border-color: var(--color-accent-solid); }
+.pq-section-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 20px; margin-block-end: 36px !important; color: var(--color-heading-accent); font-size: clamp(28px, 2.5vw, 40px); letter-spacing: -.035em; }
+.pq-section-title small { color: var(--color-text-secondary); font-size: clamp(16px, 1.4vw, 23px); letter-spacing: .01em; }
+.pq-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 44px; padding: 10px 24px; border: 1px solid var(--color-action-solid); border-radius: 999px; background: var(--color-action-solid); color: var(--color-text-on-action) !important; font-weight: 700; text-align: center; transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease, color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
+.pq-button--accent, .pq-button--primary, .pq-button--dark { background: var(--color-action-solid); color: var(--color-text-on-action) !important; border-color: var(--color-action-solid); }
 .pq-button--secondary { background: var(--color-secondary-solid); color: var(--color-text-on-secondary) !important; border-color: var(--color-secondary-solid); }
-.pq-button:not(.pq-button--secondary):hover { background: var(--color-accent-solid-hover); border-color: var(--color-accent-solid-hover); text-decoration: none; }
+.pq-button:not(.pq-button--secondary):hover { background: var(--color-action-solid-hover); border-color: var(--color-action-solid-hover); text-decoration: none; }
 .pq-button--secondary:hover { background: var(--color-secondary-solid); border-color: var(--color-secondary-solid); text-decoration: none; }
 .pq-placeholder { display: grid; place-items: center; width: 100%; height: 100%; min-height: inherit; background: var(--pq-placeholder); color: var(--pq-placeholder-ink); }
 .pq-placeholder span { padding: 12px; font: 400 12px/1.5 var(--pq-body-font); text-align: center; letter-spacing: .04em; }
@@ -61,7 +61,7 @@
 .pq-hero-media .pq-placeholder { background: var(--carbon-gradient); }
 .pq-hero-copy { display: flex; align-items: center; width: calc(100% - 80px); min-height: inherit; padding-block: 72px; color: var(--pq-hero-text, var(--pq-ink)); text-align: left; }
 .pq-hero-content { width: min(100%, var(--pq-hero-content-width, 520px)); }
-.pq-hero-copy h1 { max-width: 11ch; margin-block: 10px 16px; font-size: clamp(44px, 5vw, 78px); line-height: .96; text-transform: uppercase; letter-spacing: -.055em; }
+.pq-hero-copy h1 { max-width: 11ch; margin-block: 10px 16px; color: var(--color-heading-accent); font-size: clamp(44px, 5vw, 78px); line-height: .96; text-transform: uppercase; letter-spacing: -.055em; }
 .pq-hero-description { max-width: 48ch; color: var(--text-muted); font-size: clamp(16px, 1.2vw, 19px); line-height: 1.55; }
 .pq-hero-kicker { color: var(--color-text-secondary); font-size: 13px; font-weight: 600; letter-spacing: .035em; }
 .pq-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-block-start: 28px; }
@@ -85,7 +85,7 @@
 .pq-campaign .pq-placeholder { background: var(--carbon-base); color: var(--pq-muted); }
 .pq-feature-layout { display: grid; grid-template-columns: minmax(0,1fr) 130px; gap: 30px; align-items: center; min-height: 570px; }
 .pq-feature-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); align-items: center; gap: 24px; min-height: 520px; }
-.pq-feature-copy h3 { color: var(--color-text-primary); font-size: 26px; margin-block-end: 18px; }
+.pq-feature-copy h3 { color: var(--color-heading-accent); font-size: 26px; margin-block-end: 18px; }
 .pq-feature-copy p { font-size: 15px; line-height: 1.6; max-width: 40ch; }
 .pq-feature-image { aspect-ratio: 1; min-width: 0; }
 .pq-feature-image .pq-placeholder { background: var(--pq-surface); color: var(--pq-muted); }
@@ -155,13 +155,13 @@
 .pq-gallery-image { aspect-ratio: 2.2; min-height: 220px; }
 .pq-gallery-image:nth-child(even) .pq-placeholder { background: #202126; }
 .pq-newsletter-panel { position: absolute; bottom: 0; inset-inline-start: 50%; transform: translateX(-50%); width: min(760px, 100%); padding: 64px 40px; background: #08090bf2; text-align: center; }
-.pq-newsletter-panel h2 { font-size: clamp(24px, 2.2vw, 32px); margin-block-end: 20px; }
+.pq-newsletter-panel h2 { color: var(--color-heading-accent); font-size: clamp(24px, 2.2vw, 32px); margin-block-end: 20px; }
 .pq-newsletter-panel > p { color: var(--pq-muted); }
 .pq-newsletter-form { max-width: 410px; margin: 24px auto 0; text-align: start; }
 .pq-newsletter-form label { display: block; margin-block-end: 8px; font-size: 13px; }
 .pq-email-row { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--pq-line); border-radius: 999px; background: var(--pq-bg); }
 .pq-email-row input { min-width: 0; width: 100%; padding: 8px 14px; color: #fff; background: transparent; border: 0; border-radius: 999px; font-size: 16px; }
-.pq-email-row button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--color-accent-solid); color: var(--color-text-on-accent); }
+.pq-email-row button { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--color-action-solid); color: var(--color-text-on-action); }
 .pq-footer { padding-block: 70px 30px; }
 .pq-footer-brand { display: block; width: fit-content; margin: 0 auto 34px; font-size: 36px; }
 .pq-social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-block-end: 44px; }
