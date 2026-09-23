@@ -1,30 +1,36 @@
 (() => {
   'use strict';
 
-  // One canonical specification map for both server-side data sources.
+  // One normalized specification map serves Product metafields and competitor metaobjects.
   const specs = [
-    { key: 'continuous_motor_power', label: 'Continuous / Rated Motor Power', unit: 'W', group: 'Performance', area: 'power' },
-    { key: 'peak_motor_power', label: 'Peak Motor Power', unit: 'W', group: 'Performance', area: 'power', priority: 1 },
-    { key: 'maximum_speed', label: 'Maximum Speed', unit: 'km/h', group: 'Performance', area: 'speed', priority: 2 },
-    { key: 'maximum_climbing_ability', label: 'Maximum Climbing Ability', unit: '°', group: 'Performance', area: 'climbing', displayKey: 'maximum_climbing_ability_display' },
-    { key: 'battery_voltage', label: 'Battery Voltage', unit: 'V', group: 'Battery & range', area: 'battery' },
-    { key: 'battery_energy', label: 'Battery Energy', unit: 'kWh', group: 'Battery & range', area: 'battery', digits: 2, priority: 3 },
-    { key: 'battery_capacity', label: 'Battery Capacity', unit: 'Ah', group: 'Battery & range', area: 'battery', priority: 4 },
-    { key: 'claimed_range', label: 'Claimed Eco / Range', unit: 'km', group: 'Battery & range', area: 'range', displayKey: 'claimed_range_display', difference: false },
-    { key: 'charger', label: 'Charger', group: 'Battery & range', area: 'battery', parts: ['charger_voltage', 'charger_amperage'], units: ['V', 'A'] },
-    { key: 'maximum_load', label: 'Maximum Load', unit: 'kg', group: 'Chassis', area: 'load', priority: 5 },
-    { key: 'ready_to_ride_weight', label: 'Ready-to-Ride Weight', unit: 'kg', group: 'Chassis', area: 'load', priority: 6 },
-    { key: 'wheels', label: 'Wheel Size (front / rear)', group: 'Chassis', area: 'chassis', parts: ['front_wheel_size', 'rear_wheel_size'], units: ['"', '"'] }
+    { key: 'continuous_motor_power', metaKey: 'continuousMotorPower', label: 'Continuous / Rated Motor Power', unit: 'W', group: 'Performance', area: 'power', comparisonMode: 'higher', displayKey: 'continuous_motor_power_display' },
+    { key: 'peak_motor_power', metaKey: 'peakMotorPower', label: 'Peak Motor Power', unit: 'W', group: 'Performance', area: 'power', priority: 1, comparisonMode: 'higher', displayKey: 'peak_motor_power_display' },
+    { key: 'maximum_speed', metaKey: 'maximumSpeed', label: 'Maximum Speed', unit: 'km/h', group: 'Performance', area: 'speed', priority: 2, comparisonMode: 'higher', displayKey: 'maximum_speed_display' },
+    { key: 'maximum_climbing_ability', metaKey: 'maximumClimbingAbility', label: 'Maximum Climbing Ability', unit: '°', group: 'Performance', area: 'climbing', comparisonMode: 'higher', displayKey: 'maximum_climbing_ability_display' },
+    { key: 'battery_voltage', metaKey: 'batteryVoltage', label: 'Battery Voltage', unit: 'V', group: 'Battery & range', area: 'battery', comparisonMode: 'none', difference: false, displayKey: 'battery_voltage_display' },
+    { key: 'battery_energy', metaKey: 'batteryEnergy', label: 'Battery Energy', unit: 'kWh', group: 'Battery & range', area: 'battery', digits: 2, priority: 3, comparisonMode: 'higher', displayKey: 'battery_energy_display' },
+    { key: 'battery_capacity', metaKey: 'batteryCapacity', label: 'Battery Capacity', unit: 'Ah', group: 'Battery & range', area: 'battery', priority: 4, comparisonMode: 'higher', displayKey: 'battery_capacity_display' },
+    { key: 'claimed_range', metaKey: 'claimedRange', label: 'Claimed Eco / Range', unit: 'km', group: 'Battery & range', area: 'range', comparisonMode: 'higher', displayKey: 'claimed_range_display' },
+    { key: 'charger', metaKey: 'charger', label: 'Charger', group: 'Battery & range', area: 'battery', comparisonMode: 'none', difference: false, parts: ['charger_voltage', 'charger_amperage'], units: ['V', 'A'], displayKey: 'charger_display' },
+    { key: 'maximum_load', metaKey: 'maximumLoad', label: 'Maximum Load', unit: 'kg', group: 'Chassis', area: 'load', priority: 5, comparisonMode: 'higher', displayKey: 'maximum_load_display' },
+    { key: 'ready_to_ride_weight', metaKey: 'readyWeight', label: 'Ready-to-Ride Weight', unit: 'kg', group: 'Chassis', area: 'load', priority: 6, comparisonMode: 'lower', displayKey: 'ready_to_ride_weight_display' },
+    { key: 'wheels', metaKey: 'wheelSize', label: 'Wheel Size (front / rear)', group: 'Chassis', area: 'chassis', comparisonMode: 'none', difference: false, parts: ['front_wheel_size', 'rear_wheel_size'], units: ['"', '"'], displayKey: 'wheel_size_display' }
   ];
-  // Fixed visualization ranges, never specifications or pair-relative scales.
+  // Fixed visualization ranges keep comparisons stable when a model changes.
   const radarMetrics = [
     { area: 'power', label: 'POWER', key: 'peak_motor_power', min: 0, max: 15000 },
+    { area: 'rated-power', label: 'RATED POWER', key: 'continuous_motor_power', min: 0, max: 15000 },
     { area: 'speed', label: 'SPEED', key: 'maximum_speed', min: 0, max: 120 },
-    { area: 'range', label: 'RANGE', key: 'claimed_range', min: 0, max: 150 },
     { area: 'battery', label: 'BATTERY', key: 'battery_energy', min: 0, max: 5 },
-    { area: 'load', label: 'LOAD', key: 'maximum_load', min: 0, max: 200 },
-    { area: 'climbing', label: 'CLIMBING', key: 'maximum_climbing_ability', min: 0, max: 50 }
+    { area: 'weight', label: 'WEIGHT', key: 'ready_to_ride_weight', min: 0, max: 150, lowerIsBetter: true },
+    { area: 'charging', label: 'CHARGING', key: 'chargingTime', min: 0, max: 12, lowerIsBetter: true, needsBasis: true },
+    { area: 'acceleration', label: 'ACCELERATION', key: 'acceleration', min: 0, max: 15, lowerIsBetter: true, needsBasis: true }
   ];
+  const showdownKeys = ['ready_to_ride_weight', 'netBikeWeight', 'curbWeight', 'bikeWeight', 'unitWeight', 'battery_energy', 'peak_motor_power', 'continuous_motor_power', 'maximum_speed', 'chargingTime', 'acceleration', 'suspension', 'brakes', 'seatHeight', 'wheels'];
+  const available = (entry) => !!entry && typeof entry.display === 'string' && !/^(?:\s*|—|TBD|N\/A|Not specified)$/i.test(entry.display.trim());
+  const matchingBasis = (a, b) => !!a?.basis && a.basis === b?.basis;
+  const sharedSpecs = (configs, left, right) => configs.filter((spec) => available(left.specs[spec.key]) && available(right.specs[spec.key]) && (!['bikeWeight', 'unitWeight'].includes(spec.key) || matchingBasis(left.specs[spec.key], right.specs[spec.key])));
+  const showdownSpecs = (configs) => showdownKeys.flatMap((key) => configs.filter((spec) => spec.key === key));
   const number = (value) => {
     if (value === null || value === undefined || typeof value === 'boolean' || String(value).trim() === '') return null;
     const parsed = Number(value);
@@ -39,37 +45,86 @@
       return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
     } catch { return null; }
   };
+  const parseDetails = (value) => {
+    if (!value) return {};
+    if (typeof value === 'object') return value;
+    try { return JSON.parse(value); } catch { return {}; }
+  };
 
   function normalize(record) {
     const fields = record.fields || {};
+    const storedDetails = parseDetails(record.details);
+    const details = { ...storedDetails, specs: { ...storedDetails.specs } };
+    const fieldAliases = { motor_type: ['motorType', 'Motor Type', 'Performance'], drivetrain: ['drivetrain', 'Drivetrain', 'Performance'], gears: ['gears', 'Gears', 'Performance'], battery_type: ['batteryType', 'Battery Type', 'Battery & range'], suspension: ['suspension', 'Suspension', 'Chassis'], rear_shock: ['rearShock', 'Rear Shock', 'Chassis'], brakes: ['brakes', 'Brakes', 'Chassis'], brake_pads: ['brakePads', 'Brake Pads', 'Chassis'], vehicle_dimensions: ['dimensions', 'Vehicle Dimensions', 'Chassis'], frame_material: ['frame', 'Frame', 'Chassis'], color: ['color', 'Color', 'Chassis'], charging_time: ['chargingTime', 'Charging Time', 'Battery & range'], acceleration: ['acceleration', 'Acceleration', 'Performance'], seat_height: ['seatHeight', 'Seat Height', 'Chassis'] };
+    for (const [field, [key, label, group]] of Object.entries(fieldAliases)) {
+      if (fields[field]) details.specs[key] = { ...details.specs[key], label, group, display: String(fields[field]), comparisonMode: 'none' };
+    }
+    for (const [field, key, label] of [['net_weight', 'netBikeWeight', 'Net Weight'], ['bike_weight', 'bikeWeight', 'Bike Weight'], ['curb_weight', 'curbWeight', 'Curb Weight'], ['unit_weight', 'unitWeight', 'Unit Weight']]) {
+      const value = number(fields[field]);
+      if (value !== null) details.specs[key] = { label, group: 'Chassis', value, unit: 'kg', display: fields[`${field}_display`] || withUnit(value, 'kg'), comparisonMode: 'none', basis: field };
+    }
     const normalized = {};
     for (const spec of specs) {
+      const meta = details.coreMeta?.[spec.metaKey] || {};
       if (spec.parts) {
         const values = spec.parts.map((key) => number(fields[key]));
-        normalized[spec.key] = { value: null, plotValue: null, unit: null, display: values.every((v) => v === null) ? '—' : values.map((v, i) => withUnit(v, spec.units[i])).join(' / ') };
+        const fallback = values.every((value) => value === null) ? '—' : values.map((value, index) => withUnit(value, spec.units[index])).join(' / ');
+        normalized[spec.key] = { value: null, plotValue: null, unit: null, display: fields[spec.displayKey] || fallback, comparable: false };
         continue;
       }
       const numeric = number(fields[spec.key]);
-      const display = spec.displayKey && fields[spec.displayKey] ? String(fields[spec.displayKey]) : withUnit(numeric, spec.unit, spec.digits);
-      const bounded = /^[<>≤≥~≈]/.test(display.trim());
-      normalized[spec.key] = { value: bounded ? null : numeric, plotValue: numeric, unit: spec.unit, display, bounded };
+      const display = fields[spec.displayKey] || withUnit(numeric, spec.unit, spec.digits);
+      const bounded = /^[<>≤≥~≈]/.test(String(display).trim()) || /^(less|more|up to|over|under)\b/i.test(String(display).trim());
+      const comparable = numeric !== null && !bounded && meta.comparable !== false;
+      normalized[spec.key] = { value: comparable ? numeric : null, plotValue: numeric, unit: spec.unit, display, bounded, comparable, qualifier: meta.qualifier || null };
     }
-    return { ...record, sourceUrl: safeUrl(record.sourceUrl), specs: normalized, price: { amount: number(record.price?.amount), currency: record.price?.currency || null } };
+    for (const [key, source] of Object.entries(details.specs || {})) {
+      const numeric = number(source.value);
+      normalized[key] = {
+        value: source.comparable === false ? null : numeric,
+        plotValue: numeric,
+        unit: source.unit || null,
+        display: source.display || (numeric === null ? '—' : withUnit(numeric, source.unit || '')),
+        comparable: numeric !== null && source.comparable !== false,
+        extended: true,
+        basis: source.basis || null
+      };
+    }
+    return {
+      ...record,
+      details,
+      sourceUrl: safeUrl(record.sourceUrl),
+      specs: normalized,
+      price: { amount: number(record.price?.amount), currency: record.price?.currency || null },
+      competitorHandles: Array.isArray(record.competitorHandles) ? record.competitorHandles : []
+    };
   }
 
   function difference(spec, left, right) {
     const a = left.specs[spec.key], b = right.specs[spec.key];
-    if (spec.parts || spec.difference === false || a.value === null || b.value === null || a.unit !== b.unit) return null;
+    if (!a || !b || spec.parts || spec.difference === false || a.value === null || b.value === null || a.unit !== b.unit || (['chargingTime', 'acceleration'].includes(spec.key) && !matchingBasis(a, b))) return null;
     const delta = Math.round((a.value - b.value) * 100) / 100;
-    return `${delta > 0 ? '+' : ''}${withUnit(delta, a.unit, spec.digits)}`;
+    return `${delta > 0 ? '+' : ''}${withUnit(delta, a.unit || '', spec.digits)}`.trim();
+  }
+  function applyProfile(record, productHandle) {
+    const profile = record.details?.comparisonProfiles?.[productHandle];
+    return profile ? normalize({ ...record, ...profile, fields: { ...record.fields, ...profile.fields }, details: profile.details || record.details }) : record;
+  }
+  function winner(spec, left, right) {
+    if (!spec || !['higher', 'lower'].includes(spec.comparisonMode)) return null;
+    const a = left.specs[spec.key], b = right.specs[spec.key];
+    if (!a || !b || a.value === null || b.value === null || a.value === b.value || a.unit !== b.unit || (['chargingTime', 'acceleration'].includes(spec.key) && !matchingBasis(a, b))) return null;
+    if (spec.comparisonMode === 'lower') return a.value < b.value ? 'panquire' : 'competitor';
+    return a.value > b.value ? 'panquire' : 'competitor';
   }
   function score(metric, record) {
-    const value = record.specs[metric.key].plotValue;
-    return value === null ? null : Math.max(0, Math.min(100, (value - metric.min) / (metric.max - metric.min) * 100));
+    const value = record.specs[metric.key]?.plotValue;
+    if (value === null || value === undefined) return null;
+    const result = Math.max(0, Math.min(100, (value - metric.min) / (metric.max - metric.min) * 100));
+    return metric.lowerIsBetter ? 100 - result : result;
   }
 
-  // Export only in Node for focused data-integrity regression tests.
-  if (typeof module !== 'undefined' && module.exports) module.exports = { specs, radarMetrics, number, normalize, difference, score };
+  if (typeof module !== 'undefined' && module.exports) module.exports = { specs, radarMetrics, number, normalize, difference, winner, score, sharedSpecs, showdownSpecs, applyProfile };
   if (typeof customElements === 'undefined' || customElements.get('pq-comparison')) return;
 
   const element = (tag, text, className) => {
@@ -84,10 +139,112 @@
     if (text !== undefined) node.textContent = text;
     return node;
   };
-  const point = (i, percent) => {
-    const angle = -Math.PI / 2 + i * Math.PI / 3;
-    return [220 + Math.cos(angle) * 130 * percent / 100, 195 + Math.sin(angle) * 130 * percent / 100];
+  const point = (index, percent, count) => {
+    const angle = -Math.PI / 2 + index * Math.PI * 2 / count;
+    return [220 + Math.cos(angle) * 128 * percent / 100, 195 + Math.sin(angle) * 128 * percent / 100];
   };
+
+  class ComparisonSelect {
+    constructor(root, owner, onChange, signal) {
+      this.root = root;
+      this.owner = owner;
+      this.onChange = onChange;
+      this.trigger = root.querySelector('[data-select-trigger]');
+      this.valueNode = root.querySelector('[data-select-value]');
+      this.list = root.querySelector('[data-select-list]');
+      this.trigger.addEventListener('click', () => this.isOpen ? this.close() : this.open(false), { signal });
+      this.trigger.addEventListener('keydown', (event) => this.onTriggerKey(event), { signal });
+      this.list.addEventListener('keydown', (event) => this.onListKey(event), { signal });
+      this.list.addEventListener('click', (event) => {
+        const option = event.target.closest('[role="option"]');
+        if (option) this.choose(option.dataset.value);
+      }, { signal });
+      this.root.addEventListener('pointerleave', (event) => { if (event.pointerType === 'mouse') this.close(this.root.contains(document.activeElement)); }, { signal });
+      this.root.addEventListener('focusout', (event) => { if (!this.root.contains(event.relatedTarget)) this.close(); }, { signal });
+    }
+
+    setOptions(records, preferred) {
+      this.records = records;
+      this.value = records.some((record) => record.handle === preferred) ? preferred : (records[0]?.handle || '');
+      this.list.replaceChildren(...records.map((record, index) => {
+        const option = element('button', undefined, 'pq-compare__select-option');
+        option.type = 'button';
+        option.id = `${this.list.id}-option-${index}`;
+        option.setAttribute('role', 'option');
+        option.dataset.value = record.handle;
+        option.tabIndex = -1;
+        option.append(element('span', record.name));
+        const check = svgElement('svg', { viewBox: '0 0 20 20', 'aria-hidden': 'true' });
+        check.append(svgElement('path', { d: 'm5 10 3 3 7-7' }));
+        option.append(check);
+        return option;
+      }));
+      this.sync();
+      this.close();
+    }
+
+    setValue(value) {
+      if (this.records?.some((record) => record.handle === value)) this.value = value;
+      this.sync();
+    }
+
+    sync() {
+      const selected = this.records?.find((record) => record.handle === this.value);
+      this.valueNode.textContent = selected?.name || 'No models available';
+      this.list.querySelectorAll('[role="option"]').forEach((option) => option.setAttribute('aria-selected', String(option.dataset.value === this.value)));
+    }
+
+    open(fromKeyboard) {
+      if (!this.records?.length) return;
+      this.owner.closeSelects(this);
+      this.isOpen = true;
+      this.root.dataset.open = 'true';
+      this.root.classList.add('open');
+      this.list.style.maxHeight = `${Math.min(420, Math.max(100, window.innerHeight - this.trigger.getBoundingClientRect().bottom - 24))}px`;
+      this.trigger.setAttribute('aria-expanded', 'true');
+      if (fromKeyboard) (this.list.querySelector('[aria-selected="true"]') || this.list.firstElementChild)?.focus();
+    }
+
+    close(restoreFocus = false) {
+      if (!this.isOpen) return;
+      this.isOpen = false;
+      delete this.root.dataset.open;
+      this.root.classList.remove('open');
+      this.trigger.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) this.trigger.focus();
+    }
+
+    choose(value) {
+      if (!this.records?.some((record) => record.handle === value)) return;
+      const changed = this.value !== value;
+      this.value = value;
+      this.sync();
+      this.close(true);
+      if (changed) this.onChange(value);
+    }
+
+    onTriggerKey(event) {
+      if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      this.open(true);
+    }
+
+    onListKey(event) {
+      const options = [...this.list.querySelectorAll('[role="option"]')];
+      const current = options.indexOf(document.activeElement);
+      if (event.key === 'Escape') { event.preventDefault(); this.close(true); return; }
+      if (event.key === 'Tab') { this.close(true); return; }
+      if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); if (current >= 0) this.choose(options[current].dataset.value); return; }
+      let next = current;
+      if (event.key === 'ArrowDown') next = Math.min(options.length - 1, current + 1);
+      else if (event.key === 'ArrowUp') next = Math.max(0, current - 1);
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = options.length - 1;
+      else return;
+      event.preventDefault();
+      options[next]?.focus();
+    }
+  }
 
   class Comparison extends HTMLElement {
     connectedCallback() {
@@ -96,31 +253,23 @@
       const { signal } = this.abort;
       try { this.config = JSON.parse(this.querySelector('[data-comparison-data]').textContent); }
       catch { this.querySelector('[data-status]').textContent = 'Comparison data is unavailable. Please try again later.'; return; }
-      this.records = { panquire: this.config.products.map(normalize), competitor: this.config.competitors.map(normalize) };
-      this.selectors = Object.fromEntries(['panquire', 'competitor'].map((side) => [side, this.querySelector(`[data-selector="${side}"]`)]));
+      this.records = { panquire: this.config.products.map(normalize).filter((record) => record.ready !== false), competitor: this.config.competitors.map(normalize).filter((record) => record.ready !== false) };
+      this.selects = {};
       for (const side of ['panquire', 'competitor']) {
-        this.selectors[side].replaceChildren(...this.records[side].map((record) => {
-          const option = element('option', record.name + (record.ready === false ? ' — coming soon' : ''));
-          option.value = record.handle;
-          option.disabled = record.ready === false;
-          return option;
-        }));
-        this.selectors[side].addEventListener('change', () => { this.render(true); this.writeUrl(); }, { signal });
-        this.querySelector(`[data-product="${side}"] [data-image]`).addEventListener('error', () => {
-          this.querySelector(`[data-product="${side}"] [data-image]`).hidden = true;
+        const root = this.querySelector(`[data-selector="${side}"]`);
+        this.selects[side] = new ComparisonSelect(root, this, () => this.handleSelection(side), signal);
+        const image = this.querySelector(`[data-product="${side}"] [data-image]`);
+        image.addEventListener('error', () => {
+          image.hidden = true;
           this.querySelector(`[data-product="${side}"] [data-placeholder]`).hidden = false;
         }, { signal });
       }
-      const controls = this.querySelector('[data-metrics]');
-      if (controls) {
-        controls.replaceChildren(...radarMetrics.map((metric) => {
-          const button = element('button', metric.label);
-          button.type = 'button';
-          button.dataset.metric = metric.area;
-          button.setAttribute('aria-pressed', 'false');
-          return button;
-        }));
-      }
+      document.addEventListener('pointerdown', (event) => {
+        for (const select of Object.values(this.selects)) if (!select.root.contains(event.target)) select.close();
+      }, { signal });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') Object.values(this.selects).forEach((select) => select.close(true));
+      }, { signal });
       this.addEventListener('click', (event) => {
         const target = event.target.closest('[data-metric], [data-reset]');
         if (!target) return;
@@ -138,46 +287,69 @@
 
     disconnectedCallback() { this.abort?.abort(); cancelAnimationFrame(this.radarFrame); }
 
+    closeSelects(except) {
+      Object.values(this.selects).forEach((select) => { if (select !== except) select.close(); });
+    }
+
+    allowedCompetitors(product) {
+      return (product?.competitorHandles || []).map((handle) => this.records.competitor.find((record) => record.handle === handle)).filter(Boolean);
+    }
+
     readUrl() {
       const params = new URLSearchParams(window.location.search);
-      for (const side of ['panquire', 'competitor']) {
-        const available = this.records[side].filter((r) => r.ready !== false);
-        const choices = [params.get(side), this.config.defaults[side], side === 'panquire' ? 't-01' : 'light-bee-x'];
-        const chosen = choices.map((handle) => available.find((r) => r.handle === handle)).find(Boolean) || available[0];
-        this.selectors[side].value = chosen?.handle || '';
-      }
+      const preferred = (records, candidates) => candidates.find(handle => records.some(record => record.handle === handle));
+      this.selects.panquire.setOptions(this.records.panquire, preferred(this.records.panquire, [params.get('panquire'), this.config.defaults.panquire, 't-01']));
+      const product = this.records.panquire.find((record) => record.handle === this.selects.panquire.value);
+      const allowed = this.allowedCompetitors(product);
+      this.selects.competitor.setOptions(allowed, preferred(allowed, [params.get('competitor'), this.config.defaults.competitor]));
+      this.area = null;
       this.render(false);
+      this.writeUrl();
+    }
+
+    handleSelection(side) {
+      this.area = null;
+      if (side === 'panquire') {
+        const product = this.records.panquire.find((record) => record.handle === this.selects.panquire.value);
+        const allowed = this.allowedCompetitors(product);
+        this.selects.competitor.setOptions(allowed, allowed[0]?.handle);
+      }
+      this.render(true);
+      this.writeUrl();
     }
 
     writeUrl() {
       const url = new URL(window.location.href);
-      for (const side of ['panquire', 'competitor']) url.searchParams.set(side, this.selectors[side].value);
+      url.searchParams.set('panquire', this.selects.panquire.value);
+      if (this.selects.competitor.value) url.searchParams.set('competitor', this.selects.competitor.value);
+      else url.searchParams.delete('competitor');
       window.history.replaceState(window.history.state, '', url);
     }
 
     animateChange(node) {
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && node.animate) node.animate([{ opacity: .5 }, { opacity: 1 }], { duration: 200, easing: 'ease-out' });
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && node.animate) node.animate([{ opacity: .45, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 220, easing: 'cubic-bezier(.23,1,.32,1)' });
     }
 
     render(animate) {
       this.selected = {};
       for (const side of ['panquire', 'competitor']) {
-        const record = this.records[side].find((r) => r.handle === this.selectors[side].value) || normalize({ name: 'No comparison available', fields: {} });
+        let record = this.records[side].find((item) => item.handle === this.selects[side].value) || normalize({ name: 'No comparison available', fields: {} });
+        if (side === 'competitor') record = applyProfile(record, this.selects.panquire.value);
         this.selected[side] = record;
         const product = this.querySelector(`[data-product="${side}"]`);
-        const img = product.querySelector('[data-image]');
+        const image = product.querySelector('[data-image]');
         const imageUrl = safeUrl(record.image?.src);
-        img.hidden = !imageUrl;
+        image.hidden = !imageUrl;
         product.querySelector('[data-placeholder]').hidden = !!imageUrl;
         if (imageUrl) {
-          img.alt = record.image.alt || record.name;
-          img.srcset = [record.image.small && `${safeUrl(record.image.small)} 400w`, record.image.medium && `${safeUrl(record.image.medium)} 700w`, `${imageUrl} 1000w`].filter(Boolean).join(', ');
-          img.src = imageUrl;
-        } else { img.removeAttribute('src'); img.removeAttribute('srcset'); }
+          image.alt = record.image.alt || record.name;
+          image.srcset = [record.image.small && `${safeUrl(record.image.small)} 400w`, record.image.medium && `${safeUrl(record.image.medium)} 700w`, `${imageUrl} 1000w`].filter(Boolean).join(', ');
+          image.src = imageUrl;
+        } else { image.removeAttribute('src'); image.removeAttribute('srcset'); }
         const price = product.querySelector('[data-price]');
         if (price) {
           price.replaceChildren();
-          if (record.price.amount === null || !record.price.currency) price.textContent = '—';
+          if (record.price.amount === null || record.price.amount <= 0 || !record.price.currency) price.textContent = '—';
           else {
             let formatted;
             try { formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: record.price.currency, maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(record.price.amount); }
@@ -188,27 +360,37 @@
         const source = product.querySelector('[data-source]');
         if (source) { source.hidden = !record.sourceUrl; if (record.sourceUrl) source.href = record.sourceUrl; else source.removeAttribute('href'); }
         this.querySelector(`[data-legend="${side}"]`).textContent = record.name;
-        const hasSpecs = Object.values(record.specs).some((spec) => spec.display !== '—');
-        product.querySelector('[data-availability]').textContent = hasSpecs ? '' : 'Specifications coming soon';
+        product.querySelector('[data-availability]').textContent = this.hasSpecifications(record) ? '' : 'Specifications coming soon';
       }
       this.renderTables();
       this.renderRadar(animate);
-      this.updateMetricButtons();
       this.querySelector('[data-status]').textContent = `${this.selected.panquire.name} compared with ${this.selected.competitor.name}. Specifications updated.`;
       if (animate) this.animateChange(this.querySelector('[data-differences]'));
     }
 
+    hasSpecifications(record) { return Object.values(record.specs).some((entry) => entry.display !== '—'); }
+
+    specificationConfigs() {
+      const map = new Map(specs.map((spec) => [spec.key, spec]));
+      for (const record of Object.values(this.selected)) {
+        for (const [key, source] of Object.entries(record.details?.specs || {})) {
+          if (!map.has(key)) map.set(key, { key, label: source.label || key, group: source.group || 'Additional details', area: source.area || 'details', comparisonMode: source.comparisonMode || 'none', unit: source.unit || null, digits: source.digits || 0, extended: true });
+        }
+      }
+      return [...map.values()];
+    }
+
+    sharedSpecifications() {
+      const left = this.selected.panquire, right = this.selected.competitor;
+      return sharedSpecs(this.specificationConfigs(), left, right);
+    }
+
     renderTables() {
       const left = this.selected.panquire, right = this.selected.competitor;
-      const present = specs.filter((spec) => left.specs[spec.key].display !== '—' || right.specs[spec.key].display !== '—');
-      const prioritized = [...present].sort((a, b) => (a.priority || 99) - (b.priority || 99));
-      const differences = prioritized.filter((spec) => {
-        const a = left.specs[spec.key].value, b = right.specs[spec.key].value;
-        return difference(spec, left, right) !== null && a !== b;
-      });
-      const rows = this.area ? present.filter((spec) => spec.area === this.area) : (differences.length ? differences : prioritized).slice(0, this.config.count || 6);
-      const metric = radarMetrics.find((m) => m.area === this.area);
-      this.querySelector('[data-table-title]').textContent = metric ? `${metric.label} SPECIFICATIONS` : 'BIGGEST DIFFERENCES';
+      const present = this.sharedSpecifications();
+      const rows = showdownSpecs(present);
+      const metric = radarMetrics.find((item) => item.area === this.area);
+      this.querySelector('[data-table-title]').textContent = 'SPEC SHOWDOWN';
       this.querySelector('[data-reset]').hidden = !this.area;
       this.fillTable(this.querySelector('[data-differences]'), rows, true);
       this.fillTable(this.querySelector('[data-full-specs]'), present, false);
@@ -216,7 +398,7 @@
 
     fillTable(table, rows, margins) {
       const left = this.selected.panquire, right = this.selected.competitor;
-      const caption = element('caption', `${left.name} vs ${right.name}: ${margins ? 'selected specifications' : 'all specifications'}`, 'visually-hidden');
+      const caption = element('caption', `${left.name} vs ${right.name}: ${margins ? 'selected specifications' : 'all shared specifications'}`, 'visually-hidden');
       const head = element('thead');
       const header = element('tr');
       for (const name of ['Specification', left.name, right.name, ...(margins ? ['Difference'] : [])]) {
@@ -232,16 +414,23 @@
           th.colSpan = 3; th.scope = 'colgroup'; row.append(th); body.append(row);
         }
         const row = element('tr'), heading = element('th', spec.label);
+        row.dataset.spec = spec.key;
+        const activeMetric = radarMetrics.find((metric) => metric.area === this.area);
+        if (activeMetric && (activeMetric.key === spec.key || (this.area === 'power' && spec.area === 'power'))) row.classList.add('is-focused');
         heading.scope = 'row';
-        row.append(heading, element('td', left.specs[spec.key].display), element('td', right.specs[spec.key].display));
+        const winningSide = winner(spec, left, right);
+        const display = (entry) => margins && spec.unit === 'W' && entry.value !== null ? `${withUnit(entry.value / 1000, 'kW')} (${entry.display})` : entry.display;
+        const leftCell = element('td', display(left.specs[spec.key]), `pq-compare__value pq-compare__value--panquire${winningSide === 'panquire' ? ' is-winner' : ''}`);
+        const rightCell = element('td', display(right.specs[spec.key]), `pq-compare__value pq-compare__value--competitor${winningSide === 'competitor' ? ' is-winner' : ''}`);
+        row.append(heading, leftCell, rightCell);
         if (margins) {
-          const td = element('td'), delta = difference(spec, left, right);
-          if (delta !== null) td.append(element('span', delta, 'pq-compare__delta')); else td.textContent = '—';
-          row.append(td);
+          const cell = element('td'), delta = difference(spec, left, right);
+          if (delta !== null) cell.append(element('span', delta, 'pq-compare__delta')); else cell.textContent = '—';
+          row.append(cell);
         }
         body.append(row);
       }
-      if (!rows.length) { const row = element('tr'), td = element('td', 'Specifications for this area are not available yet.'); td.colSpan = margins ? 4 : 3; row.append(td); body.append(row); }
+      if (!rows.length) { const row = element('tr'), cell = element('td', 'No directly comparable specifications are available for this view.'); cell.colSpan = margins ? 4 : 3; row.append(cell); body.append(row); }
       table.replaceChildren(caption, head, body);
     }
 
@@ -249,50 +438,84 @@
       this.querySelectorAll('button[data-metric]').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.metric === this.area)));
     }
 
+    renderMetricButtons(metrics) {
+      const controls = this.querySelector('[data-metrics]');
+      if (!controls) return;
+      controls.replaceChildren(...metrics.map((metric) => {
+        const button = element('button', metric.label);
+        button.type = 'button';
+        button.dataset.metric = metric.area;
+        button.setAttribute('aria-pressed', String(metric.area === this.area));
+        return button;
+      }));
+    }
+
     renderRadar(animate) {
       const svg = this.querySelector('[data-radar]');
       if (!svg) return;
       cancelAnimationFrame(this.radarFrame);
-      const target = ['panquire', 'competitor'].map((side) => radarMetrics.map((metric) => score(metric, this.selected[side])));
-      const previous = this.radarValues || target;
-      this.radarValues = target;
+      const visibleKeys = showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
+      const metrics = radarMetrics.filter((metric) => visibleKeys.includes(metric.key) && score(metric, this.selected.panquire) !== null && score(metric, this.selected.competitor) !== null && (!metric.needsBasis || matchingBasis(this.selected.panquire.specs[metric.key], this.selected.competitor.specs[metric.key])));
+      this.renderMetricButtons(metrics);
+      const target = Object.fromEntries(['panquire', 'competitor'].map((side) => [side, Object.fromEntries(metrics.map((metric) => [metric.area, score(metric, this.selected[side])]))]));
+      const previous = this.radarScores || target;
+      this.radarScores = target;
       svg.replaceChildren(svgElement('title', {}, `${this.selected.panquire.name} vs ${this.selected.competitor.name}`));
-      for (const level of [20, 40, 60, 80, 100]) svg.append(svgElement('polygon', { points: radarMetrics.map((_, i) => point(i, level).join(',')).join(' '), class: 'pq-compare__radar-grid' }));
-      radarMetrics.forEach((metric, i) => {
-        const [x, y] = point(i, 100), [tx, ty] = point(i, 128);
-        svg.append(svgElement('line', { x1: 220, y1: 195, x2: x, y2: y, class: 'pq-compare__radar-grid' }));
-        const label = svgElement('text', { x: tx, y: ty + 4, 'text-anchor': 'middle', class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label);
-        svg.append(label);
-      });
-      const layers = ['panquire', 'competitor'].map(() => { const layer = svgElement('g'); svg.append(layer); return layer; });
-      const draw = (progress) => {
-        target.forEach((values, side) => {
-          const name = side ? 'competitor' : 'panquire';
-          const positions = values.map((value, i) => value === null ? null : point(i, previous[side][i] === null ? value : previous[side][i] + (value - previous[side][i]) * progress));
-          const nodes = [];
-          if (positions.every(Boolean)) nodes.push(svgElement('polygon', { points: positions.map((p) => p.join(',')).join(' '), class: `pq-compare__radar-area pq-compare__radar-area--${name}` }));
-          else positions.forEach((p, i) => { const next = positions[(i + 1) % positions.length]; if (p && next) nodes.push(svgElement('line', { x1: p[0], y1: p[1], x2: next[0], y2: next[1], class: `pq-compare__radar-area pq-compare__radar-area--${name}` })); });
-          positions.forEach((p, i) => {
-            if (!p) return;
-            const dot = svgElement('circle', { cx: p[0], cy: p[1], r: 3, class: `pq-compare__radar-point--${name}` });
-            dot.append(svgElement('title', {}, `${this.selected[name].name}: ${this.selected[name].specs[radarMetrics[i].key].display}`)); nodes.push(dot);
+      svg.setAttribute('viewBox', metrics.length < 3 ? '0 0 440 230' : '0 0 440 400');
+      if (metrics.length < 3) {
+        if (!metrics.length) svg.append(svgElement('text', { x: 220, y: 115, 'text-anchor': 'middle', class: 'pq-compare__chart-empty' }, 'No shared numeric showdown data'));
+        metrics.forEach((metric, index) => {
+          const y = 42 + index * 104;
+          svg.append(svgElement('text', { x: 50, y, class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label));
+          ['panquire', 'competitor'].forEach((side, sideIndex) => {
+            const barY = y + 18 + sideIndex * 22;
+            svg.append(svgElement('line', { x1: 50, y1: barY, x2: 390, y2: barY, class: 'pq-compare__radar-grid' }));
+            const bar = svgElement('rect', { x: 50, y: barY - 4, width: target[side][metric.area] * 3.4, height: 8, rx: 4, class: `pq-compare__radar-point--${side}` });
+            bar.append(svgElement('title', {}, `${this.selected[side].name}: ${this.selected[side].specs[metric.key].display}`));
+            svg.append(bar);
           });
-          layers[side].replaceChildren(...nodes);
         });
-      };
-      if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const start = performance.now();
-        const tick = (now) => { const p = Math.min(1, (now - start) / 220); draw(1 - (1 - p) ** 3); if (p < 1) this.radarFrame = requestAnimationFrame(tick); };
-        this.radarFrame = requestAnimationFrame(tick);
-      } else draw(1);
-      const notes = ['Fixed scales. Tap a category to explore the source specifications.'];
-      for (const side of ['panquire', 'competitor']) {
-        const record = this.selected[side];
-        const bounded = radarMetrics.filter((m) => record.specs[m.key].bounded);
-        bounded.forEach((m) => notes.push(`${record.name}: ${record.specs[m.key].display} uses ${record.specs[m.key].plotValue}° as a visualization bound, not an exact claim.`));
+      } else {
+        for (const level of [20, 40, 60, 80, 100]) svg.append(svgElement('polygon', { points: metrics.map((_, index) => point(index, level, metrics.length).join(',')).join(' '), class: 'pq-compare__radar-grid' }));
+        metrics.forEach((metric, index) => {
+          const [x, y] = point(index, 100, metrics.length), [tx, ty] = point(index, 126, metrics.length);
+          svg.append(svgElement('line', { x1: 220, y1: 195, x2: x, y2: y, class: 'pq-compare__radar-grid' }));
+          svg.append(svgElement('text', { x: tx, y: ty + 4, 'text-anchor': 'middle', class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label));
+        });
+        const layers = Object.fromEntries(['panquire', 'competitor'].map((side) => { const layer = svgElement('g'); svg.append(layer); return [side, layer]; }));
+        const draw = (progress) => {
+          for (const side of ['panquire', 'competitor']) {
+            const positions = metrics.map((metric, index) => {
+              const value = target[side][metric.area];
+              const from = previous[side]?.[metric.area] ?? value;
+              return point(index, from + (value - from) * progress, metrics.length);
+            });
+            const nodes = [svgElement('polygon', { points: positions.map((position) => position.join(',')).join(' '), class: `pq-compare__radar-area pq-compare__radar-area--${side}` })];
+            positions.forEach((position, index) => {
+              const dot = svgElement('circle', { cx: position[0], cy: position[1], r: 3.5, class: `pq-compare__radar-point--${side}` });
+              dot.append(svgElement('title', {}, `${this.selected[side].name}: ${this.selected[side].specs[metrics[index].key].display}`));
+              nodes.push(dot);
+            });
+            layers[side].replaceChildren(...nodes);
+          }
+        };
+        if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const start = performance.now();
+          const tick = (now) => { const progress = Math.min(1, (now - start) / 240); draw(1 - (1 - progress) ** 3); if (progress < 1) this.radarFrame = requestAnimationFrame(tick); };
+          this.radarFrame = requestAnimationFrame(tick);
+        } else draw(1);
       }
-      if (target.some((values) => values.some((value) => value === null))) notes.push('Missing values are not plotted.');
+      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Fixed scales; only shared numeric showdown specs are plotted.'];
+      if (metrics.some(metric => metric.lowerIsBetter)) notes.push('Lower values use reversed scales for weight and comparable times.');
+      notes.push('Qualitative specs remain in the table.');
+      for (const side of ['panquire', 'competitor']) {
+        for (const metric of metrics) {
+          const entry = this.selected[side].specs[metric.key];
+          if (entry.plotValue !== null && entry.value === null && entry.qualifier) notes.push(`${this.selected[side].name}: ${entry.display} uses a separate plotting helper (${entry.qualifier}).`);
+        }
+      }
       this.querySelector('[data-chart-note]').textContent = notes.join(' ');
+      this.updateMetricButtons();
     }
   }
   customElements.define('pq-comparison', Comparison);
