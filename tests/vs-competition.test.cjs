@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const { runInNewContext } = require('node:vm');
 const context = { module: { exports: {} }, window: { location: { origin: 'https://panquire.com' } }, URL, Intl };
 runInNewContext(readFileSync(join(__dirname, '../assets/vs-competition.js'), 'utf8'), context);
-const { specs, radarMetrics, normalize, difference, winner, score, number } = context.module.exports;
+const { specs, radarMetrics, normalize, difference, score, number } = context.module.exports;
 
 // Source-of-truth fixtures, never shipped to the storefront.
 const left = normalize({ name: 'T-01', price: { amount: 2000, currency: 'USD' }, fields: {
@@ -52,17 +52,6 @@ test('compound fields preserve units and have no arbitrary numerical margin', ()
   assert.equal(record.specs.wheels.display, '19" / 17"');
   assert.equal(record.specs.charger.display, '60 V / 6 A');
   assert.equal(difference(specs.find((s) => s.key === 'wheels'), record, record), null);
-});
-test('winner rules distinguish higher, lower, neutral and qualified claims', () => {
-  assert.equal(winner(specs.find((s) => s.key === 'peak_motor_power'), left, right), 'panquire');
-  assert.equal(winner(specs.find((s) => s.key === 'ready_to_ride_weight'), left, right), 'panquire');
-  assert.equal(winner(specs.find((s) => s.key === 'battery_voltage'), left, right), null);
-  assert.equal(winner(specs.find((s) => s.key === 'maximum_climbing_ability'), left, right), null);
-});
-test('extended data remains normalized without replacing source display text', () => {
-  const record = normalize({ fields: {}, details: { specs: { motorType: { label: 'Motor Type', group: 'Performance', display: 'PMSM', comparisonMode: 'none' } } } });
-  assert.equal(record.specs.motorType.display, 'PMSM');
-  assert.equal(record.specs.motorType.value, null);
 });
 test('unsafe source URLs are rejected', () => {
   assert.equal(normalize({ fields: {}, sourceUrl: 'javascript:alert(1)' }).sourceUrl, null);

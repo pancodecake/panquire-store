@@ -5,7 +5,7 @@
   {% if section.settings.announcement != blank %}<div class="pq-announcement">{{ section.settings.announcement | escape }}</div>{% endif %}
   <div class="pq-header-row pq-container">
     <a class="pq-wordmark" href="{{ routes.root_url }}">{{ settings.pq_store_name | default: 'Panquire' | escape }}</a>
-    <nav class="pq-desktop-nav" aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation', menu: section.settings.menu %}</nav>
+    <nav class="pq-desktop-nav" aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation' %}</nav>
     <div class="pq-header-actions">
       <a class="pq-icon-button" href="{{ routes.search_url }}" aria-label="{{ 'panquire.search' | t }}">{% render 'pq-icon', name: 'search' %}</a>
       {% if shop.customer_accounts_enabled %}<a class="pq-icon-button" href="{{ routes.account_url }}" aria-label="{{ 'panquire.account' | t }}">{% render 'pq-icon', name: 'account' %}</a>{% endif %}
@@ -13,7 +13,7 @@
     </div>
     <details class="pq-mobile-menu">
       <summary>{{ 'panquire.menu' | t }}</summary>
-      <nav aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation', menu: section.settings.menu %}</nav>
+      <nav aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation' %}</nav>
     </details>
   </div>
 </header>
