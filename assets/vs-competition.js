@@ -275,7 +275,6 @@
       const allowed = this.allowedCompetitors(product);
       this.selects.competitor.setOptions(allowed, params.get('competitor') || this.config.defaults.competitor || allowed[0]?.handle);
       this.render(false);
-      this.writeUrl();
     }
 
     handleSelection(side) {
@@ -285,8 +284,8 @@
         const allowed = this.allowedCompetitors(product);
         this.selects.competitor.setOptions(allowed, allowed[0]?.handle);
       }
-      this.writeUrl();
       this.render(true);
+      this.writeUrl();
     }
 
     writeUrl() {
