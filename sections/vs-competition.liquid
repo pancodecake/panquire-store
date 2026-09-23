@@ -4,7 +4,7 @@
   assign first_product = all_products['t-01']
   assign second_product = all_products['t-02']
   assign default_product = section.settings.default_product.handle | default: 't-01'
-  assign default_competitor = section.settings.default_competitor.system.handle | default: 'light-bee-x'
+  assign default_competitor = section.settings.default_competitor.system.handle | default: 'pro-s-17'
 -%}
 {% capture comparison_data %}
 {
@@ -32,18 +32,13 @@
       {% for side in sides %}
         {% if forloop.last %}<div class="pq-compare__vs" aria-hidden="true"><span>VS</span></div>{% endif %}
         <div class="pq-compare__product pq-compare__product--{{ side }}" data-product="{{ side }}">
-          <label for="Compare-{{ side }}-{{ section.id }}">{% if forloop.first %}Panquire{% else %}Competition{% endif %}</label>
-          <div class="pq-compare__select-wrap">
-            <select id="Compare-{{ side }}-{{ section.id }}" data-selector="{{ side }}">
-              {% if forloop.first %}
-                <option value="t-01">T-01</option><option value="t-02">T-02</option>
-              {% else %}
-                {% for entry in shop.metaobjects.competitor_product.values %}
-                  <option value="{{ entry.system.handle | escape }}" {% unless entry.ready.value %}disabled{% endunless %}>{{ entry.name.value | escape }}{% unless entry.ready.value %} — coming soon{% endunless %}</option>
-                {% endfor %}
-              {% endif %}
-            </select>
-            <span aria-hidden="true">⌄</span>
+          <div class="pq-compare__eyebrow" id="Compare-label-{{ side }}-{{ section.id }}">{% if forloop.first %}Panquire{% else %}Competition{% endif %}</div>
+          <div class="pq-compare__select-wrap" data-selector="{{ side }}">
+            <button class="pq-compare__select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="Compare-label-{{ side }}-{{ section.id }} Compare-value-{{ side }}-{{ section.id }}" aria-controls="Compare-options-{{ side }}-{{ section.id }}" data-select-trigger>
+              <span id="Compare-value-{{ side }}-{{ section.id }}" data-select-value>{% if forloop.first %}T-01{% else %}E Ride Pro S (17&quot;){% endif %}</span>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5"/></svg>
+            </button>
+            <div class="pq-compare__select-list" id="Compare-options-{{ side }}-{{ section.id }}" role="listbox" aria-labelledby="Compare-label-{{ side }}-{{ section.id }}" data-select-list></div>
           </div>
           <div class="pq-compare__media">
             <img data-image width="1000" height="700" sizes="(max-width: 700px) 90vw, 440px" alt="" hidden>
@@ -64,7 +59,7 @@
       <header class="pq-compare__heading">
         <h2 id="Showdown-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.supporting_text | escape }}</p>
-        <div class="pq-compare__legend"><span data-legend="panquire">T-01</span><span data-legend="competitor">Light Bee X</span></div>
+        <div class="pq-compare__legend"><span data-legend="panquire">T-01</span><span data-legend="competitor">E Ride Pro S (17&quot;)</span></div>
       </header>
       <div class="pq-compare__analysis {% unless section.settings.show_radar %}pq-compare__analysis--table-only{% endunless %}">
         {% if section.settings.show_radar %}
@@ -77,7 +72,7 @@
         <div class="pq-compare__differences">
           <div class="pq-compare__table-title"><h3 data-table-title>BIGGEST DIFFERENCES</h3><button type="button" data-reset hidden>Reset</button></div>
           <div class="pq-compare__table-scroll" role="region" aria-label="Comparison differences" tabindex="0"><table data-differences></table></div>
-          <p class="pq-compare__margin-note">Difference = Panquire − Competition. Higher does not always mean better.</p>
+          <p class="pq-compare__margin-note">Difference = Panquire − Competition. Accent highlights follow each specification's comparison rule; qualified and non-ranked rows stay neutral.</p>
           <details class="pq-compare__full" {% if section.settings.specs_expanded %}open{% endif %}>
             <summary>View all specifications <span aria-hidden="true">↓</span></summary>
             <div class="pq-compare__table-scroll" role="region" aria-label="Complete specifications" tabindex="0"><table data-full-specs></table></div>
@@ -97,7 +92,7 @@
     {"type":"text","id":"supporting_text","label":"Supporting text","default":"Select an area to explore the differences"},
     {"type":"product","id":"default_product","label":"Default Panquire product","info":"Choose T-01 or T-02."},
     {"type":"metaobject","id":"default_competitor","label":"Default competitor","metaobject_type":"competitor_product"},
-    {"type":"range","id":"difference_count","label":"Visible Biggest Differences count","min":3,"max":10,"step":1,"default":6},
+    {"type":"range","id":"difference_count","label":"Legacy differences count","info":"The fixed showdown categories now show all mutually available values; this saved setting is retained for compatibility.","min":3,"max":10,"step":1,"default":6},
     {"type":"checkbox","id":"show_radar","label":"Show radar chart","default":true},
     {"type":"checkbox","id":"show_price","label":"Show price","default":true},
     {"type":"checkbox","id":"show_source","label":"Show Source","default":true},
