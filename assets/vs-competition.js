@@ -202,7 +202,7 @@
       this.root.classList.add('open');
       this.list.style.maxHeight = `${Math.min(420, Math.max(100, window.innerHeight - this.trigger.getBoundingClientRect().bottom - 24))}px`;
       this.trigger.setAttribute('aria-expanded', 'true');
-      if (fromKeyboard) requestAnimationFrame(() => (this.list.querySelector('[aria-selected="true"]') || this.list.firstElementChild)?.focus());
+      if (fromKeyboard) (this.list.querySelector('[aria-selected="true"]') || this.list.firstElementChild)?.focus();
     }
 
     close(restoreFocus = false) {
