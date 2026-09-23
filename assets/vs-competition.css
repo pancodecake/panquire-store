@@ -6,6 +6,7 @@ pq-comparison { display: block; }
 .pq-compare__product--competitor .pq-compare__eyebrow { color: var(--compare-red); }
 
 .pq-compare__select-wrap { --dropdown-accent: var(--compare-bronze); position: relative; z-index: 4; text-align: left; }
+.pq-compare__select-wrap button { -webkit-tap-highlight-color: transparent; }
 .pq-compare__product--competitor .pq-compare__select-wrap { --dropdown-accent: var(--compare-red); }
 .pq-compare__product:has(.open) { z-index: 6; }
 .pq-compare__select-wrap.open::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 9px; }

@@ -297,10 +297,11 @@
 
     readUrl() {
       const params = new URLSearchParams(window.location.search);
-      this.selects.panquire.setOptions(this.records.panquire, params.get('panquire') || this.config.defaults.panquire || 't-01');
+      const preferred = (records, candidates) => candidates.find(handle => records.some(record => record.handle === handle));
+      this.selects.panquire.setOptions(this.records.panquire, preferred(this.records.panquire, [params.get('panquire'), this.config.defaults.panquire, 't-01']));
       const product = this.records.panquire.find((record) => record.handle === this.selects.panquire.value);
       const allowed = this.allowedCompetitors(product);
-      this.selects.competitor.setOptions(allowed, params.get('competitor') || this.config.defaults.competitor || allowed[0]?.handle);
+      this.selects.competitor.setOptions(allowed, preferred(allowed, [params.get('competitor'), this.config.defaults.competitor]));
       this.area = null;
       this.render(false);
       this.writeUrl();
@@ -460,8 +461,20 @@
       const previous = this.radarScores || target;
       this.radarScores = target;
       svg.replaceChildren(svgElement('title', {}, `${this.selected.panquire.name} vs ${this.selected.competitor.name}`));
+      svg.setAttribute('viewBox', metrics.length < 3 ? '0 0 440 230' : '0 0 440 400');
       if (metrics.length < 3) {
-        svg.append(svgElement('text', { x: 220, y: 195, 'text-anchor': 'middle', class: 'pq-compare__chart-empty' }, 'Not enough shared radar data'));
+        if (!metrics.length) svg.append(svgElement('text', { x: 220, y: 115, 'text-anchor': 'middle', class: 'pq-compare__chart-empty' }, 'No shared numeric showdown data'));
+        metrics.forEach((metric, index) => {
+          const y = 42 + index * 104;
+          svg.append(svgElement('text', { x: 50, y, class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label));
+          ['panquire', 'competitor'].forEach((side, sideIndex) => {
+            const barY = y + 18 + sideIndex * 22;
+            svg.append(svgElement('line', { x1: 50, y1: barY, x2: 390, y2: barY, class: 'pq-compare__radar-grid' }));
+            const bar = svgElement('rect', { x: 50, y: barY - 4, width: target[side][metric.area] * 3.4, height: 8, rx: 4, class: `pq-compare__radar-point--${side}` });
+            bar.append(svgElement('title', {}, `${this.selected[side].name}: ${this.selected[side].specs[metric.key].display}`));
+            svg.append(bar);
+          });
+        });
       } else {
         for (const level of [20, 40, 60, 80, 100]) svg.append(svgElement('polygon', { points: metrics.map((_, index) => point(index, level, metrics.length).join(',')).join(' '), class: 'pq-compare__radar-grid' }));
         metrics.forEach((metric, index) => {
@@ -492,7 +505,9 @@
           this.radarFrame = requestAnimationFrame(tick);
         } else draw(1);
       }
-      const notes = ['Fixed scales; only shared numeric showdown specs are plotted. Lower weight, charging time and acceleration time use reversed scales. Qualitative specs remain in the table.'];
+      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Fixed scales; only shared numeric showdown specs are plotted.'];
+      if (metrics.some(metric => metric.lowerIsBetter)) notes.push('Lower values use reversed scales for weight and comparable times.');
+      notes.push('Qualitative specs remain in the table.');
       for (const side of ['panquire', 'competitor']) {
         for (const metric of metrics) {
           const entry = this.selected[side].specs[metric.key];

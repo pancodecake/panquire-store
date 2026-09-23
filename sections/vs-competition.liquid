@@ -4,7 +4,7 @@
   assign first_product = all_products['t-01']
   assign second_product = all_products['t-02']
   assign default_product = section.settings.default_product.handle | default: 't-01'
-  assign default_competitor = section.settings.default_competitor.system.handle | default: 'pro-s-17'
+  assign default_competitor = section.settings.default_competitor.system.handle
 -%}
 {% capture comparison_data %}
 {
