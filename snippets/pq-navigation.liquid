@@ -1,10 +1,18 @@
 {% doc %}
   Shared Panquire navigation. Page destinations are configured in theme settings.
+
+  @param {object} [menu] - Optional Shopify menu selected in the header section.
 {% enddoc %}
-{% if section.settings.menu != blank %}
-  {% for link in section.settings.menu.links %}{% unless link.url == routes.root_url %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{% endunless %}{% endfor %}
+{% if menu != blank %}
+  {% assign has_comparison_link = false %}
+  {% for link in menu.links %}
+    {% if link.url contains '/pages/compare' %}{% assign has_comparison_link = true %}{% endif %}
+    {% unless link.url == routes.root_url %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{% endunless %}
+  {% endfor %}
+  {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>VS Competition</a>{% endunless %}
 {% else %}
 <a href="{{ settings.pq_products_url | default: '/pages/products' }}"{% if page.handle == 'products' %} aria-current="page"{% endif %}>{{ 'panquire.products' | t }}</a>
+<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>VS Competition</a>
 <a href="{{ settings.pq_about_url | default: '/pages/about' }}"{% if page.handle == 'about' %} aria-current="page"{% endif %}>{{ 'panquire.about' | t }}</a>
 <a href="{{ settings.pq_partners_url | default: '/pages/partners' }}"{% if page.handle == 'partners' %} aria-current="page"{% endif %}>{{ 'panquire.partners' | t }}</a>
 <a href="{{ settings.pq_terms_url | default: '/pages/terms' }}"{% if page.handle == 'terms' %} aria-current="page"{% endif %}>{{ 'panquire.terms' | t }}</a>
