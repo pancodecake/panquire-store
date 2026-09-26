@@ -1,10 +1,24 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer",
   "sections": {
     "panquire_footer": {
       "type": "pq-footer",
-      "settings": {},
+      "settings": {
+        "facebook_url": "https://www.facebook.com/profile.php?id=61594386872248",
+        "instagram_url": "https://www.instagram.com/panquire/",
+        "youtube_url": "https://www.youtube.com/@Panquire",
+        "support_email": "support@panquire.com"
+      },
       "blocks": {
         "shop": {
           "type": "column",

@@ -1,7 +1,90 @@
+{%- liquid
+  assign footer_phone = section.settings.phone_number | default: shop.phone
+  assign footer_phone_href = footer_phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '.'
+  assign newsletter_form_id = 'FooterNewsletter-' | append: section.id
+-%}
+
 <footer class="pq pq-footer">
+  <div class="pq-footer-newsletter">
+    <div class="pq-container pq-footer-newsletter__layout">
+      <div class="pq-footer-newsletter__copy">
+        <p class="pq-footer-newsletter__eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p>
+        <h2 id="FooterNewsletterHeading-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2>
+      </div>
+
+      {% form 'customer', id: newsletter_form_id, class: 'pq-footer-newsletter__form' %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="FooterNewsletterEmail-{{ section.id }}">{{ section.settings.email_label | escape }}</label>
+        <div class="pq-footer-newsletter__fields">
+          <input
+            id="FooterNewsletterEmail-{{ section.id }}"
+            type="email"
+            name="contact[email]"
+            value="{{ form.email | escape }}"
+            autocomplete="email"
+            autocapitalize="off"
+            autocorrect="off"
+            placeholder="{{ section.settings.email_placeholder | escape }}"
+            aria-labelledby="FooterNewsletterHeading-{{ section.id }}"
+            {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError-{{ section.id }}"{% endif %}
+            required
+          >
+          <button type="submit">{{ section.settings.subscribe_label | escape }}</button>
+        </div>
+        {% if form.errors %}
+          <div id="FooterNewsletterError-{{ section.id }}" class="pq-footer-newsletter__message pq-footer-newsletter__message--error" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+        {% if form.posted_successfully? %}
+          <p class="pq-footer-newsletter__message" role="status">{{ section.settings.success_message | escape }}</p>
+        {% endif %}
+      {% endform %}
+    </div>
+  </div>
+
   <div class="pq-container">
-    <a href="{{ routes.root_url }}" class="pq-wordmark pq-footer-brand">{{ settings.pq_store_name | default: 'Panquire' | escape }}</a>
-    {% if section.blocks.size > 0 %}<div class="pq-social-links">{% for block in section.blocks %}{% if block.type == 'social' and block.settings.url != blank %}<a class="pq-button" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>{{ block.settings.label | escape }}</a>{% endif %}{% endfor %}</div>{% endif %}
+    <div class="pq-footer-intro">
+      <div class="pq-footer-community">
+        <a href="{{ routes.root_url }}" class="pq-wordmark pq-footer-brand">{{ settings.pq_store_name | default: 'Panquire' | escape }}</a>
+
+        <div class="pq-footer-social" aria-labelledby="FooterSocialHeading-{{ section.id }}">
+          <h2 id="FooterSocialHeading-{{ section.id }}">{{ section.settings.social_heading | escape }}</h2>
+          <div class="pq-social-links">
+            {% if section.settings.facebook_url != blank %}
+              <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook — opens in a new tab">{% render 'pq-social-icon', name: 'facebook' %}</a>
+            {% endif %}
+            {% if section.settings.instagram_url != blank %}
+              <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram — opens in a new tab">{% render 'pq-social-icon', name: 'instagram' %}</a>
+            {% endif %}
+            {% if section.settings.youtube_url != blank %}
+              <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube — opens in a new tab">{% render 'pq-social-icon', name: 'youtube' %}</a>
+            {% endif %}
+            {% if section.settings.tiktok_url != blank %}
+              <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok — opens in a new tab">{% render 'pq-social-icon', name: 'tiktok' %}</a>
+            {% else %}
+              <span class="pq-social-link--inactive" aria-label="TikTok — link coming soon">{% render 'pq-social-icon', name: 'tiktok' %}</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="pq-footer-contact" aria-labelledby="FooterContactHeading-{{ section.id }}">
+          <h2 id="FooterContactHeading-{{ section.id }}">{{ section.settings.contact_heading | escape }}</h2>
+          {% if footer_phone != blank %}
+            <a href="tel:{{ footer_phone_href }}"><span>{{ section.settings.phone_label | escape }}</span><strong>{{ footer_phone | escape }}</strong></a>
+          {% endif %}
+          {% if section.settings.support_email != blank %}
+            <a href="mailto:{{ section.settings.support_email | escape }}"><span>{{ section.settings.support_label | escape }}</span><strong>{{ section.settings.support_email | escape }}</strong></a>
+          {% endif %}
+        </div>
+      </div>
+
+      <figure class="pq-footer-trust">
+        <img src="{{ 'panquire-secure-checkout-badges.png' | asset_url }}" alt="{{ section.settings.trust_badges_alt | escape }}" width="194" height="120" loading="lazy">
+        {% if section.settings.trust_badges_caption != blank %}<figcaption>{{ section.settings.trust_badges_caption | escape }}</figcaption>{% endif %}
+      </figure>
+    </div>
+
     <div class="pq-footer-columns">
       {% for block in section.blocks %}{% if block.type == 'column' %}
         <div class="pq-footer-column" {{ block.shopify_attributes }}><h2>{{ block.settings.heading | escape }}</h2>
@@ -26,6 +109,29 @@
 {
   "name": "Panquire footer", "enabled_on": { "groups": ["footer"] }, "max_blocks": 12,
   "settings": [
+    {"type":"header","content":"Newsletter"},
+    {"type":"text","id":"newsletter_eyebrow","label":"Eyebrow","default":"Ride farther. Know more."},
+    {"type":"text","id":"newsletter_heading","label":"Heading","default":"Join the Panquire riding family"},
+    {"type":"text","id":"email_label","label":"Email field label","default":"Email address"},
+    {"type":"text","id":"email_placeholder","label":"Email placeholder","default":"Enter your email"},
+    {"type":"text","id":"subscribe_label","label":"Button label","default":"Subscribe"},
+    {"type":"text","id":"success_message","label":"Success message","default":"Thanks for joining the Panquire riding family."},
+    {"type":"header","content":"Social media"},
+    {"type":"text","id":"social_heading","label":"Heading","default":"Follow Panquire"},
+    {"type":"url","id":"facebook_url","label":"Facebook URL"},
+    {"type":"url","id":"instagram_url","label":"Instagram URL"},
+    {"type":"url","id":"youtube_url","label":"YouTube URL"},
+    {"type":"url","id":"tiktok_url","label":"TikTok URL"},
+    {"type":"header","content":"Phone and support"},
+    {"type":"text","id":"contact_heading","label":"Heading","default":"Phone & support"},
+    {"type":"text","id":"phone_label","label":"Phone label","default":"Phone"},
+    {"type":"text","id":"phone_number","label":"Phone number","info":"Uses the Shopify store phone when left blank."},
+    {"type":"text","id":"support_label","label":"Support label","default":"Support"},
+    {"type":"text","id":"support_email","label":"Support email","default":"support@panquire.com"},
+    {"type":"header","content":"Checkout trust badges"},
+    {"type":"text","id":"trust_badges_alt","label":"Image description","default":"Secure Panquire checkout with a money-back guarantee, SSL protection, Safe Checkout and Shopify Secure"},
+    {"type":"text","id":"trust_badges_caption","label":"Caption","default":"Protected checkout"},
+    {"type":"header","content":"Footer details"},
     {"type":"textarea","id":"text","label":"Footer note"},
     {"type":"url","id":"contact_url","label":"Contact page"},
     {"type":"url","id":"privacy_url","label":"Privacy policy"},
@@ -35,7 +141,6 @@
     {"type":"text","id":"rights_text","label":"Copyright text","default":"All rights reserved."}
   ],
   "blocks": [
-    { "type": "social", "name": "Social link", "settings": [{"type":"text","id":"label","label":"Label","default":"Instagram"},{"type":"url","id":"url","label":"URL"}] },
     { "type":"column","name":"Footer column","settings":[
       {"type":"text","id":"heading","label":"Heading","default":"Company"},
       {"type":"link_list","id":"menu","label":"Navigation menu"},
