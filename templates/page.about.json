@@ -58,9 +58,12 @@
       "settings": {
         "eyebrow": "About Panquire",
         "title": "A different way forward.",
-        "chapter_label": "The Panquire story",
+        "chapter_label": "",
         "button": "Explore our collection",
-        "link": "shopify://collections/all"
+        "link": "shopify://collections/all",
+        "open_first": true,
+        "accordion_background": "#232323",
+        "accordion_active_background": "linear-gradient(135deg, rgba(68, 51, 31, 1), rgba(44, 41, 36, 1) 42%, rgba(35, 35, 35, 1) 100%)"
       }
     }
   },
