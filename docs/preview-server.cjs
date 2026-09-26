@@ -20,7 +20,7 @@ function defaults(file) {
   if(!m) return {};
   return Object.fromEntries((JSON.parse(m[1]).settings||[]).filter(s=>s.default!==undefined).map(s=>[s.id,s.default]));
 }
-const pageTemplates = {'/':'templates/index.json','/products/preview':'templates/product.json','/pages/about':'templates/page.about.json','/pages/partners':'templates/page.partners.json','/pages/terms':'templates/page.terms.json','/pages/contact':'templates/page.contact.json'};
+const pageTemplates = {'/':'templates/index.json','/products/preview':'templates/product.json','/pages/products':'templates/page.products.json','/pages/about':'templates/page.about.json','/pages/partners':'templates/page.partners.json','/pages/terms':'templates/page.terms.json','/pages/contact':'templates/page.contact.json'};
 async function page(pathname) {
   const productPage = pathname === '/products/preview';
   const pageHandle = pathname.startsWith('/pages/') ? pathname.split('/').pop() : '';

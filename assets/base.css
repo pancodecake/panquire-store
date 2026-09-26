@@ -4,7 +4,7 @@
 
 body {
   color: var(--color-foreground);
-  background: var(--color-background);
+  background: var(--pq-page-background);
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -13,6 +13,13 @@ body {
 }
 
 :root {
+  --pq-page-background: linear-gradient(
+    180deg,
+    #101114 0%,
+    #0B0C0F 42%,
+    #08090B 72%,
+    #050607 100%
+  );
   --hover-shadow-color: var(--color-shadow);
   --hover-transition-duration: 0.25s;
   --hover-transition-timing: ease-out;

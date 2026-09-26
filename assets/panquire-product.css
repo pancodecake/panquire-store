@@ -1,4 +1,4 @@
-.pq-storefront { background: var(--carbon-base); background-image: var(--carbon-gradient); color: var(--text); }
+.pq-storefront { background: var(--pq-page-background); color: var(--text); }
 .pq-storefront .page-wrapper { background: transparent; }
 .pq-storefront :focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
 .pq-storefront .button:not(.button-unstyled,.close-button,.quantity-minus,.quantity-plus), .pq-storefront .button-primary, .pq-storefront .button-custom:not(.button-unstyled), .pq-storefront button.shopify-payment-button__button--unbranded, .pq-button--accent, .pq-button--dark, .pq-email-row button { background: var(--color-action-solid); color: var(--color-text-on-action) !important; border-color: var(--color-action-solid); border-radius: 999px; font-weight: 700; transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease, color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
