@@ -38,6 +38,13 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     assert.equal((await state()).right, 'pro-s-17');
     assert.equal(await root.locator('.pq-compare__methodology h2').textContent(), 'Comparison Methodology');
     assert.equal(await root.locator('.pq-compare__methodology a[href="mailto:support@panquire.com"]').textContent(), 'support@panquire.com');
+    await page.evaluate(() => document.fonts.ready);
+    assert.equal(await page.evaluate(() => document.fonts.check('700 24px "Panquire Montserrat"')), true);
+    assert.equal(await page.evaluate(() => document.fonts.check('400 14px "Panquire Work Sans"')), true);
+    assert.match(await root.locator('.pq-compare__methodology h2').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.match(await root.locator('.pq-compare__methodology p').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
+    assert.match(await trigger('panquire').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.match(await root.locator('[data-differences] tbody td').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
     assert.ok(await trigger('panquire').evaluate(node => parseFloat(getComputedStyle(node).fontSize) >= 20));
     assert.equal(await page.locator('.pq-desktop-nav a[href="/pages/compare"]').count(), 1);
     assert.equal(await page.locator('.pq-mobile-menu a[href="/pages/compare"]').count(), 1);
@@ -128,7 +135,17 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await mobile.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await mobile.waitForTimeout(600);
     await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/compare-mobile.png') });
+
+    const home = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await home.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
+    await home.evaluate(() => document.fonts.ready);
+    assert.match(await home.locator('h1').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.match(await home.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
+    const homeNavigationLink = home.locator('.pq-desktop-nav a, .menu-list__link').first();
+    assert.match(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.equal(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontWeight), '600');
+    await home.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
+    console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
