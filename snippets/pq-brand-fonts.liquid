@@ -37,6 +37,16 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: 'Panquire Intro Rust';
+    src:
+      url("{{ 'introrustg-base2line-webfont.woff2' | asset_url }}") format('woff2'),
+      url("{{ 'introrustg-base2line-webfont.woff' | asset_url }}") format('woff');
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
   :root {
     --font-body--family: 'Panquire Work Sans', 'Work Sans', Arial, sans-serif;
     --font-body--weight: 400;
@@ -50,5 +60,6 @@
     --button-font-family-secondary: var(--font-heading--family);
     --pq-heading-font: var(--font-heading--family);
     --pq-body-font: var(--font-body--family);
+    --pq-hero-font: 'Panquire Intro Rust', var(--pq-heading-font);
   }
 {% endstyle %}
