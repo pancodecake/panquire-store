@@ -5,71 +5,73 @@
 -%}
 
 <footer class="pq pq-footer">
-  <div class="pq-footer-newsletter">
-    <div class="pq-container pq-footer-newsletter__layout">
-      <div class="pq-footer-newsletter__copy">
-        <p class="pq-footer-newsletter__eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p>
-        <h2 id="FooterNewsletterHeading-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2>
+  <div class="pq-footer-lead">
+    <div class="pq-container pq-footer-lead__layout">
+      <div class="pq-footer-identity">
+        <a href="{{ routes.root_url }}" class="pq-wordmark pq-footer-brand">{{ settings.pq_store_name | default: 'Panquire' | escape }}</a>
+
+        <div class="pq-footer-trust" aria-labelledby="FooterTrustHeading-{{ section.id }}">
+          <ul class="pq-footer-trust__grid" role="list">
+            <li class="pq-trust-badge pq-trust-badge--guarantee">
+              {% render 'pq-trust-icon', name: 'guarantee' %}
+              <span><strong>{{ section.settings.guarantee_title | escape }}</strong><small>{{ section.settings.guarantee_text | escape }}</small></span>
+            </li>
+            <li class="pq-trust-badge">
+              {% render 'pq-trust-icon', name: 'lock' %}
+              <span><strong>{{ section.settings.ssl_title | escape }}</strong><small>{{ section.settings.ssl_text | escape }}</small></span>
+            </li>
+            <li class="pq-trust-badge">
+              {% render 'pq-trust-icon', name: 'shield' %}
+              <span><strong>{{ section.settings.safe_title | escape }}</strong><small>{{ section.settings.safe_text | escape }}</small></span>
+            </li>
+            <li class="pq-trust-badge pq-trust-badge--shopify">
+              {% render 'pq-trust-icon', name: 'shopify' %}
+              <span><strong>{{ section.settings.shopify_title | escape }}</strong><small>{{ section.settings.shopify_text | escape }}</small></span>
+            </li>
+          </ul>
+          <h2 id="FooterTrustHeading-{{ section.id }}">{{ section.settings.trust_badges_caption | escape }}</h2>
+        </div>
       </div>
 
-      {% form 'customer', id: newsletter_form_id, class: 'pq-footer-newsletter__form' %}
-        <input type="hidden" name="contact[tags]" value="newsletter">
-        <label class="visually-hidden" for="FooterNewsletterEmail-{{ section.id }}">{{ section.settings.email_label | escape }}</label>
-        <div class="pq-footer-newsletter__fields">
-          <input
-            id="FooterNewsletterEmail-{{ section.id }}"
-            type="email"
-            name="contact[email]"
-            value="{{ form.email | escape }}"
-            autocomplete="email"
-            autocapitalize="off"
-            autocorrect="off"
-            placeholder="{{ section.settings.email_placeholder | escape }}"
-            aria-labelledby="FooterNewsletterHeading-{{ section.id }}"
-            {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError-{{ section.id }}"{% endif %}
-            required
-          >
-          <button type="submit">{{ section.settings.subscribe_label | escape }}</button>
+      <div class="pq-footer-newsletter">
+        <div class="pq-footer-newsletter__copy">
+          <p class="pq-footer-newsletter__eyebrow">{{ section.settings.newsletter_eyebrow | escape }}</p>
+          <h2 id="FooterNewsletterHeading-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2>
         </div>
-        {% if form.errors %}
-          <div id="FooterNewsletterError-{{ section.id }}" class="pq-footer-newsletter__message pq-footer-newsletter__message--error" role="alert">
-            {{ form.errors | default_errors }}
+
+        {% form 'customer', id: newsletter_form_id, class: 'pq-footer-newsletter__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <label class="visually-hidden" for="FooterNewsletterEmail-{{ section.id }}">{{ section.settings.email_label | escape }}</label>
+          <div class="pq-footer-newsletter__fields">
+            <input
+              id="FooterNewsletterEmail-{{ section.id }}"
+              type="email"
+              name="contact[email]"
+              value="{{ form.email | escape }}"
+              autocomplete="email"
+              autocapitalize="off"
+              autocorrect="off"
+              placeholder="{{ section.settings.email_placeholder | escape }}"
+              aria-labelledby="FooterNewsletterHeading-{{ section.id }}"
+              {% if form.errors %}aria-invalid="true" aria-describedby="FooterNewsletterError-{{ section.id }}"{% endif %}
+              required
+            >
+            <button type="submit">{{ section.settings.subscribe_label | escape }}</button>
           </div>
-        {% endif %}
-        {% if form.posted_successfully? %}
-          <p class="pq-footer-newsletter__message" role="status">{{ section.settings.success_message | escape }}</p>
-        {% endif %}
-      {% endform %}
+          {% if form.errors %}
+            <div id="FooterNewsletterError-{{ section.id }}" class="pq-footer-newsletter__message pq-footer-newsletter__message--error" role="alert">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+          {% if form.posted_successfully? %}
+            <p class="pq-footer-newsletter__message" role="status">{{ section.settings.success_message | escape }}</p>
+          {% endif %}
+        {% endform %}
+      </div>
     </div>
   </div>
 
   <div class="pq-container">
-    <div class="pq-footer-intro">
-      <a href="{{ routes.root_url }}" class="pq-wordmark pq-footer-brand">{{ settings.pq_store_name | default: 'Panquire' | escape }}</a>
-
-      <div class="pq-footer-trust" aria-labelledby="FooterTrustHeading-{{ section.id }}">
-        <ul class="pq-footer-trust__grid" role="list">
-          <li class="pq-trust-badge pq-trust-badge--guarantee">
-            {% render 'pq-trust-icon', name: 'guarantee' %}
-            <span><strong>{{ section.settings.guarantee_title | escape }}</strong><small>{{ section.settings.guarantee_text | escape }}</small></span>
-          </li>
-          <li class="pq-trust-badge">
-            {% render 'pq-trust-icon', name: 'lock' %}
-            <span><strong>{{ section.settings.ssl_title | escape }}</strong><small>{{ section.settings.ssl_text | escape }}</small></span>
-          </li>
-          <li class="pq-trust-badge">
-            {% render 'pq-trust-icon', name: 'shield' %}
-            <span><strong>{{ section.settings.safe_title | escape }}</strong><small>{{ section.settings.safe_text | escape }}</small></span>
-          </li>
-          <li class="pq-trust-badge pq-trust-badge--shopify">
-            {% render 'pq-trust-icon', name: 'shopify' %}
-            <span><strong>{{ section.settings.shopify_title | escape }}</strong><small>{{ section.settings.shopify_text | escape }}</small></span>
-          </li>
-        </ul>
-        <h2 id="FooterTrustHeading-{{ section.id }}">{{ section.settings.trust_badges_caption | escape }}</h2>
-      </div>
-    </div>
-
     <div class="pq-footer-columns">
       {% for block in section.blocks %}{% if block.type == 'column' %}
         <div class="pq-footer-column" {{ block.shopify_attributes }}><h2>{{ block.settings.heading | escape }}</h2>
