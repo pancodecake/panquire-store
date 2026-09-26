@@ -56,7 +56,9 @@ pq-comparison { display: block; }
 .pq-compare__pill a { display: inline-flex; align-items: center; min-height: 44px; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
 .pq-compare__availability { min-height: 18px; margin-top: 10px !important; color: var(--color-text-secondary); font-size: 12px; }
 
-.pq-compare__methodology { max-width: 880px; margin: 0 0 52px 0; padding: clamp(22px,3vw,34px); border: 1px solid var(--color-border); border-radius: 18px; background: color-mix(in srgb,var(--color-bg-surface) 88%,transparent); color: #fff; box-shadow: 0 18px 44px rgba(0,0,0,.14); }
+.pq-compare__methodology { position: relative; isolation: isolate; max-width: 880px; margin: 0 auto 52px; padding: calc(clamp(22px,3vw,34px) + 10px); border: 2px solid color-mix(in srgb,var(--color-border-strong) 78%,white); border-radius: 28px; background: var(--color-bg-page); color: #fff; box-shadow: 0 18px 44px rgba(0,0,0,.2), 0 0 0 1px color-mix(in srgb,var(--compare-bronze) 18%,transparent); }
+.pq-compare__methodology::before { content: ''; position: absolute; inset: 9px; z-index: -1; border: 1px solid color-mix(in srgb,var(--color-border-strong) 88%,white); border-radius: 18px; background: color-mix(in srgb,var(--color-bg-surface) 92%,black); box-shadow: inset 0 1px color-mix(in srgb,white 4%,transparent); }
+.pq-compare__methodology::after { content: ''; position: absolute; inset: 4px; z-index: -1; border: 1px solid color-mix(in srgb,var(--compare-bronze) 34%,transparent); border-radius: 23px; pointer-events: none; }
 .pq-compare__methodology h2 { margin-bottom: 18px; color: #fff; font-size: clamp(24px,2.7vw,34px); letter-spacing: -.035em; }
 .pq-compare__methodology p { color: #fff; font-size: 14px; line-height: 1.75; }
 .pq-compare__methodology p + p { margin-top: 14px; }
@@ -124,7 +126,9 @@ pq-comparison { display: block; }
 }
 @media (max-width: 700px) {
   .pq-compare { padding-block: 30px 56px; }
-  .pq-compare__methodology { margin-bottom: 34px; padding: 20px; border-radius: 16px; }
+  .pq-compare__methodology { margin-bottom: 34px; padding: 30px; border-radius: 24px; }
+  .pq-compare__methodology::before { border-radius: 15px; }
+  .pq-compare__methodology::after { border-radius: 19px; }
   .pq-compare__hero { grid-template-columns: minmax(0,1fr); gap: 8px; padding-bottom: 32px; }
   .pq-compare__eyebrow { margin-bottom: 12px; font-size: 23px; }
   .pq-compare .pq-compare__select-trigger { min-height: 58px; border-radius: 15px; font-size: clamp(18px,6vw,24px); }
