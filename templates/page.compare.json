@@ -8,6 +8,24 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {"main": {"type": "vs-competition", "settings": {}}},
-  "order": ["main"]
+  "sections": {
+    "main": {
+      "type": "vs-competition",
+      "settings": {
+        "heading": "Competitive Comparison",
+        "supporting_text": "Select an area to explore the differences",
+        "default_product": "",
+        "default_competitor": "",
+        "difference_count": 6,
+        "show_radar": true,
+        "show_price": true,
+        "show_source": true,
+        "specs_expanded": false,
+        "competitor_color": "#d85b59"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
 }
