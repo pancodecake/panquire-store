@@ -36,12 +36,15 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    {{ 'montserrat-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
+    {{ 'work-sans-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
     {%- render 'stylesheets' -%}
     {%- render 'card-hover-effect-styles' -%}
     {%- render 'fonts' -%}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
+    {%- render 'pq-brand-fonts' -%}
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}

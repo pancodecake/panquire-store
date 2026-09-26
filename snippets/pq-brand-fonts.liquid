@@ -1,0 +1,54 @@
+{% doc %}
+  Loads Panquire's self-hosted variable typefaces and maps them onto the theme's
+  existing typography tokens. Montserrat is the display family; Work Sans is
+  the reading and data family.
+{% enddoc %}
+
+{% style %}
+  @font-face {
+    font-family: 'Panquire Montserrat';
+    src: url("{{ 'montserrat-variable.woff2' | asset_url }}") format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Panquire Montserrat';
+    src: url("{{ 'montserrat-italic-variable.woff2' | asset_url }}") format('woff2');
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Panquire Work Sans';
+    src: url("{{ 'work-sans-variable.woff2' | asset_url }}") format('woff2');
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Panquire Work Sans';
+    src: url("{{ 'work-sans-italic-variable.woff2' | asset_url }}") format('woff2');
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+  }
+
+  :root {
+    --font-body--family: 'Panquire Work Sans', 'Work Sans', Arial, sans-serif;
+    --font-body--weight: 400;
+    --font-subheading--family: 'Panquire Montserrat', Montserrat, Arial, sans-serif;
+    --font-subheading--weight: 600;
+    --font-heading--family: 'Panquire Montserrat', Montserrat, Arial, sans-serif;
+    --font-heading--weight: 700;
+    --font-accent--family: 'Panquire Montserrat', Montserrat, Arial, sans-serif;
+    --font-accent--weight: 600;
+    --button-font-family-primary: var(--font-heading--family);
+    --button-font-family-secondary: var(--font-heading--family);
+    --pq-heading-font: var(--font-heading--family);
+    --pq-body-font: var(--font-body--family);
+  }
+{% endstyle %}

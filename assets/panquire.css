@@ -17,6 +17,8 @@
   --pq-motion-fast: 150ms;
   --pq-motion-base: 200ms;
 }
+.pq-storefront :where(.button, .button-secondary, .button-custom, button.shopify-payment-button__button--unbranded) { font-weight: 600; }
+.pq-storefront :where(.menu-list__link, .menu-list__item, .menu-drawer__menu-item--mainlist) { font-family: var(--pq-heading-font); font-weight: 600; }
 .pq { background: var(--pq-bg); color: var(--pq-text); font: 400 14px/1.5 var(--pq-body-font); overflow-wrap: break-word; }
 .pq *, .pq *::before, .pq *::after { box-sizing: border-box; }
 .pq [hidden] { display: none !important; }
@@ -33,7 +35,7 @@
 .pq-section { padding-block: var(--pq-space, 70px); }
 .pq-section-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 20px; margin-block-end: 36px !important; color: var(--color-heading-accent); font-size: clamp(28px, 2.5vw, 40px); letter-spacing: -.035em; }
 .pq-section-title small { color: var(--color-text-secondary); font-size: clamp(16px, 1.4vw, 23px); letter-spacing: .01em; }
-.pq-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 44px; padding: 10px 24px; border: 1px solid var(--color-action-solid); border-radius: 999px; background: var(--color-action-solid); color: var(--color-text-on-action) !important; font-weight: 700; text-align: center; transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease, color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
+.pq-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 44px; padding: 10px 24px; border: 1px solid var(--color-action-solid); border-radius: 999px; background: var(--color-action-solid); color: var(--color-text-on-action) !important; font-family: var(--pq-heading-font); font-weight: 600; text-align: center; transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease, color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
 .pq-button--accent, .pq-button--primary, .pq-button--dark { background: var(--color-action-solid); color: var(--color-text-on-action) !important; border-color: var(--color-action-solid); }
 .pq-button--secondary { background: var(--color-secondary-solid); color: var(--color-text-on-secondary) !important; border-color: var(--color-secondary-solid); }
 .pq-button:not(.pq-button--secondary):hover { background: var(--color-action-solid-hover); border-color: var(--color-action-solid-hover); text-decoration: none; }
@@ -45,9 +47,9 @@
 .pq-header { background: rgb(8 9 11 / .96); border-bottom: 1px solid var(--color-border); }
 #header-group:has(.pq-header) { position: sticky; top: 0; z-index: 30; }
 .pq-header-row { display: flex; align-items: center; gap: 24px; min-height: 64px; position: relative; }
-.pq-wordmark { font: 800 28px/1 var(--pq-body-font); letter-spacing: -.055em; }
+.pq-wordmark { font: 700 28px/1 var(--pq-heading-font); letter-spacing: -.055em; }
 .pq-desktop-nav { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: center; }
-.pq-desktop-nav a { display: flex; align-items: center; min-height: 44px; font-size: 13px; font-weight: 600; }
+.pq-desktop-nav a { display: flex; align-items: center; min-height: 44px; font-family: var(--pq-heading-font); font-size: 13px; font-weight: 600; }
 .pq [aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--pq-accent); }
 .pq-header-actions { display: flex; gap: 4px; margin-inline-start: auto; }
 .pq-icon-button { display: grid; place-items: center; width: 40px; min-height: 44px; position: relative; }
@@ -209,7 +211,7 @@
   .pq-mobile-menu summary::after { content: '+'; font-size: 20px; }
   .pq-mobile-menu[open] summary::after { content: '−'; }
   .pq-mobile-menu nav { position: absolute; inset-inline: 0; top: 100%; display: grid; gap: 4px; padding: 16px 24px; background: var(--carbon-base); border-top: 1px solid var(--pq-line); max-height: 70vh; overflow-y: auto; }
-  .pq-mobile-menu nav a { padding-block: 12px; }
+  .pq-mobile-menu nav a { padding-block: 12px; font-family: var(--pq-heading-font); font-weight: 600; }
   .pq-feature-layout { grid-template-columns: minmax(0,1fr); min-height: auto; }
   .pq-feature-selectors { display: flex; flex-wrap: wrap; grid-row: 1; gap: 12px; }
   .pq-feature-selectors button { text-align: start; font-size: 18px; }
