@@ -72,7 +72,7 @@ test('intersection excludes absent, TBD and unaligned weight measurements', () =
 });
 test('MD memberships preserve order and Mantis source profiles remain distinct', () => {
   const fixture = require('./fixtures/comparison-shopify.json');
-  assert.deepEqual(fixture.products[0].competitorHandles, ['pro-s-17', 'mantis-x', 'falcon-lite', 'x1-spark-l']);
+  assert.deepEqual(fixture.products[0].competitorHandles, ['pro-s-17', 'mantis-x', 'falcon-lite', 'x1-spark-l', 'light-bee-x']);
   assert.deepEqual(fixture.products[1].competitorHandles, ['ultra-bee', 'x7-spark', 'pro-ss-2-0', 'nova-5-pro', 'mantis-x', 'falcon-pro']);
   const mantis = normalize(fixture.competitors.find(c => c.handle === 'mantis-x'));
   assert.equal(applyProfile(mantis, 't-01').specs.suspension.display, '210 mm front / 70 mm rear');

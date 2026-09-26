@@ -36,6 +36,8 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     };
     assert.equal((await state()).left, 't-01');
     assert.equal((await state()).right, 'pro-s-17');
+    assert.equal(await root.locator('.pq-compare__methodology h2').textContent(), 'Comparison Methodology');
+    assert.equal(await root.locator('.pq-compare__methodology a[href="mailto:support@panquire.com"]').textContent(), 'support@panquire.com');
     assert.ok(await trigger('panquire').evaluate(node => parseFloat(getComputedStyle(node).fontSize) >= 20));
     assert.equal(await page.locator('.pq-desktop-nav a[href="/pages/compare"]').count(), 1);
     assert.equal(await page.locator('.pq-mobile-menu a[href="/pages/compare"]').count(), 1);
@@ -43,7 +45,16 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     assert.equal(await trigger('panquire').getAttribute('aria-expanded'), 'true');
     await page.waitForTimeout(520);
     assert.notEqual(await trigger('panquire').locator('svg').evaluate(node => getComputedStyle(node).transform), 'none');
+    const triggerBox = await trigger('panquire').boundingBox();
+    await page.mouse.move(triggerBox.x + triggerBox.width / 2, triggerBox.y + triggerBox.height / 2);
+    await page.waitForTimeout(180);
+    assert.equal(await trigger('panquire').getAttribute('aria-expanded'), 'true');
+    const optionBox = await select('panquire').locator('[role="option"]').first().boundingBox();
+    await page.mouse.move(optionBox.x + optionBox.width / 2, optionBox.y + optionBox.height / 2);
+    await page.waitForTimeout(180);
+    assert.equal(await trigger('panquire').getAttribute('aria-expanded'), 'true');
     await page.mouse.move(2, 2);
+    await page.waitForTimeout(180);
     assert.equal(await trigger('panquire').getAttribute('aria-expanded'), 'false');
     await trigger('panquire').click();
     await trigger('competitor').click();
@@ -54,7 +65,7 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await page.keyboard.press('ArrowDown');
     await page.keyboard.press('End');
     await page.keyboard.press('Enter');
-    assert.equal((await state()).right, 'x1-spark-l');
+    assert.equal((await state()).right, 'light-bee-x');
     await trigger('competitor').click();
     await page.mouse.click(2, 2);
     assert.equal(await trigger('competitor').getAttribute('aria-expanded'), 'false');
@@ -78,7 +89,7 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await choose('panquire', 't-01');
     current = await state();
     assert.equal(current.right, 'pro-s-17');
-    assert.deepEqual(current.choices, ['pro-s-17', 'mantis-x', 'falcon-lite', 'x1-spark-l']);
+    assert.deepEqual(current.choices, ['pro-s-17', 'mantis-x', 'falcon-lite', 'x1-spark-l', 'light-bee-x']);
     for (const handle of current.choices) await choose('competitor', handle);
     await choose('competitor', 'pro-s-17');
     assert.equal(await root.locator('[data-differences] tr[data-spec="battery_energy"] .is-winner').getAttribute('class'), 'pq-compare__value pq-compare__value--competitor is-winner');
@@ -118,6 +129,6 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await mobile.waitForTimeout(600);
     await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/compare-mobile.png') });
     assert.deepEqual(errors, []);
-    console.log('PASS: desktop/mobile selectors, all 10 pairings, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
+    console.log('PASS: desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
