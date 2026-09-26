@@ -70,7 +70,7 @@
 .pq-comparison tbody td:nth-child(2) { background: var(--surface); }
 .pq-comparison-image { aspect-ratio: 1.5; margin-bottom: 24px; }
 .pq-comparison-note { color: var(--text-muted); font-size: 13px; margin-top: 28px !important; }
-.pq-footer-columns { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 32px; margin-block: 40px; }
+.pq-footer-columns { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 28px; margin-block: 40px; }
 .pq-footer-column h2 { color: var(--color-heading-accent); font-size: 14px; letter-spacing: .01em; margin-bottom: 16px; }
 .pq-footer-column a { display: block; width: fit-content; color: var(--text-muted); padding-block: 8px; }
 .pq-footer-column .rte { color: var(--text-muted); font-size: 13px; line-height: 1.8; }
