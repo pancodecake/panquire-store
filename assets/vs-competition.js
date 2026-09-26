@@ -159,8 +159,26 @@
         const option = event.target.closest('[role="option"]');
         if (option) this.choose(option.dataset.value);
       }, { signal });
-      this.root.addEventListener('pointerleave', (event) => { if (event.pointerType === 'mouse') this.close(this.root.contains(document.activeElement)); }, { signal });
+      this.root.addEventListener('pointerenter', () => this.cancelClose(), { signal });
+      this.root.addEventListener('pointerleave', (event) => {
+        if (event.pointerType !== 'mouse' || event.relatedTarget && this.root.contains(event.relatedTarget)) return;
+        this.scheduleClose();
+      }, { signal });
       this.root.addEventListener('focusout', (event) => { if (!this.root.contains(event.relatedTarget)) this.close(); }, { signal });
+    }
+
+    cancelClose() {
+      if (!this.closeTimer) return;
+      clearTimeout(this.closeTimer);
+      this.closeTimer = null;
+    }
+
+    scheduleClose() {
+      this.cancelClose();
+      this.closeTimer = setTimeout(() => {
+        this.closeTimer = null;
+        if (!this.root.matches(':hover')) this.close(this.root.contains(document.activeElement));
+      }, 140);
     }
 
     setOptions(records, preferred) {
@@ -196,6 +214,7 @@
 
     open(fromKeyboard) {
       if (!this.records?.length) return;
+      this.cancelClose();
       this.owner.closeSelects(this);
       this.isOpen = true;
       this.root.dataset.open = 'true';
@@ -206,6 +225,7 @@
     }
 
     close(restoreFocus = false) {
+      this.cancelClose();
       if (!this.isOpen) return;
       this.isOpen = false;
       delete this.root.dataset.open;

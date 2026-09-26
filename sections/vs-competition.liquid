@@ -27,6 +27,12 @@
   <script type="application/json" data-comparison-data>{{ comparison_data | replace: '<', '\u003c' }}</script>
   <div class="pq-container">
     <h1 class="visually-hidden">{{ page.title | default: 'Panquire vs Competition' | escape }}</h1>
+    <section class="pq-compare__methodology" aria-labelledby="Methodology-{{ section.id }}">
+      <h2 id="Methodology-{{ section.id }}">Comparison Methodology</h2>
+      <p>Panquire models are compared with similar electric dirt bikes using publicly available specifications from each manufacturer’s official website. Competitor pricing reflects publicly advertised U.S. prices in USD at the time of review. Where a product is offered in multiple configurations, the price shown may represent the listed starting price.</p>
+      <p>We aim to keep every comparison accurate, transparent, and fair. Product specifications and prices may change over time, so we encourage visitors to review the linked <strong>Source</strong> for the latest information. If you identify inaccurate or outdated information, or believe a comparison should be revised, please contact <a href="mailto:support@panquire.com">support@panquire.com</a>.</p>
+      <p><strong>Competitor brands are not affiliated with or endorsed by Panquire. Product names and trademarks belong to their respective owners.</strong></p>
+    </section>
     <div class="pq-compare__hero">
       {% assign sides = 'panquire,competitor' | split: ',' %}
       {% for side in sides %}
