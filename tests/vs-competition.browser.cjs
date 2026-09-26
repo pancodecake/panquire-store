@@ -135,6 +135,10 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await mobile.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await mobile.waitForTimeout(600);
     await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/compare-mobile.png') });
+    await mobile.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
+    assert.equal(await mobile.locator('.pq-hero-content').evaluate(node => getComputedStyle(node).borderTopWidth), '2px');
+    assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/home-text-frames-mobile.png'), fullPage: false });
 
     const home = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await home.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
@@ -144,6 +148,10 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     const homeNavigationLink = home.locator('.pq-desktop-nav a, .menu-list__link').first();
     assert.match(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
     assert.equal(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontWeight), '600');
+    const framedHomeCopy = home.locator('.pq-hero-content, .pq-benefit, .pq-product-card').first();
+    assert.equal(await framedHomeCopy.evaluate(node => getComputedStyle(node).borderTopWidth), '2px');
+    assert.match(await framedHomeCopy.evaluate(node => getComputedStyle(node).boxShadow), /inset/);
+    await home.screenshot({ path: join(__dirname, '../.shopify-temp/home-text-frames.png'), fullPage: false });
     await home.close();
     assert.deepEqual(errors, []);
     console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
