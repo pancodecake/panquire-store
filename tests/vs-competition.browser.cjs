@@ -135,15 +135,23 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await mobile.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await mobile.waitForTimeout(600);
     await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/compare-mobile.png') });
+    await mobile.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
+    await mobile.evaluate(() => document.fonts.ready);
+    assert.match(await mobile.locator('.pq-hero-copy h1').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Intro Rust/);
+    assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+    await mobile.screenshot({ path: join(__dirname, '../.shopify-temp/hero-font-mobile.png'), fullPage: false });
 
     const home = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     await home.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
     await home.evaluate(() => document.fonts.ready);
-    assert.match(await home.locator('h1').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.equal(await home.evaluate(() => document.fonts.check('400 48px "Panquire Intro Rust"')), true);
+    assert.match(await home.locator('h2').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.match(await home.locator('.pq-hero-copy h1').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Intro Rust/);
     assert.match(await home.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
     const homeNavigationLink = home.locator('.pq-desktop-nav a, .menu-list__link').first();
     assert.match(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
     assert.equal(await homeNavigationLink.evaluate(node => getComputedStyle(node).fontWeight), '600');
+    await home.screenshot({ path: join(__dirname, '../.shopify-temp/hero-font-desktop.png'), fullPage: false });
     await home.close();
     assert.deepEqual(errors, []);
     console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
