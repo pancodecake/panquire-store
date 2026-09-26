@@ -165,8 +165,8 @@
         "item5"
       ],
       "settings": {
-        "heading": "Adventure",
-        "subtitle": "Find your next ride",
+        "heading": "Begin Your Journey",
+        "subtitle": "Choose your ride",
         "show_campaign": true,
         "campaign_height": 1000,
         "spacing": 70
@@ -204,8 +204,8 @@
       ],
       "settings": {
         "layout": "expert",
-        "heading": "Independent perspectives",
-        "text": "A space for independent reviews and rider experiences.",
+        "heading": "Customer Reviews",
+        "text": "Pro or beginner, we will grow with every feedback",
         "spacing": 90
       }
     },
