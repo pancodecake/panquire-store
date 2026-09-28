@@ -13,39 +13,65 @@
   "sections": {
     "panquire_footer": {
       "type": "pq-footer",
-      "settings": {
-        "facebook_url": "https://www.facebook.com/profile.php?id=61594386872248",
-        "instagram_url": "https://www.instagram.com/panquire/",
-        "youtube_url": "https://www.youtube.com/@Panquire",
-        "support_email": "support@panquire.com"
-      },
       "blocks": {
         "shop": {
           "type": "column",
           "settings": {
             "heading": "Shop",
-            "built_in": "shop"
+            "menu": "",
+            "built_in": "shop",
+            "product_1": "",
+            "product_1_label": "[Product 1 Name]",
+            "product_2": "",
+            "product_2_label": "[Product 2 Name]",
+            "text": "",
+            "show_shop": false,
+            "show_policies": false
           }
         },
         "company": {
           "type": "column",
           "settings": {
             "heading": "Company",
-            "built_in": "company"
+            "menu": "",
+            "built_in": "company",
+            "product_1": "",
+            "product_1_label": "[Product 1 Name]",
+            "product_2": "",
+            "product_2_label": "[Product 2 Name]",
+            "text": "",
+            "show_shop": false,
+            "show_policies": false
           }
         },
         "business": {
           "type": "column",
           "settings": {
             "heading": "Business & Partners",
-            "built_in": "business"
+            "menu": "",
+            "built_in": "business",
+            "product_1": "",
+            "product_1_label": "[Product 1 Name]",
+            "product_2": "",
+            "product_2_label": "[Product 2 Name]",
+            "text": "",
+            "show_shop": false,
+            "show_policies": false
           }
         },
         "care": {
           "type": "column",
           "settings": {
             "heading": "Customer Care",
-            "built_in": "care"
+            "menu": "",
+            "built_in": "care",
+            "product_1": "",
+            "product_1_label": "[Product 1 Name]",
+            "product_2": "",
+            "product_2_label": "[Product 2 Name]",
+            "text": "",
+            "show_shop": false,
+            "show_policies": false
           }
         }
       },
@@ -54,7 +80,42 @@
         "company",
         "business",
         "care"
-      ]
+      ],
+      "settings": {
+        "newsletter_eyebrow": "Because we wll be going far",
+        "newsletter_heading": "Join the Panquire Ride",
+        "email_label": "Email address",
+        "email_placeholder": "Enter your email",
+        "subscribe_label": "Subscribe",
+        "success_message": "Thanks for joining the Panquire riding family.",
+        "community_label": "Community and support",
+        "social_heading": "Follow Panquire",
+        "facebook_url": "https://www.facebook.com/profile.php?id=61594386872248",
+        "instagram_url": "https://www.instagram.com/panquire/",
+        "youtube_url": "https://www.youtube.com/@Panquire",
+        "tiktok_url": "",
+        "contact_heading": "Phone & support",
+        "phone_label": "Phone",
+        "phone_number": "",
+        "support_label": "Support",
+        "support_email": "support@panquire.com",
+        "trust_badges_caption": "Protected checkout",
+        "guarantee_title": "100%",
+        "guarantee_text": "Money-back guarantee",
+        "ssl_title": "Fully secured",
+        "ssl_text": "SSL checkout",
+        "safe_title": "Safe checkout",
+        "safe_text": "Guaranteed",
+        "shopify_title": "Shopify",
+        "shopify_text": "Secure",
+        "text": "",
+        "contact_url": "",
+        "privacy_url": "",
+        "legal_label": "Legal information",
+        "terms_label": "Terms of Service",
+        "privacy_label": "Privacy Policy",
+        "rights_text": "All rights reserved."
+      }
     }
   },
   "order": [

@@ -208,54 +208,12 @@
         "text": "Pro or beginner, we will grow with every feedback",
         "spacing": 90
       }
-    },
-    "newsletter": {
-      "type": "pq-newsletter",
-      "blocks": {
-        "item1": {
-          "type": "image",
-          "settings": {}
-        },
-        "item2": {
-          "type": "image",
-          "settings": {}
-        },
-        "item3": {
-          "type": "image",
-          "settings": {}
-        },
-        "item4": {
-          "type": "image",
-          "settings": {}
-        },
-        "item5": {
-          "type": "image",
-          "settings": {}
-        },
-        "item6": {
-          "type": "image",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "item1",
-        "item2",
-        "item3",
-        "item4",
-        "item5",
-        "item6"
-      ],
-      "settings": {
-        "heading": "Subscribe to our newsletter",
-        "text": "Keep up with new arrivals and news from Panquire."
-      }
     }
   },
   "order": [
     "hero",
     "benefits",
     "feature",
-    "experts",
-    "newsletter"
+    "experts"
   ]
 }
