@@ -165,8 +165,8 @@
         "item5"
       ],
       "settings": {
-        "heading": "Begin Your Journey",
-        "subtitle": "Choose your ride",
+        "heading": "Choose Your Next Ride",
+        "subtitle": "Preview the model before the purchase",
         "show_campaign": true,
         "campaign_height": 1000,
         "spacing": 70
