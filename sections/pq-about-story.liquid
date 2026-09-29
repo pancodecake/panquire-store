@@ -34,7 +34,7 @@
           {% endif %}
         {% endfor %}
       </div>
-      <div class="pq-brand-column pq-brand-column--right pq-prose">
+      <div class="pq-brand-column pq-brand-column--right pq-prose" style="margin-top: 38%">
         {% assign brand_text_index = 0 %}
         {% for block in section.blocks %}
           {% if block.type == 'brand_text' %}
@@ -79,7 +79,7 @@
 {% stylesheet %}
   .pq-brand-layout { display: grid; grid-template-columns: minmax(0,.92fr) minmax(0,1.08fr); gap: 54px; align-items: start; }
   .pq-brand-column { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
-  .pq-about-editorial .pq-prose { max-width: none; color: var(--color-text-secondary); margin-top: 38%; font-size: 16px; line-height: 1.75; }
+  .pq-about-editorial .pq-prose { max-width: none; color: var(--color-text-secondary); font-size: 16px; line-height: 1.75; }
   .pq-about-editorial .pq-prose strong { color: var(--color-text-primary); }
   .pq-about-editorial .pq-prose > * + * { margin-top: 1em; }
   .pq-brand-layout .pq-section-title { margin: 0 !important; }
