@@ -1,59 +1,131 @@
-<div class="pq pq-about" style="--pq-about-accordion-background: {{ section.settings.accordion_background }}; --pq-about-accordion-active: {{ section.settings.accordion_active_background }};" data-pq-story>
-  <div class="pq-container pq-about-intro"><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.title | escape }}</h1></div>
-  <div class="pq-container pq-about-accordion-list" data-pq-reveal>
-    {% for block in section.blocks %}
-      <section class="pq-about-chapter" id="Chapter-{{ section.id }}-{{ block.id }}" aria-labelledby="ChapterHeading-{{ block.id }}" {{ block.shopify_attributes }}>
-        <details class="pq-about-accordion" data-pq-about-accordion{% if forloop.first and section.settings.open_first %} open{% endif %}>
-          <summary>
-            <span class="pq-chapter-marker"><span>{{ forloop.index | prepend: '0' }}</span><span>{{ section.settings.chapter_label | escape }}</span></span>
-            <h2 id="ChapterHeading-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
-            <span class="pq-about-accordion-toggle" aria-hidden="true"></span>
-          </summary>
-          <div class="pq-about-accordion-content">
-            <div class="pq-about-atmosphere" aria-hidden="true">
-              <div class="pq-about-background" data-pq-parallax>
-                {% if block.settings.image != blank %}
-                  <picture>
-                    {% if block.settings.mobile_image != blank %}<source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">{% endif %}
-                    {{ block.settings.image | image_url: width: 2400 | image_tag: widths: '750, 1100, 1600, 2400', sizes: '(min-width: 1100px) 1050px, calc(100vw - 48px)', loading: 'lazy', alt: '' }}
-                  </picture>
-                {% else %}<div class="pq-about-image-placeholder"></div>{% endif %}
-              </div>
-            </div>
-            <div class="pq-about-narrative">
-              <div class="pq-prose">{{ block.settings.body }}</div>
-              {% if block.settings.bridge != blank %}<p class="pq-about-bridge">{{ block.settings.bridge | escape }}</p>{% endif %}
-              {% if forloop.last and section.settings.link != blank %}<a class="pq-button pq-button--dark" href="{{ section.settings.link }}">{{ section.settings.button | escape }}</a>{% endif %}
-            </div>
-            {% if block.settings.image == blank %}<span class="pq-about-placeholder-label" aria-hidden="true">{{ block.settings.placeholder | escape }}</span>{% endif %}
-          </div>
-        </details>
-      </section>
-    {% endfor %}
+<div class="pq pq-about-editorial pq-section">
+  <div class="pq-container">
+    <section class="pq-brand-layout" aria-labelledby="Brand-{{ section.id }}">
+      <div class="pq-brand-images">
+        {% assign brand_keys = 'brand_primary,brand_secondary' | split: ',' %}
+        {% assign brand_files = 'pq-about-hydraulic.jpg,pq-about-chamber.jpg' | split: ',' %}
+        {% assign brand_alts = 'Hydraulic presses on the factory production floor|Process chamber and bicycle frames in the factory' | split: '|' %}
+        {% for key in brand_keys %}
+          {% if section.settings[key] != blank %}
+            {{ section.settings[key] | image_url: width: 1400 | image_tag: widths: '400, 700, 1000, 1400', sizes: '(min-width: 750px) 440px, 85vw', loading: 'eager' }}
+          {% else %}
+            <img src="{{ brand_files[forloop.index0] | asset_url }}" width="1600" height="1073" alt="{{ brand_alts[forloop.index0] | escape }}"{% if forloop.first %} fetchpriority="high"{% endif %}>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div>
+        <h1 class="pq-section-title" id="Brand-{{ section.id }}">{{ section.settings.brand_heading | escape }}</h1>
+        <div class="pq-prose">{{ section.settings.story }}</div>
+      </div>
+    </section>
+    <section class="pq-manufacturer" aria-labelledby="Manufacturer-{{ section.id }}">
+      <h2 class="pq-section-title" id="Manufacturer-{{ section.id }}">{{ section.settings.manufacturer_heading | escape }}</h2>
+      <div class="pq-prose">{{ section.settings.manufacturer }}</div>
+      <div class="pq-certificates">
+        {% for block in section.blocks %}
+          <details class="pq-certificate" {{ block.shopify_attributes }}>
+            <summary><span>{{ block.settings.heading | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+            <div class="pq-certificate-body pq-prose">{{ block.settings.body }}</div>
+          </details>
+        {% endfor %}
+      </div>
+      <div class="pq-factory-images">
+        {% assign image_keys = 'factory_primary,factory_top,factory_bottom' | split: ',' %}
+        {% assign image_files = 'pq-about-fabrication.jpg,pq-about-blueprint.jpg,pq-about-machining.jpg' | split: ',' %}
+        {% assign image_alts = 'Fabrication equipment and racks of bicycle frames|Bicycle frame laid over its engineering blueprint|Machined components and blue storage bins on the factory floor' | split: '|' %}
+        {% for key in image_keys %}
+          {% if section.settings[key] != blank %}
+            {{ section.settings[key] | image_url: width: 1600 | image_tag: widths: '500, 800, 1200, 1600', sizes: '(min-width: 750px) 510px, 90vw', loading: 'lazy' }}
+          {% else %}
+            <img src="{{ image_files[forloop.index0] | asset_url }}" width="1600" height="1200" alt="{{ image_alts[forloop.index0] | escape }}" loading="lazy">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </section>
   </div>
 </div>
+{% stylesheet %}
+  .pq-brand-layout { display: grid; grid-template-columns: minmax(0,.92fr) minmax(0,1.08fr); grid-template-rows: repeat(5,auto); column-gap: 54px; row-gap: 28px; align-items: start; }
+  .pq-about-editorial .pq-prose { max-width: none; color: var(--color-text-secondary); font-size: 16px; line-height: 1.75; }
+  .pq-about-editorial .pq-prose strong { color: var(--color-text-primary); }
+  .pq-about-editorial .pq-prose > * + * { margin-top: 1em; }
+  .pq-brand-layout > div:last-child, .pq-brand-layout .pq-prose { display: contents; }
+  .pq-brand-layout .pq-section-title { grid-column: 1; grid-row: 1; margin: 0 !important; }
+  .pq-brand-layout .pq-prose > p { max-width: 61ch; margin: 0; }
+  .pq-brand-layout .pq-prose > p:first-child { grid-column: 1; grid-row: 2; padding-left: 22px; border-left: 3px solid var(--color-accent-solid); color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: clamp(19px,2vw,24px); font-weight: 600; line-height: 1.5; letter-spacing: -.018em; }
+  .pq-brand-layout .pq-prose > p:nth-child(2) { grid-column: 2; grid-row: 1 / span 2; padding-bottom: 28px; border-bottom: 1px solid var(--color-border); }
+  .pq-brand-layout .pq-prose > p:nth-child(3) { grid-column: 2; grid-row: 3; width: fit-content; color: var(--color-heading-accent); font-family: var(--pq-heading-font); font-size: 17px; font-weight: 650; line-height: 1.55; }
+  .pq-brand-layout .pq-prose > p:nth-child(4) { grid-column: 2; grid-row: 4; margin-left: clamp(0px,3vw,38px); padding-left: 20px; border-left: 1px solid var(--color-border-strong); }
+  .pq-brand-layout .pq-prose > p:last-child { position: relative; grid-column: 1; grid-row: 5; padding: 22px 0 22px 44px; border-block: 1px solid var(--color-border-strong); color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: clamp(18px,1.9vw,23px); font-weight: 700; line-height: 1.45; letter-spacing: -.02em; }
+  .pq-brand-layout .pq-prose > p:last-child::before { content: '\201C'; position: absolute; top: 12px; left: 0; color: var(--color-accent-solid); font-family: var(--pq-heading-font); font-size: 54px; font-weight: 700; line-height: 1; }
+  .pq-brand-images { position: relative; grid-column: 1; grid-row: 3 / span 2; padding-right: 17%; }
+  .pq-brand-images img, .pq-factory-images img { display: block; width: 100%; object-fit: cover; border-radius: 24px; }
+  .pq-brand-images img:first-child { aspect-ratio: .95; height: auto; }
+  .pq-brand-images img:last-child { position: absolute; right: 0; top: 20%; width: 43%; height: 60%; border: 6px solid var(--color-bg-page); }
+  .pq-manufacturer { margin-top: 70px; padding-top: 56px; border-top: 1px solid var(--color-border); }
+  .pq-manufacturer > .pq-section-title { margin-bottom: 20px !important; }
+  .pq-manufacturer > .pq-prose > p:first-child { max-width: 68ch; color: var(--color-text-primary); font-size: clamp(18px,1.8vw,22px); line-height: 1.6; }
+  .pq-manufacturer > .pq-prose > ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 40px; margin: 34px 0 0; padding: 0; list-style: none; }
+  .pq-manufacturer > .pq-prose > ul li { min-width: 0; padding: 15px 0; border-top: 1px solid var(--color-border); }
+  .pq-manufacturer > .pq-prose > ul strong { display: block; margin-bottom: 3px; color: var(--color-heading-accent); font-family: var(--pq-heading-font); font-size: 13px; font-weight: 650; line-height: 1.4; }
+  .pq-manufacturer > .pq-prose a { color: var(--color-text-primary); text-decoration-color: var(--color-accent-solid); }
+  .pq-certificates { display: grid; gap: 12px; margin-block: 32px; }
+  .pq-certificate { border: 1px solid var(--color-border-strong); border-radius: 17px; background: linear-gradient(135deg,color-mix(in srgb,var(--color-bg-surface) 96%,white),var(--color-bg-surface)); box-shadow: inset 0 1px color-mix(in srgb,white 5%,transparent); overflow: clip; transition: border-color 220ms ease, box-shadow 220ms ease; }
+  .pq .pq-certificate summary { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 16px 21px; list-style: none; cursor: pointer; font: 650 clamp(19px,2.35vw,29px)/1.18 var(--pq-heading-font); letter-spacing: -.025em; }
+  .pq-certificate summary::-webkit-details-marker { display: none; }
+  .pq-certificate summary::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--color-accent-solid); transform: scaleX(0); transform-origin: left; transition: transform 480ms var(--pq-ease-out); }
+  .pq-certificate[open] summary::before { transform: scaleX(1); transform-origin: right; }
+  .pq-certificate:hover { border-color: var(--color-accent-solid); box-shadow: 0 0 0 3px color-mix(in srgb,var(--color-accent-solid) 9%,transparent); }
+  .pq-certificate summary:focus-visible { outline-offset: -4px; }
+  .pq-certificate summary svg { flex: 0 0 30px; width: 30px; height: 30px; fill: none; stroke: var(--color-accent-solid); stroke-width: 2; transition: transform 480ms var(--pq-ease-out); }
+  .pq-certificate[open] summary { color: var(--color-text-on-action); }
+  .pq-certificate[open] summary svg { stroke: currentColor; transform: rotate(180deg); }
+  .pq-certificate::details-content { interpolate-size: allow-keywords; block-size: 0; opacity: 0; overflow: clip; transition: block-size 480ms var(--pq-ease-out), opacity 190ms ease, content-visibility 480ms allow-discrete; }
+  .pq-certificate[open]::details-content { block-size: auto; opacity: 1; }
+  .pq-certificate-body { padding: 28px; }
+  .pq-certificate-body > p:first-child { max-width: 72ch; color: var(--color-text-primary); font-size: 17px; }
+  .pq-certificate-body > ul { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; margin: 26px 0 0; padding: 0; list-style: none; }
+  .pq-certificate-body > ul li { min-width: 0; padding: 13px 0; border-top: 1px solid var(--color-border); }
+  .pq-certificate-body > ul strong { display: block; margin-bottom: 2px; color: var(--color-heading-accent); font-size: 13px; }
+  .pq-factory-images { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 230px 230px; gap: 24px; }
+  .pq-factory-images img { height: 100%; min-height: 0; }
+  .pq-factory-images img:first-child { grid-row: span 2; }
+  @media (max-width: 749px) {
+    .pq-brand-layout { grid-template-columns: 1fr; grid-template-rows: none; gap: 32px; }
+    .pq-brand-images, .pq-brand-layout .pq-section-title, .pq-brand-layout .pq-prose > p { grid-column: 1 !important; grid-row: auto !important; }
+    .pq-brand-images { max-width: 540px; padding-right: 12%; }
+    .pq-brand-images img:first-child { aspect-ratio: 1.2; }
+    .pq-brand-images img:last-child { width: 38%; }
+    .pq-manufacturer { margin-top: 48px; padding-top: 40px; }
+    .pq-brand-layout .pq-prose > p:nth-child(4) { margin-left: 0; }
+    .pq-brand-layout .pq-prose > p:last-child { padding-left: 36px; }
+    .pq-manufacturer > .pq-prose > ul, .pq-certificate-body > ul { grid-template-columns: 1fr; }
+    .pq-factory-images { grid-template-rows: 280px 160px; gap: 16px; }
+    .pq-factory-images img:first-child { grid-column: span 2; grid-row: auto; }
+    .pq-certificate-body { padding: 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pq-certificate, .pq-certificate::details-content, .pq-certificate summary::before, .pq-certificate summary svg { transition: none; }
+  }
+{% endstylesheet %}
 {% schema %}
 {
-  "name":"Panquire about story","max_blocks":4,
-  "settings":[
-    {"type":"text","id":"eyebrow","label":"Small heading","default":"About Panquire"},
-    {"type":"text","id":"title","label":"Page heading","default":"A different way forward."},
-    {"type":"text","id":"chapter_label","label":"Chapter marker","default":"The Panquire story"},
-    {"type":"text","id":"button","label":"Closing button","default":"Explore our collection"},
-    {"type":"url","id":"link","label":"Closing link","default":"/collections/all"},
-    {"type":"header","content":"Chapter accordion"},
-    {"type":"checkbox","id":"open_first","label":"Open first chapter by default","default":true},
-    {"type":"color","id":"accordion_background","label":"Closed chapter background","default":"#232323"},
-    {"type":"color_background","id":"accordion_active_background","label":"Open chapter background","default":"linear-gradient(135deg, #44331F 0%, #2C2924 42%, #232323 100%)"}
+  "name": "Panquire about story",
+  "settings": [
+    { "type": "text", "id": "brand_heading", "label": "Brand heading", "default": "Our Brand" },
+    { "type": "richtext", "id": "story", "label": "Brand story" },
+    { "type": "image_picker", "id": "brand_primary", "label": "Brand primary image" },
+    { "type": "image_picker", "id": "brand_secondary", "label": "Brand overlapping image" },
+    { "type": "text", "id": "manufacturer_heading", "label": "Manufacturer heading", "default": "Manufacturer Info" },
+    { "type": "richtext", "id": "manufacturer", "label": "Manufacturer information" },
+    { "type": "image_picker", "id": "factory_primary", "label": "Factory large image" },
+    { "type": "image_picker", "id": "factory_top", "label": "Factory top right image" },
+    { "type": "image_picker", "id": "factory_bottom", "label": "Factory bottom right image" }
   ],
-  "blocks":[{"type":"chapter","name":"Story chapter","settings":[
-    {"type":"text","id":"heading","label":"Heading","default":"Who We Are"},
-    {"type":"richtext","id":"body","label":"Chapter text","default":"<p>Tell your story here.</p>"},
-    {"type":"textarea","id":"bridge","label":"Transition into next chapter"},
-    {"type":"image_picker","id":"image","label":"Background image"},
-    {"type":"image_picker","id":"mobile_image","label":"Mobile background (optional)"},
-    {"type":"text","id":"placeholder","label":"Placeholder caption","default":"Atmospheric image placeholder"}
-  ]}],
-  "presets":[{"name":"Panquire about story","blocks":[{"type":"chapter"},{"type":"chapter"},{"type":"chapter"},{"type":"chapter"}]}]
+  "blocks": [{ "type": "certificate", "name": "Certificate", "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Certificate" },
+    { "type": "richtext", "id": "body", "label": "Details" }
+  ] }],
+  "presets": [{ "name": "Panquire about story" }]
 }
 {% endschema %}

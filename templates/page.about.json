@@ -1,26 +1,41 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "main": {
       "type": "pq-about-story",
       "settings": {
-        "eyebrow": "About Panquire",
-        "title": "A different way forward.",
-        "chapter_label": "",
-        "button": "Explore our collection",
-        "link": "shopify://collections/all",
-        "open_first": true,
-        "accordion_background": "#232323",
-        "accordion_active_background": "linear-gradient(135deg, rgba(68, 51, 31, 1), rgba(44, 41, 36, 1) 42%, rgba(35, 35, 35, 1) 100%)"
-      }
+        "brand_heading": "Our Brand",
+        "story": "<p>Panquire was created in 2018 to manufacture electric two-wheeler’s to address the riders who didn’t want to pay high end price but also not wanting to settle on low-end bikes, just like us.</p><p>Many of our own team members had their first-hand frustrations with the current electric motorcycle industry. Some frustrations came during the first electric bike search phase, where they struggled to find a balanced entry point into the market, something affordable, reliable, and capable enough to grow with them. Others already bought e-dirt bike only to quickly realize that they already needed to upgrade for more power, better components, and a bike that did not feel like it was built around compromises.</p><p>We have been on both sides of that experience, and that is exactly why Panquire exists.</p><p>From the frame and suspension to the motor, battery, brakes, and controls, we put thousands of decisions into the design and engineering of every bike so you do not have to think about them once you start riding.</p><p>Because when you are on the trail, the only thing rushing through your head should be adrenaline.</p>",
+        "manufacturer_heading": "Manufacturer Info",
+        "manufacturer": "<p>Shenzhen Jing’aosi Industrial Co., Ltd. is an electric motorcycle manufacturer based in Shenzhen. Buy directly from the company behind your motorcycle.</p><ul><li><strong>Legal entity:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li><li><strong>Business type:</strong> Manufacturer</li><li><strong>Based in:</strong> Shenzhen</li><li><strong>Registered address:</strong> Building B3, Unit 11H, Yuling Garden, Nanwan Street, Longgang District, Shenzhen</li><li><strong>Established:</strong> 2018</li><li><strong>Contact:</strong> <a href=\"mailto:support@panquire.com\">support@panquire.com</a></li></ul>"
+      },
+      "blocks": {
+        "design": {
+          "type": "certificate",
+          "settings": {
+            "heading": "Design Protection",
+            "body": "<p>Our registered electric-bicycle design is protected by design patent No. ZL202630016875.4, held by Shenzhen Jing’aosi Industrial Co., Ltd.</p><ul><li><strong>Protection:</strong> Design patent</li><li><strong>Registered design:</strong> Electric bicycle</li><li><strong>Patent number:</strong> ZL202630016875.4</li><li><strong>Owner:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li></ul>"
+          }
+        },
+        "artwork": {
+          "type": "certificate",
+          "settings": {
+            "heading": "Registered Design Artwork",
+            "body": "<p>Shenzhen Jing’aosi Industrial Co., Ltd. holds a copyright registration for electric-motorcycle and electric off-road motorcycle artwork, registration No. 国作登字-2026-F-00016792.</p><ul><li><strong>Record:</strong> Artwork copyright registration</li><li><strong>Work:</strong> Electric motorcycle / Electric off-road motorcycle</li><li><strong>Registration number:</strong> National Work Registration Number-2026-F-00016792</li><li><strong>Registered owner:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li></ul>"
+          }
+        },
+        "product": {
+          "type": "certificate",
+          "settings": {
+            "heading": "Product Certification",
+            "body": "<p>Models T1-1, T1-2, T1-3, T1-4 and T1-5 are covered by Compulsory Certification (CCC), certificate No. 2025017813550770, within the certificate’s approved scope. This certification relates to applicable requirements and does not establish approval or road legality in other markets.</p><ul><li><strong>Certification:</strong> Compulsory Certification (CCC)</li><li><strong>Covered models:</strong> T1-1 / T1-2 / T1-3 / T1-4 / T1-5</li><li><strong>Certificate number:</strong> 2025017813550770</li><li><strong>Market scope:</strong> Certified markets</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "design",
+        "artwork",
+        "product"
+      ]
     }
   },
   "order": [
