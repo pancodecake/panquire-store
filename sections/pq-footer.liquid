@@ -109,10 +109,10 @@
         <div class="pq-footer-contact" aria-labelledby="FooterContactHeading-{{ section.id }}">
           <h2 id="FooterContactHeading-{{ section.id }}">{{ section.settings.contact_heading | escape }}</h2>
           {% if footer_phone != blank %}
-            <a href="tel:{{ footer_phone_href }}"><span>{{ section.settings.phone_label | escape }}</span><strong>{{ footer_phone | escape }}</strong></a>
+            <a href="tel:{{ footer_phone_href }}"><img src="{{ 'phone-handset-svgrepo-com.svg' | asset_url }}" alt="{{ section.settings.phone_label | escape }}" width="18" height="18" loading="lazy"><strong>{{ footer_phone | escape }}</strong></a>
           {% endif %}
           {% if section.settings.support_email != blank %}
-            <a href="mailto:{{ section.settings.support_email | escape }}"><span>{{ section.settings.support_label | escape }}</span><strong>{{ section.settings.support_email | escape }}</strong></a>
+            <a href="mailto:{{ section.settings.support_email | escape }}"><img src="{{ 'mail-shield-svgrepo-com.svg' | asset_url }}" alt="{{ section.settings.support_label | escape }}" width="18" height="18" loading="lazy"><strong>{{ section.settings.support_email | escape }}</strong></a>
           {% endif %}
         </div>
       </aside>
@@ -143,7 +143,7 @@
     {"type":"url","id":"youtube_url","label":"YouTube URL"},
     {"type":"url","id":"tiktok_url","label":"TikTok URL"},
     {"type":"header","content":"Phone and support"},
-    {"type":"text","id":"contact_heading","label":"Heading","default":"Phone & support"},
+    {"type":"text","id":"contact_heading","label":"Heading","default":"Contact Us"},
     {"type":"text","id":"phone_label","label":"Phone label","default":"Phone"},
     {"type":"text","id":"phone_number","label":"Phone number","info":"Uses the Shopify store phone when left blank."},
     {"type":"text","id":"support_label","label":"Support label","default":"Support"},

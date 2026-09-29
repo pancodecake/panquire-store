@@ -184,16 +184,16 @@
 .pq-footer-newsletter__message--error ul { margin-block: 0; padding-inline-start: 20px; }
 .pq-footer-community { display: grid; align-content: start; justify-items: start; gap: 24px; min-width: 0; }
 .pq-footer-brand { display: block; margin: 0; font-size: 32px; }
-.pq-footer-social h2,
-.pq-footer-contact h2 { margin-block-end: 12px; color: var(--color-heading-accent); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.pq-footer-social h2 { margin-block-end: 12px; color: var(--color-heading-accent); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.pq-footer-contact h2 { margin-block-end: 12px; color: var(--color-heading-accent); font-size: 13px; }
 .pq-social-links { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; margin: 0; }
 .pq-social-links :is(a,.pq-social-link--inactive) { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--pq-line); border-radius: 50%; color: var(--pq-text); -webkit-text-fill-color: currentColor; background-image: none; transition: color var(--pq-motion-fast) ease, border-color var(--pq-motion-fast) ease, transform var(--pq-motion-fast) var(--pq-ease-out); }
 .pq-social-links svg { width: 21px; height: 21px; fill: currentColor; }
 .pq-social-links a:is(:hover,:focus-visible) { color: var(--color-accent-solid); border-color: var(--color-accent-solid); text-decoration: none; }
 .pq-social-link--inactive { opacity: .38; cursor: not-allowed; }
 .pq-footer-contact { display: grid; justify-items: start; }
-.pq-footer-contact a { display: grid; grid-template-columns: 62px minmax(0,1fr); align-items: baseline; gap: 12px; min-height: 36px; color: var(--pq-muted); }
-.pq-footer-contact a span { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.pq-footer-contact a { display: grid; grid-template-columns: 18px minmax(0,1fr); align-items: center; gap: 12px; min-height: 36px; color: var(--pq-muted); }
+.pq-footer-contact a img { display: block; width: 18px; height: 18px; filter: invert(1); opacity: .75; }
 .pq-footer-contact a strong { color: var(--pq-text); font-weight: 600; }
 .pq-footer-trust { display: grid; justify-items: start; gap: 9px; text-align: start; }
 .pq-footer-trust h2 { color: var(--pq-muted); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; }
