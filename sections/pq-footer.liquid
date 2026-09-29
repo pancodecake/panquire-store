@@ -109,10 +109,10 @@
         <div class="pq-footer-contact" aria-labelledby="FooterContactHeading-{{ section.id }}">
           <h2 id="FooterContactHeading-{{ section.id }}">{{ section.settings.contact_heading | escape }}</h2>
           {% if footer_phone != blank %}
-            <a href="tel:{{ footer_phone_href }}"><img src="{{ 'phone-handset-svgrepo-com.svg' | asset_url }}" alt="{{ section.settings.phone_label | escape }}" width="18" height="18" loading="lazy"><strong>{{ footer_phone | escape }}</strong></a>
+            <a href="tel:{{ footer_phone_href }}" aria-label="{{ section.settings.phone_label | escape }}: {{ footer_phone | escape }}"><span class="pq-footer-contact-icon" style="--pq-footer-contact-icon: url('{{ 'phone-handset-svgrepo-com.svg' | asset_url }}')" aria-hidden="true"></span><strong>{{ footer_phone | escape }}</strong></a>
           {% endif %}
           {% if section.settings.support_email != blank %}
-            <a href="mailto:{{ section.settings.support_email | escape }}"><img src="{{ 'mail-shield-svgrepo-com.svg' | asset_url }}" alt="{{ section.settings.support_label | escape }}" width="18" height="18" loading="lazy"><strong>{{ section.settings.support_email | escape }}</strong></a>
+            <a href="mailto:{{ section.settings.support_email | escape }}" aria-label="{{ section.settings.support_label | escape }}: {{ section.settings.support_email | escape }}"><span class="pq-footer-contact-icon" style="--pq-footer-contact-icon: url('{{ 'mail-shield-svgrepo-com.svg' | asset_url }}')" aria-hidden="true"></span><strong>{{ section.settings.support_email | escape }}</strong></a>
           {% endif %}
         </div>
       </aside>

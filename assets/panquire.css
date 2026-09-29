@@ -193,7 +193,8 @@
 .pq-social-link--inactive { opacity: .38; cursor: not-allowed; }
 .pq-footer-contact { display: grid; justify-items: start; }
 .pq-footer-contact a { display: grid; grid-template-columns: 18px minmax(0,1fr); align-items: center; gap: 12px; min-height: 36px; color: var(--pq-muted); }
-.pq-footer-contact a img { display: block; width: 18px; height: 18px; filter: invert(1); opacity: .75; }
+.pq-footer-contact-icon { display: block; width: 18px; height: 18px; background-color: currentColor; -webkit-mask: var(--pq-footer-contact-icon) center / contain no-repeat; mask: var(--pq-footer-contact-icon) center / contain no-repeat; transition: background-color var(--pq-motion-fast) ease; }
+.pq-footer-contact a:is(:hover,:focus-visible) .pq-footer-contact-icon { background-color: var(--color-heading-accent); }
 .pq-footer-contact a strong { color: var(--pq-text); font-weight: 600; }
 .pq-footer-trust { display: grid; justify-items: start; gap: 9px; text-align: start; }
 .pq-footer-trust h2 { color: var(--pq-muted); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; }
