@@ -1,10 +1,17 @@
 <div class="pq pq-about-editorial pq-section">
   <div class="pq-container">
-    {% assign story_parts = section.settings.story | split: '</p>' %}
     <section class="pq-brand-layout" aria-labelledby="Brand-{{ section.id }}">
       <div class="pq-brand-column pq-brand-column--left">
         <h1 class="pq-section-title" id="Brand-{{ section.id }}">{{ section.settings.brand_heading | escape }}</h1>
-        <div class="pq-prose pq-brand-intro">{{ story_parts[0] | append: '</p>' }}</div>
+        {% assign brand_text_index = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'brand_text' %}
+            {% assign brand_text_index = brand_text_index | plus: 1 %}
+            {% if brand_text_index == 1 %}
+              <div class="pq-prose pq-brand-intro" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
         <div class="pq-brand-images">
           {% assign brand_keys = 'brand_primary,brand_secondary' | split: ',' %}
           {% assign brand_files = 'pq-about-hydraulic.jpg,pq-about-chamber.jpg' | split: ',' %}
@@ -17,12 +24,28 @@
             {% endif %}
           {% endfor %}
         </div>
-        <div class="pq-prose pq-brand-quote">{{ story_parts[4] | append: '</p>' }}</div>
+        {% assign brand_text_index = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'brand_text' %}
+            {% assign brand_text_index = brand_text_index | plus: 1 %}
+            {% if brand_text_index == 5 %}
+              <div class="pq-prose pq-brand-quote" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
       <div class="pq-brand-column pq-brand-column--right pq-prose">
-        <div class="pq-brand-story">{{ story_parts[1] | append: '</p>' }}</div>
-        <div class="pq-brand-engineering">{{ story_parts[3] | append: '</p>' }}</div>
-        <div class="pq-brand-purpose">{{ story_parts[2] | append: '</p>' }}</div>
+        {% assign brand_text_index = 0 %}
+        {% for block in section.blocks %}
+          {% if block.type == 'brand_text' %}
+            {% assign brand_text_index = brand_text_index | plus: 1 %}
+            {% case brand_text_index %}
+              {% when 2 %}<div class="pq-brand-story" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+              {% when 3 %}<div class="pq-brand-engineering" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+              {% when 4 %}<div class="pq-brand-purpose" {{ block.shopify_attributes }}>{{ block.settings.content }}</div>
+            {% endcase %}
+          {% endif %}
+        {% endfor %}
       </div>
     </section>
     <section class="pq-manufacturer" aria-labelledby="Manufacturer-{{ section.id }}">
@@ -30,10 +53,12 @@
       <div class="pq-prose">{{ section.settings.manufacturer }}</div>
       <div class="pq-certificates">
         {% for block in section.blocks %}
-          <details class="pq-certificate" {{ block.shopify_attributes }}>
-            <summary><span>{{ block.settings.heading | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
-            <div class="pq-certificate-body pq-prose">{{ block.settings.body }}</div>
-          </details>
+          {% if block.type == 'certificate' %}
+            <details class="pq-certificate" {{ block.shopify_attributes }}>
+              <summary><span>{{ block.settings.heading | escape }}</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+              <div class="pq-certificate-body pq-prose">{{ block.settings.body }}</div>
+            </details>
+          {% endif %}
         {% endfor %}
       </div>
       <div class="pq-factory-images">
@@ -127,7 +152,7 @@
   "name": "Panquire about story",
   "settings": [
     { "type": "text", "id": "brand_heading", "label": "Brand heading", "default": "Our Brand" },
-    { "type": "richtext", "id": "story", "label": "Brand story" },
+    { "type": "paragraph", "content": "Drag the five Brand text blocks to move copy between the About-page layout positions." },
     { "type": "image_picker", "id": "brand_primary", "label": "Brand primary image" },
     { "type": "image_picker", "id": "brand_secondary", "label": "Brand overlapping image" },
     { "type": "text", "id": "manufacturer_heading", "label": "Manufacturer heading", "default": "Manufacturer Info" },
@@ -136,10 +161,16 @@
     { "type": "image_picker", "id": "factory_top", "label": "Factory top right image" },
     { "type": "image_picker", "id": "factory_bottom", "label": "Factory bottom right image" }
   ],
-  "blocks": [{ "type": "certificate", "name": "Certificate", "settings": [
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Certificate" },
-    { "type": "richtext", "id": "body", "label": "Details" }
-  ] }],
+  "blocks": [
+    { "type": "brand_text", "name": "Brand text", "limit": 5, "settings": [
+      { "type": "text", "id": "label", "label": "Editor label", "default": "Text block" },
+      { "type": "richtext", "id": "content", "label": "Content" }
+    ] },
+    { "type": "certificate", "name": "Certificate", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Certificate" },
+      { "type": "richtext", "id": "body", "label": "Details" }
+    ] }
+  ],
   "presets": [{ "name": "Panquire about story" }]
 }
 {% endschema %}

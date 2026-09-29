@@ -4,11 +4,45 @@
       "type": "pq-about-story",
       "settings": {
         "brand_heading": "Our Brand",
-        "story": "<p>Panquire was created in 2018 to manufacture electric two-wheeler’s to address the riders who didn’t want to pay high end price but also not wanting to settle on low-end bikes, just like us.</p><p>Many of our own team members had their first-hand frustrations with the current electric motorcycle industry. Some frustrations came during the first electric bike search phase, where they struggled to find a balanced entry point into the market, something affordable, reliable, and capable enough to grow with them. Others already bought e-dirt bike only to quickly realize that they already needed to upgrade for more power, better components, and a bike that did not feel like it was built around compromises.</p><p>We have been on both sides of that experience, and that is exactly why Panquire exists.</p><p>From the frame and suspension to the motor, battery, brakes, and controls, we put thousands of decisions into the design and engineering of every bike so you do not have to think about them once you start riding.</p><p>Because when you are on the trail, the only thing rushing through your head should be adrenaline.</p>",
         "manufacturer_heading": "Manufacturer Info",
         "manufacturer": "<p>Shenzhen Jing’aosi Industrial Co., Ltd. is an electric motorcycle manufacturer based in Shenzhen. Buy directly from the company behind your motorcycle.</p><ul><li><strong>Legal entity:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li><li><strong>Business type:</strong> Manufacturer</li><li><strong>Based in:</strong> Shenzhen</li><li><strong>Registered address:</strong> Building B3, Unit 11H, Yuling Garden, Nanwan Street, Longgang District, Shenzhen</li><li><strong>Established:</strong> 2018</li><li><strong>Contact:</strong> <a href=\"mailto:support@panquire.com\">support@panquire.com</a></li></ul>"
       },
       "blocks": {
+        "intro": {
+          "type": "brand_text",
+          "settings": {
+            "label": "Intro",
+            "content": "<p>Panquire was created in 2018 to manufacture electric two-wheeler’s to address the riders who didn’t want to pay high end price but also not wanting to settle on low-end bikes, just like us.</p>"
+          }
+        },
+        "story": {
+          "type": "brand_text",
+          "settings": {
+            "label": "Story",
+            "content": "<p>Many of our own team members had their first-hand frustrations with the current electric motorcycle industry. Some frustrations came during the first electric bike search phase, where they struggled to find a balanced entry point into the market, something affordable, reliable, and capable enough to grow with them. Others already bought e-dirt bike only to quickly realize that they already needed to upgrade for more power, better components, and a bike that did not feel like it was built around compromises.</p>"
+          }
+        },
+        "engineering": {
+          "type": "brand_text",
+          "settings": {
+            "label": "Engineering",
+            "content": "<p>From the frame and suspension to the motor, battery, brakes, and controls, we put thousands of decisions into the design and engineering of every bike so you do not have to think about them once you start riding.</p>"
+          }
+        },
+        "purpose": {
+          "type": "brand_text",
+          "settings": {
+            "label": "Purpose",
+            "content": "<p>We have been on both sides of that experience, and that is exactly why Panquire exists.</p>"
+          }
+        },
+        "quote": {
+          "type": "brand_text",
+          "settings": {
+            "label": "Quote",
+            "content": "<p>Because when you are on the trail, the only thing rushing through your head should be adrenaline.</p>"
+          }
+        },
         "design": {
           "type": "certificate",
           "settings": {
@@ -32,6 +66,11 @@
         }
       },
       "block_order": [
+        "intro",
+        "story",
+        "engineering",
+        "purpose",
+        "quote",
         "design",
         "artwork",
         "product"
