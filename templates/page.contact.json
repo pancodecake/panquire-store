@@ -16,7 +16,9 @@
             "submit-button": {
               "type": "contact-form-submit-button",
               "static": true,
-              "settings": {}
+              "settings": {
+                "label": "Send message"
+              }
             }
           },
           "block_order": []

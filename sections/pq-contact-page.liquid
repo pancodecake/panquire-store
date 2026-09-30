@@ -1,18 +1,112 @@
-<section class="pq pq-contact-page">
+<section class="pq pq-contact-page" aria-labelledby="ContactHeading-{{ section.id }}">
   <div class="pq-container">
-    <header class="pq-page-intro"><p>{{ section.settings.eyebrow | escape }}</p><h1>{{ section.settings.heading | escape }}</h1><div class="pq-prose">{{ section.settings.text }}</div></header>
-    <div class="pq-contact-form">{% content_for 'blocks' %}</div>
+    <header class="pq-contact-header">
+      <h1 id="ContactHeading-{{ section.id }}">{{ section.settings.heading | escape }}</h1>
+    </header>
+
+    <div class="pq-contact-layout">
+      <aside class="pq-contact-support" aria-labelledby="SupportHeading-{{ section.id }}">
+        <div class="pq-contact-signal" aria-hidden="true">
+          <span style="--pq-contact-handset: url('{{ 'phone-handset-svgrepo-com.svg' | asset_url }}')"></span>
+        </div>
+        <div class="pq-contact-support__copy">
+          <h2 id="SupportHeading-{{ section.id }}">{{ section.settings.support_heading | escape }}</h2>
+          <div class="pq-prose">{{ section.settings.text }}</div>
+          <dl>
+            <div><dt>{{ section.settings.hours_label | escape }}</dt><dd>{{ section.settings.hours | escape }}</dd></div>
+            <div><dt>{{ section.settings.timezone_label | escape }}</dt><dd>{{ section.settings.timezone | escape }}</dd></div>
+          </dl>
+        </div>
+      </aside>
+
+      <div class="pq-contact-form">
+        <div class="pq-contact-form__intro">
+          <div class="pq-contact-form__title">
+            <h2>{{ section.settings.form_heading | escape }}</h2>
+            <a href="mailto:{{ section.settings.support_email | escape }}">{{ section.settings.support_email | escape }}</a>
+          </div>
+          <p>{{ section.settings.form_text | escape }}</p>
+        </div>
+        {% content_for 'blocks' %}
+      </div>
+    </div>
   </div>
 </section>
+
+{% stylesheet %}
+  .pq-contact-page { padding-block: clamp(56px,8vw,104px); }
+  .pq-contact-header { margin-bottom: 32px; }
+  .pq-contact-header h1 { margin: 0; color: var(--color-heading-accent); font-size: clamp(42px,6vw,78px); letter-spacing: -.055em; }
+  .pq-contact-layout { display: grid; grid-template-columns: minmax(280px,.82fr) minmax(0,1.18fr); gap: 18px; align-items: stretch; }
+  .pq-contact-support, .pq-contact-form { border: 1px solid var(--color-border); border-radius: 24px; background: var(--color-bg-surface); box-shadow: inset 0 1px rgb(255 255 255 / .035), 0 24px 60px rgb(0 0 0 / .16); }
+  .pq-contact-support { position: relative; isolation: isolate; display: flex; min-height: 610px; padding: clamp(28px,4vw,48px); overflow: hidden; }
+  .pq-contact-support::before { content: ''; position: absolute; z-index: -2; inset: 0; background: radial-gradient(circle at 74% 24%,color-mix(in srgb,var(--color-accent-solid) 38%,transparent),transparent 38%), linear-gradient(145deg,color-mix(in srgb,var(--color-bg-surface) 86%,white),var(--color-bg-page)); }
+  .pq-contact-signal { position: absolute; top: clamp(42px,7vw,78px); right: clamp(24px,4vw,46px); width: min(68%,250px); aspect-ratio: 1; border: 1px solid color-mix(in srgb,var(--color-accent-solid) 26%,transparent); border-radius: 50%; }
+  .pq-contact-signal::before, .pq-contact-signal::after { content: ''; position: absolute; border: 1px solid color-mix(in srgb,var(--color-accent-solid) 20%,transparent); border-radius: inherit; }
+  .pq-contact-signal::before { inset: 14%; }
+  .pq-contact-signal::after { inset: 30%; }
+  .pq-contact-signal span { position: absolute; inset: 24%; background: linear-gradient(135deg,var(--color-heading-accent),var(--color-accent-solid)); filter: drop-shadow(0 18px 30px color-mix(in srgb,var(--color-accent-solid) 28%,transparent)); -webkit-mask: var(--pq-contact-handset) center / contain no-repeat; mask: var(--pq-contact-handset) center / contain no-repeat; transform: rotate(-22deg); }
+  .pq-contact-support__copy { align-self: end; width: 100%; }
+  .pq-contact-support h2, .pq-contact-form h2 { margin: 0; color: var(--color-text-primary); font-size: clamp(24px,2.5vw,34px); letter-spacing: -.035em; }
+  .pq-contact-support .pq-prose { margin-top: 14px; font-size: 15px; line-height: 1.7; }
+  .pq-contact-support dl { display: grid; grid-template-columns: 1fr auto; gap: 16px; margin: 30px 0 0; padding-top: 22px; border-top: 1px solid var(--color-border); }
+  .pq-contact-support dl div { display: contents; }
+  .pq-contact-support dt { color: var(--color-text-secondary); font-size: 13px; }
+  .pq-contact-support dd { margin: 0; color: var(--color-text-primary); font-size: 13px; text-align: right; }
+  .pq-contact-form { max-width: none; padding: clamp(28px,4vw,48px); }
+  .pq-contact-form__intro { margin-bottom: 28px; }
+  .pq-contact-form__title { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .pq-contact-form__title a { flex: 0 0 auto; display: inline-flex; align-items: center; min-height: 36px; padding: 7px 12px; border: 1px solid var(--color-border-strong); border-radius: 999px; background: color-mix(in srgb,var(--color-bg-page) 48%,transparent); color: var(--color-text-secondary); font-size: 13px; line-height: 1; text-decoration: none; transition: border-color 140ms ease, color 140ms ease, background-color 140ms ease; }
+  .pq-contact-form__intro p { margin: 10px 0 0; color: var(--color-text-secondary); font-size: 14px; line-height: 1.55; }
+  .pq-contact-page .contact-form { width: 100%; }
+  .pq-contact-page .contact-form form { display: grid; gap: 20px; }
+  .pq-contact-page .contact-form__form-row { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+  .pq-contact-page .contact-form__field { display: grid; gap: 7px; min-width: 0; }
+  .pq-contact-page .contact-form__label { color: var(--color-text-secondary); font-size: 13px; line-height: 1.4; }
+  .pq-contact-page .contact-form__input { min-height: 52px; padding: 14px 16px; border: 1px solid var(--color-border-strong); border-radius: 12px; background: color-mix(in srgb,var(--color-bg-page) 62%,var(--color-bg-surface)); color: var(--color-text-primary); font-size: 16px; transition: border-color 140ms ease, box-shadow 140ms ease, background-color 140ms ease; }
+  .pq-contact-page .contact-form__input::placeholder { color: color-mix(in srgb,var(--color-text-secondary) 72%,transparent); opacity: 1; }
+  .pq-contact-page .contact-form__input:focus { border-color: var(--color-accent-solid); background: var(--color-bg-page); box-shadow: 0 0 0 3px color-mix(in srgb,var(--color-accent-solid) 16%,transparent); outline: 0; }
+  .pq-contact-page .contact-form__input--textarea { min-height: 154px; }
+  .pq-contact-page .submit-button { width: 100%; min-height: 52px; margin-top: 2px; border-radius: 14px; transition: transform 100ms ease-out, background-color 140ms ease; }
+  .pq-contact-page .submit-button:active { transform: scale(.985); }
+  .pq-contact-page .contact-form__error, .pq-contact-page .contact-form__success { padding: 14px 16px; border: 1px solid var(--color-border-strong); border-radius: 4px; background: var(--color-bg-page); }
+  .pq-contact-form__title a:is(:hover,:focus-visible) { border-color: var(--color-accent-solid); background: color-mix(in srgb,var(--color-accent-solid) 10%,var(--color-bg-page)); color: var(--color-text-primary); }
+  @media (max-width: 800px) {
+    .pq-contact-layout { grid-template-columns: 1fr; }
+    .pq-contact-support { min-height: 480px; }
+  }
+  @media (max-width: 520px) {
+    .pq-contact-page { padding-block: 46px 72px; }
+    .pq-contact-header { margin-bottom: 24px; }
+    .pq-contact-support, .pq-contact-form { border-radius: 18px; }
+    .pq-contact-support { min-height: 430px; }
+    .pq-contact-form__title { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .pq-contact-page .contact-form__form-row { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pq-contact-page .contact-form__input, .pq-contact-page .submit-button { transition: none; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .pq-contact-form__title a { background: var(--color-bg-page); }
+  }
+{% endstylesheet %}
+
 {% schema %}
 {
-  "name":"Panquire contact page",
-  "settings":[
-    {"type":"text","id":"eyebrow","label":"Small heading","default":"Customer care"},
-    {"type":"text","id":"heading","label":"Heading","default":"Contact Us"},
-    {"type":"richtext","id":"text","label":"Introduction","default":"<p>Tell us how we can help. For corporate purchases, include your company name, business type, target models, estimated quantity, and delivery location. For an order enquiry, include your order number.</p>"}
+  "name": "Panquire contact page",
+  "settings": [
+    {"type":"text","id":"heading","label":"Heading","default":"Contact us"},
+    {"type":"text","id":"support_heading","label":"Support heading","default":"Panquire Support"},
+    {"type":"richtext","id":"text","label":"Help description","default":"<p>Tell us how we can help. For order questions, include your order number so we can respond faster.</p>"},
+    {"type":"text","id":"support_email","label":"Support email","default":"support@panquire.com"},
+    {"type":"text","id":"hours_label","label":"Hours label","default":"Customer support"},
+    {"type":"text","id":"hours","label":"Hours","default":"Monday–Friday, 9am–5pm"},
+    {"type":"text","id":"timezone_label","label":"Timezone label","default":"Timezone"},
+    {"type":"text","id":"timezone","label":"Timezone","default":"PST"},
+    {"type":"text","id":"form_heading","label":"Form heading","default":"Send us a message"},
+    {"type":"text","id":"form_text","label":"Form help text","default":"Required fields are marked with an asterisk."}
   ],
-  "blocks":[{"type":"contact-form"}],
-  "presets":[{"name":"Panquire contact page","blocks":[{"type":"contact-form"}]}]
+  "blocks": [{"type":"contact-form"}],
+  "presets": [{"name":"Panquire contact page","blocks":[{"type":"contact-form"}]}]
 }
 {% endschema %}
