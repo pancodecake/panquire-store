@@ -83,7 +83,7 @@
 .pq-benefit-icon svg { display: block; width: 25px; height: 25px; fill: currentColor; transition: transform 180ms ease; }
 .pq-benefit-icon svg [fill]:not([fill="none"]) { fill: currentColor !important; }
 .pq-benefit:hover .pq-benefit-icon svg { transform: translateY(-2px) scale(1.08); }
-.pq-benefit h2 { font-size: 12px; margin-block-end: 4px; }
+.pq-benefit h2 { font-size: 12px; margin-block-end: 4px; color: var(--color-heading-accent); }
 .pq-benefit p { font-size: 12px; line-height: 1.4; color: var(--pq-muted); }
 .pq-feature { padding-block-start: 0; }
 .pq-campaign { height: min(var(--pq-campaign-height, 1000px), 58vw); min-height: 240px; margin-block-end: 60px; }
