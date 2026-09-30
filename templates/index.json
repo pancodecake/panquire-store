@@ -45,28 +45,28 @@
           "type": "benefit",
           "settings": {
             "heading": "Worldwide Shipping",
-            "text": ""
+            "text": "Delivery within 30 days"
           }
         },
         "item2": {
           "type": "benefit",
           "settings": {
-            "heading": "1-Year Warranty",
-            "text": ""
+            "heading": "2 Year Warranty",
+            "text": "Built for lasting confidence,<br> backed by a 2-year warranty."
           }
         },
         "item3": {
           "type": "benefit",
           "settings": {
-            "heading": "Fast & Secure Checkout",
-            "text": ""
+            "heading": "2 Week Return Gurantee",
+            "text": "Shop with confidence, return within 14 days"
           }
         },
         "item4": {
           "type": "benefit",
           "settings": {
             "heading": "Factory Direct",
-            "text": ""
+            "text": "Custom designs available without middleman"
           }
         }
       },
