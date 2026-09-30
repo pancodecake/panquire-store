@@ -1,6 +1,14 @@
 <section class="pq pq-benefits">
   <div class="pq-container pq-benefit-grid">
-    {% for block in section.blocks %}<div class="pq-benefit" {{ block.shopify_attributes }}><span class="pq-benefit-icon">{% render 'pq-icon', name: 'check' %}</span><div><h2>{{ block.settings.heading | escape }}</h2><p>{{ block.settings.text | escape }}</p></div></div>{% endfor %}
+    {% for block in section.blocks %}
+      {% case forloop.index %}
+        {% when 1 %}{% assign benefit_icon = 'global-svgrepo-com.svg' %}
+        {% when 2 %}{% assign benefit_icon = 'invoice-warranty-line-svgrepo-com.svg' %}
+        {% when 3 %}{% assign benefit_icon = 'return-vector.svg' %}
+        {% when 4 %}{% assign benefit_icon = 'factory-svgrepo-com.svg' %}
+      {% endcase %}
+      <div class="pq-benefit" {{ block.shopify_attributes }}><span class="pq-benefit-icon"><img src="{{ benefit_icon | asset_url }}" width="20" height="20" alt="" aria-hidden="true" loading="lazy"></span><div><h2>{{ block.settings.heading | escape }}</h2><p>{{ block.settings.text | escape }}</p></div></div>
+    {% endfor %}
   </div>
 </section>
 {% schema %}

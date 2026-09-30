@@ -79,7 +79,9 @@
 .pq-benefits { padding-block: 20px; }
 .pq-benefit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .pq-benefit { display: flex; gap: 10px; align-items: flex-start; }
-.pq-benefit-icon { color: var(--color-secondary-solid); flex: 0 0 24px; }
+.pq-benefit-icon { display: flex; flex: 0 0 24px; align-items: center; justify-content: center; }
+.pq-benefit-icon img { display: block; width: 20px; height: 20px; object-fit: contain; filter: brightness(0) saturate(100%) invert(82%); transition: filter 180ms ease, transform 180ms ease; }
+.pq-benefit:hover .pq-benefit-icon img { filter: brightness(0) saturate(100%) invert(96%); transform: translateY(-2px) scale(1.08); }
 .pq-benefit h2 { font-size: 12px; margin-block-end: 4px; }
 .pq-benefit p { font-size: 12px; line-height: 1.4; color: var(--pq-muted); }
 .pq-feature { padding-block-start: 0; }
@@ -281,7 +283,7 @@
   .pq-hero-copy .pq-button { min-width: 0; flex: 1 1 160px; }
   .pq-benefit-grid { gap: 20px 12px; }
   .pq-benefit { gap: 8px; }
-  .pq-benefit-icon { display: none; }
+  .pq-benefit-icon { flex-basis: 20px; }
   .pq-campaign { min-height: 260px; height: 75vw; margin-block-end: 40px; }
   .pq-feature { padding-block-start: 0; }
   .pq-feature-panel { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 28px; }
