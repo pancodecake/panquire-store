@@ -84,90 +84,46 @@
         "item1": {
           "type": "model",
           "settings": {
-            "model": "Model 01",
-            "heading": "Everyday adventure",
-            "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "model": "T-01",
+            "heading": "T-01",
+            "text": "High-output electric performance for demanding off-road rides.",
             "product": "",
-            "label_1": "Performance",
-            "value_1": "Coming soon",
-            "label_2": "Power",
-            "value_2": "Coming soon",
-            "label_3": "Range",
-            "value_3": "Coming soon"
+            "label_1": "Peak Motor Power",
+            "value_1": "8000W",
+            "label_2": "Net Weight",
+            "value_2": "55 kg",
+            "label_3": "Battery",
+            "value_3": "60V 31.2Ah",
+            "label_4": "Max Load",
+            "value_4": "150 kg"
           }
         },
         "item2": {
           "type": "model",
           "settings": {
-            "model": "Model 02",
-            "heading": "Go further",
-            "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
+            "model": "T-02",
+            "heading": "T-02",
+            "text": "Central-motor power paired with extended battery capacity.",
             "product": "",
-            "label_1": "Performance",
-            "value_1": "Coming soon",
-            "label_2": "Power",
-            "value_2": "Coming soon",
-            "label_3": "Range",
-            "value_3": "Coming soon"
-          }
-        },
-        "item3": {
-          "type": "model",
-          "settings": {
-            "model": "Model 03",
-            "heading": "City explorer",
-            "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
-            "product": "",
-            "label_1": "Performance",
-            "value_1": "Coming soon",
-            "label_2": "Power",
-            "value_2": "Coming soon",
-            "label_3": "Range",
-            "value_3": "Coming soon"
-          }
-        },
-        "item4": {
-          "type": "model",
-          "settings": {
-            "model": "Model 04",
-            "heading": "Street ready",
-            "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
-            "product": "",
-            "label_1": "Performance",
-            "value_1": "Coming soon",
-            "label_2": "Power",
-            "value_2": "Coming soon",
-            "label_3": "Range",
-            "value_3": "Coming soon"
-          }
-        },
-        "item5": {
-          "type": "model",
-          "settings": {
-            "model": "Model 05",
-            "heading": "Compact fun",
-            "text": "Meet the upcoming Panquire collection. Product details will be shared here.",
-            "product": "",
-            "label_1": "Performance",
-            "value_1": "Coming soon",
-            "label_2": "Power",
-            "value_2": "Coming soon",
-            "label_3": "Range",
-            "value_3": "Coming soon"
+            "label_1": "Battery",
+            "value_1": "72V 41Ah",
+            "label_2": "Top Speed",
+            "value_2": "80 km/h",
+            "label_3": "Motor",
+            "value_3": "60V 3kW Central Motor",
+            "label_4": "",
+            "value_4": ""
           }
         }
       },
       "block_order": [
         "item1",
-        "item2",
-        "item3",
-        "item4",
-        "item5"
+        "item2"
       ],
       "settings": {
-        "heading": "Choose Your Next Ride",
-        "subtitle": "Preview the model before the purchase",
-        "show_campaign": true,
+        "heading": "Panquire Performance",
+        "subtitle": "Choose your ride",
+        "show_campaign": false,
         "campaign_height": 1000,
         "spacing": 70
       }

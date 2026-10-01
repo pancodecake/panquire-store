@@ -6,24 +6,29 @@
       <div class="pq-feature-panels">
         {% for block in section.blocks %}
           <article class="pq-feature-panel" id="Feature-{{ section.id }}-{{ block.id }}" data-pq-panel {{ block.shopify_attributes }}>
-            <div class="pq-feature-copy"><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.text | escape }}</p>
-              <dl class="pq-specs">{% for n in (1..3) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% if block.settings[label_key] != blank %}<div><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
-              {% if block.settings.product != blank %}<a class="pq-text-link" href="{{ block.settings.product.url }}">{{ 'panquire.view_product' | t }} {% render 'pq-icon', name: 'arrow' %}</a>{% endif %}
-            </div>
             <div class="pq-feature-image">
-              {% liquid
-                assign feature_image = block.settings.image
-                if feature_image == blank and settings.pq_real_product_images
-                  assign feature_image = block.settings.product.featured_image
-                endif
-                assign media_label = 'panquire.product_image' | t
-              %}
-              {% render 'pq-media', image: feature_image, label: media_label, sizes: '(min-width: 900px) 560px, 100vw' %}
+              {% if block.settings.image != blank %}
+                {% assign media_label = 'panquire.product_image' | t %}
+                {% render 'pq-media', image: block.settings.image, label: media_label, sizes: '(min-width: 900px) 760px, 100vw' %}
+              {% else %}
+                {% if block.settings.model == 'T-02' %}
+                  <img class="pq-image" src="{{ 'panquire-t02.png' | asset_url }}" alt="Panquire T-02 electric dirt bike" width="2880" height="2880" loading="lazy">
+                {% else %}
+                  <img class="pq-image" src="{{ 'panquire-t01.png' | asset_url }}" alt="Panquire T-01 electric dirt bike" width="3200" height="2560" loading="lazy">
+                {% endif %}
+              {% endif %}
+            </div>
+            <div class="pq-feature-copy">
+              <span class="pq-feature-kicker">Featured ride</span>
+              <h3>{{ block.settings.heading | escape }}</h3>
+              {% if block.settings.text != blank %}<p>{{ block.settings.text | escape }}</p>{% endif %}
+              <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% if block.settings[label_key] != blank %}<div><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+              {% if block.settings.product != blank %}<a class="pq-text-link" href="{{ block.settings.product.url }}">{{ 'panquire.view_product' | t }} {% render 'pq-icon', name: 'arrow' %}</a>{% endif %}
             </div>
           </article>
         {% endfor %}
       </div>
-      <div class="pq-feature-selectors" data-pq-selectors hidden>{% for block in section.blocks %}<button type="button" data-pq-select="{{ forloop.index0 }}" aria-controls="Feature-{{ section.id }}-{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ block.settings.model | escape }}</button>{% endfor %}</div>
+      <div class="pq-feature-selectors" data-pq-selectors hidden aria-label="Choose a bike model">{% for block in section.blocks %}<button type="button" data-pq-select="{{ forloop.index0 }}" aria-controls="Feature-{{ section.id }}-{{ block.id }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">{{ block.settings.model | escape }}</button>{% endfor %}</div>
     </div>
   </div>
 </section>
@@ -49,7 +54,9 @@
     { "type": "text", "id": "label_2", "label": "Second specification label", "default": "Power" },
     { "type": "text", "id": "value_2", "label": "Second specification value", "default": "Coming soon" },
     { "type": "text", "id": "label_3", "label": "Third specification label", "default": "Range" },
-    { "type": "text", "id": "value_3", "label": "Third specification value", "default": "Coming soon" }
+    { "type": "text", "id": "value_3", "label": "Third specification value", "default": "Coming soon" },
+    { "type": "text", "id": "label_4", "label": "Fourth specification label" },
+    { "type": "text", "id": "value_4", "label": "Fourth specification value" }
   ] }],
   "presets": [{ "name": "Panquire product feature", "blocks": [{"type":"model"},{"type":"model"},{"type":"model"}] }]
 }
