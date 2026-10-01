@@ -1,6 +1,6 @@
 <section class="pq pq-section pq-feature" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-feature>
   {% if section.settings.show_campaign %}<div class="pq-campaign" style="--pq-campaign-height: {{ section.settings.campaign_height }}px;">{% assign media_label = 'panquire.campaign_media' | t %}{% render 'pq-media', image: section.settings.campaign_image, label: media_label, sizes: '100vw' %}</div>{% endif %}
-  <div class="pq-container">
+  <div class="pq-feature-frame">
     <h2 class="pq-section-title" data-pq-reveal><span>{{ section.settings.heading | escape }}</span>{% if section.settings.subtitle != blank %}<small>{{ section.settings.subtitle | escape }}</small>{% endif %}</h2>
     <div class="pq-feature-layout" data-pq-reveal style="--pq-reveal-delay: 50ms;">
       <div class="pq-feature-panels">
@@ -12,16 +12,13 @@
                 {% render 'pq-media', image: block.settings.image, label: media_label, sizes: '(min-width: 900px) 760px, 100vw' %}
               {% else %}
                 {% if block.settings.model == 'T-02' %}
-                  <img class="pq-image" src="{{ 'panquire-t02.png' | asset_url }}" alt="Panquire T-02 electric dirt bike" width="2880" height="2880" loading="lazy">
+                  <img class="pq-image" src="{{ 'panquire-t02.png' | asset_url }}" alt="Panquire T-02 electric dirt bike" width="3200" height="2560" loading="lazy">
                 {% else %}
                   <img class="pq-image" src="{{ 'panquire-t01.png' | asset_url }}" alt="Panquire T-01 electric dirt bike" width="3200" height="2560" loading="lazy">
                 {% endif %}
               {% endif %}
             </div>
             <div class="pq-feature-copy">
-              <span class="pq-feature-kicker">Featured ride</span>
-              <h3>{{ block.settings.heading | escape }}</h3>
-              {% if block.settings.text != blank %}<p>{{ block.settings.text | escape }}</p>{% endif %}
               <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% if block.settings[label_key] != blank %}<div><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
               {% if block.settings.product != blank %}<a class="pq-text-link" href="{{ block.settings.product.url }}">{{ 'panquire.view_product' | t }} {% render 'pq-icon', name: 'arrow' %}</a>{% endif %}
             </div>
