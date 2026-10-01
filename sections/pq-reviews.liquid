@@ -1,27 +1,42 @@
-<section class="pq pq-section pq-reviews pq-reviews--{{ section.settings.layout }}" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-carousel>
+<section class="pq pq-section pq-reviews" style="--pq-space: {{ section.settings.spacing }}px;" data-pq-reviews aria-label="{{ section.settings.heading | escape }}">
   <div class="pq-container" data-pq-reveal><h2 class="pq-section-title">{{ section.settings.heading | escape }}</h2>{% if section.settings.text != blank %}<p class="pq-review-intro">{{ section.settings.text | escape }}</p>{% endif %}</div>
-  <div class="pq-review-track" data-pq-track data-pq-reveal style="--pq-reveal-delay: 50ms;">
+  <div class="pq-review-stage" tabindex="0" aria-roledescription="carousel">
     {% for block in section.blocks %}
-      <article class="pq-review" data-pq-item {{ block.shopify_attributes }}>
-        <div class="pq-review-person"><div class="pq-review-avatar">{% assign media_label = 'panquire.reviewer_image' | t %}{% render 'pq-media', image: block.settings.image, label: media_label, sizes: '80px' %}</div><p>{% if block.settings.name != blank %}{{ block.settings.name | escape }}{% elsif section.settings.layout == 'expert' %}{{ 'panquire.sample_expert' | t }}{% else %}{{ 'panquire.sample_reviewer' | t }}{% endif %}</p></div>
-        {% if block.settings.quote != blank %}<blockquote>{{ block.settings.quote | escape }}</blockquote>{% else %}<p class="pq-review-empty">{% if section.settings.layout == 'expert' %}{{ 'panquire.expert_placeholder' | t }}{% else %}{{ 'panquire.review_placeholder' | t }}{% endif %}</p>{% endif %}
+      <article class="pq-post" data-review-card aria-label="{{ block.settings.name | escape }}" {{ block.shopify_attributes }}>
+        <header class="pq-post-header"><img class="pq-post-logo" src="{{ 'panquire-review-logo.webp' | asset_url }}" width="40" height="40" alt="Panquire" loading="lazy"><strong>Panquire</strong><span class="pq-post-menu" aria-hidden="true">•••</span></header>
+        {% if block.settings.image != blank %}
+          {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'pq-post-photo', alt: block.settings.name, loading: 'lazy', sizes: '(max-width: 600px) 85vw, 380px' }}
+        {% elsif block.settings.asset != blank %}
+          <img class="pq-post-photo" src="{{ block.settings.asset | asset_url }}" width="1000" height="800" alt="{{ block.settings.name | escape }} with Panquire" loading="lazy" draggable="false">
+        {% endif %}
+        <div class="pq-post-content">
+          <div class="pq-post-actions" aria-hidden="true">
+            <svg class="pq-post-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a9 9 0 1 0-4.8 8L21 21l-.6-4.8a9 9 0 0 0 .6-4.7Z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></svg>
+            <span class="pq-post-dots"><i></i><i></i><i></i><i></i><i></i></span>
+            <svg class="pq-post-bookmark" viewBox="0 0 24 24"><path d="M5 3h14v19l-7-5-7 5V3Z"/></svg>
+          </div>
+          <div class="pq-post-likes"><span class="pq-post-avatars" aria-hidden="true"><i></i><i></i></span>{{ 'panquire.review_likes' | t }}</div>
+          <p class="pq-post-caption"><strong>{{ block.settings.name | escape }}:</strong> {{ block.settings.quote | escape }}</p>
+        </div>
       </article>
     {% endfor %}
+    <div class="pq-review-nav" hidden><button type="button" data-review-prev aria-label="{{ 'panquire.previous_review' | t }}">‹</button><button type="button" data-review-next aria-label="{{ 'panquire.next_review' | t }}">›</button></div>
   </div>
-  <div class="pq-container"><div class="pq-track-controls" data-pq-controls hidden><span class="pq-track-rule" aria-hidden="true"></span><button class="pq-square" type="button" data-pq-prev aria-label="{{ 'panquire.previous' | t }}">‹</button><button class="pq-square" type="button" data-pq-next aria-label="{{ 'panquire.next' | t }}">›</button></div></div>
+  <p class="visually-hidden" data-review-status aria-live="polite" aria-atomic="true"></p>
 </section>
 {% schema %}
 {
   "name": "Panquire reviews", "max_blocks": 10,
   "settings": [
-    { "type": "select", "id": "layout", "label": "Layout", "options": [{"value":"expert","label":"Featured expert review"},{"value":"riders","label":"Rider review cards"}], "default": "expert" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Independent perspectives" },
     { "type": "text", "id": "text", "label": "Description", "default": "A space for independent reviews and rider experiences." },
     { "type": "range", "id": "spacing", "label": "Section spacing", "min": 20, "max": 160, "step": 10, "unit": "px", "default": 90 }
   ],
   "blocks": [{ "type": "review", "name": "Review", "settings": [
-    { "type": "paragraph", "content": "Leave blank to display an explicit placeholder. Only add genuine reviews you have permission to publish." },
-    { "type": "image_picker", "id": "image", "label": "Reviewer image" },
+    { "type": "image_picker", "id": "image", "label": "Customer image" },
+    { "type": "text", "id": "asset", "label": "Bundled image filename" },
     { "type": "text", "id": "name", "label": "Reviewer name" },
     { "type": "textarea", "id": "quote", "label": "Review" }
   ] }],

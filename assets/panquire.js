@@ -87,6 +87,73 @@
       });
       sync();
     });
+    scope.querySelectorAll('[data-pq-reviews]').forEach((root) => {
+      if (root.dataset.reviewReady) return;
+      const cards = [...root.querySelectorAll('[data-review-card]')];
+      if (!cards.length) return;
+      const stage = root.querySelector('.pq-review-stage');
+      const status = root.querySelector('[data-review-status]');
+      let current = 0;
+      let pointer;
+      let dragged = false;
+      const select = (index, announce = true) => {
+        current = (index + cards.length) % cards.length;
+        cards.forEach((card, n) => {
+          let offset = (n - current + cards.length) % cards.length;
+          if (offset > cards.length / 2) offset -= cards.length;
+          const distance = Math.abs(offset);
+          card.style.setProperty('--offset', offset);
+          card.style.setProperty('--scale', distance === 0 ? 1 : distance === 1 ? .86 : .74);
+          card.style.setProperty('--opacity', distance > 1 ? 0 : 1);
+          card.style.setProperty('--layer', cards.length - distance);
+          card.toggleAttribute('data-active', distance === 0);
+          card.setAttribute('aria-hidden', String(distance !== 0));
+          card.style.pointerEvents = distance > 1 ? 'none' : '';
+        });
+        if (announce) status.textContent = `${current + 1} / ${cards.length}: ${cards[current].getAttribute('aria-label')}`;
+      };
+      const measure = () => {
+        const height = Math.max(...cards.map(card => [...card.children].reduce((sum, child) => sum + child.offsetHeight, 0)));
+        stage.style.setProperty('--post-height', `${Math.ceil(height) + 2}px`);
+      };
+      select(0, false);
+      root.dataset.reviewReady = 'true';
+      root.querySelector('.pq-review-nav').hidden = cards.length < 2;
+      root.querySelector('[data-review-prev]').addEventListener('click', () => select(current - 1));
+      root.querySelector('[data-review-next]').addEventListener('click', () => select(current + 1));
+      stage.addEventListener('keydown', event => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        select(event.key === 'Home' ? 0 : event.key === 'End' ? cards.length - 1 : current + (event.key === 'ArrowRight' ? 1 : -1));
+      });
+      cards.forEach((card, index) => card.addEventListener('click', () => { if (!dragged && index !== current) select(index); }));
+      stage.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || event.target.closest('button')) return;
+        pointer = { x: event.clientX, y: event.clientY, id: event.pointerId };
+        dragged = false;
+      });
+      stage.addEventListener('pointermove', event => {
+        if (!pointer) return;
+        if (Math.abs(event.clientX - pointer.x) > 10) { dragged = true; stage.setPointerCapture(event.pointerId); }
+      });
+      stage.addEventListener('pointerup', event => {
+        if (!pointer) return;
+        const dx = event.clientX - pointer.x;
+        const dy = event.clientY - pointer.y;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) select(current + (dx < 0 ? 1 : -1));
+        pointer = null;
+      });
+      stage.addEventListener('pointercancel', () => { pointer = null; });
+      stage.addEventListener('dragstart', event => event.preventDefault());
+      root.addEventListener('shopify:block:select', event => {
+        const index = cards.findIndex(card => card === event.target || card.contains(event.target));
+        if (index >= 0) select(index);
+      });
+      const observer = new ResizeObserver(measure);
+      cards.forEach(card => [...card.children].forEach(child => observer.observe(child)));
+      root.addEventListener('pq:dispose', () => observer.disconnect(), { once: true });
+      measure();
+    });
     scope.querySelectorAll('[data-pq-feature]').forEach((root) => {
       if (root.dataset.pqReady) return;
       root.dataset.pqReady = 'true';
@@ -116,7 +183,7 @@
   initialize();
   document.addEventListener('shopify:section:load', (event) => initialize(event.target));
   document.addEventListener('shopify:section:unload', (event) => {
-    event.target.querySelectorAll('[data-pq-carousel]').forEach((root) => root.dispatchEvent(new Event('pq:dispose')));
+    event.target.querySelectorAll('[data-pq-carousel], [data-pq-reviews]').forEach((root) => root.dispatchEvent(new Event('pq:dispose')));
     revealCleanups.get(event.target)?.();
     revealCleanups.delete(event.target);
   });

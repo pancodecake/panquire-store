@@ -9,6 +9,9 @@
  */
 {
   "panquire": {
+    "previous_review": "Previous review",
+    "next_review": "Next review",
+    "review_likes": "Liked by riders and 1822 others",
     "front_page": "Front Page",
     "products": "Products",
     "about": "About Us",

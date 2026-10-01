@@ -1,12 +1,3 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
     "hero": {
@@ -134,34 +125,63 @@
         "item1": {
           "type": "review",
           "settings": {
-            "name": "",
-            "quote": ""
+            "name": "Sophia R.",
+            "quote": "Very good bike overall, at least the T-01 version. Usually I don't like leaving reviews because i am too lazy but I don't mind helping a startup.Keep it up Panquire!",
+            "asset": "panquire-review-1.webp"
           }
         },
         "item2": {
           "type": "review",
           "settings": {
-            "name": "",
-            "quote": ""
+            "name": "Mateo A.",
+            "quote": "The T-01 was the first electric dirt bike I ever bought, and tbh I think for the price it was worth it. There are definatly better ones out there but not in my studen price range haha.",
+            "asset": "panquire-review-2.webp"
           }
         },
         "item3": {
           "type": "review",
           "settings": {
-            "name": "",
-            "quote": ""
+            "name": "Tyler B.",
+            "quote": "Been expirimenting on this bad boy for couple of weeks now, seems solid, T-02 definatly suits me more then the T-01 because it's just more powerfull innit. So yeah I can recommend this upcoming brand, hope they make even better bikes in the future while still not being overpriced!",
+            "asset": "panquire-review-3.webp"
+          }
+        },
+        "item4": {
+          "type": "review",
+          "settings": {
+            "name": "Sam W.",
+            "quote": "Been using T-02 for my weekend forest rides, absolutely love it! I used to ride gas bikes before but after tired of spending the maintanence price on it I decided to try the electric ones, and Panquire price to quality ratio was what convinced me and if it also wont break then I will be their probably first loyal customer.",
+            "asset": "panquire-review-4.webp"
+          }
+        },
+        "item5": {
+          "type": "review",
+          "settings": {
+            "name": "Alfred Jr",
+            "quote": "I was very careful before buying because of my unfamiliarity with Panquire brand, but because of their 1 year warranty I decided to risk it and well, it was worth it. I got their T-02 and it arrived without any issues so I been safely enjoying it ever since.",
+            "asset": "panquire-review-5.webp"
+          }
+        },
+        "item6": {
+          "type": "review",
+          "settings": {
+            "name": "Luca R.",
+            "quote": "I bought the T-02 for it looks, but kept it for the power, absolute beast!!!",
+            "asset": "panquire-review-6.webp"
           }
         }
       },
       "block_order": [
         "item1",
         "item2",
-        "item3"
+        "item3",
+        "item4",
+        "item5",
+        "item6"
       ],
       "settings": {
-        "layout": "expert",
         "heading": "Customer Reviews",
-        "text": "Pro or beginner, we will grow with every feedback",
+        "text": "We asked our first customers to send their pic and write their opinion, while their language is not \"marketing quality\" most of the time, their honesty is what we value the most and we are thankfull for all of them. Hopefully we will see you in our Panquire family album next!",
         "spacing": 90
       }
     }

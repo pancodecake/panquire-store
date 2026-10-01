@@ -146,21 +146,44 @@
 .pq-tiles--promos .pq-tile-copy { background: #08090bf2; padding-block-start: 20px; }
 .pq-tiles--promos .pq-tile-image .pq-placeholder { align-items: start; padding-block-start: 40px; }
 .pq-tiles--journal .pq-tile-track, .pq-tiles--promos .pq-tile-track { grid-template-columns: repeat(var(--pq-columns), minmax(0,1fr)); grid-auto-flow: row; }
-.pq-reviews--expert .pq-section-title { justify-content: center; margin-block-end: 16px !important; }
+.pq-reviews .pq-section-title { justify-content: center; margin-block-end: 16px !important; }
+.pq-reviews { overflow: clip; }
+.pq-reviews .pq-review-intro { max-width: 780px; margin-inline: auto; line-height: 1.65; }
+.pq-review-stage { --post-width: 380px; --post-step: 245px; position: relative; display: grid; justify-items: center; gap: 24px; max-width: 1160px; margin-inline: auto; outline-offset: -3px; }
+.pq-post { width: var(--post-width); max-width: calc(100vw - 64px); background: #000; color: #fff; border: 1px solid #252525; border-radius: 6px; overflow: hidden; font: 13px/1.5 Arial, sans-serif; text-align: left; }
+.pq-reviews[data-review-ready] .pq-review-stage { display: block; height: var(--post-height, 640px); touch-action: pan-y; }
+.pq-reviews[data-review-ready] .pq-post { position: absolute; top: 0; left: 50%; height: var(--post-height); transform: translateX(calc(-50% + var(--offset) * var(--post-step))) scale(var(--scale)); opacity: var(--opacity); z-index: var(--layer); transition: transform 520ms cubic-bezier(.22,.61,.36,1), opacity 350ms ease; box-shadow: 0 16px 38px #0005; cursor: pointer; }
+.pq-reviews[data-review-ready] .pq-post[data-active] { cursor: grab; }
+.pq-post-header { height: 58px; display: flex; align-items: center; gap: 10px; padding: 10px 13px; }
+.pq-post-logo { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; object-position: center; }
+.pq-post-menu { margin-left: auto; letter-spacing: 2px; }
+.pq-post-photo { display: block; width: 100%; height: auto; aspect-ratio: 1.25; object-fit: cover; user-select: none; }
+.pq-post-content { padding: 12px 13px 20px; }
+.pq-post-actions { position: relative; display: flex; align-items: center; gap: 13px; margin-bottom: 12px; }
+.pq-post-actions svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pq-post-actions .pq-post-heart { fill: #ff365b; stroke: #ff365b; }
+.pq-post-bookmark { margin-left: auto; }
+.pq-post-dots { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+.pq-post-dots i { width: 4px; height: 4px; border-radius: 50%; background: #666; }
+.pq-post-dots i:nth-child(2) { background: #3897f0; }
+.pq-post-likes { display: flex; align-items: center; gap: 7px; font-size: 11px; margin-bottom: 9px; }
+.pq-post-avatars { display: flex; padding-left: 5px; }
+.pq-post-avatars i { width: 17px; height: 17px; margin-left: -5px; border: 1px solid #000; border-radius: 50%; background: #777; }
+.pq-post-avatars i + i { background: #b7b7b7; }
+.pq-post-caption { margin: 0; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+.pq-review-nav { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.pq-review-nav button { position: absolute; top: 40%; width: 44px; height: 44px; border: 1px solid #ffffff30; border-radius: 50%; background: #000b; color: #fff; font: 30px/1 Arial, sans-serif; pointer-events: auto; }
+.pq-review-nav button:first-child { left: 24px; }
+.pq-review-nav button:last-child { right: 24px; }
+@media (max-width: 1000px) { .pq-review-stage { --post-width: 350px; --post-step: 185px; } }
+@media (max-width: 600px) {
+  .pq-review-stage { --post-width: calc(100vw - 64px); --post-step: 60vw; }
+  .pq-review-nav button:first-child { left: 4px; }
+  .pq-review-nav button:last-child { right: 4px; }
+  .pq-review-nav button { width: 44px; height: 44px; border: 0; background: #000c; }
+}
+@media (prefers-reduced-motion: reduce) { .pq-reviews[data-review-ready] .pq-post { transition: none; } }
 .pq-review-intro { text-align: center; color: var(--pq-muted); margin-block-end: 48px !important; }
-.pq-review-track { display: grid; grid-auto-flow: column; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding: 4px; }
-.pq-reviews--expert .pq-review-track { width: min(820px, calc(100% - 48px)); margin-inline: auto; grid-auto-columns: 100%; }
-.pq-review { padding: 34px; }
-.pq-reviews--expert .pq-review { display: grid; grid-template-columns: 170px 1fr; align-items: center; gap: 36px; border: 1px solid var(--color-border); border-radius: 2px; min-height: 210px; }
-.pq-review-avatar { width: 76px; height: 76px; overflow: hidden; border-radius: 50%; margin: 0 auto 12px; }
-.pq-review-avatar .pq-placeholder span { font-size: 10px; }
-.pq-review-person { text-align: center; font-size: 12px; font-weight: 700; }
-.pq-review blockquote, .pq-review-empty { font-size: 16px; line-height: 1.6; }
-.pq-reviews--riders .pq-review-track { grid-auto-columns: min(360px, 84vw); }
-.pq-reviews--riders .pq-review { display: flex; flex-direction: column-reverse; justify-content: space-between; gap: 24px; background: var(--pq-paper); color: var(--pq-ink); border: 1px solid var(--color-border); border-radius: 2px; padding: 22px; }
-.pq-reviews--riders .pq-review-person { display: flex; align-items: center; gap: 12px; text-align: start; }
-.pq-reviews--riders .pq-review-avatar { width: 40px; height: 40px; margin: 0; }
-.pq-reviews--riders .pq-review-avatar span { display: none; }
 .pq-newsletter { position: relative; min-height: 560px; }
 .pq-gallery { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); }
 .pq-gallery-image { aspect-ratio: 2.2; min-height: 220px; }
@@ -316,11 +339,7 @@
   .pq-tiles--promos .pq-tile-image { aspect-ratio: 1; }
   .pq-tiles--promos .pq-tile-copy h3 { font-size: 22px; }
   .pq-track-rule { margin-inline-end: 12px; }
-  .pq-reviews--expert .pq-review-track { width: calc(100% - 32px); }
-  .pq-reviews--expert .pq-review { grid-template-columns: 1fr; padding: 24px; gap: 20px; }
   .pq-review-intro { margin-block-end: 28px !important; }
-  .pq-reviews--expert .pq-review-person { display: flex; align-items: center; gap: 16px; text-align: start; }
-  .pq-reviews--expert .pq-review-avatar { margin: 0; width: 60px; height: 60px; }
   .pq-gallery { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .pq-gallery-image { min-height: 150px; aspect-ratio: 1.5; }
   .pq-newsletter-panel { position: relative; transform: none; inset-inline-start: auto; padding: 44px 24px; }
