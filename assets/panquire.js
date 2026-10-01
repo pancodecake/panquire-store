@@ -93,6 +93,7 @@
       if (!cards.length) return;
       const stage = root.querySelector('.pq-review-stage');
       const status = root.querySelector('[data-review-status]');
+      const dots = [...root.querySelectorAll('[data-review-dot]')];
       let current = 0;
       let pointer;
       let dragged = false;
@@ -104,12 +105,14 @@
           const distance = Math.abs(offset);
           card.style.setProperty('--offset', offset);
           card.style.setProperty('--scale', distance === 0 ? 1 : distance === 1 ? .86 : .74);
+          card.style.setProperty('--blur', distance === 0 ? '0px' : distance === 1 ? '3px' : '4px');
           card.style.setProperty('--opacity', distance > 1 ? 0 : 1);
           card.style.setProperty('--layer', cards.length - distance);
           card.toggleAttribute('data-active', distance === 0);
           card.setAttribute('aria-hidden', String(distance !== 0));
           card.style.pointerEvents = distance > 1 ? 'none' : '';
         });
+        dots.forEach(dot => dot.toggleAttribute('data-active-dot', Number(dot.dataset.reviewDot) === current));
         if (announce) status.textContent = `${current + 1} / ${cards.length}: ${cards[current].getAttribute('aria-label')}`;
       };
       const measure = () => {
