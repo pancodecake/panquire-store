@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -30,12 +39,12 @@
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
-            "slideshow_controls_style": "counter",
-            "slideshow_mobile_controls_style": "dots",
+            "slideshow_controls_style": "thumbnails",
+            "slideshow_mobile_controls_style": "thumbnails",
             "thumbnail_position": "bottom",
-            "thumbnail_width": 44,
+            "thumbnail_width": 72,
             "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
+            "aspect_ratio": "1",
             "constrain_to_viewport": true,
             "media_fit": "contain",
             "media_radius": 0,
@@ -171,19 +180,6 @@
                 "price_tVjtKg"
               ]
             },
-            "divider_VJhene": {
-              "type": "_divider",
-              "name": "t:names.divider",
-              "settings": {
-                "thickness": 1,
-                "corner_radius": "square",
-                "divider_color": "{{ settings.color_palette.color2 }}",
-                "width_percent": 100,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
@@ -267,30 +263,8 @@
               "block_order": []
             },
             "text_aEtTtq": {
-              "type": "text",
-              "name": "t:names.product_description",
-              "settings": {
-                "text": "{{ closest.product.description | split: '<h2>' | first }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "text_color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
+              "type": "pq-product-intro",
+              "settings": {}
             },
             "shipping": {
               "type": "pq-product-accordion",
@@ -300,19 +274,11 @@
                 "open": false
               }
             },
-            "full_details": {
-              "type": "pq-product-accordion",
-              "settings": {
-                "heading": "Full specifications & FAQs",
-                "use_product_description": true,
-                "open": false
-              }
-            },
             "warranty": {
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "Warranty & support",
-                "text": "<p>2-year warranty. Contact support@panquire.com for applicable coverage and claim terms.</p>",
+                "text": "<p>2-year warranty. <a href=\"/pages/contact\">Contact Panquire support</a> for applicable coverage and claim terms.</p>",
                 "open": false
               }
             },
@@ -320,25 +286,35 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "In the box",
-                "text": "<p>Bike, owner's manual ×1 and charger ×1. Additional accessory inclusion is awaiting confirmation.</p>",
+                "text": "<p>Bike, owner's manual ×1 and charger ×1.</p>",
                 "open": false
               }
             },
-            "highlights": {
-              "type": "pq-product-highlights",
-              "settings": {}
+            "inventory": {
+              "type": "product-inventory",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": false
+              }
+            },
+            "payments": {
+              "type": "payment-icons",
+              "settings": {
+                "horizontal_alignment": "flex-start",
+                "gap": 8
+              }
             }
           },
           "block_order": [
             "group_icgrde",
             "text_aEtTtq",
-            "highlights",
             "variant_picker_R3rGDr",
+            "inventory",
             "buy_buttons_eYQEYi",
+            "payments",
             "shipping",
             "warranty",
-            "box",
-            "full_details"
+            "box"
           ]
         }
       },
@@ -352,18 +328,13 @@
         "limit_details_width": false,
         "gap": 48,
         "enable_sticky_add_to_cart": false,
-        "background_color": "#f3f3f1",
+        "background_color": "#ffffff",
         "padding-block-start": 40,
         "padding-block-end": 70
       }
     },
     "model_story": {
-      "type": "pq-model-story",
-      "blocks": {
-        "t01": {"type":"model_images","settings":{"model":"t-01"}},
-        "t02": {"type":"model_images","settings":{"model":"t-02"}}
-      },
-      "block_order": ["t01", "t02"],
+      "type": "pq-product-editorial",
       "settings": {}
     }
   },
@@ -372,3 +343,4 @@
     "model_story"
   ]
 }
+

@@ -1,0 +1,8 @@
+<div class="pq-product-intro" {{ block.shopify_attributes }}>
+  <p class="pq-product-category">{{ closest.product.type | escape }}</p>
+  <div class="rte">{{ closest.product.description | split: '<h2>' | first }}</div>
+</div>
+{% schema %}
+{"name":"Panquire introduction","tag":null,"settings":[],"presets":[{"name":"Panquire introduction"}]}
+{% endschema %}
+
