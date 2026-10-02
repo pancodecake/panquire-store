@@ -9,6 +9,14 @@
  */
 {
   "panquire": {
+    "product_page": {
+      "battery": "Battery", "speed": "Top speed", "power": "Peak power",
+      "range": "Eco range", "weight": "Bike weight", "load": "Max load",
+      "features": "Key features", "geometry": "Geometry", "specifications": "Specifications",
+      "faqs": "Frequently asked questions", "compare": "Compare the numbers",
+      "support": "Questions? Contact Panquire support", "view_comparison": "View comparison",
+      "comparison_note": "Comparison figures are manufacturer-stated specifications supplied by Panquire. Range and performance test conditions may differ between brands and models."
+    },
     "model": {
       "peak": "peak",
       "panorama": "Panoramic view",
