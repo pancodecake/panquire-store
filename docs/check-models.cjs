@@ -11,7 +11,7 @@ const source = clean(fs.readFileSync(path.join(root,'snippets/pq-model-data.liqu
     for (const [field,value] of [['Maximum speed',speed],['Peak motor power',power],['Battery capacity',battery],['Net weight',weight]]) {
       assert.equal((await engine.parseAndRender(source,{model,field})).trim(),value);
     }
-    const rows=(await engine.parseAndRender(source,{model,field:'rows'})).trim().split('\n').map(row=>row.split('|'));
+    const rows=(await engine.parseAndRender(source,{model,field:'rows'})).trim().split(/\r?\n/).map(row=>row.split('|'));
     assert.equal(rows.length,32);
     const expected=require('./product-listings.cjs').models.find(item=>item.handle===model).rows;
     assert.deepEqual(rows,expected);
