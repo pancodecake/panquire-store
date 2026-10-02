@@ -25,7 +25,7 @@
               <span><strong>{{ section.settings.safe_title | escape }}</strong><small>{{ section.settings.safe_text | escape }}</small></span>
             </li>
             <li class="pq-trust-badge pq-trust-badge--shopify">
-              {% render 'pq-trust-icon', name: 'shopify' %}
+              <img src="{{ 'shopify-color-svgrepo-com.svg' | asset_url }}" width="27" height="27" alt="" aria-hidden="true" loading="lazy">
               <span><strong>{{ section.settings.shopify_title | escape }}</strong><small>{{ section.settings.shopify_text | escape }}</small></span>
             </li>
           </ul>
