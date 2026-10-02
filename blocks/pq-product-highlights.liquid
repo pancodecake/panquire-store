@@ -1,6 +1,9 @@
 <div class="pq pq-purchase-highlights" {{ block.shopify_attributes }}>
   {% if block.settings.heading != blank %}<h2>{{ block.settings.heading | escape }}</h2>{% endif %}
-  <dl>{% assign rows = block.settings.rows | newline_to_br | split: '<br />' %}{% for row in rows %}{% assign pair = row | split: '|' %}{% if pair.size > 1 %}<div><dt>{{ pair[0] | strip | escape }}</dt><dd>{{ pair[1] | strip | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+  <dl>{% if product.handle == 't-01' or product.handle == 't-02' %}
+    {% assign keys = 'Peak motor power,Maximum speed,Battery voltage,Battery capacity,Range — Eco mode,Max load' | split: ',' %}
+    {% for key in keys %}<div><dt>{{ key | escape }}</dt><dd>{% render 'pq-model-data', model: product.handle, field: key %}</dd></div>{% endfor %}
+  {% else %}{% assign rows = block.settings.rows | newline_to_br | split: '<br />' %}{% for row in rows %}{% assign pair = row | split: '|' %}{% if pair.size > 1 %}<div><dt>{{ pair[0] | strip | escape }}</dt><dd>{{ pair[1] | strip | escape }}</dd></div>{% endif %}{% endfor %}{% endif %}</dl>
 </div>
 {% schema %}
 {

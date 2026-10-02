@@ -55,6 +55,7 @@
     {% render 'pq-color-tokens' %}
     {{ 'panquire.css' | asset_url | stylesheet_tag }}
     {{ 'panquire-product.css' | asset_url | stylesheet_tag }}
+    {% if request.page_type == 'product' %}{{ 'panquire-model.css' | asset_url | stylesheet_tag }}{% endif %}
     {{ 'panquire-pages.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'panquire.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>

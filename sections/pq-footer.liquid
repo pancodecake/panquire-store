@@ -78,7 +78,7 @@
           {% if block.settings.menu != blank %}<nav aria-label="{{ block.settings.heading | escape }}">{% for link in block.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav>
           {% elsif block.settings.built_in != blank and block.settings.built_in != 'none' %}
             {% render 'pq-footer-links', block: block, footer_settings: section.settings %}
-          {% elsif block.settings.show_shop %}<a href="{{ routes.all_products_collection_url }}">{{ 'panquire.products' | t }}</a>
+          {% elsif block.settings.show_shop %}<a href="/products/t-01">T-01</a><a href="/products/t-02">T-02</a>
           {% endif %}
           {% if block.settings.show_policies %}{% for policy in shop.policies %}{% if policy != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}{% endif %}
           {% if block.settings.text != blank %}<div class="rte">{{ block.settings.text }}</div>{% endif %}

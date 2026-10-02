@@ -8,11 +8,8 @@
 <nav aria-label="{{ block.settings.heading | escape }}">
   {% case block.settings.built_in %}
     {% when 'shop' %}
-      {% for i in (1..2) %}
-        {% assign product_key = 'product_' | append: i %}{% assign label_key = product_key | append: '_label' %}{% assign footer_product = block.settings[product_key] %}
-        {% if footer_product != blank %}<a href="{{ footer_product.url }}">{{ footer_product.title | escape }}</a>{% else %}<span class="pq-footer-product-placeholder">{{ block.settings[label_key] | escape }}</span>{% endif %}
-      {% endfor %}
-      <a href="{{ routes.all_products_collection_url }}">All Products</a>
+      <a href="/products/t-01">T-01</a>
+      <a href="/products/t-02">T-02</a>
     {% when 'company' %}
       <a href="{{ settings.pq_about_url | default: '/pages/about' }}">About Us <span class="pq-footer-link-detail">Our Story, Team &amp; Mission</span></a>
       <a href="{{ partner_url }}#partners">Strategic Partnerships</a>

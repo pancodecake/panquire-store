@@ -1,5 +1,8 @@
 
-{% if block.settings.pq_placeholder %}
+{% if product.media.size == 0 and product.handle == 't-01' or product.media.size == 0 and product.handle == 't-02' %}
+  {% capture model_image %}{% render 'pq-model-data', model: product.handle, field: 'image' %}{% endcapture %}
+  <div class="pq-model-main-image" {{ block.shopify_attributes }}><img src="{{ model_image | strip | asset_url }}" alt="{{ product.title | escape }}" width="3200" height="2560" fetchpriority="high"></div>
+{% elsif block.settings.pq_placeholder %}
   <div class="pq pq-product-placeholder" {{ block.shopify_attributes }}>
     <div class="pq-product-placeholder-main">{% render 'pq-media', label: 'Product image placeholder' %}</div>
     <div class="pq-product-placeholder-thumbs" aria-hidden="true">{% for i in (1..4) %}<div>{% render 'pq-media', label: 'Product view' %}</div>{% endfor %}</div>

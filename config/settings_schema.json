@@ -34,11 +34,6 @@
       },
       {
         "type": "url",
-        "id": "pq_products_url",
-        "label": "Products page"
-      },
-      {
-        "type": "url",
         "id": "pq_about_url",
         "label": "About Us page"
       },

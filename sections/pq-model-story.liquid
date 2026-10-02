@@ -1,0 +1,161 @@
+{% assign model = product.handle %}
+{% if model == 't-01' or model == 't-02' %}
+{% capture raw_rows %}{% render 'pq-model-data', model: model, field: 'rows' %}{% endcapture %}
+{% assign rows = raw_rows | newline_to_br | split: '<br />' %}
+{% for block in section.blocks %}{% if block.settings.model == model %}{% assign model_images = block.settings %}{% endif %}{% endfor %}
+<div class="pq pq-model-story">
+  <section class="pq-model-panorama">
+    <div class="pq-container"><h2>{{ 'panquire.model.panorama' | t }}</h2></div>
+    {% capture label %}[{{ model | upcase }} PANORAMIC PRODUCT IMAGE]{% endcapture %}
+    {% render 'pq-media', image: model_images.panorama, label: label %}
+  </section>
+  <section class="pq-container pq-model-chapter">
+    <h2 class="pq-model-title">{{ model | upcase }}<br>{{ 'panquire.model.electric_dirt_bike' | t }}</h2>
+    {% capture label %}[{{ model | upcase }} LIFESTYLE IMAGE]{% endcapture %}
+    <div class="pq-model-landscape">{% render 'pq-media', image: model_images.lifestyle, label: label %}</div>
+  </section>
+  <section class="pq-container pq-model-chapter">
+    <h2 class="pq-product-heading">{{ 'panquire.model.features' | t }}</h2>
+    <div class="pq-model-features">
+      {% assign feature_keys = 'Motor,Battery capacity,Rear shock,Frame material' | split: ',' %}
+      {% assign feature_assets = 'motor,battery,suspension,frame' | split: ',' %}
+      {% for key in feature_keys %}
+        {% assign asset_key = feature_assets[forloop.index0] %}
+        <article class="pq-model-feature">
+          {% capture label %}[{{ model | upcase }} {{ asset_key | upcase }} DETAIL]{% endcapture %}
+          <div class="pq-model-feature-image">{% render 'pq-media', image: model_images[asset_key], label: label %}</div>
+          <div class="pq-model-feature-copy"><h3>{{ key | escape }}</h3><p>{% if asset_key == 'battery' %}{% render 'pq-model-data', model: model, field: 'Battery voltage' %} {% endif %}{% render 'pq-model-data', model: model, field: key %}</p></div>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="pq-container pq-model-chapter pq-model-split">
+    {% capture label %}[{{ model | upcase }} DRIVETRAIN DETAIL]{% endcapture %}
+    <div class="pq-model-drive-image">{% render 'pq-media', image: model_images.drivetrain, label: label %}</div>
+    <div class="pq-model-drive-copy"><h2>{% render 'pq-model-data', model: model, field: 'Gears' %}</h2><p>{% render 'pq-model-data', model: model, field: 'Drivetrain' %}</p></div>
+  </section>
+  <section class="pq-container pq-model-chapter pq-model-specifications">
+    <h2 class="pq-product-heading">{{ 'panquire.model.specifications' | t }}</h2>
+    <div class="pq-specification-panel">
+      <div class="pq-model-technical">{% capture label %}[{{ model | upcase }} TECHNICAL BIKE VIEW]{% endcapture %}{% render 'pq-media', image: model_images.technical, label: label %}</div>
+      <div class="pq-specification-groups">
+        {% assign categories = 'Overview,Performance,Battery & charging,Suspension & brakes,Dimensions & weight,Packaging,Logistics' | split: ',' %}
+        {% for category in categories %}
+          <details class="pq-specification-group"{% if forloop.first %} open{% endif %}>
+            <summary>{{ category | escape }}</summary><dl>
+              {% for row in rows %}{% assign cells = row | strip | split: '|' %}{% if cells[0] == category %}<div><dt>{{ cells[1] | escape }}</dt><dd>{{ cells[2] | escape }}</dd></div>{% endif %}{% endfor %}
+            </dl>
+          </details>
+        {% endfor %}
+        {% if model == 't-02' %}<p class="pq-model-note">{{ 'panquire.model.weight_note' | t }}</p>{% endif %}
+      </div>
+    </div>
+  </section>
+  <section class="pq-container pq-model-chapter pq-model-comparison" id="model-comparison">
+    <h2 class="pq-product-heading">{{ 'panquire.model.comparison' | t }}</h2>
+    {% capture handles %}{% render 'pq-model-data', field: 'handles' %}{% endcapture %}
+    {% assign models = handles | strip | split: ',' %}
+    <div class="pq-comparison-scroll" tabindex="0" role="region" aria-label="{{ 'panquire.model.comparison' | t }}">
+      <table><caption class="visually-hidden">{{ 'panquire.model.comparison' | t }}</caption><thead><tr><th scope="col">{{ 'panquire.model.specification' | t }}</th>
+        {% for other in models %}<th scope="col"{% if other == model %} class="pq-model-current"{% endif %}>
+          {% capture image %}{% render 'pq-model-data', model: other, field: 'image' %}{% endcapture %}
+          <a class="pq-model-link" href="/products/{{ other }}"><img src="{{ image | strip | asset_url }}" alt="{{ other | upcase }}" width="3200" height="2560" loading="lazy">{{ other | upcase }}</a>
+        </th>{% endfor %}</tr></thead><tbody>
+        {% assign comparison_keys = 'Motor,Peak motor power,Battery voltage,Battery capacity,Maximum speed,Range — Eco mode,Net weight,Max load,Front tire,Rear tire,Front/rear suspension,Brakes,Drivetrain' | split: ',' %}
+        {% for key in comparison_keys %}<tr><th scope="row">{{ key | escape }}</th>{% for other in models %}<td{% if other == model %} class="pq-model-current"{% endif %}>{% render 'pq-model-data', model: other, field: key %}</td>{% endfor %}</tr>{% endfor %}
+      </tbody></table>
+    </div>
+    <p class="pq-model-note">{{ 'panquire.model.weight_note' | t }}</p>
+  </section>
+</div>
+{% endif %}
+{% schema %}
+{
+  "name": "Panquire model story",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "model_images",
+      "name": "Model images",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "select",
+          "id": "model",
+          "label": "Model",
+          "options": [
+            {
+              "value": "t-01",
+              "label": "T-01"
+            },
+            {
+              "value": "t-02",
+              "label": "T-02"
+            }
+          ],
+          "default": "t-01"
+        },
+        {
+          "type": "image_picker",
+          "id": "panorama",
+          "label": "Panorama image"
+        },
+        {
+          "type": "image_picker",
+          "id": "lifestyle",
+          "label": "Lifestyle image"
+        },
+        {
+          "type": "image_picker",
+          "id": "motor",
+          "label": "Motor image"
+        },
+        {
+          "type": "image_picker",
+          "id": "battery",
+          "label": "Battery image"
+        },
+        {
+          "type": "image_picker",
+          "id": "suspension",
+          "label": "Suspension image"
+        },
+        {
+          "type": "image_picker",
+          "id": "frame",
+          "label": "Frame image"
+        },
+        {
+          "type": "image_picker",
+          "id": "drivetrain",
+          "label": "Drivetrain image"
+        },
+        {
+          "type": "image_picker",
+          "id": "technical",
+          "label": "Technical image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Panquire model story",
+      "blocks": [
+        {
+          "type": "model_images",
+          "settings": {
+            "model": "t-01"
+          }
+        },
+        {
+          "type": "model_images",
+          "settings": {
+            "model": "t-02"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

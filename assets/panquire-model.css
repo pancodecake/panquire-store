@@ -1,0 +1,54 @@
+.pq-model-main-image { display: grid; place-items: center; min-width: 0; align-self: start; }
+.pq-model-main-image img { width: 100%; height: auto; object-fit: contain; }
+.pq-storefront:has(.pq-model-story) .product-information {
+  --text: #151619; --text-muted: #55575d; --surface: #eeeef0; --pq-line: #d5d6d8;
+  --color-text-primary: #151619; --color-text-secondary: #55575d; --color-heading-accent: #151619; --color-border: #d5d6d8;
+  --color-foreground: #151619; --color-foreground-rgb: 21 22 25; --color-background: #f3f3f1; --color-background-rgb: 243 243 241;
+  background: #f3f3f1; color: #151619;
+}
+.pq-storefront:has(.pq-model-story) .product-information .product-details { color: #151619; }
+.pq-storefront:has(.pq-model-story) .product-information .pq { color: #151619; --text: #151619; --text-muted: #55575d; --color-heading-accent: #151619; --pq-line: #d5d6d8; }
+.pq-storefront:has(.pq-model-story) .product-information .pq-purchase-highlights { border: 0; padding: 24px 0; background: transparent; }
+.pq-model-story { background: var(--carbon-base); padding-bottom: clamp(80px,12vw,180px); }
+.pq-model-panorama { position: relative; height: clamp(380px,50vw,760px); }
+.pq-model-panorama > .pq-container { position: absolute; top: 40px; inset-inline: 0; z-index: 1; }
+.pq-model-panorama h2 { font-size: clamp(24px,3vw,40px); }
+.pq-model-story .pq-placeholder { background: #151619; outline: 0; }
+.pq-model-story .pq-placeholder span { color: #b8b9bd; font-size: 12px; letter-spacing: .06em; }
+.pq-model-chapter { margin-top: clamp(100px,15vw,240px); }
+.pq-model-title { max-width: 700px; margin: 0 auto 64px !important; text-align: center; font-size: clamp(36px,5vw,64px); line-height: 1.06; }
+.pq-model-landscape { aspect-ratio: 16/9; }
+.pq-model-features { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; }
+.pq-model-feature { position: relative; min-width: 0; background: var(--surface); }
+.pq-model-feature-image { height: clamp(230px,30vw,400px); }
+.pq-model-feature:nth-child(3) .pq-model-feature-image, .pq-model-feature:nth-child(4) .pq-model-feature-image { height: clamp(200px,24vw,310px); }
+.pq-model-feature-copy { padding: 24px; }
+.pq-model-feature h3 { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; }
+.pq-model-feature p { font-size: clamp(20px,2.2vw,30px); line-height: 1.25; font-weight: 700; }
+.pq-model-split { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+.pq-model-drive-image { min-height: 440px; }
+.pq-model-drive-copy { padding: clamp(24px,4vw,56px); display: flex; flex-direction: column; justify-content: center; background: var(--surface); }
+.pq-model-drive-copy h2 { font-size: clamp(32px,4vw,54px); }
+.pq-model-drive-copy p { font-size: 20px; margin-top: 20px; color: var(--text-muted); }
+.pq-model-specifications { margin-top: clamp(160px,28vw,440px); }
+.pq-model-technical { min-height: 360px; }
+.pq-model-comparison table { min-width: 620px; width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 14px; }
+.pq-model-comparison th, .pq-model-comparison td { padding: 18px 20px; text-align: center; border-bottom: 1px solid var(--pq-line); overflow-wrap: anywhere; }
+.pq-model-comparison th:first-child { text-align: left; color: var(--text-muted); font-weight: 400; }
+.pq-model-comparison thead th { vertical-align: bottom; font-size: 24px; }
+.pq-model-comparison thead th:first-child { font-size: 14px; }
+.pq-model-comparison img { width: 100%; height: auto; margin-bottom: 24px; }
+.pq-model-current { background: var(--surface); }
+.pq-model-comparison thead .pq-model-current { color: var(--color-accent-solid); }
+.pq-model-note { margin-top: 24px !important; color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+@media (max-width: 749px) {
+  .pq-model-main-image { padding: 20px 0; }
+  .pq-model-chapter { margin-top: 80px; }
+  .pq-model-title { margin-bottom: 32px !important; }
+  .pq-model-features, .pq-model-split { grid-template-columns: minmax(0,1fr); }
+  .pq-model-drive-image { min-height: 280px; }
+  .pq-model-technical { min-height: 240px; }
+  .pq-model-specifications { margin-top: 120px; }
+  .pq-model-panorama { height: 380px; }
+  .pq-model-panorama > .pq-container { top: 24px; }
+}

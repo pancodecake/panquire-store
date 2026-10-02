@@ -20,9 +20,9 @@ function defaults(file) {
   if(!m) return {};
   return Object.fromEntries((JSON.parse(m[1]).settings||[]).filter(s=>s.default!==undefined).map(s=>[s.id,s.default]));
 }
-const pageTemplates = {'/':'templates/index.json','/products/preview':'templates/product.json','/pages/products':'templates/page.products.json','/pages/about':'templates/page.about.json','/pages/partners':'templates/page.partners.json','/pages/terms':'templates/page.terms.json','/pages/contact':'templates/page.contact.json'};
+const pageTemplates = {'/':'templates/index.json','/products/preview':'templates/product.json','/products/t-01':'templates/product.panquire.json','/products/t-02':'templates/product.panquire.json','/pages/about':'templates/page.about.json','/pages/partners':'templates/page.partners.json','/pages/terms':'templates/page.terms.json','/pages/contact':'templates/page.contact.json'};
 async function page(pathname) {
-  const productPage = pathname === '/products/preview';
+  const productPage = pathname.startsWith('/products/');
   const pageHandle = pathname.startsWith('/pages/') ? pathname.split('/').pop() : '';
   const engine = new Liquid({root:[path.join(root,'snippets')],extname:'.liquid',relativeReference:false,strictFilters:false,fs:{
     resolve:(dir,f,ext)=>path.resolve(dir,f.endsWith(ext)?f:f+ext),
@@ -34,8 +34,8 @@ async function page(pathname) {
   engine.registerFilter('asset_url',s=>'/assets/'+s);
   engine.registerFilter('stylesheet_tag',s=>`<link rel="stylesheet" href="${s}">`);
   engine.registerFilter('inline_asset_content',s=>fs.existsSync(path.join(root,'assets',s))?read('assets/'+s):'');
-  engine.registerFilter('money',()=> 'Price pending');
-  engine.registerFilter('money_with_currency',()=> 'Price pending');
+  engine.registerFilter('money',value=> '$'+(Number(value)/100).toLocaleString('en-US'));
+  engine.registerFilter('money_with_currency',value=> '$'+(Number(value)/100).toLocaleString('en-US')+' USD');
   engine.registerFilter('structured_data',()=> '{}');
   engine.registerFilter('standard_event_data',()=> '{}');
   engine.registerFilter('color_brightness',()=> 10);
@@ -46,6 +46,11 @@ async function page(pathname) {
   const settings = Object.assign({},...config.map(g=>Object.fromEntries((g.settings||[]).filter(s=>s.default!==undefined).map(s=>[s.id,s.default]))),json('config/settings_data.json').current);
   const variant={id:1,title:'Carbon',available:true,price:0,inventory_quantity:10,inventory_policy:'deny',inventory_management:'shopify',quantity_rule:{min:1,increment:1},quantity_price_breaks:[],options:['Carbon'],url:'/products/preview'};
   const product={id:1,title:'Panquire electric mini bike',handle:'preview',url:'/products/preview',available:true,price:0,price_min:0,price_max:0,description:'<p>Preview product. Add your product description, pricing, and specifications in Shopify.</p>',has_only_default_variant:true,options:[],options_with_values:[],variants:[variant],selected_or_first_available_variant:variant,media:[],images:[],metafields:{}};
+  if (pathname === '/products/t-01' || pathname === '/products/t-02') {
+    const handle=pathname.split('/').pop(); const price=handle==='t-01'?200000:259900;
+    Object.assign(product,{title:handle.toUpperCase(),handle,url:pathname,price,price_min:price,price_max:price,description:'<p>Electric Dirt Bike · Aluminum Alloy</p>'});
+    Object.assign(variant,{title:'Default Title',price,url:pathname});
+  }
   const env={settings,shop:{name:'Panquire',policies:[],currency:'USD'},routes:{root_url:'/',search_url:'/search',cart_url:'/cart',account_url:'/account',all_products_collection_url:'/collections/all'},request:{page_type:productPage?'product':'index',locale:{iso_code:'en'},design_mode:false},template:{name:productPage?'product':'index'},cart:{item_count:0},product,closest:{product},form:{},localization:{country:{iso_code:'US',currency:{iso_code:'USD'}}}};
   if (pageHandle) { env.page = {handle:pageHandle}; env.request.page_type = 'page'; env.template.name = 'page'; }
   for(const k of Object.keys(settings)) if(typeof settings[k]==='string'&&settings[k].includes('{{')) settings[k]=await engine.parseAndRender(settings[k],env);
@@ -82,7 +87,7 @@ async function page(pathname) {
   let top='',bottom='';for(const id of header.order)top+=await section(id,header.sections[id]);for(const id of footer.order)bottom+=await section(id,footer.sections[id]);
   const tokens=await engine.parseAndRender(prepare(read('snippets/pq-color-tokens.liquid')),env);
   const nativeTokens=await engine.parseAndRender(prepare(read('snippets/theme-styles-variables.liquid')),env,{globals:env});
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panquire — local theme preview</title><link rel="stylesheet" href="/assets/base.css">${nativeTokens}${tokens}<link rel="stylesheet" href="/assets/panquire.css"><link rel="stylesheet" href="/assets/panquire-product.css"><link rel="stylesheet" href="/assets/panquire-pages.css"><style>body{margin:0;font-family:Arial,sans-serif}.preview-bar{padding:10px 16px;background:#151619;color:#F3F3F1;text-align:center;font:13px/1.5 Arial}.preview-bar a{color:inherit;margin:0 12px;text-decoration:underline}.product-information{--page-width:1050px;--page-margin:24px;--page-width-margin:48px;--normal-page-width:1050px}.product-information__grid{column-gap:0}.product-details{min-width:0}.view-product-title{display:none}.pq-storefront .button{padding:14px 24px;min-height:44px;border:0;border-radius:2px}.pq-storefront input{color:var(--text);background:var(--surface)}.group-block{min-width:0}</style></head><body class="pq-storefront page-width-narrow"><div class="preview-bar">Local Liquid preview · sample product · Shopify checkout unavailable <a href="/">Homepage</a><a href="/products/preview">Product page</a><a href="/pages/about">About</a><a href="/pages/partners">Partners</a><a href="/pages/terms">Terms</a></div><div id="header-group">${top}</div><main id="MainContent">${content}</main>${bottom}<script src="/assets/panquire.js" defer></script><script src="/assets/panquire-pages.js" defer></script><script>document.addEventListener('submit',e=>{e.preventDefault();if(e.target.matches('.pq-policy-search'))return;alert('This is a local visual preview. Forms and checkout work on Shopify.');});new EventSource('/__live').onmessage=e=>{if(e.data==='reload')location.reload();};</script></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panquire — local theme preview</title><link rel="stylesheet" href="/assets/base.css">${nativeTokens}${tokens}<link rel="stylesheet" href="/assets/panquire.css"><link rel="stylesheet" href="/assets/panquire-product.css"><link rel="stylesheet" href="/assets/panquire-model.css"><link rel="stylesheet" href="/assets/panquire-pages.css"><style>body{margin:0;font-family:Arial,sans-serif}.preview-bar{padding:10px 16px;background:#151619;color:#F3F3F1;text-align:center;font:13px/1.5 Arial}.preview-bar a{color:inherit;margin:0 12px;text-decoration:underline}.product-information{--page-width:1050px;--page-margin:24px;--page-width-margin:48px;--normal-page-width:1050px}.product-information__grid{column-gap:0}.product-details{min-width:0}.view-product-title{display:none}.pq-storefront .button{padding:14px 24px;min-height:44px;border:0;border-radius:2px}.pq-storefront input{color:var(--text);background:var(--surface)}.group-block{min-width:0}</style></head><body class="pq-storefront page-width-narrow"><div class="preview-bar">Local Liquid preview · sample product · Shopify checkout unavailable <a href="/">Homepage</a><a href="/products/preview">Product page</a><a href="/pages/about">About</a><a href="/pages/partners">Partners</a><a href="/pages/terms">Terms</a></div><div id="header-group">${top}</div><main id="MainContent">${content}</main>${bottom}<script src="/assets/panquire.js" defer></script><script src="/assets/panquire-pages.js" defer></script><script>document.addEventListener('submit',e=>{e.preventDefault();if(e.target.matches('.pq-policy-search'))return;alert('This is a local visual preview. Forms and checkout work on Shopify.');});new EventSource('/__live').onmessage=e=>{if(e.data==='reload')location.reload();};</script></body></html>`;
 }
 const server = http.createServer(async(req,res)=>{
   try {
@@ -103,7 +108,7 @@ const server = http.createServer(async(req,res)=>{
     res.setHeader('Content-Type','text/html; charset=utf-8');res.end(await page(url.pathname));
   }catch(e){console.error(e.stack);res.writeHead(500,{'Content-Type':'text/plain'});res.end(e.stack);}
 });
-server.listen(9393,'127.0.0.1',()=>console.log('Local Liquid preview: http://127.0.0.1:9393'));
+server.listen(process.env.PORT || 9393,'127.0.0.1',()=>console.log('Local Liquid preview: http://127.0.0.1:9393'));
 
 let reloadTimer;
 fs.watch(root,{recursive:true},(_,filename)=>{

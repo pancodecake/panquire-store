@@ -9,6 +9,16 @@
  */
 {
   "panquire": {
+    "model": {
+      "peak": "peak",
+      "panorama": "Panoramic view",
+      "electric_dirt_bike": "Electric dirt bike",
+      "features": "The details",
+      "specifications": "Specifications & parameters",
+      "comparison": "Compare models",
+      "specification": "Specification",
+      "weight_note": "T-02 weight is pending confirmation. The supplied specification lists /60Kg without a confirmed net/gross distinction."
+    },
     "front_page": "Front Page",
     "products": "Products",
     "about": "About Us",

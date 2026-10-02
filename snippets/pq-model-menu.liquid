@@ -1,0 +1,18 @@
+{% doc %}Model navigation shared by desktop and mobile.{% enddoc %}
+<details class="pq-model-menu">
+  <summary>{{ 'panquire.products' | t }}<span aria-hidden="true">⌄</span></summary>
+  <div class="pq-model-menu-panel">
+    <div class="pq-container pq-model-menu-grid">
+      {% capture handles %}{% render 'pq-model-data', field: 'handles' %}{% endcapture %}
+      {% assign models = handles | strip | split: ',' %}
+      {% for model in models %}
+        {% capture image %}{% render 'pq-model-data', model: model, field: 'image' %}{% endcapture %}
+        <a class="pq-model-menu-card" href="/products/{{ model }}">
+          <span class="pq-model-menu-spec">{% render 'pq-model-data', model: model, field: 'Maximum speed' %} | {% render 'pq-model-data', model: model, field: 'Peak motor power' %} {{ 'panquire.model.peak' | t }}</span>
+          <strong>{{ model | upcase }}</strong>
+          <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="{{ model | upcase }}" loading="lazy">
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</details>
