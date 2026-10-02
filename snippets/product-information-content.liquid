@@ -110,6 +110,9 @@
         data-testid="product-information-media"
       >
         {{ media_gallery }}
+        {% if template.suffix == 'panquire' and product.metafields.panquire.stories.value != blank %}
+          {% render 'pq-quick-specs', product: product %}
+        {% endif %}
       </div>
     {% endcapture %}
 

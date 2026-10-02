@@ -1,0 +1,102 @@
+/* Product-template-only rules; native Horizon commerce remains unchanged. */
+.pq-storefront:has(.pq-product-editorial) .product-information {
+  --color-foreground: #171719; --color-foreground-rgb: 23 23 25;
+  --color-background: #fff; --color-background-rgb: 255 255 255;
+  --color-text-primary: #171719; --color-text-secondary: #626267;
+  --color-heading-accent: #171719; --color-border: #dededb;
+  --text: #171719; --text-muted: #626267; --pq-line: #dededb;
+  background: #fff; color: #171719;
+}
+.pq-storefront:has(.pq-product-editorial) .product-information .pq {
+  color: #171719; --text: #171719; --text-muted: #626267; --pq-line: #dededb;
+}
+.pq-storefront:has(.pq-product-editorial) .product-information h1 { font-size: clamp(28px, 3vw, 44px); line-height: 1.1; letter-spacing: -.025em; }
+.pq-storefront:has(.pq-product-editorial) .product-information .price { font-size: 28px; font-weight: 700; }
+.pq-storefront:has(.pq-product-editorial) .product-information .product-details { min-width: 0; }
+.pq-storefront:has(.pq-product-editorial) .product-information .product-media img { object-fit: contain; }
+.pq-storefront:has(.pq-product-editorial) .product-information .slideshow-controls__thumbnail { min-width: 64px; }
+.pq-quick-specs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 28px 0 0; gap: 0; color: #171719; }
+.pq-quick-specs > div { padding: 20px 12px; border-top: 1px solid #dededb; }
+.pq-quick-specs dt { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #626267; }
+.pq-quick-specs svg { color: #8d672c; }
+.pq-quick-specs dd { margin: 7px 0 0; font-size: clamp(14px,1.4vw,18px); font-weight: 700; overflow-wrap: anywhere; }
+.pq-product-editorial { --text: #171719; --text-muted: #626267; --pq-line: #dededb; background: #fff; color: #171719; padding: 40px 0 100px; }
+.pq-product-wrap { width: min(1320px,calc(100% - 96px)); margin-inline: auto; }
+.pq-product-editorial h2 { font-size: clamp(28px,3.1vw,44px); letter-spacing: -.035em; text-transform: uppercase; }
+.pq-product-editorial h3 { font-size: clamp(22px,2.5vw,34px); letter-spacing: -.025em; }
+.pq-product-editorial p { color: #626267; line-height: 1.75; font-size: 16px; margin-top: 24px; }
+.pq-product-editorial img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.pq-product-story { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(36px,6vw,90px); padding-block: 65px; }
+.pq-product-story:nth-child(even) .pq-product-story__image { order: 2; }
+.pq-product-story__image { aspect-ratio: 1.2; min-width: 0; background: #f7f7f5; }
+.pq-product-story__copy { max-width: 480px; }
+.pq-product-eyebrow { display: block; color: #8d672c; font-size: 12px; font-weight: 600; letter-spacing: .13em; margin-bottom: 20px; }
+.pq-product-features { padding-block: 90px; }
+.pq-product-tablist { display: flex; overflow-x: auto; gap: 28px; border-bottom: 1px solid #dededb; margin-top: 32px; scrollbar-width: thin; }
+.pq-product-tablist button { flex-shrink: 0; padding: 18px 2px; border: 0; border-bottom: 2px solid transparent; background: none; color: #626267; font: inherit; font-size: 13px; font-weight: 600; text-transform: uppercase; cursor: pointer; }
+.pq-product-tablist button[aria-selected='true'] { color: #171719; border-bottom-color: #a67c3c; }
+.pq-product-tabpanel { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: clamp(32px,6vw,90px); padding-top: 36px; }
+.pq-product-tabpanel[hidden] { display: none; }
+.pq-product-feature-image { aspect-ratio: 1.4; min-width: 0; background: #f7f7f5; }
+.pq-product-disclosure { border-top: 1px solid #dededb; }
+.pq-product-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; cursor: pointer; list-style: none; }
+.pq-product-disclosure > summary::-webkit-details-marker { display: none; }
+.pq-product-disclosure summary h2,.pq-product-disclosure summary h3 { margin: 0; }
+.pq-product-disclosure summary > span { font-size: 28px; line-height: 1; font-weight: 300; transition: transform 180ms ease; }
+.pq-product-disclosure[open] > summary > span { transform: rotate(45deg); }
+.pq-product-geometry { display: grid; grid-template-columns: 1.8fr 1fr; gap: 40px; align-items: center; padding-bottom: 40px; }
+.pq-product-geometry img { height: auto; }
+.pq-product-editorial dl { margin: 0; }
+.pq-product-geometry dl > div,.pq-product-specifications dl > div { padding-block: 18px; border-bottom: 1px solid #dededb; break-inside: avoid; }
+.pq-product-editorial dt { font-size: 12px; color: #626267; line-height: 1.5; }
+.pq-product-editorial dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.pq-product-specifications { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px 48px; padding: 16px 0 56px; }
+.pq-product-specifications h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .07em; color: #8d672c; }
+.pq-product-faq,.pq-product-comparison { margin-top: 90px; }
+.pq-product-faq > h2 { margin-bottom: 32px; }
+.pq-product-faq summary h3 { font-size: 17px; letter-spacing: 0; }
+.pq-product-answer { max-width: 850px; padding-bottom: 28px; }
+.pq-product-answer p { margin-top: 0; }
+.pq-product-faq > a,.pq-product-comparison > a { display: inline-block; padding-block: 16px; text-decoration: underline; text-underline-offset: 4px; }
+.pq-product-table-scroll { overflow-x: auto; margin-top: 36px; scrollbar-width: thin; }
+.pq-product-comparison table { border-collapse: collapse; width: 100%; min-width: 720px; table-layout: fixed; font-size: 14px; }
+.pq-product-comparison th,.pq-product-comparison td { padding: 22px 20px; text-align: left; border-bottom: 1px solid #dededb; line-height: 1.6; overflow-wrap: anywhere; }
+.pq-product-comparison tbody th { font-weight: 400; color: #626267; }
+.pq-product-comparison thead th { font-size: 17px; vertical-align: bottom; }
+.pq-product-current { background: #f5f2eb; font-weight: 600; }
+.pq-product-editorial .pq-product-note { font-size: 12px; }
+.pq-product-editorial :is(button,a,summary,[tabindex]):focus-visible { outline: 2px solid #8d672c; outline-offset: 4px; }
+@media (min-width: 990px) {
+  .pq-storefront:has(.pq-product-editorial) .product-information__grid.product-information--media-left { grid-template-columns: minmax(0,1.22fr) minmax(0,1fr); }
+}
+@media (max-width: 989px) {
+  .pq-storefront:has(.pq-product-editorial) .product-information__grid.product-information--media-left { grid-template-columns: minmax(0,1fr); }
+  .pq-storefront:has(.pq-product-editorial) .product-information__grid .product-details,.pq-storefront:has(.pq-product-editorial) .product-information__media { grid-column: 1; padding-inline: 0; }
+  .pq-product-wrap { width: calc(100% - 48px); }
+  .pq-product-story,.pq-product-tabpanel { gap: 32px; }
+  .pq-product-specifications { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 599px) {
+  .pq-product-wrap { width: calc(100% - 40px); }
+  .pq-product-editorial { padding-top: 0; padding-bottom: 64px; }
+  .pq-product-story,.pq-product-tabpanel,.pq-product-geometry { grid-template-columns: minmax(0,1fr); }
+  .pq-product-story { padding-block: 36px; gap: 24px; }
+  .pq-product-story:nth-child(even) .pq-product-story__image { order: 0; }
+  .pq-product-story__image { aspect-ratio: 1.2; }
+  .pq-product-features { padding-block: 56px; }
+  .pq-product-tabpanel { gap: 24px; }
+  .pq-product-feature-image { order: -1; }
+  .pq-product-specifications { gap: 32px 20px; }
+  .pq-product-specifications dd { font-size: 14px; }
+  .pq-product-faq,.pq-product-comparison { margin-top: 56px; }
+  .pq-product-geometry { gap: 16px; }
+  .pq-quick-specs > div { padding: 16px 7px; }
+}
+@media (prefers-reduced-motion: reduce) { .pq-product-disclosure summary > span { transition: none; } }
+@supports (interpolate-size: allow-keywords) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pq-product-disclosure { interpolate-size: allow-keywords; }
+    .pq-product-disclosure::details-content { height: 0; overflow: clip; transition: height 220ms ease,content-visibility 220ms allow-discrete; }
+    .pq-product-disclosure[open]::details-content { height: auto; }
+  }
+}

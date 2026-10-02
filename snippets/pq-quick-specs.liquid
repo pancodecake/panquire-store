@@ -1,0 +1,35 @@
+{% doc %}
+  Six key specifications from the product's existing merchant specifications.
+  @param {product} product - Current product
+{% enddoc %}
+{% capture source %}{{ product.metafields.custom.panquire_specifications.value }}
+{{ product.metafields.panquire.specification_additions.value }}{% endcapture %}
+{% assign rows = source | newline_to_br | split: '<br />' %}
+{% assign keys = 'Battery voltage,Maximum speed,Peak motor power,Range — Eco mode,Net weight,Max load' | split: ',' %}
+{% assign labels = 'battery,speed,power,range,weight,load' | split: ',' %}
+<dl class="pq-quick-specs">
+  {% for key in keys %}
+    {% assign value = '' %}{% assign capacity = '' %}
+    {% for row in rows %}
+      {% assign cells = row | strip | split: '|' %}
+      {% if cells[1] == key %}{% assign value = cells[2] %}{% endif %}
+      {% if key == 'Net weight' and cells[1] == 'Bike weight' %}{% assign value = cells[2] %}{% endif %}
+      {% if cells[1] == 'Battery capacity' %}{% assign capacity = cells[2] %}{% endif %}
+    {% endfor %}
+    {% if value != blank %}
+      <div>
+        <dt><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          {% case forloop.index %}
+            {% when 1 %}<rect x="3" y="6" width="16" height="12" rx="2"/><path d="M21 10v4M7 10v4m4-4v4m4-4v4"/>
+            {% when 2 %}<path d="M4 19a10 10 0 1 1 16 0M12 12l5-5M5 12H3m9-7V2m7 10h2"/><circle cx="12" cy="12" r="2"/>
+            {% when 3 %}<path d="M13 2 4 14h7l-1 8 10-13h-8z"/>
+            {% when 4 %}<circle cx="5" cy="5" r="2"/><circle cx="19" cy="19" r="2"/><path d="M7 5h9a4 4 0 0 1 0 8H8a3 3 0 0 0 0 6h9"/>
+            {% when 5 %}<path d="m6 7-3 14h18L18 7z"/><circle cx="12" cy="5" r="3"/>
+            {% when 6 %}<path d="M5 9h14v12H5zM8 9V6a4 4 0 0 1 8 0v3M8 15h8m-4-3v6"/>
+          {% endcase %}
+        </svg><span>{% assign label_key = 'panquire.product_page.' | append: labels[forloop.index0] %}{{ label_key | t }}</span></dt>
+        <dd>{{ value | escape }}{% if forloop.first %} / {{ capacity | escape }}{% endif %}</dd>
+      </div>
+    {% endif %}
+  {% endfor %}
+</dl>

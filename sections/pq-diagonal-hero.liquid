@@ -1,0 +1,34 @@
+{% assign left_image = section.settings.left_image %}
+{% assign right_image = section.settings.right_image %}
+<section class="pq-diagonal-hero" aria-label="Ride with us">
+  <div class="pq-diagonal-hero__image pq-diagonal-hero__image--left">
+    {% if left_image != blank %}
+      {{ left_image | image_url: width: 1800 | image_tag: class: 'pq-diagonal-hero__photo', alt: '', loading: 'lazy' }}
+    {% else %}
+      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111615_625_5.jpg' | asset_url }}" alt="" loading="lazy">
+    {% endif %}
+  </div>
+  <div class="pq-diagonal-hero__image pq-diagonal-hero__image--right">
+    {% if right_image != blank %}
+      {{ right_image | image_url: width: 1800 | image_tag: class: 'pq-diagonal-hero__photo', alt: '', loading: 'lazy' }}
+    {% else %}
+      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111547_621_5.jpg' | asset_url }}" alt="" loading="lazy">
+    {% endif %}
+  </div>
+  <div class="pq-diagonal-hero__center" aria-hidden="true"></div>
+  <div class="pq-diagonal-hero__accent pq-diagonal-hero__accent--top" aria-hidden="true"></div>
+  <div class="pq-diagonal-hero__accent pq-diagonal-hero__accent--bottom" aria-hidden="true"></div>
+  <div class="pq-diagonal-hero__content">
+    <h2><span>RIDE WITH US,</span>IS THE RIDE WITH<br>NATURE.</h2>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Panquire diagonal hero",
+  "settings": [
+    { "type": "image_picker", "id": "left_image", "label": "Left image" },
+    { "type": "image_picker", "id": "right_image", "label": "Right image" }
+  ],
+  "presets": [{ "name": "Panquire diagonal hero" }]
+}
+{% endschema %}

@@ -1,0 +1,74 @@
+{% liquid
+  assign data = product.metafields.panquire
+  assign features = data.features.value
+  assign comparison = data.comparison.value
+%}
+{{ 'panquire-product-page.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'panquire-product-page.js' | asset_url }}" defer></script>
+<div class="pq pq-product-editorial" id="ProductEditorial-{{ section.id }}">
+  <div class="pq-product-wrap">
+    {% for story in data.stories.value %}
+      <section class="pq-product-story">
+        <div class="pq-product-story__image">{% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}</div>
+        <div class="pq-product-story__copy"><span class="pq-product-eyebrow">{{ product.handle | upcase | escape }} / 0{{ forloop.index }}</span><h2>{{ story.heading | escape }}</h2><p>{{ story.body | escape }}</p></div>
+      </section>
+    {% endfor %}
+    {% if features.size > 0 %}
+      <section class="pq-product-features">
+        <h2>{{ 'panquire.product_page.features' | t }}</h2>
+        <pq-product-tabs>
+          <div class="pq-product-tablist" role="tablist" aria-label="{{ 'panquire.product_page.features' | t }}">
+            {% for feature in features %}<button type="button" role="tab" id="Tab-{{ section.id }}-{{ forloop.index }}" aria-controls="Panel-{{ section.id }}-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">{{ feature.label | escape }}</button>{% endfor %}
+          </div>
+          {% for feature in features %}
+            <div class="pq-product-tabpanel" role="tabpanel" id="Panel-{{ section.id }}-{{ forloop.index }}" aria-labelledby="Tab-{{ section.id }}-{{ forloop.index }}" tabindex="0"{% unless forloop.first %} hidden{% endunless %}>
+              <div><h3>{{ feature.heading | escape }}</h3><p>{{ feature.body | escape }}</p></div>
+              <div class="pq-product-feature-image">{% render 'pq-page-image', product: product, media_id: feature.media_id, alt: product.title %}</div>
+            </div>
+          {% endfor %}
+        </pq-product-tabs>
+      </section>
+    {% endif %}
+    {% if data.geometry_image.value %}
+      <details class="pq-product-disclosure" open>
+        <summary><h2>{{ 'panquire.product_page.geometry' | t }}</h2><span aria-hidden="true">+</span></summary>
+        <div class="pq-product-geometry">
+          {{ data.geometry_image.value | image_url: width: 1800 | image_tag: widths: '600,900,1200,1800', sizes: '(min-width: 990px) 65vw, 100vw', loading: 'lazy', alt: product.title }}
+          <dl>{% for item in data.geometry_rows.value %}{% if item.value != blank %}<div><dt>{{ item.label | escape }}</dt><dd>{{ item.value | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+        </div>
+      </details>
+    {% endif %}
+    <details class="pq-product-disclosure" open>
+      <summary><h2>{{ 'panquire.product_page.specifications' | t }}</h2><span aria-hidden="true">+</span></summary>
+      {% capture source %}{{ product.metafields.custom.panquire_specifications.value }}
+{{ data.specification_additions.value }}{% endcapture %}
+      {% assign rows = source | newline_to_br | split: '<br />' %}
+      {% assign categories = 'Overview,Performance,Battery & charging,Suspension & brakes,Dimensions & weight' | split: ',' %}
+      <div class="pq-product-specifications">
+        {% for category in categories %}<section><h3>{{ category | escape }}</h3><dl>
+          {% for row in rows %}{% assign cells = row | strip | split: '|' %}{% if cells[0] == category and cells[2] != blank %}<div><dt>{{ cells[1] | escape }}</dt><dd>{{ cells[2] | escape }}</dd></div>{% endif %}{% endfor %}
+        </dl></section>{% endfor %}
+      </div>
+    </details>
+    {% if data.faqs.value.size > 0 %}
+      <section class="pq-product-faq"><h2>{{ 'panquire.product_page.faqs' | t }}</h2>
+        {% for faq in data.faqs.value %}<details class="pq-product-disclosure"><summary><h3>{{ faq.question | escape }}</h3><span aria-hidden="true">+</span></summary><div class="pq-product-answer"><p>{{ faq.answer | escape }}</p></div></details>{% endfor %}
+        <a href="{{ pages.contact.url }}">{{ 'panquire.product_page.support' | t }}</a>
+      </section>
+    {% endif %}
+    {% if comparison.columns.size > 1 %}
+      <section class="pq-product-comparison"><h2>{{ 'panquire.product_page.compare' | t }}</h2>
+        <div class="pq-product-table-scroll" role="region" tabindex="0" aria-label="{{ 'panquire.product_page.compare' | t }}">
+          <table><caption class="visually-hidden">{{ product.title | escape }} — {{ 'panquire.product_page.compare' | t }}</caption><thead><tr><th scope="col">{{ 'panquire.model.specification' | t }}</th>{% for name in comparison.columns %}<th scope="col"{% if forloop.first %} class="pq-product-current"{% endif %}>{{ name | escape }}</th>{% endfor %}</tr></thead>
+            <tbody>{% for row in comparison.rows %}<tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell | escape }}</th>{% else %}<td{% if forloop.index == 2 %} class="pq-product-current"{% endif %}>{{ cell | escape }}</td>{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
+          </table>
+        </div>
+        <p class="pq-product-note">{{ 'panquire.product_page.comparison_note' | t }}</p>
+        {% if pages.compare != blank %}<a href="{{ pages.compare.url }}">{{ 'panquire.product_page.view_comparison' | t }}</a>{% endif %}
+      </section>
+    {% endif %}
+  </div>
+</div>
+{% schema %}
+{"name":"Panquire product details","settings":[],"presets":[{"name":"Panquire product details"}]}
+{% endschema %}
