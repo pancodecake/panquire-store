@@ -8,48 +8,50 @@
   {%- if field == 'image' -%}
     {%- if model == 't-01' -%}panquire-t01.png{%- else -%}panquire-t02.png{%- endif -%}
   {%- else -%}
+    {%- assign model_product = all_products[model] -%}
+    {%- assign rows = model_product.metafields.custom.panquire_specifications.value -%}
+    {%- if rows == blank -%}
     {%- capture rows -%}
-Overview|Model|{{ model | upcase }}
+Overview|Model|{% if model == 't-01' %}T-01{% else %}T-02{% endif %}
 Overview|Type|Electric Dirt Bike
-Overview|Frame material|Aluminum Alloy
-Overview|Color|{% if model == 't-01' %}Bronze Gold{% else %}Black{% endif %}
-Overview|Warranty|1 Year
-Overview|After-sales service|1 Year
+Overview|Color|Black
+Overview|Frame material|High-Strength Aluminum Alloy
+Overview|Warranty|2 years
 Performance|Motor|{% if model == 't-01' %}60V 3,000W Central Motor{% else %}72V 6,000W Central Motor{% endif %}
 Performance|Peak motor power|{% if model == 't-01' %}8000W{% else %}11,000W{% endif %}
 Performance|Maximum speed|{% if model == 't-01' %}80 km/h{% else %}100 km/h{% endif %}
 Performance|Range — Eco mode|{% if model == 't-01' %}80 km{% else %}90 km{% endif %}
-Performance|Climbing ability|<30°
+Performance|Climbing ability|Less than 30°
 Performance|Max load|150 kg
 Performance|Drivetrain|Chain Drive
-Performance|Gears|3-Speed
-Battery & charging|Battery|Lithium Battery
+Performance|Chain|428H
+Performance|Power levels|3-level electronic adjustment — Low / Medium / High
+Performance|Operation|Handlebar buttons; no clutch
+Battery & charging|Battery|Removable Lithium Battery, 21700 Cells
+Battery & charging|Battery cell supplier|Tianpeng
 Battery & charging|Battery voltage|{% if model == 't-01' %}60V{% else %}72V{% endif %}
 Battery & charging|Battery capacity|{% if model == 't-01' %}31.2Ah{% else %}41Ah{% endif %}
+Battery & charging|Nominal battery energy|{% if model == 't-01' %}1.872 kWh (voltage × capacity){% else %}2.952 kWh (voltage × capacity){% endif %}
 Battery & charging|Charger|6A
 Suspension & brakes|Front/rear suspension|Hydraulic Suspension
-Suspension & brakes|Rear shock|Adjustable Oil Hydraulic Nitrogen Shock Absorber
-Suspension & brakes|Brakes|Hydraulic Disc Brakes
-Suspension & brakes|Brake pads|Hydraulic Brake Pads
+Suspension & brakes|Rear shock|Adjustable compression, rebound and preload
+Suspension & brakes|Suspension rider-weight range|Approx. 40–95 kg
+Suspension & brakes|Brakes|Dual-piston hydraulic disc brakes
+Suspension & brakes|Brake disc thickness|3.0 mm
+Suspension & brakes|Brake lever|Reach adjustable
 Suspension & brakes|Front tire|19 inches
 Suspension & brakes|Rear tire|17 inches
+Suspension & brakes|Tire type|Tubed
 Dimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm
-Dimensions & weight|Net weight|{% if model == 't-01' %}55 kg{% else %}TBD{% endif %}
-Dimensions & weight|Gross weight|{% if model == 't-01' %}60 kg{% else %}60 kg — subject to confirmation{% endif %}
-Dimensions & weight|Packing dimensions|1570 × 400 × 1010 mm
-Packaging|Packaging|Double Carton
-Packaging|Included|Owner's Manual ×1, Charger ×1
-Logistics|Loading — 20' GP|85 pcs
-Logistics|Loading — 40' HQ|210 pcs
-Logistics|Delivery time|25–30 days from receipt of payment
-Logistics|Payment terms|30% by wire transfer as down payment; balance due before shipment
+{% if model == 't-01' %}Dimensions & weight|Net weight|55 kg{% else %}Battery & charging|Battery pack weight|15 kg{% endif %}
     {%- endcapture -%}
+    {%- endif -%}
     {%- if field == 'rows' -%}{{ rows }}
     {%- else -%}
       {%- assign entries = rows | newline_to_br | split: '<br />' -%}
       {%- for entry in entries -%}
         {%- assign cells = entry | strip | split: '|' -%}
-        {%- if cells[1] == field -%}{{ cells[2] }}{%- break -%}{%- endif -%}
+        {%- if cells[1] == field -%}{{ cells[2] | escape }}{%- break -%}{%- endif -%}
       {%- endfor -%}
     {%- endif -%}
   {%- endif -%}

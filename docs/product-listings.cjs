@@ -1,0 +1,38 @@
+// Approved source: T-01.md, T-02.md and the October 2 listing brief.
+// Starred weights/charge times and ambiguous accessory compatibility are withheld.
+const assert = require('node:assert/strict');
+const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const shipping = 'Panquire ships from fulfillment warehouses in the United States and Europe, with delivery also available to other supported destinations. Shipping is not included in the listed price. Applicable charges depend on the destination and order details and are shown at checkout before purchase.';
+const models = [
+  {handle:'t-01',id:'10628825940152',variant:'54227114590392',voltage:60,capacity:31.2,motor:'3,000W',peak:'8000W',speed:80,range:80,energy:'1.872 kWh',summary:'An electric dirt bike for recreational off-road and trail riders who want an 8 kW peak-power platform with a 55 kg net weight. Three handlebar-selectable power levels let you choose low, medium or high output without a clutch.'},
+  {handle:'t-02',id:'10628826005688',variant:'54227114655928',voltage:72,capacity:41,motor:'6,000W',peak:'11,000W',speed:100,range:90,energy:'2.952 kWh',summary:'An electric dirt bike for off-road riders seeking more power and battery capacity than the T-01. Its 72V central motor delivers 11 kW peak power, paired with a removable 41Ah battery and three handlebar-selectable power levels.'}
+].map(m => {
+  const rows = [
+    ['Overview','Model',m.handle.toUpperCase()],['Overview','Type','Electric Dirt Bike'],['Overview','Color','Black'],['Overview','Frame material','High-Strength Aluminum Alloy'],['Overview','Warranty','2 years'],
+    ['Performance','Motor',`${m.voltage}V ${m.motor} Central Motor`],['Performance','Peak motor power',m.peak],['Performance','Maximum speed',`${m.speed} km/h`],['Performance','Range — Eco mode',`${m.range} km`],['Performance','Climbing ability','Less than 30°'],['Performance','Max load','150 kg'],['Performance','Drivetrain','Chain Drive'],['Performance','Chain','428H'],['Performance','Power levels','3-level electronic adjustment — Low / Medium / High'],['Performance','Operation','Handlebar buttons; no clutch'],
+    ['Battery & charging','Battery','Removable Lithium Battery, 21700 Cells'],['Battery & charging','Battery cell supplier','Tianpeng'],['Battery & charging','Battery voltage',`${m.voltage}V`],['Battery & charging','Battery capacity',`${m.capacity}Ah`],['Battery & charging','Nominal battery energy',`${m.energy} (voltage × capacity)`],['Battery & charging','Charger','6A'],
+    ['Suspension & brakes','Front/rear suspension','Hydraulic Suspension'],['Suspension & brakes','Rear shock','Adjustable compression, rebound and preload'],['Suspension & brakes','Suspension rider-weight range','Approx. 40–95 kg'],['Suspension & brakes','Brakes','Dual-piston hydraulic disc brakes'],['Suspension & brakes','Brake disc thickness','3.0 mm'],['Suspension & brakes','Brake lever','Reach adjustable'],['Suspension & brakes','Front tire','19 inches'],['Suspension & brakes','Rear tire','17 inches'],['Suspension & brakes','Tire type','Tubed'],
+    ['Dimensions & weight','Vehicle dimensions','1770 × 800 × 1200 mm'],
+    ...(m.handle==='t-01' ? [['Dimensions & weight','Net weight','55 kg']] : [['Battery & charging','Battery pack weight','15 kg']])
+  ];
+  const table = [...new Set(rows.map(r=>r[0]))].map(group=>`<h3>${escape(group)}</h3><table><tbody>${rows.filter(r=>r[0]===group).map(r=>`<tr><th scope="row">${escape(r[1])}</th><td>${escape(r[2])}</td></tr>`).join('')}</tbody></table>`).join('');
+  const descriptionHtml = `<p>${m.summary}</p>
+<h2>At a glance</h2><ul><li>${m.peak} peak motor power; ${m.speed} km/h stated maximum speed.</li><li>${m.voltage}V ${m.capacity}Ah removable lithium battery; ${m.range} km stated Eco-mode range.</li><li>Low, medium and high electronic power settings—no clutch or mechanical gear changes.</li><li>Hydraulic suspension and dual-piston hydraulic disc brakes.</li><li>150 kg maximum load; 19-inch front and 17-inch rear wheels.</li></ul>
+<h2>Power for your ride</h2><p>The ${m.voltage}V ${m.motor} central motor drives the rear wheel through a 428H chain. Select one of three electronic power levels using the handlebar buttons. The high-strength aluminum-alloy frame is finished in black.</p>
+<h2>Battery and range</h2><p>The removable ${m.voltage}V ${m.capacity}Ah lithium battery uses 21700 cells supplied by Tianpeng. Nominal energy is ${m.energy}, calculated from voltage × capacity, not measured usable energy. A 6A charger is specified for the model.</p><p>The stated Eco-mode range is ${m.range} km. Test conditions have not been supplied; actual range depends on rider weight, terrain, speed, temperature and riding style. Maximum speed is also a stated specification, not a guaranteed result in every condition.</p>
+<h2>Suspension, braking and fit</h2><p>Hydraulic front and rear suspension is paired with a rear shock adjustable for compression, rebound and preload. Dual-piston hydraulic disc brakes use 3.0 mm discs and reach-adjustable levers. The tires are tubed.</p><p>The specified suspension rider-weight range is approximately 40–95 kg. This is separate from the 150 kg maximum load rating; confirm fit and suspension setup before ordering.</p>
+<h2>Specifications</h2>${table}
+<h2>What is included?</h2><p>The bike, one charger and one owner's manual. Additional accessory inclusion is awaiting confirmation.</p>
+<h2>Warranty and support</h2><p>2-year warranty. Contact <a href="mailto:support@panquire.com">support@panquire.com</a> for the applicable coverage and claim terms; no separate battery or component coverage is stated here.</p>
+<h2>Shipping</h2><p>${shipping}</p>
+<h2>Questions before you ride</h2><h3>Does “three levels” mean three mechanical gears?</h3><p>No. Low, medium and high are electronic power settings selected with handlebar buttons. There is no clutch.</p><h3>Can I remove the battery?</h3><p>Yes. The specified lithium battery is removable. Use only the charger intended for the corresponding battery and model.</p><h3>How long does charging take?</h3><p>Charging time is being confirmed for the supplied battery and 6A charger. Contact support before ordering if charging time is important to your setup.</p><h3>Which model should I choose?</h3><p>T-01 specifies 8 kW peak power, a 60V 31.2Ah battery and 55 kg net weight. T-02 specifies 11 kW peak power and a 72V 41Ah battery. Compare these differences with your riding needs; the stated ranges use unspecified test conditions.</p>`;
+  return {...m,rows,descriptionHtml,product:{id:`gid://shopify/Product/${m.id}`,handle:m.handle,title:`Panquire ${m.handle.toUpperCase()}`,descriptionHtml,vendor:'Panquire',productType:'Electric Dirt Bike',category:'gid://shopify/TaxonomyCategory/vp-2-2-3-1',tags:[m.handle.toUpperCase(),'T-Series',`${m.voltage}V`,'Electric Dirt Bike','Off-road'],seo:{title:`Panquire ${m.handle.toUpperCase()} Electric Dirt Bike | ${m.handle==='t-01'?'8':'11'} kW Peak Power`,description:`Explore the Panquire ${m.handle.toUpperCase()} electric dirt bike: ${m.handle==='t-01'?'8':'11'} kW peak power, ${m.voltage}V ${m.capacity}Ah removable battery and hydraulic disc brakes. 2-year warranty. Shipping extra.`}}};
+});
+for (const m of models) {
+  assert.equal(new Set(m.rows.map(r=>r[1])).size,m.rows.length);
+  assert(m.product.seo.description.length<=160);
+  assert(m.descriptionHtml.includes('2-year warranty'));
+  assert(!/1 Year|3-Speed|Bronze Gold|25–30|wire transfer/.test(m.descriptionHtml));
+}
+if(require.main===module) console.log(JSON.stringify(models));
+module.exports={models,shipping};

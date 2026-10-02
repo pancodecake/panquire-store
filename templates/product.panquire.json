@@ -270,7 +270,7 @@
               "type": "text",
               "name": "t:names.product_description",
               "settings": {
-                "text": "{{ closest.product.description }}",
+                "text": "{{ closest.product.description | split: '<h2>' | first }}",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -295,8 +295,16 @@
             "shipping": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Delivery & payment",
-                "text": "<p>25–30 days from receipt of payment.</p><p>30% by wire transfer as down payment; balance due before shipment.</p>",
+                "heading": "Shipping",
+                "text": "<p>Shipping is not included in the listed price. Charges depend on the destination and order details and are shown at checkout before purchase.</p><p>Panquire ships from fulfillment warehouses in the United States and Europe, and to other supported destinations.</p>",
+                "open": false
+              }
+            },
+            "full_details": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "heading": "Full specifications & FAQs",
+                "use_product_description": true,
                 "open": false
               }
             },
@@ -304,7 +312,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "Warranty & support",
-                "text": "<p>Warranty: 1 Year. After-sales service: 1 Year.</p>",
+                "text": "<p>2-year warranty. Contact support@panquire.com for applicable coverage and claim terms.</p>",
                 "open": false
               }
             },
@@ -312,7 +320,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "In the box",
-                "text": "<p>Owner's Manual ×1, Charger ×1. Double Carton packaging.</p>",
+                "text": "<p>Bike, owner's manual ×1 and charger ×1. Additional accessory inclusion is awaiting confirmation.</p>",
                 "open": false
               }
             },
@@ -329,7 +337,8 @@
             "buy_buttons_eYQEYi",
             "shipping",
             "warranty",
-            "box"
+            "box",
+            "full_details"
           ]
         }
       },

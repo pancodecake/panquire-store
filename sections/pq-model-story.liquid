@@ -32,14 +32,14 @@
   <section class="pq-container pq-model-chapter pq-model-split">
     {% capture label %}[{{ model | upcase }} DRIVETRAIN DETAIL]{% endcapture %}
     <div class="pq-model-drive-image">{% render 'pq-media', image: model_images.drivetrain, label: label %}</div>
-    <div class="pq-model-drive-copy"><h2>{% render 'pq-model-data', model: model, field: 'Gears' %}</h2><p>{% render 'pq-model-data', model: model, field: 'Drivetrain' %}</p></div>
+    <div class="pq-model-drive-copy"><h2>{% render 'pq-model-data', model: model, field: 'Power levels' %}</h2><p>{% render 'pq-model-data', model: model, field: 'Operation' %}</p><p>{% render 'pq-model-data', model: model, field: 'Drivetrain' %}</p></div>
   </section>
   <section class="pq-container pq-model-chapter pq-model-specifications">
     <h2 class="pq-product-heading">{{ 'panquire.model.specifications' | t }}</h2>
     <div class="pq-specification-panel">
       <div class="pq-model-technical">{% capture label %}[{{ model | upcase }} TECHNICAL BIKE VIEW]{% endcapture %}{% render 'pq-media', image: model_images.technical, label: label %}</div>
       <div class="pq-specification-groups">
-        {% assign categories = 'Overview,Performance,Battery & charging,Suspension & brakes,Dimensions & weight,Packaging,Logistics' | split: ',' %}
+        {% assign categories = 'Overview,Performance,Battery & charging,Suspension & brakes,Dimensions & weight' | split: ',' %}
         {% for category in categories %}
           <details class="pq-specification-group"{% if forloop.first %} open{% endif %}>
             <summary>{{ category | escape }}</summary><dl>
@@ -47,7 +47,6 @@
             </dl>
           </details>
         {% endfor %}
-        {% if model == 't-02' %}<p class="pq-model-note">{{ 'panquire.model.weight_note' | t }}</p>{% endif %}
       </div>
     </div>
   </section>
@@ -61,11 +60,11 @@
           {% capture image %}{% render 'pq-model-data', model: other, field: 'image' %}{% endcapture %}
           <a class="pq-model-link" href="/products/{{ other }}"><img src="{{ image | strip | asset_url }}" alt="{{ other | upcase }}" width="3200" height="2560" loading="lazy">{{ other | upcase }}</a>
         </th>{% endfor %}</tr></thead><tbody>
-        {% assign comparison_keys = 'Motor,Peak motor power,Battery voltage,Battery capacity,Maximum speed,Range — Eco mode,Net weight,Max load,Front tire,Rear tire,Front/rear suspension,Brakes,Drivetrain' | split: ',' %}
+        {% assign comparison_keys = 'Motor,Peak motor power,Battery voltage,Battery capacity,Maximum speed,Range — Eco mode,Max load,Front tire,Rear tire,Front/rear suspension,Brakes,Drivetrain' | split: ',' %}
         {% for key in comparison_keys %}<tr><th scope="row">{{ key | escape }}</th>{% for other in models %}<td{% if other == model %} class="pq-model-current"{% endif %}>{% render 'pq-model-data', model: other, field: key %}</td>{% endfor %}</tr>{% endfor %}
       </tbody></table>
     </div>
-    <p class="pq-model-note">{{ 'panquire.model.weight_note' | t }}</p>
+    <p class="pq-model-note">Eco range is a stated specification. Test conditions have not been supplied; actual range varies with rider weight, terrain, speed, temperature and riding style.</p>
   </section>
 </div>
 {% endif %}
