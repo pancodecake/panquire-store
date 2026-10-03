@@ -9,6 +9,14 @@
  */
 {
   "panquire": {
+    "product_page": {
+      "battery": "Battery", "speed": "Top speed", "power": "Peak power",
+      "range": "Eco range", "weight": "Bike weight", "load": "Max load",
+      "features": "Key features", "geometry": "Geometry", "specifications": "Specifications",
+      "faqs": "Frequently asked questions", "compare": "Compare the numbers",
+      "support": "Questions? Contact Panquire support", "view_comparison": "View comparison",
+      "comparison_note": "Comparison figures are manufacturer-stated specifications supplied by Panquire. Range and performance test conditions may differ between brands and models."
+    },
     "model": {"peak":"peak","panorama":"Panoramic view","electric_dirt_bike":"Electric dirt bike","features":"The details","specifications":"Specifications & parameters","comparison":"Compare models","specification":"Specification","weight_note":"T-02 weight is pending confirmation. The supplied specification lists /60Kg without a confirmed net/gross distinction."},
     "previous_review": "Previous review",
     "next_review": "Next review",
@@ -400,3 +408,4 @@
     }
   }
 }
+
