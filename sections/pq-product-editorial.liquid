@@ -10,10 +10,16 @@
     {% for story in data.stories.value %}
       <section class="pq-product-story">
         <div class="pq-product-story__image">
-          {% if forloop.first %}
+          {% if product.handle == 't-01' and forloop.index == 1 %}
             <img src="{{ 'RiderGreen.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
-          {% elsif forloop.index == 2 %}
+          {% elsif product.handle == 't-02' and forloop.index == 1 %}
+            <img src="{{ 'RiderJump2.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-02' and forloop.index == 2 %}
+            <img src="{{ 'RiderDrift.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-01' and forloop.index == 3 %}
             <img src="{{ 'riderJump.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-02' and forloop.index == 3 %}
+            <img src="{{ 'RiderHill.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
           {% else %}
             {% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}
           {% endif %}
