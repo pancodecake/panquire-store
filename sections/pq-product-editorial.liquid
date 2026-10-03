@@ -9,7 +9,13 @@
   <div class="pq-product-wrap">
     {% for story in data.stories.value %}
       <section class="pq-product-story">
-        <div class="pq-product-story__image">{% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}</div>
+        <div class="pq-product-story__image">
+          {% if forloop.first %}
+            <img src="{{ 'RiderGreen.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+          {% else %}
+            {% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}
+          {% endif %}
+        </div>
         <div class="pq-product-story__copy"><span class="pq-product-eyebrow">{{ product.handle | upcase | escape }} / 0{{ forloop.index }}</span><h2>{{ story.heading | escape }}</h2><p>{{ story.body | escape }}</p></div>
       </section>
     {% endfor %}
