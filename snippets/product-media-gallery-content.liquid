@@ -128,6 +128,11 @@
   else
     assign sorted_media = product_media
   endif
+  assign custom_gallery_assets = '' | split: ','
+  if template.suffix == 'panquire' and selected_product.handle == 't-02' and media_presentation == 'carousel'
+    assign custom_gallery_assets = 'Panquire Black and Gold Electric Dirt Bike.png,1311,1200|Panquire_Front_Three_Quarter_View_151619.png,1373,2048|Panquire_Rear_Left_Three_Quarter_View_151619.png,2048,2048|Panquire_Rear_View_151619.png,2048,1373' | split: '|'
+  endif
+  assign gallery_slide_count = sorted_media.size | plus: custom_gallery_assets.size
   assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
   # Determine if we're in single column mode (carousel or grid with one column)
@@ -410,16 +415,36 @@
           media_fit: block_settings.media_fit,
         %}
       {% endfor %}
+      {% for image_asset in custom_gallery_assets %}
+        {% assign custom_slide_index = sorted_media.size | plus: forloop.index0 %}
+        {% assign image_details = image_asset | split: ',' %}
+        {% capture children %}
+          <div class="product-media">
+            <img class="product-media__image" src="{{ image_details[0] | asset_url }}" width="{{ image_details[1] }}" height="{{ image_details[2] }}" alt="{{ selected_product.title | escape }} additional view {{ forloop.index }}" loading="lazy">
+          </div>
+        {% endcapture %}
+        {% capture class %}{{ product_media_container_class }} product-media-container--image{% endcapture %}
+        {% capture style %}--media-preview-ratio: 1;{% endcapture %}
+        {% render 'slideshow-slide',
+          index: custom_slide_index,
+          children: children,
+          class: class,
+          style: style,
+          media_fit: block_settings.media_fit
+        %}
+      {% endfor %}
     {% endcapture %}
 
-    {% if sorted_media.size > 1 %}
+    {% if gallery_slide_count > 1 %}
       {% capture controls %}
         {% if render_slideshow_controls %}
           {%- render 'slideshow-controls',
             class: slideshow_controls_class,
             style: slideshow_controls_style,
-            item_count: sorted_media.size,
+            item_count: gallery_slide_count,
             thumbnails: sorted_media,
+            custom_thumbnails: custom_gallery_assets,
+            thumbnail_alt: selected_product.title,
             controls_on_media: controls_on_media,
             pagination_position: pagination_position,
             aspect_ratio: block_settings.aspect_ratio,
@@ -431,8 +456,10 @@
           {%- render 'slideshow-controls',
             class: 'desktop:hidden media-gallery__mobile-controls',
             style: block_settings.slideshow_mobile_controls_style,
-            item_count: sorted_media.size,
+            item_count: gallery_slide_count,
             thumbnails: sorted_media,
+            custom_thumbnails: custom_gallery_assets,
+            thumbnail_alt: selected_product.title,
             controls_on_media: mobile_controls_on_media,
             pagination_position: 'center',
             aspect_ratio: block_settings.aspect_ratio,
@@ -452,7 +479,7 @@
       ref: 'slideshow',
       class: slideshow_class,
       slides: slides,
-      slide_count: sorted_media.size,
+      slide_count: gallery_slide_count,
       slideshow_arrows: slideshow_arrows,
       arrows_position: icons_position,
       controls: controls
