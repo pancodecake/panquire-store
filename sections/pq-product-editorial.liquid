@@ -13,34 +13,7 @@
         <div class="pq-product-story__copy"><span class="pq-product-eyebrow">{{ product.handle | upcase | escape }} / 0{{ forloop.index }}</span><h2>{{ story.heading | escape }}</h2><p>{{ story.body | escape }}</p></div>
       </section>
     {% endfor %}
-    {% if features.size > 0 %}
-      <section class="pq-product-features">
-        <h2>{{ 'panquire.product_page.features' | t }}</h2>
-        <pq-product-tabs>
-          <div class="pq-product-tablist" role="tablist" aria-label="{{ 'panquire.product_page.features' | t }}">
-            {% for feature in features %}<button type="button" role="tab" id="Tab-{{ section.id }}-{{ forloop.index }}" aria-controls="Panel-{{ section.id }}-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">{{ feature.label | escape }}</button>{% endfor %}
-          </div>
-          {% for feature in features %}
-            <div class="pq-product-tabpanel" role="tabpanel" id="Panel-{{ section.id }}-{{ forloop.index }}" aria-labelledby="Tab-{{ section.id }}-{{ forloop.index }}" tabindex="0"{% unless forloop.first %} hidden{% endunless %}>
-              <div><h3>{{ feature.heading | escape }}</h3><p>{{ feature.body | escape }}</p></div>
-              <div class="pq-product-feature-image">
-                {% case forloop.index %}
-                  {% when 1 %}<img class="pq-image" src="{{ 'Motor_Close_up.png' | asset_url }}" alt="{{ product.title | escape }} motor detail" loading="lazy">
-                  {% when 3 %}<img class="pq-image" src="{{ 'Panquire_Handlebar_Controls_Closeup.jpg' | asset_url }}" alt="{{ product.title | escape }} handlebar controls detail" loading="lazy">
-                  {% when 5 %}<img class="pq-image" src="{{ 'Panquire_Rear_Shock_Suspension_Closeup.jpg' | asset_url }}" alt="{{ product.title | escape }} rear shock suspension detail" loading="lazy">
-                  {% when 6 %}<img class="pq-image" src="{{ 'battery.jpg' | asset_url }}" alt="{{ product.title | escape }} battery detail" loading="lazy">
-                  {% else %}{% render 'pq-page-image', product: product, media_id: feature.media_id, alt: product.title %}
-                {% endcase %}
-              </div>
-            </div>
-          {% endfor %}
-          <div class="pq-product-tab-arrows">
-            <button type="button" data-tab-step="-1" aria-label="{{ 'panquire.previous' | t }}">‹</button>
-            <button type="button" data-tab-step="1" aria-label="{{ 'panquire.next' | t }}">›</button>
-          </div>
-        </pq-product-tabs>
-      </section>
-    {% endif %}
+
     {% if data.geometry_image.value %}
       <details class="pq-product-disclosure" open>
         <summary><h2>{{ 'panquire.product_page.geometry' | t }}</h2><span aria-hidden="true">+</span></summary>
