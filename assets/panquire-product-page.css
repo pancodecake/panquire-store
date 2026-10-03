@@ -14,6 +14,7 @@
 .pq-storefront:has(.pq-product-editorial) .product-information .price { font-size: 28px; font-weight: 700; }
 .pq-product-category { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #8d672c; margin: 0 0 12px; }
 .pq-product-intro, .pq-product-intro .rte { text-align: left; }
+.pq-storefront:has(.pq-product-editorial) .accelerated-checkout-block { flex-basis: 100%; width: 100%; }
 .pq-storefront:has(.pq-product-editorial) .product-information .product-details { min-width: 0; }
 .pq-storefront:has(.pq-product-editorial) .product-information .product-media img { object-fit: contain; }
 .pq-storefront:has(.pq-product-editorial) .product-information .slideshow-controls__thumbnail { min-width: 64px; }
