@@ -8,6 +8,12 @@ if (!customElements.get('pq-product-tabs')) {
       this.tabs = [...this.querySelectorAll('[role="tab"]')];
       this.panels = [...this.querySelectorAll('[role="tabpanel"]')];
       this.addEventListener('click', event => {
+        const arrow = event.target.closest('[data-tab-step]');
+        if (arrow) {
+          const current = this.tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true');
+          this.select((current + Number(arrow.dataset.tabStep) + this.tabs.length) % this.tabs.length);
+          return;
+        }
         const index = this.tabs.indexOf(event.target.closest('[role="tab"]'));
         if (index >= 0) this.select(index);
       }, options);
@@ -32,3 +38,4 @@ if (!customElements.get('pq-product-tabs')) {
     }
   });
 }
+

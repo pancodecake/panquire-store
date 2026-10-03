@@ -26,6 +26,10 @@
               <div class="pq-product-feature-image">{% render 'pq-page-image', product: product, media_id: feature.media_id, alt: product.title %}</div>
             </div>
           {% endfor %}
+          <div class="pq-product-tab-arrows">
+            <button type="button" data-tab-step="-1" aria-label="{{ 'panquire.previous' | t }}">‹</button>
+            <button type="button" data-tab-step="1" aria-label="{{ 'panquire.next' | t }}">›</button>
+          </div>
         </pq-product-tabs>
       </section>
     {% endif %}
@@ -72,3 +76,4 @@
 {% schema %}
 {"name":"Panquire product details","settings":[],"presets":[{"name":"Panquire product details"}]}
 {% endschema %}
+
