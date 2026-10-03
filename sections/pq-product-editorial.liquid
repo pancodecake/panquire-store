@@ -12,6 +12,8 @@
         <div class="pq-product-story__image">
           {% if forloop.first %}
             <img src="{{ 'RiderGreen.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif forloop.index == 2 %}
+            <img src="{{ 'riderJump.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
           {% else %}
             {% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}
           {% endif %}
