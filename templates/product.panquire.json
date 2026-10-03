@@ -35,10 +35,12 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
+            "pq_placeholder": false,
             "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
             "large_first_image": false,
+            "icons_style": "arrow",
             "slideshow_controls_style": "thumbnails",
             "slideshow_mobile_controls_style": "thumbnails",
             "thumbnail_position": "bottom",
@@ -55,8 +57,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "pq_placeholder": false
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -118,6 +119,7 @@
                 "border_opacity": 100,
                 "border_color": "",
                 "border_radius": 0,
+                "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
                 "padding-block-start": 0,
@@ -180,12 +182,17 @@
                 "price_tVjtKg"
               ]
             },
+            "text_aEtTtq": {
+              "type": "pq-product-intro",
+              "settings": {},
+              "blocks": {}
+            },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": false,
-                "option_label_text_color": "#171719",
+                "option_label_text_color": "#FFFFFF",
                 "variant_style_class": "default",
                 "custom_variant_background": "{{ settings.color_palette.background }}",
                 "custom_variant_text": "{{ settings.color_palette.foreground }}",
@@ -195,6 +202,19 @@
                 "custom_selected_variant_text": "{{ settings.color_palette.background }}",
                 "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
                 "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "inventory": {
+              "type": "product-inventory",
+              "settings": {
+                "inventory_threshold": 10,
+                "show_inventory_quantity": false,
+                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -262,47 +282,47 @@
               },
               "block_order": []
             },
-            "text_aEtTtq": {
-              "type": "pq-product-intro",
-              "settings": {}
-            },
-            "shipping": {
-              "type": "pq-product-accordion",
-              "settings": {
-                "heading": "Shipping",
-                "text": "<p>Shipping is not included in the listed price. Charges depend on the destination and order details and are shown at checkout before purchase.</p><p>Panquire ships from fulfillment warehouses in the United States and Europe, and to other supported destinations.</p>",
-                "open": false
-              }
-            },
-            "warranty": {
-              "type": "pq-product-accordion",
-              "settings": {
-                "heading": "Warranty & support",
-                "text": "<p>2-year warranty. <a href=\"/pages/contact\">Contact Panquire support</a> for applicable coverage and claim terms.</p>",
-                "open": false
-              }
-            },
-            "box": {
-              "type": "pq-product-accordion",
-              "settings": {
-                "heading": "In the box",
-                "text": "<p>Bike, owner's manual ×1 and charger ×1.</p>",
-                "open": false
-              }
-            },
-            "inventory": {
-              "type": "product-inventory",
-              "settings": {
-                "inventory_threshold": 10,
-                "show_inventory_quantity": false
-              }
-            },
             "payments": {
               "type": "payment-icons",
               "settings": {
                 "horizontal_alignment": "flex-start",
-                "gap": 8
-              }
+                "gap": 8,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "shipping": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "use_product_description": false,
+                "heading": "Shipping",
+                "text": "<p>Shipping is not included in the listed price. Charges depend on the destination and order details and are shown at checkout before purchase.</p><p>Panquire ships from fulfillment warehouses in the United States and Europe, and to other supported destinations.</p>",
+                "open": false
+              },
+              "blocks": {}
+            },
+            "warranty": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "use_product_description": false,
+                "heading": "Warranty & support",
+                "text": "<p>2-year warranty. <a href=\"/pages/contact\">Contact Panquire support</a> for applicable coverage and claim terms.</p>",
+                "open": false
+              },
+              "blocks": {}
+            },
+            "box": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "use_product_description": false,
+                "heading": "In the box",
+                "text": "<p>Bike, owner's manual ×1 and charger ×1.</p>",
+                "open": false
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -343,4 +363,3 @@
     "model_story"
   ]
 }
-
