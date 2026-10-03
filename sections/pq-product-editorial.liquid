@@ -23,7 +23,15 @@
           {% for feature in features %}
             <div class="pq-product-tabpanel" role="tabpanel" id="Panel-{{ section.id }}-{{ forloop.index }}" aria-labelledby="Tab-{{ section.id }}-{{ forloop.index }}" tabindex="0"{% unless forloop.first %} hidden{% endunless %}>
               <div><h3>{{ feature.heading | escape }}</h3><p>{{ feature.body | escape }}</p></div>
-              <div class="pq-product-feature-image">{% render 'pq-page-image', product: product, media_id: feature.media_id, alt: product.title %}</div>
+              <div class="pq-product-feature-image">
+                {% case forloop.index %}
+                  {% when 1 %}<img class="pq-image" src="{{ 'Motor_Close_up.png' | asset_url }}" alt="{{ product.title | escape }} motor detail" loading="lazy">
+                  {% when 3 %}<img class="pq-image" src="{{ 'Panquire_Handlebar_Controls_Closeup.jpg' | asset_url }}" alt="{{ product.title | escape }} handlebar controls detail" loading="lazy">
+                  {% when 5 %}<img class="pq-image" src="{{ 'Panquire_Rear_Shock_Suspension_Closeup.jpg' | asset_url }}" alt="{{ product.title | escape }} rear shock suspension detail" loading="lazy">
+                  {% when 6 %}<img class="pq-image" src="{{ 'battery.jpg' | asset_url }}" alt="{{ product.title | escape }} battery detail" loading="lazy">
+                  {% else %}{% render 'pq-page-image', product: product, media_id: feature.media_id, alt: product.title %}
+                {% endcase %}
+              </div>
             </div>
           {% endfor %}
           <div class="pq-product-tab-arrows">
