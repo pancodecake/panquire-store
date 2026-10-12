@@ -53,7 +53,11 @@ pq-comparison { display: block; }
 .pq-compare__product--competitor .pq-compare__pill { border-color: color-mix(in srgb,var(--compare-red) 40%,var(--color-border)); }
 .pq-compare__pill [data-price] { font-weight: 650; }
 .pq-compare__pill small { margin-right: 6px; color: var(--color-text-secondary); font-size: 11px; font-weight: 400; }
-.pq-compare__pill a { display: inline-flex; align-items: center; min-height: 44px; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
+.pq-compare__source { position: relative; display: inline-flex; align-items: center; min-height: 44px; gap: 5px; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; cursor: help; }
+.pq-compare__source:focus-visible { outline: 2px solid var(--compare-bronze); outline-offset: 3px; border-radius: 4px; }
+.pq-compare__product--competitor .pq-compare__source:focus-visible { outline-color: var(--compare-red); }
+.pq-compare__source-tooltip { position: absolute; bottom: calc(100% + 10px); left: 50%; z-index: 7; width: max-content; max-width: min(360px,calc(100vw - 32px)); padding: 9px 11px; border: 1px solid var(--color-border-strong); border-radius: 10px; background: color-mix(in srgb,var(--color-bg-surface) 96%,black); color: var(--color-text-primary); box-shadow: 0 12px 28px rgba(0,0,0,.38); font-size: 11px; font-weight: 450; line-height: 1.4; overflow-wrap: anywhere; text-align: left; text-decoration: none; opacity: 0; visibility: hidden; transform: translate(-50%,4px); pointer-events: none; transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms; }
+.pq-compare__source:hover .pq-compare__source-tooltip, .pq-compare__source:focus-visible .pq-compare__source-tooltip { opacity: 1; visibility: visible; transform: translate(-50%,0); transition-delay: 0s; }
 .pq-compare__availability { min-height: 18px; margin-top: 10px !important; color: var(--color-text-secondary); font-size: 12px; }
 
 .pq-compare :is(.pq-compare__methodology,.pq-compare__differences) { position: relative; isolation: isolate; border: 2px solid color-mix(in srgb,var(--color-border-strong) 78%,white); background: var(--color-bg-page); box-shadow: 0 18px 44px rgba(0,0,0,.2); }

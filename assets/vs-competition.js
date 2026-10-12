@@ -432,7 +432,10 @@
           }
         }
         const source = product.querySelector('[data-source]');
-        if (source) { source.hidden = !record.sourceUrl; if (record.sourceUrl) source.href = record.sourceUrl; else source.removeAttribute('href'); }
+        if (source) {
+          source.hidden = !record.sourceUrl;
+          source.querySelector('[data-source-tooltip]').textContent = record.sourceUrl || '';
+        }
         this.querySelector(`[data-legend="${side}"]`).textContent = record.name;
         product.querySelector('[data-availability]').textContent = this.hasSpecifications(record) ? '' : 'Specifications coming soon';
       }

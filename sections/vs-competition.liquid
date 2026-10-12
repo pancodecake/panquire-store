@@ -55,7 +55,7 @@
           </div>
           <div class="pq-compare__pill" {% unless section.settings.show_price or section.settings.show_source %}hidden{% endunless %}>
             {% if section.settings.show_price %}<span data-price>—</span>{% endif %}
-            {% if section.settings.show_source %}<a data-source target="_blank" rel="noopener noreferrer" hidden>Source<span class="visually-hidden"> (opens in a new tab)</span><span aria-hidden="true">↗</span></a>{% endif %}
+            {% if section.settings.show_source %}<span class="pq-compare__source" data-source tabindex="0" aria-describedby="Source-tooltip-{{ side }}-{{ section.id }}" hidden>Source<span aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Source-tooltip-{{ side }}-{{ section.id }}" role="tooltip" data-source-tooltip></span></span>{% endif %}
           </div>
           <p class="pq-compare__availability" data-availability></p>
         </div>
