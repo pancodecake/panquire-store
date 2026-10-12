@@ -26,7 +26,7 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
           replacement.tabIndex = 0;
           replacement.hidden = true;
           replacement.setAttribute('aria-describedby', 'Local-source-tooltip-' + index);
-          replacement.innerHTML = 'Source<span aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Local-source-tooltip-' + index + '" role="tooltip" data-source-tooltip></span>';
+          replacement.innerHTML = '<span class="pq-compare__source-label">Source</span><span class="pq-compare__source-icon" aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Local-source-tooltip-' + index + '" role="tooltip" data-source-tooltip></span>';
           source.replaceWith(replacement);
         });
       })();`;
@@ -80,6 +80,11 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     const sourceTooltip = root.locator('[data-product="panquire"] [data-source-tooltip]');
     await sourceLabel.hover();
     assert.equal(await sourceTooltip.evaluate(node => getComputedStyle(node).visibility), 'visible');
+    const sourceBox = await sourceLabel.boundingBox(), tooltipBox = await sourceTooltip.boundingBox();
+    assert.ok(tooltipBox.y >= sourceBox.y + sourceBox.height);
+    assert.notEqual(await sourceTooltip.evaluate(node => getComputedStyle(node, '::before').content), 'none');
+    assert.equal(await sourceLabel.locator('.pq-compare__source-label').evaluate(node => getComputedStyle(node).textDecorationLine), 'underline');
+    assert.equal(await sourceLabel.locator('.pq-compare__source-icon').evaluate(node => getComputedStyle(node).textDecorationLine), 'none');
     await sourceLabel.focus();
     assert.equal(await sourceTooltip.evaluate(node => getComputedStyle(node).visibility), 'visible');
     assert.ok(currentProduct.image);
