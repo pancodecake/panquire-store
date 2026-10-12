@@ -17,19 +17,19 @@
         "default_product": "",
         "default_competitor": "",
         "t01_competitors": [
-          "shopify://metaobjects/competitor_product/pro-s-17",
-          "shopify://metaobjects/competitor_product/mantis-x",
-          "shopify://metaobjects/competitor_product/falcon-lite",
-          "shopify://metaobjects/competitor_product/x1-spark-l",
-          "shopify://metaobjects/competitor_product/light-bee-x"
+          "gid://shopify/Metaobject/261585240248",
+          "gid://shopify/Metaobject/261585273016",
+          "gid://shopify/Metaobject/261585371320",
+          "gid://shopify/Metaobject/261585436856",
+          "gid://shopify/Metaobject/261585076408"
         ],
         "t02_competitors": [
-          "shopify://metaobjects/competitor_product/ultra-bee",
-          "shopify://metaobjects/competitor_product/x7-spark",
-          "shopify://metaobjects/competitor_product/pro-ss-2-0",
-          "shopify://metaobjects/competitor_product/nova-5-pro",
-          "shopify://metaobjects/competitor_product/mantis-x",
-          "shopify://metaobjects/competitor_product/falcon-pro"
+          "gid://shopify/Metaobject/261872615608",
+          "gid://shopify/Metaobject/261872648376",
+          "gid://shopify/Metaobject/261872681144",
+          "gid://shopify/Metaobject/261872713912",
+          "gid://shopify/Metaobject/261585273016",
+          "gid://shopify/Metaobject/261872746680"
         ],
         "difference_count": 6,
         "show_radar": true,
