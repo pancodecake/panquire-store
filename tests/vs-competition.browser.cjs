@@ -19,8 +19,19 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
         const config = JSON.parse(node.textContent), products = ${JSON.stringify(products)};
         config.products = config.products.map((record, index) => ({ ...record, ...products[index], image: record.image, price: record.price }));
         node.textContent = JSON.stringify(config);
+        document.querySelectorAll('[data-source]').forEach((source, index) => {
+          const replacement = document.createElement('span');
+          replacement.className = 'pq-compare__source';
+          replacement.dataset.source = '';
+          replacement.tabIndex = 0;
+          replacement.hidden = true;
+          replacement.setAttribute('aria-describedby', 'Local-source-tooltip-' + index);
+          replacement.innerHTML = 'Source<span aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Local-source-tooltip-' + index + '" role="tooltip" data-source-tooltip></span>';
+          source.replaceWith(replacement);
+        });
       })();`;
       await context.route('**/vs-competition.js*', route => route.fulfill({ contentType: 'text/javascript', body: override + readFileSync(join(__dirname, '../assets/vs-competition.js'), 'utf8') }));
+      await context.route('**/vs-competition.css*', route => route.fulfill({ contentType: 'text/css', body: readFileSync(join(__dirname, '../assets/vs-competition.css'), 'utf8') }));
     };
     await prepareLocal(context);
     const page = await context.newPage();
@@ -56,13 +67,21 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     const currentProduct = await root.evaluate(node => ({
       id: node.selected.panquire.id,
       price: node.querySelector('[data-product="panquire"] [data-price]').textContent,
-      source: node.querySelector('[data-product="panquire"] [data-source]').getAttribute('href'),
+      source: node.querySelector('[data-product="panquire"] [data-source-tooltip]').textContent,
       image: node.querySelector('[data-product="panquire"] [data-image]').getAttribute('src'),
       power: node.selected.panquire.specs.peak_motor_power.value
     }));
     assert.equal(String(currentProduct.id).split('/').pop(), '10628825940152');
     assert.match(currentProduct.price, /2,000/);
     assert.equal(currentProduct.source, 'https://panquire.com/products/t-01');
+    const sourceLabel = root.locator('[data-product="panquire"] [data-source]');
+    assert.equal(await sourceLabel.evaluate(node => node instanceof HTMLAnchorElement), false);
+    assert.equal(await sourceLabel.getAttribute('href'), null);
+    const sourceTooltip = root.locator('[data-product="panquire"] [data-source-tooltip]');
+    await sourceLabel.hover();
+    assert.equal(await sourceTooltip.evaluate(node => getComputedStyle(node).visibility), 'visible');
+    await sourceLabel.focus();
+    assert.equal(await sourceTooltip.evaluate(node => getComputedStyle(node).visibility), 'visible');
     assert.ok(currentProduct.image);
     assert.equal(currentProduct.power, 8000);
     assert.equal(await root.locator('.pq-compare__methodology h2').textContent(), 'Comparison Methodology');
