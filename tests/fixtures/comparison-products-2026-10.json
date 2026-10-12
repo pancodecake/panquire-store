@@ -1,0 +1,44 @@
+[
+  {
+    "id": "gid://shopify/Product/10628825940152",
+    "handle": "t-01",
+    "name": "Panquire T-01 Electric Dirt Bike",
+    "metafields": [
+      {
+        "namespace": "custom",
+        "key": "panquire_specifications",
+        "type": "multi_line_text_field",
+        "value": "Overview|Model|T-01\nOverview|Type|Electric Dirt Bike\nOverview|Color|Black\nOverview|Frame material|High-Strength Aluminum Alloy\nOverview|Warranty|2 years\nPerformance|Motor|60V 3,000W Central Motor\nPerformance|Peak motor power|8000W\nPerformance|Maximum speed|80 km/h\nPerformance|Range — Eco mode|80 km\nPerformance|Climbing ability|Less than 30°\nPerformance|Max load|150 kg\nPerformance|Drivetrain|Chain Drive\nPerformance|Chain|428H\nPerformance|Power levels|3-level electronic adjustment — Low / Medium / High\nPerformance|Operation|Handlebar buttons; no clutch\nBattery & charging|Battery|Removable Lithium Battery, 21700 Cells\nBattery & charging|Battery cell supplier|Tianpeng\nBattery & charging|Battery voltage|60V\nBattery & charging|Battery capacity|31.2Ah\nBattery & charging|Nominal battery energy|1.872 kWh (voltage × capacity)\nBattery & charging|Charger|6A\nSuspension & brakes|Front/rear suspension|Hydraulic Suspension\nSuspension & brakes|Rear shock|Adjustable compression, rebound and preload\nSuspension & brakes|Suspension rider-weight range|Approx. 40–95 kg\nSuspension & brakes|Brakes|Dual-piston hydraulic disc brakes\nSuspension & brakes|Brake disc thickness|3.0 mm\nSuspension & brakes|Brake lever|Reach adjustable\nSuspension & brakes|Front tire|19 inches\nSuspension & brakes|Rear tire|17 inches\nSuspension & brakes|Tire type|Tubed\nDimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm\nDimensions & weight|Net weight|55 kg",
+        "updatedAt": "2026-10-02T11:18:57Z"
+      },
+      {
+        "namespace": "panquire",
+        "key": "specification_additions",
+        "type": "multi_line_text_field",
+        "value": "Battery & charging|Charging 0–100%|Approx. 4 hours\nBattery & charging|Charging 20–80%|Approx. 2–3 hours",
+        "updatedAt": "2026-10-02T14:32:59Z"
+      }
+    ]
+  },
+  {
+    "id": "gid://shopify/Product/10628826005688",
+    "handle": "t-02",
+    "name": "Panquire T-02 Electric Dirt Bike",
+    "metafields": [
+      {
+        "namespace": "custom",
+        "key": "panquire_specifications",
+        "type": "multi_line_text_field",
+        "value": "Overview|Model|T-02\nOverview|Type|Electric Dirt Bike\nOverview|Color|Black\nOverview|Frame material|High-Strength Aluminum Alloy\nOverview|Warranty|2 years\nPerformance|Motor|72V 6,000W Central Motor\nPerformance|Peak motor power|11,000W\nPerformance|Maximum speed|100 km/h\nPerformance|Range — Eco mode|90 km\nPerformance|Climbing ability|Less than 30°\nPerformance|Max load|150 kg\nPerformance|Drivetrain|Chain Drive\nPerformance|Chain|428H\nPerformance|Power levels|3-level electronic adjustment — Low / Medium / High\nPerformance|Operation|Handlebar buttons; no clutch\nBattery & charging|Battery|Removable Lithium Battery, 21700 Cells\nBattery & charging|Battery cell supplier|Tianpeng\nBattery & charging|Battery voltage|72V\nBattery & charging|Battery capacity|41Ah\nBattery & charging|Nominal battery energy|2.952 kWh (voltage × capacity)\nBattery & charging|Charger|6A\nSuspension & brakes|Front/rear suspension|Hydraulic Suspension\nSuspension & brakes|Rear shock|Adjustable compression, rebound and preload\nSuspension & brakes|Suspension rider-weight range|Approx. 40–95 kg\nSuspension & brakes|Brakes|Dual-piston hydraulic disc brakes\nSuspension & brakes|Brake disc thickness|3.0 mm\nSuspension & brakes|Brake lever|Reach adjustable\nSuspension & brakes|Front tire|19 inches\nSuspension & brakes|Rear tire|17 inches\nSuspension & brakes|Tire type|Tubed\nDimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm\nBattery & charging|Battery pack weight|15 kg",
+        "updatedAt": "2026-10-02T11:18:57Z"
+      },
+      {
+        "namespace": "panquire",
+        "key": "specification_additions",
+        "type": "multi_line_text_field",
+        "value": "Dimensions & weight|Bike weight|68 kg\nBattery & charging|Charging 0–100%|Approx. 4 hours\nBattery & charging|Charging 20–80%|Approx. 2–3 hours",
+        "updatedAt": "2026-10-02T14:33:06Z"
+      }
+    ]
+  }
+]

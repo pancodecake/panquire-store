@@ -105,3 +105,67 @@ test('acceleration with different measurement bases has no margin or winner', ()
   assert.equal(winner(spec, a, b), null);
   assert.equal(difference(spec, a, b), null);
 });
+
+const currentProducts = require('./fixtures/comparison-products-2026-10.json').map(record => ({
+  ...record,
+  specificationRows: record.metafields.find(field => field.key === 'panquire_specifications').value,
+  specificationAdditions: record.metafields.find(field => field.key === 'specification_additions').value
+}));
+
+test('replacement products use current metafield rows, not stale comparison values', () => {
+  const [t01, t02] = currentProducts.map(record => normalize({ ...record, fields: { peak_motor_power: 1, ready_to_ride_weight: 99 } }));
+  assert.equal(t01.name, 'T-01');
+  assert.equal(t02.name, 'T-02');
+  assert.equal(t01.specs.continuous_motor_power.value, 3000);
+  assert.equal(t02.specs.continuous_motor_power.value, 6000);
+  assert.equal(t01.specs.peak_motor_power.value, 8000);
+  assert.equal(t02.specs.peak_motor_power.value, 11000);
+  assert.equal(t01.specs.battery_energy.value, 1.872);
+  assert.equal(t02.specs.battery_energy.value, 2.952);
+  assert.equal(t02.specs.battery_energy.display, '2.952 kWh (voltage × capacity)');
+  assert.equal(t02.details.coreMeta.batteryEnergy.derived, true);
+  assert.equal(t01.specs.netBikeWeight.value, 55);
+  assert.equal(t02.specs.bikeWeight.value, 68);
+  for (const product of [t01, t02]) {
+    assert.equal(product.specs.ready_to_ride_weight.value, null);
+    assert.equal(product.specs.maximum_climbing_ability.display, 'Less than 30°');
+    assert.equal(product.specs.maximum_climbing_ability.value, null);
+    assert.equal(product.specs.maximum_climbing_ability.plotValue, 30);
+    assert.equal(product.specs.claimed_range.value, null);
+    assert.match(product.specs.claimed_range.display, /Eco mode/);
+    assert.equal(product.specs.chargingTime.display, 'Approx. 4 hours (0–100%)');
+    assert.equal(product.specs.chargingTime.value, null);
+    assert.equal(product.specs.brakes.display, 'Dual-piston hydraulic disc brakes');
+    assert.equal(product.specs.suspension.display, 'Hydraulic Suspension');
+    assert.equal(product.specs.wheels.display, '19 inches front / 17 inches rear');
+    assert.equal(product.specs.charger.display, '6A');
+    assert.equal(product.specs.gears, undefined);
+  }
+});
+
+test('current row parser preserves missing, qualified and unsupported values without inventing numbers', () => {
+  const record = normalize({ specificationRows: 'Performance|Peak motor power|TBD\r\nPerformance|Maximum speed|80 mph\r\nPerformance|Motor|unknown\r\nDimensions & weight|Net weight|TBD\r\nBattery & charging|Battery capacity|0Ah\r\nBad line' });
+  assert.equal(record.specs.peak_motor_power.value, null);
+  assert.equal(record.specs.maximum_speed.value, null);
+  assert.equal(record.specs.maximum_speed.display, '80 mph');
+  assert.equal(record.specs.continuous_motor_power.value, null);
+  assert.equal(record.specs.netBikeWeight, undefined);
+  assert.equal(record.specs.battery_capacity.value, 0);
+  assert.equal(record.specs.battery_energy.value, null);
+  const empty = normalize({ specificationRows: '', fields: { peak_motor_power: 999 } });
+  assert.equal(empty.specs.peak_motor_power.value, null);
+});
+
+test('all restored pairings have shared current specifications and retain competitor source profiles', () => {
+  const fixture = require('./fixtures/comparison-shopify.json');
+  currentProducts.forEach((raw, index) => {
+    const product = normalize(raw);
+    for (const handle of fixture.products[index].competitorHandles) {
+      const competitor = applyProfile(normalize(fixture.competitors.find(record => record.handle === handle)), raw.handle);
+      const shared = showdownSpecs(sharedSpecs(specs, product, competitor));
+      assert.ok(shared.length >= 2, `${raw.handle} / ${handle}`);
+      assert.ok(shared.every(spec => spec.key !== 'ready_to_ride_weight'));
+      assert.ok(radarMetrics.filter(metric => shared.some(spec => spec.key === metric.key)).every(metric => score(metric, product) !== null));
+    }
+  });
+});

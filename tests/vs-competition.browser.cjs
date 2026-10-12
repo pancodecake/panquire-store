@@ -1,5 +1,6 @@
 const assert = require('node:assert/strict');
 const { join } = require('node:path');
+const { readFileSync, mkdirSync } = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=191626870968';
 
@@ -7,7 +8,23 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
   const browser = await chromium.launch({ headless: true, channel: process.env.BROWSER_CHANNEL || 'msedge' });
   const errors = [];
   try {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+    mkdirSync(join(__dirname, '../.shopify-temp'), { recursive: true });
+    const context = await browser.newContext();
+    const prepareLocal = async context => {
+      if (process.env.COMPARISON_LOCAL !== '1') return;
+      const { renderProduct } = require('./vs-competition.liquid.cjs');
+      const products = await Promise.all([renderProduct(0), renderProduct(1)]);
+      const override = `(() => {
+        const node = document.querySelector('[data-comparison-data]');
+        const config = JSON.parse(node.textContent), products = ${JSON.stringify(products)};
+        config.products = config.products.map((record, index) => ({ ...record, ...products[index], image: record.image, price: record.price }));
+        node.textContent = JSON.stringify(config);
+      })();`;
+      await context.route('**/vs-competition.js*', route => route.fulfill({ contentType: 'text/javascript', body: override + readFileSync(join(__dirname, '../assets/vs-competition.js'), 'utf8') }));
+    };
+    await prepareLocal(context);
+    const page = await context.newPage();
+    await page.setViewportSize({ width: 1440, height: 1100 });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(comparisonUrl, { waitUntil: 'domcontentloaded' });
     console.log('Loaded', page.url(), await page.title());
@@ -36,6 +53,18 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     };
     assert.equal((await state()).left, 't-01');
     assert.equal((await state()).right, 'pro-s-17');
+    const currentProduct = await root.evaluate(node => ({
+      id: node.selected.panquire.id,
+      price: node.querySelector('[data-product="panquire"] [data-price]').textContent,
+      source: node.querySelector('[data-product="panquire"] [data-source]').getAttribute('href'),
+      image: node.querySelector('[data-product="panquire"] [data-image]').getAttribute('src'),
+      power: node.selected.panquire.specs.peak_motor_power.value
+    }));
+    assert.equal(String(currentProduct.id).split('/').pop(), '10628825940152');
+    assert.match(currentProduct.price, /2,000/);
+    assert.equal(currentProduct.source, 'https://panquire.com/products/t-01');
+    assert.ok(currentProduct.image);
+    assert.equal(currentProduct.power, 8000);
     assert.equal(await root.locator('.pq-compare__methodology h2').textContent(), 'Comparison Methodology');
     assert.equal(await root.locator('.pq-compare__methodology a[href="mailto:support@panquire.com"]').textContent(), 'support@panquire.com');
     await page.evaluate(() => document.fonts.ready);
@@ -83,7 +112,8 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     assert.equal(current.params.panquire, 't-02');
     assert.equal(current.params.competitor, 'ultra-bee');
     assert.ok(!current.rows.includes('ready_to_ride_weight'));
-    assert.ok(!current.rows.includes('battery_energy'));
+    assert.ok(current.rows.includes('battery_energy'));
+    assert.match(current.text, /2\.952 kWh \(voltage × capacity\)/);
     assert.ok(current.rows.includes('suspension'));
     await root.locator('details summary').click();
     assert.equal(await root.locator('details').getAttribute('open'), '');
@@ -100,7 +130,7 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     for (const handle of current.choices) await choose('competitor', handle);
     await choose('competitor', 'pro-s-17');
     assert.equal(await root.locator('[data-differences] tr[data-spec="battery_energy"] .is-winner').getAttribute('class'), 'pq-compare__value pq-compare__value--competitor is-winner');
-    assert.equal(await root.locator('[data-differences] tr[data-spec="ready_to_ride_weight"] .is-winner').count(), 1);
+    assert.equal(await root.locator('[data-differences] tr[data-spec="ready_to_ride_weight"]').count(), 0);
     assert.equal(await root.locator('[data-differences] tr[data-spec="peak_motor_power"] .is-winner').count(), 0);
     assert.equal(await root.locator('[data-differences] tr[data-spec="wheels"] .is-winner').count(), 0);
     await root.locator('[data-metrics] button').first().click();
@@ -119,7 +149,10 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     const duration = await trigger('panquire').evaluate(node => getComputedStyle(node).transitionDuration);
     assert.ok(duration.split(',').every(value => parseFloat(value) <= .001));
 
-    const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    await prepareLocal(mobileContext);
+    const mobile = await mobileContext.newPage();
+    mobile.on('pageerror', error => errors.push(error.message));
     await mobile.goto(comparisonUrl, { waitUntil: 'domcontentloaded' });
     await mobile.waitForFunction(() => document.querySelector('pq-comparison')?.selected?.panquire);
     const mobileTrigger = mobile.locator('[data-selector="panquire"] [data-select-trigger]');
