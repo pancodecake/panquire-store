@@ -16,6 +16,21 @@
         "supporting_text": "Select an area to explore the differences",
         "default_product": "",
         "default_competitor": "",
+        "t01_competitors": [
+          "shopify://metaobjects/competitor_product/pro-s-17",
+          "shopify://metaobjects/competitor_product/mantis-x",
+          "shopify://metaobjects/competitor_product/falcon-lite",
+          "shopify://metaobjects/competitor_product/x1-spark-l",
+          "shopify://metaobjects/competitor_product/light-bee-x"
+        ],
+        "t02_competitors": [
+          "shopify://metaobjects/competitor_product/ultra-bee",
+          "shopify://metaobjects/competitor_product/x7-spark",
+          "shopify://metaobjects/competitor_product/pro-ss-2-0",
+          "shopify://metaobjects/competitor_product/nova-5-pro",
+          "shopify://metaobjects/competitor_product/mantis-x",
+          "shopify://metaobjects/competitor_product/falcon-pro"
+        ],
         "difference_count": 6,
         "show_radar": true,
         "show_price": true,

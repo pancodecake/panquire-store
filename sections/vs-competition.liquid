@@ -11,8 +11,8 @@
   "defaults": {"panquire": {{ default_product | json }}, "competitor": {{ default_competitor | json }}},
   "count": {{ section.settings.difference_count | json }},
   "products": [
-    {% render 'comparison-record', record: first_product, kind: 'product', fallback_name: 'T-01', fallback_handle: 't-01' %},
-    {% render 'comparison-record', record: second_product, kind: 'product', fallback_name: 'T-02', fallback_handle: 't-02' %}
+    {% render 'comparison-record', record: first_product, kind: 'product', fallback_name: 'T-01', fallback_handle: 't-01', competitors: section.settings.t01_competitors %},
+    {% render 'comparison-record', record: second_product, kind: 'product', fallback_name: 'T-02', fallback_handle: 't-02', competitors: section.settings.t02_competitors %}
   ],
   "competitors": [
     {% paginate shop.metaobjects.competitor_product.values by 250 %}
@@ -98,6 +98,8 @@
     {"type":"text","id":"supporting_text","label":"Supporting text","default":"Select an area to explore the differences"},
     {"type":"product","id":"default_product","label":"Default Panquire product","info":"Choose T-01 or T-02."},
     {"type":"metaobject","id":"default_competitor","label":"Default competitor","metaobject_type":"competitor_product"},
+    {"type":"metaobject_list","id":"t01_competitors","label":"T-01 competitors (in order)","metaobject_type":"competitor_product","limit":50},
+    {"type":"metaobject_list","id":"t02_competitors","label":"T-02 competitors (in order)","metaobject_type":"competitor_product","limit":50},
     {"type":"range","id":"difference_count","label":"Legacy differences count","info":"The fixed showdown categories now show all mutually available values; this saved setting is retained for compatibility.","min":3,"max":10,"step":1,"default":6},
     {"type":"checkbox","id":"show_radar","label":"Show radar chart","default":true},
     {"type":"checkbox","id":"show_price","label":"Show price","default":true},

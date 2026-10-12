@@ -51,7 +51,61 @@
     try { return JSON.parse(value); } catch { return {}; }
   };
 
+  function productSpecifications(record) {
+    const rows = new Map();
+    for (const line of `${record.specificationRows}\n${record.specificationAdditions || ''}`.split(/\r?\n/)) {
+      const [group, label, ...parts] = line.split('|');
+      if (group?.trim() && label?.trim() && parts.length) rows.set(label.trim().toLowerCase(), parts.join('|').trim());
+    }
+    const fields = {}, details = { specs: {}, coreMeta: {} };
+    const read = (label) => rows.get(label) || '';
+    const numeric = (display, unit) => {
+      const match = display.match(new RegExp(`^(?:(?:Less than|Up to|Approx\\.)\\s*|[<>≤≥~≈]\\s*)?([\\d,]+(?:\\.\\d+)?)\\s*${unit}(?:\\s*\\([^)]*\\))?$`, 'i'));
+      return match ? number(match[1].replaceAll(',', '')) : null;
+    };
+    const coreFields = [
+      ['peak motor power', 'peak_motor_power', 'W'], ['maximum speed', 'maximum_speed', 'km/h'],
+      ['battery voltage', 'battery_voltage', 'V'], ['battery capacity', 'battery_capacity', 'Ah'],
+      ['nominal battery energy', 'battery_energy', 'kWh'], ['max load', 'maximum_load', 'kg'],
+      ['climbing ability', 'maximum_climbing_ability', '°'], ['range — eco mode', 'claimed_range', 'km'],
+      ['net weight', 'net_weight', 'kg'], ['bike weight', 'bike_weight', 'kg']
+    ];
+    for (const [label, key, unit] of coreFields) {
+      const display = read(label);
+      if (!display) continue;
+      fields[key] = numeric(display, unit);
+      fields[`${key}_display`] = key === 'claimed_range' ? `${display} (Eco mode)` : display;
+    }
+    const motor = read('motor').match(/^([\d.]+)\s*V\s+([\d,]+(?:\.\d+)?)\s*W\s+(.+)$/i);
+    if (motor) {
+      fields.continuous_motor_power = number(motor[2].replaceAll(',', ''));
+      fields.continuous_motor_power_display = `${motor[2]} W`;
+      fields.motor_type = motor[3];
+    }
+    for (const [label, key] of [
+      ['drivetrain', 'drivetrain'], ['battery', 'battery_type'], ['front/rear suspension', 'suspension'],
+      ['rear shock', 'rear_shock'], ['brakes', 'brakes'], ['vehicle dimensions', 'vehicle_dimensions'],
+      ['frame material', 'frame_material'], ['color', 'color']
+    ]) fields[key] = read(label);
+    fields.charger_display = read('charger');
+    fields.charger_amperage = numeric(fields.charger_display, 'A');
+    fields.front_wheel_size = numeric(read('front tire'), 'inches');
+    fields.rear_wheel_size = numeric(read('rear tire'), 'inches');
+    if (read('front tire') || read('rear tire')) fields.wheel_size_display = `${read('front tire') || '—'} front / ${read('rear tire') || '—'} rear`;
+    if (read('charging 0–100%')) details.specs.chargingTime = {
+      label: 'Charging Time', group: 'Battery & range', display: `${read('charging 0–100%')} (0–100%)`,
+      comparisonMode: 'none', comparable: false, basis: '0–100%'
+    };
+    if (read('nominal battery energy')) details.coreMeta.batteryEnergy = {
+      derived: /voltage\s*×\s*capacity/i.test(read('nominal battery energy')),
+      qualifier: 'Nominal energy; voltage × capacity, not measured usable energy'
+    };
+    if (read('range — eco mode')) details.coreMeta.claimedRange = { comparable: false, qualifier: 'Eco mode; test conditions unspecified' };
+    return { fields, details, name: read('model') || record.name };
+  }
+
   function normalize(record) {
+    if (typeof record.specificationRows === 'string') record = { ...record, ...productSpecifications(record) };
     const fields = record.fields || {};
     const storedDetails = parseDetails(record.details);
     const details = { ...storedDetails, specs: { ...storedDetails.specs } };
