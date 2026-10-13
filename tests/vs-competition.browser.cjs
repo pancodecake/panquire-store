@@ -3,6 +3,13 @@ const { join } = require('node:path');
 const { readFileSync, mkdirSync } = require('node:fs');
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || 'playwright');
 const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=191626870968';
+const competitorSources = {
+  'pro-s-17': 'https://www.eridepro.com/products/pro-s', 'falcon-lite': 'https://79bike.com/products/79bike-lite',
+  'x1-spark-l': 'https://www.qronge.com/products/x1-spark-l', 'light-bee-x': 'https://sur-ronusa.us.com/product/surron-light-bee-x/',
+  'ultra-bee': 'https://sur-ronusa.us.com/product/surron-ultra-bee/', 'x7-spark': 'https://www.qronge.com/products/x7-spark',
+  'pro-ss-2-0': 'https://www.eridepro.com/products/pro-ss-2-0', 'nova-5-pro': 'https://freegobikes.com/products/freego-nova5-electric-dirt-bike',
+  'mantis-x': 'https://www.riderawrr.com/mantis-x', 'falcon-pro': 'https://79bike.com/products/79bike-falcon-pro'
+};
 
 (async () => {
   const browser = await chromium.launch({ headless: true, channel: process.env.BROWSER_CHANNEL || 'msedge' });
@@ -54,6 +61,8 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
       choices: node.selects.competitor.records.map(record => record.handle),
       rows: [...node.querySelectorAll('[data-differences] tbody tr[data-spec]')].map(row => row.dataset.spec),
       params: Object.fromEntries(new URL(location.href).searchParams),
+      competitorSource: node.selected.competitor.sourceUrl,
+      competitorImage: node.querySelector('[data-product="competitor"] [data-image]').getAttribute('src'),
       metrics: [...node.querySelectorAll('[data-metrics] button')].map(button => button.textContent),
       text: node.querySelector('[data-differences]').textContent
     }));
@@ -145,13 +154,20 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
       await choose('competitor', handle);
       const result = await state();
       assert.equal(result.params.competitor, handle);
+      assert.equal(result.competitorSource, competitorSources[handle]);
+      assert.ok(result.competitorImage, `${handle} image`);
       assert.ok(!/undefined|NaN|null/.test(result.text));
     }
     await choose('panquire', 't-01');
     current = await state();
     assert.equal(current.right, 'pro-s-17');
-    assert.deepEqual(current.choices, ['pro-s-17', 'mantis-x', 'falcon-lite', 'x1-spark-l', 'light-bee-x']);
-    for (const handle of current.choices) await choose('competitor', handle);
+    assert.deepEqual(current.choices, ['pro-s-17', 'falcon-lite', 'x1-spark-l', 'light-bee-x']);
+    for (const handle of current.choices) {
+      await choose('competitor', handle);
+      const result = await state();
+      assert.equal(result.competitorSource, competitorSources[handle]);
+      assert.ok(result.competitorImage, `${handle} image`);
+    }
     await choose('competitor', 'pro-s-17');
     assert.equal(await root.locator('[data-differences] tr[data-spec="battery_energy"] .is-winner').getAttribute('class'), 'pq-compare__value pq-compare__value--competitor is-winner');
     assert.equal(await root.locator('[data-differences] tr[data-spec="ready_to_ride_weight"]').count(), 0);
@@ -211,6 +227,6 @@ const comparisonUrl = 'https://panquire.com/pages/compare?preview_theme_id=19162
     await home.screenshot({ path: join(__dirname, '../.shopify-temp/hero-font-desktop.png'), fullPage: false });
     await home.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 11 pairings, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
+    console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 10 pairings with sources and images, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
