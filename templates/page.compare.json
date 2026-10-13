@@ -16,7 +16,7 @@
         "supporting_text": "Select an area to explore the differences",
         "default_product": "",
         "default_competitor": "",
-        "t01_competitors": "pro-s-17, mantis-x, falcon-lite, x1-spark-l, light-bee-x",
+        "t01_competitors": "pro-s-17, falcon-lite, x1-spark-l, light-bee-x",
         "t02_competitors": "ultra-bee, x7-spark, pro-ss-2-0, nova-5-pro, mantis-x, falcon-pro",
         "difference_count": 6,
         "show_radar": true,
