@@ -140,11 +140,10 @@
         "banner_color": "#151619",
         "accent_color": "#A97832",
         "left_x": 55,
-        "left_y": 60,
+        "left_y": 50,
         "right_x": 55,
-        "right_y": 60,
+        "right_y": 45,
         "desktop_height": 760,
-        "mobile_height": 680,
         "spacing": 70
       }
     },

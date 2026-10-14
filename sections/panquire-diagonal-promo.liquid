@@ -6,7 +6,7 @@
 <section
   class="pq pq-diagonal-promo"
   aria-labelledby="DiagonalPromo-{{ section.id }}"
-  style="--promo-height: {{ section.settings.desktop_height }}px; --promo-mobile-height: {{ section.settings.mobile_height }}px; --promo-space: {{ section.settings.spacing }}px; --promo-banner: {{ section.settings.banner_color }}; --promo-text: {{ section.settings.text_color }}; --promo-highlight: {{ section.settings.highlight_color }}; --promo-accent: {{ section.settings.accent_color }}; --promo-left-x: {{ section.settings.left_x }}%; --promo-left-y: {{ section.settings.left_y }}%; --promo-right-x: {{ section.settings.right_x }}%; --promo-right-y: {{ section.settings.right_y }}%;"
+  style="--promo-height: {{ section.settings.desktop_height }}px; --promo-space: {{ section.settings.spacing }}px; --promo-banner: {{ section.settings.banner_color }}; --promo-text: {{ section.settings.text_color }}; --promo-highlight: {{ section.settings.highlight_color }}; --promo-accent: {{ section.settings.accent_color }}; --promo-left-x: {{ section.settings.left_x }}%; --promo-left-y: {{ section.settings.left_y }}%; --promo-right-x: {{ section.settings.right_x }}%; --promo-right-y: {{ section.settings.right_y }}%;"
 >
   <div class="pq-diagonal-promo__frame">
     <div class="pq-diagonal-promo__media pq-diagonal-promo__media--left">
@@ -50,7 +50,6 @@
     width: min(1600px, calc(100% - clamp(40px, 6vw, 120px)), calc(var(--promo-height) * 801 / 460));
     height: auto;
     aspect-ratio: 801 / 460;
-    min-height: 480px;
     margin-inline: auto;
     overflow: hidden;
     background: var(--promo-banner);
@@ -63,11 +62,11 @@
   }
 
   .pq-diagonal-promo__media--left {
-    clip-path: polygon(0 0, 62% 0, 10% 100%, 0 100%);
+    clip-path: polygon(0 0, 60% 0, 0 100%);
   }
 
   .pq-diagonal-promo__media--right {
-    clip-path: polygon(90% 0, 100% 0, 100% 100%, 38% 100%);
+    clip-path: polygon(100% 0, 100% 100%, 40% 100%);
   }
 
   .pq-diagonal-promo__media img {
@@ -89,7 +88,7 @@
     z-index: 1;
     display: grid;
     place-items: center;
-    clip-path: polygon(55% 0, 95% 0, 43% 100%, 3% 100%);
+    clip-path: polygon(55% 0, 100% 0, 42% 100%, 0 100%);
     background: var(--promo-banner);
   }
 
@@ -98,7 +97,7 @@
     margin: 0;
     color: var(--promo-text);
     font-family: var(--pq-heading-font);
-    font-size: clamp(28px, 3.2vw, 54px);
+    font-size: clamp(15px, 3.2vw, 54px);
     font-weight: 700;
     line-height: 1.02;
     letter-spacing: -.045em;
@@ -115,31 +114,28 @@
     position: absolute;
     z-index: 2;
     display: block;
-    height: clamp(12px, 1.5vw, 22px);
     background: var(--promo-accent);
-    transform: skewX(-42deg);
+    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
     pointer-events: none;
   }
 
   .pq-diagonal-promo__accent--top {
     top: 0;
-    right: 3%;
-    width: 25%;
+    right: 0;
+    width: 47%;
+    height: 8%;
   }
 
   .pq-diagonal-promo__accent--bottom {
     bottom: 0;
-    left: 2%;
-    width: 25%;
+    left: 0;
+    width: 49%;
+    height: 12%;
   }
 
   @media (max-width: 1199px) {
-    .pq-diagonal-promo__frame {
-      min-height: 440px;
-    }
-
     .pq-diagonal-promo__banner h2 {
-      width: 42vw;
+      width: 38vw;
       font-size: clamp(26px, 3.5vw, 42px);
     }
   }
@@ -151,41 +147,12 @@
 
     .pq-diagonal-promo__frame {
       width: calc(100% - 32px);
-      height: var(--promo-mobile-height);
-      min-height: 560px;
-    }
-
-    .pq-diagonal-promo__media--left {
-      clip-path: polygon(0 0, 100% 0, 100% 32%, 0 52%);
-    }
-
-    .pq-diagonal-promo__media--right {
-      clip-path: polygon(0 70%, 100% 50%, 100% 100%, 0 100%);
-    }
-
-    .pq-diagonal-promo__banner {
-      clip-path: polygon(0 42%, 100% 22%, 100% 60%, 0 80%);
+      height: auto;
     }
 
     .pq-diagonal-promo__banner h2 {
-      width: calc(100% - 48px);
-      font-size: clamp(27px, 8.5vw, 42px);
-      line-height: 1.04;
-    }
-
-    .pq-diagonal-promo__accent {
-      height: 12px;
-      transform: skewX(-36deg);
-    }
-
-    .pq-diagonal-promo__accent--top {
-      right: -2%;
-      width: 42%;
-    }
-
-    .pq-diagonal-promo__accent--bottom {
-      left: -2%;
-      width: 42%;
+      width: 38vw;
+      font-size: clamp(15px, 3.5vw, 42px);
     }
   }
 {% endstylesheet %}
@@ -204,11 +171,10 @@
     { "type": "color", "id": "banner_color", "label": "Central banner", "default": "#151619" },
     { "type": "color", "id": "accent_color", "label": "Geometric accents", "default": "#A97832" },
     { "type": "range", "id": "left_x", "label": "Left image horizontal position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
-    { "type": "range", "id": "left_y", "label": "Left image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
+    { "type": "range", "id": "left_y", "label": "Left image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 50 },
     { "type": "range", "id": "right_x", "label": "Right image horizontal position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
-    { "type": "range", "id": "right_y", "label": "Right image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
+    { "type": "range", "id": "right_y", "label": "Right image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 45 },
     { "type": "range", "id": "desktop_height", "label": "Maximum desktop frame height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 760 },
-    { "type": "range", "id": "mobile_height", "label": "Mobile section height", "min": 560, "max": 900, "step": 20, "unit": "px", "default": 680 },
     { "type": "range", "id": "spacing", "label": "Vertical spacing", "min": 0, "max": 120, "step": 10, "unit": "px", "default": 70 }
   ],
   "presets": [{ "name": "Panquire diagonal promo" }]
