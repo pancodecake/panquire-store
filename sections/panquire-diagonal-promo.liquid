@@ -47,8 +47,9 @@
   .pq-diagonal-promo__frame {
     position: relative;
     isolation: isolate;
-    width: min(1600px, calc(100% - clamp(40px, 6vw, 120px)));
-    height: var(--promo-height);
+    width: min(1600px, calc(100% - clamp(40px, 6vw, 120px)), calc(var(--promo-height) * 801 / 460));
+    height: auto;
+    aspect-ratio: 801 / 460;
     min-height: 480px;
     margin-inline: auto;
     overflow: hidden;
@@ -206,7 +207,7 @@
     { "type": "range", "id": "left_y", "label": "Left image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
     { "type": "range", "id": "right_x", "label": "Right image horizontal position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 55 },
     { "type": "range", "id": "right_y", "label": "Right image vertical position", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
-    { "type": "range", "id": "desktop_height", "label": "Desktop section height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 640 },
+    { "type": "range", "id": "desktop_height", "label": "Maximum desktop frame height", "min": 480, "max": 900, "step": 20, "unit": "px", "default": 760 },
     { "type": "range", "id": "mobile_height", "label": "Mobile section height", "min": 560, "max": 900, "step": 20, "unit": "px", "default": 680 },
     { "type": "range", "id": "spacing", "label": "Vertical spacing", "min": 0, "max": 120, "step": 10, "unit": "px", "default": 70 }
   ],
