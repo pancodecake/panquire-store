@@ -128,6 +128,25 @@
         "spacing": 70
       }
     },
+    "diagonal_promo": {
+      "type": "panquire-diagonal-promo",
+      "settings": {
+        "heading_accent": "Ride with us,",
+        "heading_line_2": "is the ride with",
+        "heading_line_3": "nature.",
+        "highlight_color": "#A97832",
+        "text_color": "#F3F3F1",
+        "banner_color": "#151619",
+        "accent_color": "#A97832",
+        "left_x": 55,
+        "left_y": 60,
+        "right_x": 55,
+        "right_y": 60,
+        "desktop_height": 640,
+        "mobile_height": 680,
+        "spacing": 70
+      }
+    },
     "experts": {
       "type": "pq-reviews",
       "blocks": {
@@ -199,6 +218,7 @@
     "hero",
     "benefits",
     "feature",
+    "diagonal_promo",
     "experts"
   ]
 }
