@@ -119,25 +119,20 @@
 
   .pq-diagonal-promo__accent {
     position: absolute;
+    inset: 0;
     z-index: 2;
     display: block;
     background: var(--promo-accent);
-    clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
     pointer-events: none;
   }
 
   .pq-diagonal-promo__accent--top {
-    top: 0;
-    right: 0;
-    width: 47%;
-    height: 8%;
+    /* Follow the banner edges, with equal thickness and inset at both ends. */
+    clip-path: polygon(55.25% 1%, 98.62% 1%, 93.98% 9%, 50.85% 9%);
   }
 
   .pq-diagonal-promo__accent--bottom {
-    bottom: 0;
-    left: 0;
-    width: 49%;
-    height: 12%;
+    clip-path: polygon(5.75% 91%, 46.42% 91%, 41.78% 99%, 1.35% 99%);
   }
 
   @media (max-width: 767px) {
