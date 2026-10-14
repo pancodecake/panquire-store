@@ -15,6 +15,7 @@
         "item1": {
           "type": "slide",
           "settings": {
+            "video": "shopify://files/videos/panquire-home-hero.mp4",
             "kicker": "Introducing Panquire",
             "heading": "The Ride You Deserve",
             "text": "Great ride, doesn't have to come at a great cost",
@@ -222,3 +223,4 @@
     "experts"
   ]
 }
+
