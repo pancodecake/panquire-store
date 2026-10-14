@@ -28,8 +28,8 @@
     <div class="pq-diagonal-promo__banner">
       <h2 id="DiagonalPromo-{{ section.id }}">
         <span>{{ section.settings.heading_accent | escape }}</span>
-        {{ section.settings.heading_line_2 | escape }}
-        {{ section.settings.heading_line_3 | escape }}
+        <span>{{ section.settings.heading_line_2 | escape }}</span>
+        <span>{{ section.settings.heading_line_3 | escape }}</span>
       </h2>
     </div>
 
@@ -47,6 +47,7 @@
   .pq-diagonal-promo__frame {
     position: relative;
     isolation: isolate;
+    container-type: inline-size;
     width: min(1600px, calc(100% - clamp(40px, 6vw, 120px)), calc(var(--promo-height) * 801 / 460));
     height: auto;
     aspect-ratio: 801 / 460;
@@ -77,10 +78,13 @@
   }
 
   .pq-diagonal-promo__media--left img {
+    width: 55%;
     object-position: var(--promo-left-x) var(--promo-left-y);
   }
 
   .pq-diagonal-promo__media--right img {
+    width: 58%;
+    margin-left: auto;
     object-position: var(--promo-right-x) var(--promo-right-y);
   }
 
@@ -93,11 +97,11 @@
   }
 
   .pq-diagonal-promo__banner h2 {
-    width: min(38vw, 600px);
+    width: 42%;
     margin: 0;
     color: var(--promo-text);
     font-family: var(--pq-heading-font);
-    font-size: clamp(15px, 3.2vw, 54px);
+    font-size: 3.5cqw;
     font-weight: 700;
     line-height: 1.02;
     letter-spacing: -.045em;
@@ -107,6 +111,9 @@
 
   .pq-diagonal-promo__banner h2 span {
     display: block;
+  }
+
+  .pq-diagonal-promo__banner h2 span:first-child {
     color: var(--promo-highlight);
   }
 
@@ -133,13 +140,6 @@
     height: 12%;
   }
 
-  @media (max-width: 1199px) {
-    .pq-diagonal-promo__banner h2 {
-      width: 38vw;
-      font-size: clamp(26px, 3.5vw, 42px);
-    }
-  }
-
   @media (max-width: 767px) {
     .pq-diagonal-promo {
       padding-block: min(var(--promo-space), 56px);
@@ -150,10 +150,6 @@
       height: auto;
     }
 
-    .pq-diagonal-promo__banner h2 {
-      width: 38vw;
-      font-size: clamp(15px, 3.5vw, 42px);
-    }
   }
 {% endstylesheet %}
 

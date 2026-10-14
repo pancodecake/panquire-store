@@ -140,9 +140,9 @@
         "banner_color": "#151619",
         "accent_color": "#A97832",
         "left_x": 55,
-        "left_y": 50,
+        "left_y": 85,
         "right_x": 55,
-        "right_y": 45,
+        "right_y": 100,
         "desktop_height": 760,
         "spacing": 70
       }
