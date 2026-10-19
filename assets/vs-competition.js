@@ -105,7 +105,42 @@
   }
 
   function normalize(record) {
-    if (typeof record.specificationRows === 'string') record = { ...record, ...productSpecifications(record) };
+    if (typeof record.specificationRows === 'string') {
+      const fallback = productSpecifications(record);
+      const typedFields = Object.fromEntries(Object.entries(record.fields || {}).filter(([, value]) => value !== null && value !== undefined && String(value).trim() !== ''));
+      const displayPairs = {
+        continuous_motor_power: 'continuous_motor_power_display',
+        peak_motor_power: 'peak_motor_power_display',
+        maximum_speed: 'maximum_speed_display',
+        battery_voltage: 'battery_voltage_display',
+        battery_energy: 'battery_energy_display',
+        battery_capacity: 'battery_capacity_display',
+        claimed_range: 'claimed_range_display',
+        maximum_load: 'maximum_load_display',
+        ready_to_ride_weight: 'ready_to_ride_weight_display',
+        net_weight: 'net_weight_display',
+        bike_weight: 'bike_weight_display',
+        curb_weight: 'curb_weight_display',
+        unit_weight: 'unit_weight_display',
+        charger_amperage: 'charger_display'
+      };
+      for (const [numericKey, displayKey] of Object.entries(displayPairs)) {
+        if (typedFields[numericKey] !== undefined && typedFields[displayKey] === undefined) delete fallback.fields[displayKey];
+      }
+      if ((typedFields.front_wheel_size !== undefined || typedFields.rear_wheel_size !== undefined) && typedFields.wheel_size_display === undefined) delete fallback.fields.wheel_size_display;
+      const typedDetails = parseDetails(record.details);
+      record = {
+        ...record,
+        name: record.name || fallback.name,
+        fields: { ...fallback.fields, ...typedFields },
+        details: {
+          ...fallback.details,
+          ...typedDetails,
+          specs: { ...fallback.details.specs, ...typedDetails.specs },
+          coreMeta: { ...fallback.details.coreMeta, ...typedDetails.coreMeta }
+        }
+      };
+    }
     const fields = record.fields || {};
     const storedDetails = parseDetails(record.details);
     const details = { ...storedDetails, specs: { ...storedDetails.specs } };
@@ -122,7 +157,8 @@
       const meta = details.coreMeta?.[spec.metaKey] || {};
       if (spec.parts) {
         const values = spec.parts.map((key) => number(fields[key]));
-        const fallback = values.every((value) => value === null) ? '—' : values.map((value, index) => withUnit(value, spec.units[index])).join(' / ');
+        const availableParts = values.map((value, index) => value === null ? null : withUnit(value, spec.units[index])).filter(Boolean);
+        const fallback = availableParts.length ? availableParts.join(' / ') : '—';
         normalized[spec.key] = { value: null, plotValue: null, unit: null, display: fields[spec.displayKey] || fallback, comparable: false };
         continue;
       }
