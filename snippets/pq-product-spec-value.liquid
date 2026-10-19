@@ -13,34 +13,57 @@
       assign value = specs.frame_material.value | default: value
     when 'Motor'
       if specs.continuous_motor_power.value != blank
-        assign value = ''
-        if specs.battery_voltage.value != blank
-          assign value = specs.battery_voltage.value | append: 'V '
+        assign motor_voltage = specs.battery_voltage_display.value
+        if motor_voltage == blank and specs.battery_voltage.value != blank
+          assign motor_voltage = specs.battery_voltage.value | append: ' V'
         endif
-        assign value = value | append: specs.continuous_motor_power.value | append: 'W'
+        assign motor_power = specs.continuous_motor_power_display.value
+        if motor_power == blank
+          assign motor_power = specs.continuous_motor_power.value | append: ' W'
+        endif
+        assign value = ''
+        if motor_voltage != blank
+          assign value = motor_voltage | append: ' '
+        endif
+        assign value = value | append: motor_power
         if specs.motor_type.value != blank
           assign value = value | append: ' ' | append: specs.motor_type.value
         endif
       endif
     when 'Continuous power'
       if specs.continuous_motor_power.value != blank
-        assign value = specs.continuous_motor_power.value | append: ' W'
+        assign value = specs.continuous_motor_power_display.value
+        if value == blank
+          assign value = specs.continuous_motor_power.value | append: ' W'
+        endif
       endif
     when 'Peak motor power', 'Peak power'
       if specs.peak_motor_power.value != blank
-        assign value = specs.peak_motor_power.value | append: ' W'
+        assign value = specs.peak_motor_power_display.value
+        if value == blank
+          assign value = specs.peak_motor_power.value | append: ' W'
+        endif
       endif
     when 'Maximum speed'
       if specs.maximum_speed.value != blank
-        assign value = specs.maximum_speed.value | append: ' km/h'
+        assign value = specs.maximum_speed_display.value
+        if value == blank
+          assign value = specs.maximum_speed.value | append: ' km/h'
+        endif
       endif
     when 'Range — Eco mode'
       if specs.claimed_range.value != blank
-        assign value = specs.claimed_range.value | append: ' km'
+        assign value = specs.claimed_range_display.value
+        if value == blank
+          assign value = specs.claimed_range.value | append: ' km'
+        endif
       endif
     when 'Stated range'
       if specs.claimed_range.value != blank
-        assign value = specs.claimed_range.value | append: ' km Eco'
+        assign value = specs.claimed_range_display.value
+        if value == blank
+          assign value = specs.claimed_range.value | append: ' km Eco'
+        endif
       endif
     when 'Climbing ability'
       if specs.maximum_climbing_ability_display.value != blank
@@ -50,7 +73,10 @@
       endif
     when 'Max load', 'Maximum load'
       if specs.maximum_load.value != blank
-        assign value = specs.maximum_load.value | append: ' kg'
+        assign value = specs.maximum_load_display.value
+        if value == blank
+          assign value = specs.maximum_load.value | append: ' kg'
+        endif
       endif
     when 'Drivetrain'
       assign value = specs.drivetrain.value | default: value
@@ -59,7 +85,15 @@
     when 'Battery'
       if context == 'comparison'
         if specs.battery_voltage.value != blank and specs.battery_capacity.value != blank
-          assign value = specs.battery_voltage.value | append: 'V / ' | append: specs.battery_capacity.value | append: 'Ah'
+          assign battery_voltage = specs.battery_voltage_display.value
+          if battery_voltage == blank
+            assign battery_voltage = specs.battery_voltage.value | append: ' V'
+          endif
+          assign battery_capacity = specs.battery_capacity_display.value
+          if battery_capacity == blank
+            assign battery_capacity = specs.battery_capacity.value | append: ' Ah'
+          endif
+          assign value = battery_voltage | append: ' / ' | append: battery_capacity
         endif
       elsif specs.battery_type.value != blank
         assign value = specs.battery_type.value
@@ -69,19 +103,32 @@
       endif
     when 'Battery voltage'
       if specs.battery_voltage.value != blank
-        assign value = specs.battery_voltage.value | append: 'V'
+        assign value = specs.battery_voltage_display.value
+        if value == blank
+          assign value = specs.battery_voltage.value | append: ' V'
+        endif
       endif
     when 'Battery capacity'
       if specs.battery_capacity.value != blank
-        assign value = specs.battery_capacity.value | append: 'Ah'
+        assign value = specs.battery_capacity_display.value
+        if value == blank
+          assign value = specs.battery_capacity.value | append: ' Ah'
+        endif
       endif
     when 'Nominal battery energy'
       if specs.battery_energy.value != blank
-        assign value = specs.battery_energy.value | append: ' kWh (voltage × capacity)'
+        assign value = specs.battery_energy_display.value
+        if value == blank
+          assign value = specs.battery_energy.value | append: ' kWh'
+        endif
+        assign value = value | append: ' (voltage × capacity)'
       endif
     when 'Charger'
       if specs.charger_amperage.value != blank
-        assign value = specs.charger_amperage.value | append: 'A'
+        assign value = specs.charger_display.value
+        if value == blank
+          assign value = specs.charger_amperage.value | append: ' A'
+        endif
       endif
     when 'Front/rear suspension'
       assign value = specs.suspension.value | default: value
@@ -93,33 +140,59 @@
       assign value = specs.brake_pads.value | default: value
     when 'Front tire'
       if specs.front_wheel_size.value != blank
-        assign value = specs.front_wheel_size.value | append: ' inches'
+        assign wheel_fraction = specs.front_wheel_size.value | modulo: 1
+        if wheel_fraction == 0
+          assign value = specs.front_wheel_size.value | round | append: ' inches'
+        else
+          assign value = specs.front_wheel_size.value | append: ' inches'
+        endif
       endif
     when 'Rear tire'
       if specs.rear_wheel_size.value != blank
-        assign value = specs.rear_wheel_size.value | append: ' inches'
+        assign wheel_fraction = specs.rear_wheel_size.value | modulo: 1
+        if wheel_fraction == 0
+          assign value = specs.rear_wheel_size.value | round | append: ' inches'
+        else
+          assign value = specs.rear_wheel_size.value | append: ' inches'
+        endif
       endif
     when 'Wheels (front / rear)'
       if specs.front_wheel_size.value != blank and specs.rear_wheel_size.value != blank
-        assign value = specs.front_wheel_size.value | append: '" / ' | append: specs.rear_wheel_size.value | append: '"'
+        assign value = specs.wheel_size_display.value
+        if value == blank
+          assign value = specs.front_wheel_size.value | append: '" / ' | append: specs.rear_wheel_size.value | append: '"'
+        endif
       endif
     when 'Vehicle dimensions'
       assign value = specs.vehicle_dimensions.value | default: value
     when 'Net weight'
       if specs.net_weight.value != blank
-        assign value = specs.net_weight.value | append: ' kg'
+        assign value = specs.net_weight_display.value
+        if value == blank
+          assign value = specs.net_weight.value | append: ' kg'
+        endif
       elsif specs.bike_weight.value != blank
-        assign value = specs.bike_weight.value | append: ' kg'
+        assign value = specs.bike_weight_display.value
+        if value == blank
+          assign value = specs.bike_weight.value | append: ' kg'
+        endif
       endif
     when 'Bike weight'
       if specs.bike_weight.value != blank
-        assign value = specs.bike_weight.value | append: ' kg'
+        assign value = specs.bike_weight_display.value
+        if value == blank
+          assign value = specs.bike_weight.value | append: ' kg'
+        endif
       elsif specs.net_weight.value != blank
-        assign value = specs.net_weight.value | append: ' kg'
+        assign value = specs.net_weight_display.value
+        if value == blank
+          assign value = specs.net_weight.value | append: ' kg'
+        endif
       endif
     when 'Color'
       assign value = specs.color.value | default: value
   endcase
 -%}
 {{- value | strip -}}
+
 
