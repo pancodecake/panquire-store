@@ -1,6 +1,6 @@
 {% doc %}
-  Six key specifications from the product's existing merchant specifications.
-  @param {product} product - Current product
+  Six key specifications sourced from typed product metafields with consolidated-row fallbacks.
+  @param {product} product - Current product.
 {% enddoc %}
 {% capture source %}{{ product.metafields.custom.panquire_specifications.value }}
 {{ product.metafields.panquire.specification_additions.value }}{% endcapture %}
@@ -9,13 +9,18 @@
 {% assign labels = 'battery,speed,power,range,weight,load' | split: ',' %}
 <dl class="pq-quick-specs">
   {% for key in keys %}
-    {% assign value = '' %}{% assign capacity = '' %}
+    {% assign fallback = '' %}
+    {% assign capacity_fallback = '' %}
     {% for row in rows %}
       {% assign cells = row | strip | split: '|' %}
-      {% if cells[1] == key %}{% assign value = cells[2] %}{% endif %}
-      {% if key == 'Net weight' and cells[1] == 'Bike weight' %}{% assign value = cells[2] %}{% endif %}
-      {% if cells[1] == 'Battery capacity' %}{% assign capacity = cells[2] %}{% endif %}
+      {% if cells[1] == key %}{% assign fallback = cells[2] %}{% endif %}
+      {% if key == 'Net weight' and cells[1] == 'Bike weight' and fallback == blank %}{% assign fallback = cells[2] %}{% endif %}
+      {% if cells[1] == 'Battery capacity' %}{% assign capacity_fallback = cells[2] %}{% endif %}
     {% endfor %}
+    {% capture value %}{% render 'pq-product-spec-value', product: product, label: key, fallback: fallback %}{% endcapture %}
+    {% capture capacity %}{% render 'pq-product-spec-value', product: product, label: 'Battery capacity', fallback: capacity_fallback %}{% endcapture %}
+    {% assign value = value | strip %}
+    {% assign capacity = capacity | strip %}
     {% if value != blank %}
       <div>
         <dt><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -28,7 +33,7 @@
             {% when 6 %}<path d="M5 9h14v12H5zM8 9V6a4 4 0 0 1 8 0v3M8 15h8m-4-3v6"/>
           {% endcase %}
         </svg><span>{% assign label_key = 'panquire.product_page.' | append: labels[forloop.index0] %}{{ label_key | t }}</span></dt>
-        <dd>{{ value | escape }}{% if forloop.first %} / {{ capacity | escape }}{% endif %}</dd>
+        <dd>{{ value | escape }}{% if forloop.first and capacity != blank %} / {{ capacity | escape }}{% endif %}</dd>
       </div>
     {% endif %}
   {% endfor %}
