@@ -1,0 +1,124 @@
+{% doc %}
+  Returns one product specification, preferring typed comparison metafields and falling back to the consolidated specification row.
+  @param {product} product - Product whose specification is rendered.
+  @param {string} label - Specification label.
+  @param {string} [fallback] - Consolidated specification value.
+  @param {string} [context] - Optional rendering context such as comparison.
+{% enddoc %}
+{%- liquid
+  assign specs = product.metafields.comparison
+  assign value = fallback
+  case label
+    when 'Frame material'
+      assign value = specs.frame_material.value | default: value
+    when 'Motor'
+      if specs.continuous_motor_power.value != blank
+        assign value = ''
+        if specs.battery_voltage.value != blank
+          assign value = specs.battery_voltage.value | append: 'V '
+        endif
+        assign value = value | append: specs.continuous_motor_power.value | append: 'W'
+        if specs.motor_type.value != blank
+          assign value = value | append: ' ' | append: specs.motor_type.value
+        endif
+      endif
+    when 'Continuous power'
+      if specs.continuous_motor_power.value != blank
+        assign value = specs.continuous_motor_power.value | append: ' W'
+      endif
+    when 'Peak motor power', 'Peak power'
+      if specs.peak_motor_power.value != blank
+        assign value = specs.peak_motor_power.value | append: ' W'
+      endif
+    when 'Maximum speed'
+      if specs.maximum_speed.value != blank
+        assign value = specs.maximum_speed.value | append: ' km/h'
+      endif
+    when 'Range — Eco mode'
+      if specs.claimed_range.value != blank
+        assign value = specs.claimed_range.value | append: ' km'
+      endif
+    when 'Stated range'
+      if specs.claimed_range.value != blank
+        assign value = specs.claimed_range.value | append: ' km Eco'
+      endif
+    when 'Climbing ability'
+      if specs.maximum_climbing_ability_display.value != blank
+        assign value = specs.maximum_climbing_ability_display.value
+      elsif specs.maximum_climbing_ability.value != blank
+        assign value = specs.maximum_climbing_ability.value | append: '°'
+      endif
+    when 'Max load', 'Maximum load'
+      if specs.maximum_load.value != blank
+        assign value = specs.maximum_load.value | append: ' kg'
+      endif
+    when 'Drivetrain'
+      assign value = specs.drivetrain.value | default: value
+    when 'Power levels', 'Configuration'
+      assign value = specs.gears.value | default: value
+    when 'Battery'
+      if context == 'comparison'
+        if specs.battery_voltage.value != blank and specs.battery_capacity.value != blank
+          assign value = specs.battery_voltage.value | append: 'V / ' | append: specs.battery_capacity.value | append: 'Ah'
+        endif
+      elsif specs.battery_type.value != blank
+        assign value = specs.battery_type.value
+        if specs.battery_cells.value != blank
+          assign value = value | append: ', ' | append: specs.battery_cells.value
+        endif
+      endif
+    when 'Battery voltage'
+      if specs.battery_voltage.value != blank
+        assign value = specs.battery_voltage.value | append: 'V'
+      endif
+    when 'Battery capacity'
+      if specs.battery_capacity.value != blank
+        assign value = specs.battery_capacity.value | append: 'Ah'
+      endif
+    when 'Nominal battery energy'
+      if specs.battery_energy.value != blank
+        assign value = specs.battery_energy.value | append: ' kWh (voltage × capacity)'
+      endif
+    when 'Charger'
+      if specs.charger_amperage.value != blank
+        assign value = specs.charger_amperage.value | append: 'A'
+      endif
+    when 'Front/rear suspension'
+      assign value = specs.suspension.value | default: value
+    when 'Rear shock'
+      assign value = specs.rear_shock.value | default: value
+    when 'Brakes'
+      assign value = specs.brakes.value | default: value
+    when 'Brake pads'
+      assign value = specs.brake_pads.value | default: value
+    when 'Front tire'
+      if specs.front_wheel_size.value != blank
+        assign value = specs.front_wheel_size.value | append: ' inches'
+      endif
+    when 'Rear tire'
+      if specs.rear_wheel_size.value != blank
+        assign value = specs.rear_wheel_size.value | append: ' inches'
+      endif
+    when 'Wheels (front / rear)'
+      if specs.front_wheel_size.value != blank and specs.rear_wheel_size.value != blank
+        assign value = specs.front_wheel_size.value | append: '" / ' | append: specs.rear_wheel_size.value | append: '"'
+      endif
+    when 'Vehicle dimensions'
+      assign value = specs.vehicle_dimensions.value | default: value
+    when 'Net weight'
+      if specs.net_weight.value != blank
+        assign value = specs.net_weight.value | append: ' kg'
+      elsif specs.bike_weight.value != blank
+        assign value = specs.bike_weight.value | append: ' kg'
+      endif
+    when 'Bike weight'
+      if specs.bike_weight.value != blank
+        assign value = specs.bike_weight.value | append: ' kg'
+      elsif specs.net_weight.value != blank
+        assign value = specs.net_weight.value | append: ' kg'
+      endif
+    when 'Color'
+      assign value = specs.color.value | default: value
+  endcase
+-%}
+{{- value | strip -}}
