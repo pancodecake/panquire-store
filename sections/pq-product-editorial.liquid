@@ -47,7 +47,7 @@
       {% assign categories = 'Overview,Performance,Battery & charging,Suspension & brakes,Dimensions & weight' | split: ',' %}
       <div class="pq-product-specifications">
         {% for category in categories %}<section><h3>{{ category | escape }}</h3><dl>
-          {% for row in rows %}{% assign cells = row | strip | split: '|' %}{% if cells[0] == category and cells[2] != blank %}<div><dt>{{ cells[1] | escape }}</dt><dd>{{ cells[2] | escape }}</dd></div>{% endif %}{% endfor %}
+          {% for row in rows %}{% assign cells = row | strip | split: '|' %}{% if cells[0] == category and cells[2] != blank %}{% capture spec_value %}{% render 'pq-product-spec-value', product: product, label: cells[1], fallback: cells[2] %}{% endcapture %}<div><dt>{{ cells[1] | escape }}</dt><dd>{{ spec_value | strip | escape }}</dd></div>{% endif %}{% endfor %}
         </dl></section>{% endfor %}
       </div>
     </details>
@@ -61,7 +61,7 @@
       <section class="pq-product-comparison"><h2>{{ 'panquire.product_page.compare' | t }}</h2>
         <div class="pq-product-table-scroll" role="region" tabindex="0" aria-label="{{ 'panquire.product_page.compare' | t }}">
           <table><caption class="visually-hidden">{{ product.title | escape }} — {{ 'panquire.product_page.compare' | t }}</caption><thead><tr><th scope="col">{{ 'panquire.model.specification' | t }}</th>{% for name in comparison.columns %}<th scope="col"{% if forloop.first %} class="pq-product-current"{% endif %}>{{ name | escape }}</th>{% endfor %}</tr></thead>
-            <tbody>{% for row in comparison.rows %}<tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell | escape }}</th>{% else %}<td{% if forloop.index == 2 %} class="pq-product-current"{% endif %}>{{ cell | escape }}</td>{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
+            <tbody>{% for row in comparison.rows %}<tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell | escape }}</th>{% else %}{% if forloop.index == 2 %}{% capture comparison_value %}{% render 'pq-product-spec-value', product: product, label: row[0], fallback: cell, context: 'comparison' %}{% endcapture %}<td class="pq-product-current">{{ comparison_value | strip | escape }}</td>{% else %}<td>{{ cell | escape }}</td>{% endif %}{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
           </table>
         </div>
         <p class="pq-product-note">{{ 'panquire.product_page.comparison_note' | t }}</p>
