@@ -12,6 +12,11 @@
   assign scoped_class = block.settings.style_class | append: '--' | append: block.id
   assign class = 'add-to-cart-button ' | append: block.settings.style_class | append: ' ' | append: scoped_class
   assign id = 'BuyButtons-ProductSubmitButton-' | append: block.id
+  assign is_preorder = false
+  if closest.product.tags contains 'Preorder'
+    assign is_preorder = true
+    assign add_to_cart_text = 'panquire.product_page.preorder_button' | t
+  endif
 %}
 {% render 'button-custom-styles', block_settings: block.settings, block_id: block.id %}
 {% render 'add-to-cart-button-styles' %}
@@ -21,6 +26,12 @@
   {{ block.shopify_attributes }}
   style="--add-to-cart-font-case: {{ settings.button_text_case }};"
 >
+  {% if is_preorder %}
+    <div class="pq-preorder-notice" role="note">
+      <strong>{{ 'panquire.product_page.preorder_notice_title' | t }}</strong>
+      <span>{{ 'panquire.product_page.preorder_notice_body' | t }}</span>
+    </div>
+  {% endif %}
   {% render 'add-to-cart-button',
     id: id,
     class: class,

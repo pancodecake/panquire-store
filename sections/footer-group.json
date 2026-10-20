@@ -82,7 +82,7 @@
         "care"
       ],
       "settings": {
-        "newsletter_eyebrow": "Because we wll be going far",
+        "newsletter_eyebrow": "Ride farther. Know more.",
         "newsletter_heading": "Join the Panquire Ride",
         "email_label": "Email address",
         "email_placeholder": "Enter your email",
@@ -100,8 +100,8 @@
         "support_label": "Support",
         "support_email": "support@panquire.com",
         "trust_badges_caption": "Protected checkout",
-        "guarantee_title": "100%",
-        "guarantee_text": "Money-back guarantee",
+        "guarantee_title": "14 days",
+        "guarantee_text": "Eligible returns",
         "ssl_title": "Fully secured",
         "ssl_text": "SSL checkout",
         "safe_title": "Safe checkout",

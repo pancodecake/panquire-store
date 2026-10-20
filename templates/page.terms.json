@@ -39,7 +39,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "When will I be charged?",
-                "answer": "<p>Payment information is submitted at checkout. Payment will be processed when we accept your order.</p><p>Submitting an order does not automatically constitute acceptance of that order. We reserve the right to review an order before accepting or fulfilling it.</p><p>If we are unable to accept an order after payment has already been processed, the applicable amount will be refunded to the original payment method.</p>"
+                "answer": "<p>For a preorder, full payment is collected at checkout. For any product not marked as a preorder, payment is processed according to the payment method and checkout terms shown before purchase.</p><p>Submitting an order does not automatically constitute acceptance of that order. We reserve the right to review an order before accepting or fulfilling it.</p><p>If we are unable to accept an order after payment has been processed, the applicable amount will be refunded to the original payment method.</p>"
               },
               "blocks": {}
             },
@@ -47,7 +47,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Do you accept pre-orders or deposits?",
-                "answer": "<p>Yes. Selected products may be offered for pre-order or reservation with a deposit.</p><p>The applicable deposit amount, estimated availability date, remaining balance requirements, and any product-specific pre-order conditions will be shown before purchase.</p><p>Unless otherwise clearly disclosed before purchase, eligible deposits and pre-order payments are refundable.</p><p>With our approval, a deposit may also be transferred to another eligible product or order.</p>"
+                "answer": "<p>Yes. Products clearly marked <strong>Preorder</strong> are charged in full at checkout. Current preorders are expected to reach our US and European fulfillment warehouses in about one month.</p><p>You may cancel a preorder for a full refund at any time before dispatch by emailing <a href=\"mailto:support@panquire.com\">support@panquire.com</a>. After dispatch, the return policy applies.</p><p>Any different payment schedule or product-specific preorder condition will be shown beside the purchase button before checkout.</p>"
               },
               "blocks": {}
             },
@@ -115,7 +115,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Where do you currently ship?",
-                "answer": "<p>We currently ship to eligible addresses on the <strong>U.S. West Coast</strong> and within <strong>Germany and Poland</strong>.</p><p>Destination availability will be confirmed at checkout.</p><p>Certain remote destinations or locations that cannot be served safely, legally, or reliably may be unavailable.</p>"
+                "answer": "<p>Panquire offers worldwide delivery to destinations available at checkout.</p><p>Orders are fulfilled through our US and European warehouse network. US and European orders target delivery within 30 days after dispatch. Delivery times elsewhere vary by destination, carrier, customs, and dangerous-goods requirements.</p><p>Certain remote destinations or locations that cannot be served safely, legally, or reliably may be unavailable.</p>"
               },
               "blocks": {}
             },
@@ -155,7 +155,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What should I do if my order is delayed, lost, or marked as delivered but has not arrived?",
-                "answer": "<p>Contact Panquire as soon as possible through <strong>[support email / support form]</strong> and provide your order number and tracking information.</p><p>We will review the shipment and, where appropriate, open or coordinate a claim with the carrier or shipping insurer.</p><p>You may be asked to provide additional information or cooperate with the carrier's investigation.</p><p>If the shipment is confirmed lost, we will provide an appropriate replacement, refund, or other resolution in accordance with this policy and applicable law.</p>"
+                "answer": "<p>Contact Panquire as soon as possible at <a href=\"mailto:support@panquire.com\">support@panquire.com</a> or through our <a href=\"/pages/contact\">contact page</a> and provide your order number and tracking information.</p><p>We will review the shipment and, where appropriate, open or coordinate a claim with the carrier or shipping insurer.</p><p>You may be asked to provide additional information or cooperate with the carrier's investigation.</p><p>If the shipment is confirmed lost, we will provide an appropriate replacement, refund, or other resolution in accordance with this policy and applicable law.</p>"
               },
               "blocks": {}
             },
@@ -163,7 +163,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What should I do if my motorcycle or package arrives damaged?",
-                "answer": "<p>Do not discard the shipping carton, pallet, protective materials, shipping labels, or included documentation.</p><p>Before operating or charging the product, take clear photographs and/or video showing:</p><ul><li>the exterior packaging;</li><li>the shipping label;</li><li>the complete product;</li><li>the battery;</li><li>and each visibly damaged area.</li></ul><p>Where possible, note visible damage with the carrier at the time of delivery.</p><p>Contact [Store Name] immediately through <strong>[support email / claim form]</strong>.</p><p>After reviewing the claim, we may arrange replacement parts, repair, return, product replacement, refund, or another appropriate remedy.</p>"
+                "answer": "<p>Do not discard the shipping carton, pallet, protective materials, shipping labels, or included documentation.</p><p>Before operating or charging the product, take clear photographs and/or video showing:</p><ul><li>the exterior packaging;</li><li>the shipping label;</li><li>the complete product;</li><li>the battery;</li><li>and each visibly damaged area.</li></ul><p>Where possible, note visible damage with the carrier at the time of delivery.</p><p>Contact Panquire immediately at <a href=\"mailto:support@panquire.com\">support@panquire.com</a> or through our <a href=\"/pages/contact\">contact page</a>.</p><p>After reviewing the claim, we may arrange replacement parts, repair, return, product replacement, refund, or another appropriate remedy.</p>"
               },
               "blocks": {}
             },
@@ -195,7 +195,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Safety and compliance documentation",
-                "answer": "<p>Any safety, compliance, certification, or testing claim displayed by [Store Name] applies only where we hold appropriate supporting documentation for the specific product or component.</p><p>Examples may include, where applicable:</p><ul><li>UN 38.3 battery transportation testing;</li><li>applicable CE documentation;</li><li>applicable battery or electrical-system certification;</li><li>manufacturer authorization;</li><li>and published warranty documentation.</li></ul><p>We do not use certification or safety claims for products that are not supported by the required documentation.</p>"
+                "answer": "<p>Any safety, compliance, certification, or testing claim displayed by Panquire applies only where we hold appropriate supporting documentation for the specific product or component.</p><p>Examples may include, where applicable:</p><ul><li>UN 38.3 battery transportation testing;</li><li>applicable CE documentation;</li><li>applicable battery or electrical-system certification;</li><li>manufacturer authorization;</li><li>and published warranty documentation.</li></ul><p>We do not use certification or safety claims for products that are not supported by the required documentation.</p>"
               },
               "blocks": {}
             },
@@ -242,7 +242,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What is covered?",
-                "answer": "<p>Subject to the conditions and exclusions below, the following components are covered for <strong>2 years</strong>:</p><ul><li>Complete vehicle</li><li>Battery</li><li>Motor</li><li>Controller</li><li>Charger</li><li>Frame</li><li>Covered electronic components</li></ul>"
+                "answer": "<p>Subject to the conditions and exclusions below, the following major electrical systems are covered for <strong>2 years</strong>:</p><ul><li>Battery</li><li>Motor</li><li>Controller</li></ul><p>Other components remain covered by any mandatory consumer guarantee or product-specific written coverage that applies to the order.</p>"
               },
               "blocks": {}
             },
@@ -274,7 +274,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What happens when a warranty claim is approved?",
-                "answer": "<p>For an approved warranty claim, [Store Name] will provide the required covered replacement part at no charge.</p><p>Approved warranty replacement parts supplied under this policy will be <strong>new parts</strong>.</p><p>Where applicable, we will also cover reasonable shipping costs associated with an approved defective-product warranty remedy.</p>"
+                "answer": "<p>For an approved warranty claim, Panquire will provide the required covered replacement part at no charge or arrange another appropriate remedy.</p><p>Where applicable, we will also cover reasonable shipping costs associated with an approved defective-product warranty remedy.</p>"
               },
               "blocks": {}
             },
@@ -282,7 +282,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "How do I submit a warranty claim?",
-                "answer": "<p>Warranty claims must first be submitted through <strong>[warranty/support form URL]</strong>.</p><p>Please include your order information and a clear description of the problem.</p><p>Depending on the issue, our support team may schedule a telephone or video diagnostic session before approving replacement parts, repair, return service, or another remedy.</p>"
+                "answer": "<p>Start a warranty claim by emailing <a href=\"mailto:support@panquire.com\">support@panquire.com</a> or using our <a href=\"/pages/contact\">contact page</a>.</p><p>Please include your order information, product serial number when available, a clear description of the problem, and relevant photographs or video.</p><p>Depending on the issue, our support team may schedule a telephone or video diagnostic session before approving replacement parts, repair, return service, or another remedy.</p>"
               },
               "blocks": {}
             },
@@ -298,7 +298,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Do I need authorization before returning a product?",
-                "answer": "<p>Yes.</p><p>All warranty returns, warranty repairs, and warranty replacements require prior authorization from [Store Name].</p><p>Do not return a vehicle, battery, component, or other product unless you have received written return instructions.</p>"
+                "answer": "<p>Yes.</p><p>All warranty returns, warranty repairs, and warranty replacements require prior authorization from Panquire.</p><p>Do not return a vehicle, battery, component, or other product unless you have received written return instructions.</p>"
               },
               "blocks": {}
             },
@@ -306,7 +306,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who performs warranty repairs?",
-                "answer": "<p>Warranty repairs must be performed by an authorized service center or another service provider specifically authorized by [Store Name].</p><p>Customers should not perform repairs requiring professional service unless the procedure has been expressly authorized by us.</p>"
+                "answer": "<p>Warranty repairs must be performed by a service provider specifically authorized by Panquire.</p><p>Customers should not perform repairs requiring professional service unless the procedure has been expressly authorized by us.</p>"
               },
               "blocks": {}
             },
@@ -346,7 +346,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Does a replaced component receive a new warranty?",
-                "answer": "<p>Yes.</p><p>A replacement component supplied under an approved warranty claim receives a new <strong>two-year commercial warranty</strong> beginning on the date the replacement component is delivered or installed, as applicable.</p><p>The renewed warranty applies only to the replaced component and does not restart the warranty period for unrelated parts of the motorcycle.</p>"
+                "answer": "<p>A replacement component supplied under an approved warranty claim remains covered for the rest of the original warranty period and any additional period required by applicable law.</p><p>Replacing a component does not restart the original two-year commercial warranty.</p>"
               },
               "blocks": {}
             },
@@ -362,7 +362,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Product Use & Safety",
-                "answer": "<p>Certain products sold by [Store Name] may be designed primarily or exclusively for <strong>off-road use</strong> and may not be licensed, registered, approved, or legal for use on public roads, bicycle paths, sidewalks, or other public areas in every jurisdiction.</p><p>Unless we expressly state that a specific model is approved for a particular form of public-road use in the customer's jurisdiction, no such representation is made.</p><p>Customers and riders are responsible for understanding and complying with applicable:</p><ul><li>operating laws;</li><li>registration requirements;</li><li>licensing requirements;</li><li>age restrictions;</li><li>helmet requirements;</li><li>insurance requirements;</li><li>equipment requirements;</li><li>and land-access rules.</li></ul><p>Electric dirt bikes and other powered two-wheel vehicles involve inherent risks.</p><p>Loss of control, collisions, terrain, speed, improper operation, insufficient protective equipment, or mechanical failure may result in property damage, serious injury, or death.</p><p>Riders should operate the product only within their abilities and the manufacturer's intended conditions, wear suitable protective equipment, inspect the vehicle before riding, and follow the owner's manual and safety instructions.</p>"
+                "answer": "<p>Certain products sold by Panquire may be designed primarily or exclusively for <strong>off-road use</strong> and may not be licensed, registered, approved, or legal for use on public roads, bicycle paths, sidewalks, or other public areas in every jurisdiction.</p><p>Unless we expressly state that a specific model is approved for a particular form of public-road use in the customer's jurisdiction, no such representation is made.</p><p>Customers and riders are responsible for understanding and complying with applicable:</p><ul><li>operating laws;</li><li>registration requirements;</li><li>licensing requirements;</li><li>age restrictions;</li><li>helmet requirements;</li><li>insurance requirements;</li><li>equipment requirements;</li><li>and land-access rules.</li></ul><p>Electric dirt bikes and other powered two-wheel vehicles involve inherent risks.</p><p>Loss of control, collisions, terrain, speed, improper operation, insufficient protective equipment, or mechanical failure may result in property damage, serious injury, or death.</p><p>Riders should operate the product only within their abilities and the manufacturer's intended conditions, wear suitable protective equipment, inspect the vehicle before riding, and follow the owner's manual and safety instructions.</p>"
               },
               "blocks": {}
             },
@@ -378,7 +378,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Lithium-Ion Battery Safety",
-                "answer": "<p>Only use the charger supplied with the product or a charger specifically approved by the manufacturer for that battery.</p><p>Follow all manufacturer charging and storage instructions.</p><p>Do not charge or use a battery or charger that appears:</p><ul><li>damaged;</li><li>swollen;</li><li>punctured;</li><li>overheated;</li><li>wet;</li><li>leaking;</li><li>modified;</li><li>or otherwise unsafe.</li></ul><p>Do not use an incompatible or so-called universal charger unless it has been specifically approved for your battery and vehicle.</p><p>Do not dismantle, crush, puncture, burn, or improperly dispose of lithium-ion batteries.</p><p>Contact [Store Name] for instructions if you believe a battery is defective or unsafe.</p>"
+                "answer": "<p>Only use the charger supplied with the product or a charger specifically approved by the manufacturer for that battery.</p><p>Follow all manufacturer charging and storage instructions.</p><p>Do not charge or use a battery or charger that appears:</p><ul><li>damaged;</li><li>swollen;</li><li>punctured;</li><li>overheated;</li><li>wet;</li><li>leaking;</li><li>modified;</li><li>or otherwise unsafe.</li></ul><p>Do not use an incompatible or so-called universal charger unless it has been specifically approved for your battery and vehicle.</p><p>Do not dismantle, crush, puncture, burn, or improperly dispose of lithium-ion batteries.</p><p>Contact Panquire at <a href=\"mailto:support@panquire.com\">support@panquire.com</a> for instructions if you believe a battery is defective or unsafe.</p>"
               },
               "blocks": {}
             }
@@ -416,7 +416,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What is the return period?",
-                "answer": "<p>For eligible <strong>U.S. voluntary or change-of-mind returns</strong>, products may be returned within <strong>7 calendar days after delivery</strong>, subject to the conditions below.</p><p>For eligible <strong>EU consumer orders, including Germany and Poland</strong>, the applicable statutory withdrawal period will apply, which is generally <strong>14 days from delivery</strong>, subject to lawful exceptions.</p><p>Defective, incorrect, or transit-damaged products are handled separately under our warranty, damaged-product, and statutory consumer-rights procedures and are not limited solely to the voluntary return period.</p>"
+                "answer": "<p>Eligible voluntary or change-of-mind returns may be requested within <strong>14 calendar days after delivery</strong>, subject to the conditions below.</p><p>Defective, incorrect, or transit-damaged products are handled separately under our warranty, damaged-product, and statutory consumer-rights procedures and are not limited solely to the voluntary return period.</p><p>Where mandatory law provides a longer period or greater protection, that law applies.</p>"
               },
               "blocks": {}
             },
@@ -456,7 +456,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Are deposits and pre-orders refundable?",
-                "answer": "<p>Yes.</p><p>Eligible deposits and pre-order payments are refundable in accordance with the applicable pre-order conditions.</p><p>Where permitted, customers may also request that an eligible deposit be transferred to another product or order with our approval.</p>"
+                "answer": "<p>Yes. A preorder may be canceled for a full refund at any time before dispatch by emailing <a href=\"mailto:support@panquire.com\">support@panquire.com</a>.</p><p>After dispatch, the standard return policy and any mandatory consumer rights apply.</p>"
               },
               "blocks": {}
             },
@@ -472,7 +472,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "How do I request a return?",
-                "answer": "<p>Before returning any product, submit a return request through <strong>[return/warranty URL]</strong>.</p><p>Please include:</p><ul><li>your order number;</li><li>the reason for the return;</li><li>and any requested photographs or video.</li></ul><p>Do not ship the product until you receive written return authorization and shipping instructions from <em><strong>Panquire</strong></em>.</p><p>Once the return is approved, we will provide the applicable return address and instructions.</p><p>The product must be shipped within the period specified in the authorization.</p>"
+                "answer": "<p>Before returning any product, email <a href=\"mailto:support@panquire.com\">support@panquire.com</a> or use our <a href=\"/pages/contact\">contact page</a>.</p><p>Please include:</p><ul><li>your order number;</li><li>the reason for the return;</li><li>and any requested photographs or video.</li></ul><p>Do not ship the product until you receive written return authorization and shipping instructions from Panquire.</p><p>Once the return is approved, we will provide the applicable return address and instructions.</p><p>The product must be shipped within the period specified in the authorization.</p>"
               },
               "blocks": {}
             },

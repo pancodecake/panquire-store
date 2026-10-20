@@ -29,6 +29,8 @@
 .pq-purchase-highlights dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
 .pq-purchase-highlights dt { color: var(--text-muted); font-size: 12px; }
 .pq-purchase-highlights dd { font-weight: 600; font-size: 13px; margin-top: 4px; }
+.pq-preorder-notice { display: grid; gap: 6px; margin-bottom: 14px; padding: 14px 16px; border: 1px solid rgb(169 120 50 / .5); background: rgb(169 120 50 / .08); color: var(--color-foreground); font-size: 13px; line-height: 1.5; }
+.pq-preorder-notice strong { color: var(--color-heading-accent); font-size: 14px; }
 .pq-product-heading { color: var(--color-heading-accent); font-size: clamp(28px,3vw,42px); text-align: center; letter-spacing: -.04em; margin-bottom: 32px !important; }
 .pq-product-intro { color: var(--text-muted); text-align: center; max-width: 65ch; margin: -12px auto 36px !important; font-size: 16px; }
 .pq-story { padding-block: var(--pq-space); }
