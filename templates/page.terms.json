@@ -233,8 +233,8 @@
             "warranty_1": {
               "type": "pq-policy-question",
               "settings": {
-                "question": "Two-Year Limited Commercial Warranty",
-                "answer": "<p><em><strong>Panquire </strong></em>provides a <strong>two-year limited commercial warranty</strong> on the covered components described below.</p><p>This commercial warranty is provided in addition to, and does not replace or reduce, any statutory consumer rights or legal guarantees that cannot legally be excluded.</p>"
+                "question": "One-Year Limited Commercial Warranty",
+                "answer": "<p><em><strong>Panquire </strong></em>provides a <strong>one-year limited commercial warranty</strong> on the covered components described below.</p><p>This commercial warranty is provided in addition to, and does not replace or reduce, any statutory consumer rights or legal guarantees that cannot legally be excluded.</p>"
               },
               "blocks": {}
             },
@@ -242,7 +242,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What is covered?",
-                "answer": "<p>Subject to the conditions and exclusions below, the following major electrical systems are covered for <strong>2 years</strong>:</p><ul><li>Battery</li><li>Motor</li><li>Controller</li></ul><p>Other components remain covered by any mandatory consumer guarantee or product-specific written coverage that applies to the order.</p>"
+                "answer": "<p>Subject to the conditions and exclusions below, the following major electrical systems are covered for <strong>1 year</strong>:</p><ul><li>Battery</li><li>Motor</li><li>Controller</li></ul><p>Other components remain covered by any mandatory consumer guarantee or product-specific written coverage that applies to the order.</p>"
               },
               "blocks": {}
             },
@@ -346,7 +346,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Does a replaced component receive a new warranty?",
-                "answer": "<p>A replacement component supplied under an approved warranty claim remains covered for the rest of the original warranty period and any additional period required by applicable law.</p><p>Replacing a component does not restart the original two-year commercial warranty.</p>"
+                "answer": "<p>A replacement component supplied under an approved warranty claim remains covered for the rest of the original warranty period and any additional period required by applicable law.</p><p>Replacing a component does not restart the original one-year commercial warranty.</p>"
               },
               "blocks": {}
             },

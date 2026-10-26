@@ -309,7 +309,7 @@
               "settings": {
                 "use_product_description": false,
                 "heading": "Warranty & support",
-                "text": "<p>2-year limited warranty for the motor, battery, and controller. Replacement parts remain covered for the rest of the original warranty period and any additional period required by law. <a href=\"/pages/contact\">Contact Panquire support</a> to start a claim.</p>",
+                "text": "<p>1-year limited warranty for the motor, battery, and controller. Replacement parts remain covered for the rest of the original warranty period and any additional period required by law. <a href=\"/pages/contact\">Contact Panquire support</a> to start a claim.</p>",
                 "open": false
               },
               "blocks": {}
