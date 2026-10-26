@@ -6,8 +6,10 @@
 {% liquid
   assign models = '' | split: ','
   for shared_collection in product.collections
-    assign collection_models = shared_collection.products | sort: 'title'
-    assign models = models | concat: collection_models
+    paginate shared_collection.products by 250
+      assign collection_models = shared_collection.products | sort: 'title'
+      assign models = models | concat: collection_models
+    endpaginate
   endfor
   assign models = models | uniq: 'id' | sort: 'title'
   assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels,rider_height,seat_height,best_for' | split: ','
