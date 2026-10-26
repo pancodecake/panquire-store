@@ -1,0 +1,117 @@
+{% doc %}
+  Renders a stored specification, leaving missing values empty.
+  @param {product} model - Product to compare.
+  @param {number} current_id - Current product ID.
+  @param {string} key - Row key.
+{% enddoc %}
+{%- liquid
+  assign fields = model.metafields.comparison
+  assign display_key = key | append: '_display'
+  assign value = fields[display_key].value
+  assign numeric = fields[key].value
+  assign mode = 'none'
+  assign unit = ''
+  assign meta_key = ''
+  assign source_labels = ''
+  case key
+    when 'price'
+      assign value = model.price | money_with_currency
+      assign numeric = model.price
+      assign mode = 'lower'
+    when 'peak_motor_power'
+      assign source_labels = '|Peak motor power|'
+      assign unit = 'W'
+      assign mode = 'higher'
+      assign meta_key = 'peakMotorPower'
+    when 'battery_capacity'
+      assign source_labels = '|Battery capacity|'
+      assign unit = 'Ah'
+      assign mode = 'higher'
+      assign meta_key = 'batteryCapacity'
+    when 'claimed_range'
+      assign source_labels = '|Range — Eco mode|Max range|'
+      assign unit = 'km'
+      assign meta_key = 'claimedRange'
+    when 'maximum_speed'
+      assign source_labels = '|Maximum speed|'
+      assign unit = 'km/h'
+      assign mode = 'higher'
+      assign meta_key = 'maximumSpeed'
+    when 'maximum_load'
+      assign source_labels = '|Max load|Maximum load|'
+      assign unit = 'kg'
+      assign mode = 'higher'
+      assign meta_key = 'maximumLoad'
+    when 'torque'
+      assign source_labels = '|Torque|Peak torque|'
+      assign value = fields.details.value.specs.peakTorque.display
+    when 'weight'
+      assign source_labels = '|Bike weight|Net weight|'
+      assign value = fields.bike_weight_display.value
+      if value == blank and fields.bike_weight.value != blank
+        assign value = fields.bike_weight.value | append: ' kg'
+      endif
+      if value == blank and fields.net_weight.value != blank
+        assign value = fields.net_weight_display.value
+        if value == blank
+          assign value = fields.net_weight.value | append: ' kg'
+        endif
+        assign basis = 'panquire.model_comparison.net' | t
+        assign value = value | append: ' (' | append: basis | append: ')'
+      endif
+    when 'wheels'
+      assign value = fields.wheel_size_display.value
+      if value == blank and fields.front_wheel_size.value != blank and fields.rear_wheel_size.value != blank
+        assign value = fields.front_wheel_size.value | append: '″ / ' | append: fields.rear_wheel_size.value | append: '″'
+      endif
+    when 'rider_height'
+      assign source_labels = '|Rider height|'
+      assign value = fields.rider_height.value
+      if value == blank
+        for geometry in model.metafields.panquire.geometry_rows.value
+          if geometry.label contains 'Rider height'
+            assign value = geometry.value
+            break
+          endif
+        endfor
+      endif
+    when 'seat_height'
+      assign source_labels = '|Seat height|Seat-to-floor height|'
+      assign value = fields.seat_height.value | default: fields.details.value.specs.seatHeight.display
+    when 'best_for'
+      assign source_labels = '|Best for|'
+      assign value = fields.best_for.value
+  endcase
+  if value == blank and numeric != blank
+    assign value = numeric | append: ' ' | append: unit
+  endif
+  if value == blank and source_labels != blank
+    assign source = model.metafields.custom.panquire_specifications.value | newline_to_br | split: '<br />'
+    for row in source
+      assign parts = row | strip | split: '|'
+      assign source_label = parts[1] | prepend: '|' | append: '|'
+      if source_labels contains source_label
+        assign value = parts[2]
+        if key == 'weight' and parts[1] == 'Net weight'
+          assign basis = 'panquire.model_comparison.net' | t
+          assign value = value | append: ' (' | append: basis | append: ')'
+        endif
+        break
+      endif
+    endfor
+  endif
+  if key == 'battery_capacity' and value != blank
+    if fields.battery_voltage.value != blank
+      assign voltage = fields.battery_voltage.value | append: ' V '
+      assign value = value | prepend: voltage
+    endif
+    if fields.battery_energy.value != blank
+      assign energy = fields.battery_energy.value | times: 1000 | round: 0 | append: ' Wh'
+      assign value = value | append: ' / ' | append: energy
+    endif
+  endif
+  if fields.details.value.coreMeta[meta_key].comparable == false
+    assign mode = 'none'
+  endif
+-%}
+<td data-current="{% if model.id == current_id %}true{% else %}false{% endif %}" data-mode="{{ mode }}" data-number="{{ numeric | escape }}">{{- value | escape -}}</td>

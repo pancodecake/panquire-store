@@ -1,0 +1,55 @@
+{% doc %}
+  Compares products from every collection shared by the current product.
+  @param {product} product - Current product.
+  @param {string} section_id - Owning section ID.
+{% enddoc %}
+{% liquid
+  assign models = '' | split: ','
+  for shared_collection in product.collections
+    paginate shared_collection.products by 250
+      assign models = models | concat: shared_collection.products
+    endpaginate
+  endfor
+  assign models = models | uniq: 'id' | sort: 'title'
+  assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels,rider_height,seat_height,best_for' | split: ','
+%}
+{% if models.size > 1 %}
+  {{ 'pq-model-comparison.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'pq-model-comparison.js' | asset_url }}" defer></script>
+  <pq-model-comparison class="pq-product-comparison pq-model-comparison">
+    <h2 id="ModelComparison-{{ section_id }}">{{ 'panquire.product_page.compare' | t }}</h2>
+    <div class="pq-product-table-scroll" role="region" tabindex="0" aria-labelledby="ModelComparison-{{ section_id }}">
+      <table style="--model-count: {{ models.size }}">
+        <caption class="visually-hidden">{{ 'panquire.product_page.compare' | t }}</caption>
+        <thead><tr>
+          <th scope="col">{{ 'panquire.model_comparison.features' | t }}</th>
+          {% for model in models %}
+            <th scope="col" data-current="{% if model.id == product.id %}true{% else %}false{% endif %}">
+              <a href="{{ model.url }}"{% if model.id == product.id %} aria-current="page"{% endif %}>
+                <div class="pq-model-comparison__image">
+                  {% case model.handle %}
+                    {% when 't-01' %}<img src="{{ 'pq-compare-t01.png' | asset_url }}" width="1456" height="1082" loading="lazy" alt="{{ model.title | escape }}">
+                    {% when 't-02' %}<img src="{{ 'pq-compare-t02.png' | asset_url }}" width="1456" height="1093" loading="lazy" alt="{{ model.title | escape }}">
+                    {% else %}{% if model.featured_image %}{{ model.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,600', sizes: '(min-width: 990px) 300px, 200px', alt: model.title }}{% endif %}
+                  {% endcase %}
+                </div>
+                {% if model.handle == 't-01' or model.handle == 't-02' %}{{ model.handle | upcase }}{% else %}{{ model.title | escape }}{% endif %}
+              </a>
+            </th>
+          {% endfor %}
+        </tr></thead>
+        <tbody>
+          {% for key in row_keys %}
+            {% assign label_key = 'panquire.model_comparison.' | append: key %}
+            <tr><th scope="row">{{ label_key | t }}</th>
+              {% for model in models %}
+                {% render 'pq-model-comparison-cell', model: model, current_id: product.id, key: key %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="pq-product-note">{{ 'panquire.model_comparison.note' | t }}</p>
+  </pq-model-comparison>
+{% endif %}

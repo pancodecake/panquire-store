@@ -9,12 +9,33 @@
  */
 {
   "panquire": {
+    "model_comparison": {
+  "features": "Features",
+  "price": "Current price",
+  "peak_motor_power": "Peak power",
+  "battery_capacity": "Battery capacity",
+  "torque": "Torque",
+  "claimed_range": "Max range (claimed)",
+  "maximum_speed": "Top speed",
+  "maximum_load": "Max load",
+  "weight": "Bike weight",
+  "wheels": "Tire size (front / rear)",
+  "rider_height": "Rider height",
+  "seat_height": "Seat-to-floor height",
+  "best_for": "Best for",
+  "net": "net",
+  "note": "Gold highlights the current model’s advantage; red highlights another model’s advantage. Ties, qualified claims and unranked specifications stay neutral. Blank cells mean no specification is available. Range and weight figures may use different measurement conditions."
+},
     "product_page": {
       "battery": "Battery", "speed": "Top speed", "power": "Peak power",
       "range": "Eco range", "weight": "Bike weight", "load": "Max load",
       "features": "Key features", "geometry": "Geometry", "specifications": "Specifications",
       "faqs": "Frequently asked questions", "compare": "Compare the numbers",
       "support": "Questions? Contact Panquire support", "view_comparison": "View comparison",
+      "preorder_button": "Preorder now",
+      "preorder_status": "Preorder — estimated warehouse arrival in about one month",
+      "preorder_notice_title": "Preorder — full payment at checkout",
+      "preorder_notice_body": "Estimated warehouse arrival: about one month. US and European delivery is targeted within 30 days after dispatch. Cancel for a full refund any time before dispatch.",
       "comparison_note": "Comparison figures are manufacturer-stated specifications supplied by Panquire. Range and performance test conditions may differ between brands and models."
     },
     "model": {"peak":"peak","panorama":"Panoramic view","electric_dirt_bike":"Electric dirt bike","features":"The details","specifications":"Specifications & parameters","comparison":"Compare models","specification":"Specification","weight_note":"T-02 weight is pending confirmation. The supplied specification lists /60Kg without a confirmed net/gross distinction."},

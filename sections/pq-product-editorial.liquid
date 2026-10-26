@@ -1,7 +1,5 @@
 {% liquid
   assign data = product.metafields.panquire
-  assign features = data.features.value
-  assign comparison = data.comparison.value
 %}
 {{ 'panquire-product-page.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'panquire-product-page.js' | asset_url }}" defer></script>
@@ -11,17 +9,17 @@
       <section class="pq-product-story">
         <div class="pq-product-story__image">
           {% if product.handle == 't-01' and forloop.index == 1 %}
-            <img src="{{ 'RiderGreen.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'RiderGreen.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
           {% elsif product.handle == 't-02' and forloop.index == 1 %}
-            <img src="{{ 'RiderJump2.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'RiderJump2.png' | asset_url }}" width="1920" height="1080" alt="{{ product.title | escape }}" loading="lazy">
           {% elsif product.handle == 't-01' and forloop.index == 2 %}
-            <img src="{{ 'RiderHill.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'RiderHill.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
           {% elsif product.handle == 't-02' and forloop.index == 2 %}
-            <img src="{{ 'Control And Ride.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'Control And Ride.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
           {% elsif product.handle == 't-01' and forloop.index == 3 %}
-            <img src="{{ 'riderJump.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'riderJump.png' | asset_url }}" width="2334" height="2905" alt="{{ product.title | escape }}" loading="lazy">
           {% elsif product.handle == 't-02' and forloop.index == 3 %}
-            <img src="{{ 'RiderDrift.png' | asset_url }}" alt="{{ product.title | escape }}" loading="lazy">
+            <img src="{{ 'RiderDrift.png' | asset_url }}" width="1920" height="1080" alt="{{ product.title | escape }}" loading="lazy">
           {% else %}
             {% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}
           {% endif %}
@@ -51,23 +49,14 @@
         </dl></section>{% endfor %}
       </div>
     </details>
+    {% render 'pq-model-comparison', product: product, section_id: section.id %}
     {% if data.faqs.value.size > 0 %}
       <section class="pq-product-faq"><h2>{{ 'panquire.product_page.faqs' | t }}</h2>
         {% for faq in data.faqs.value %}<details class="pq-product-disclosure"><summary><h3>{{ faq.question | escape }}</h3><span aria-hidden="true">+</span></summary><div class="pq-product-answer"><p>{{ faq.answer | escape }}</p></div></details>{% endfor %}
         <a href="{{ pages.contact.url }}">{{ 'panquire.product_page.support' | t }}</a>
       </section>
     {% endif %}
-    {% if comparison.columns.size > 1 %}
-      <section class="pq-product-comparison"><h2>{{ 'panquire.product_page.compare' | t }}</h2>
-        <div class="pq-product-table-scroll" role="region" tabindex="0" aria-label="{{ 'panquire.product_page.compare' | t }}">
-          <table><caption class="visually-hidden">{{ product.title | escape }} — {{ 'panquire.product_page.compare' | t }}</caption><thead><tr><th scope="col">{{ 'panquire.model.specification' | t }}</th>{% for name in comparison.columns %}<th scope="col"{% if forloop.first %} class="pq-product-current"{% endif %}>{{ name | escape }}</th>{% endfor %}</tr></thead>
-            <tbody>{% for row in comparison.rows %}<tr>{% for cell in row %}{% if forloop.first %}<th scope="row">{{ cell | escape }}</th>{% else %}{% if forloop.index == 2 %}{% capture comparison_value %}{% render 'pq-product-spec-value', product: product, label: row[0], fallback: cell, context: 'comparison' %}{% endcapture %}<td class="pq-product-current">{{ comparison_value | strip | escape }}</td>{% else %}<td>{{ cell | escape }}</td>{% endif %}{% endif %}{% endfor %}</tr>{% endfor %}</tbody>
-          </table>
-        </div>
-        <p class="pq-product-note">{{ 'panquire.product_page.comparison_note' | t }}</p>
-        {% if pages.compare != blank %}<a href="{{ pages.compare.url }}">{{ 'panquire.product_page.view_comparison' | t }}</a>{% endif %}
-      </section>
-    {% endif %}
+
   </div>
 </div>
 {% schema %}

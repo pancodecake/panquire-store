@@ -9,6 +9,23 @@
  */
 {
   "panquire": {
+    "model_comparison": {
+  "features": "Features",
+  "price": "Current price",
+  "peak_motor_power": "Peak power",
+  "battery_capacity": "Battery capacity",
+  "torque": "Torque",
+  "claimed_range": "Max range (claimed)",
+  "maximum_speed": "Top speed",
+  "maximum_load": "Max load",
+  "weight": "Bike weight",
+  "wheels": "Tire size (front / rear)",
+  "rider_height": "Rider height",
+  "seat_height": "Seat-to-floor height",
+  "best_for": "Best for",
+  "net": "net",
+  "note": "Gold highlights the current model’s advantage; red highlights another model’s advantage. Ties, qualified claims and unranked specifications stay neutral. Blank cells mean no specification is available. Range and weight figures may use different measurement conditions."
+},
     "product_page": {
       "battery": "Battery", "speed": "Top speed", "power": "Peak power",
       "range": "Eco range", "weight": "Bike weight", "load": "Max load",
