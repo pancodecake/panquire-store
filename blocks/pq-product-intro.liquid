@@ -1,8 +1,8 @@
+{% assign introduction = closest.product.description | split: '<h2' | first | strip_html | strip %}
 <div class="pq-product-intro" {{ block.shopify_attributes }}>
   <p class="pq-product-category">{{ closest.product.type | escape }}</p>
-  <div class="rte">{{ closest.product.description | split: '<h2>' | first }}</div>
+  {% if introduction != blank %}<div class="rte"><p>{{ introduction | escape }}</p></div>{% endif %}
 </div>
 {% schema %}
 {"name":"Panquire introduction","tag":null,"settings":[],"presets":[{"name":"Panquire introduction"}]}
 {% endschema %}
-
