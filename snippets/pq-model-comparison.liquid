@@ -8,9 +8,11 @@
   for shared_collection in product.collections
     assign models = models | concat: shared_collection.products
   endfor
-  assign models = models | uniq: 'id' | sort: 'title'
+  assign before_count = models.size
+  assign models = models | uniq | sort: 'title'
   assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels,rider_height,seat_height,best_for' | split: ','
 %}
+<template data-comparison-debug="{{ product.collections.size }} / {{ before_count }} / {{ models.size }}">{% for c in product.collections %}{{ c.handle }}:{{ c.products.size }};{% endfor %}</template>
 {% if models.size > 1 %}
   {{ 'pq-model-comparison.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'pq-model-comparison.js' | asset_url }}" defer></script>
