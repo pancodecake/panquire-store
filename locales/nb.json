@@ -14,7 +14,7 @@
   "price": "Current price",
   "peak_motor_power": "Peak power",
   "battery_capacity": "Battery capacity",
-  "torque": "Torque",
+  "torque": "Peak torque",
   "claimed_range": "Max range (claimed)",
   "maximum_speed": "Top speed",
   "maximum_load": "Max load",

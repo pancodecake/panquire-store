@@ -12,7 +12,7 @@
     endpaginate
   endfor
   assign models = models | uniq: 'id' | sort: 'title'
-  assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels,rider_height,seat_height,best_for' | split: ','
+  assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels' | split: ','
 %}
 {% if models.size > 1 %}
   {{ 'pq-model-comparison.css' | asset_url | stylesheet_tag }}
