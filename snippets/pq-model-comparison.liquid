@@ -13,6 +13,17 @@
   endfor
   assign models = models | uniq: 'id' | sort: 'title'
   assign row_keys = 'price,peak_motor_power,battery_capacity,torque,claimed_range,maximum_speed,maximum_load,weight,wheels' | split: ','
+  assign has_t03 = false
+  for model in models
+    if model.handle == 't-03'
+      assign has_t03 = true
+      break
+    endif
+  endfor
+  assign visible_model_count = models.size
+  unless has_t03
+    assign visible_model_count = visible_model_count | plus: 1
+  endunless
 %}
 {% if models.size > 1 %}
   {{ 'pq-model-comparison.css' | asset_url | stylesheet_tag }}
@@ -20,7 +31,7 @@
   <pq-model-comparison class="pq-product-comparison pq-model-comparison">
     <h2 id="ModelComparison-{{ section_id }}">{{ 'panquire.product_page.compare' | t }}</h2>
     <div class="pq-product-table-scroll" role="region" tabindex="0" aria-labelledby="ModelComparison-{{ section_id }}">
-      <table style="--model-count: {{ models.size }}">
+      <table style="--model-count: {{ visible_model_count }}">
         <caption class="visually-hidden">{{ 'panquire.product_page.compare' | t }}</caption>
         <thead><tr>
           <th scope="col">{{ 'panquire.model_comparison.features' | t }}</th>
@@ -31,6 +42,7 @@
                   {% case model.handle %}
                     {% when 't-01' %}<img src="{{ 'pq-compare-t01.png' | asset_url }}" width="1456" height="1082" loading="lazy" alt="{{ model.title | escape }}">
                     {% when 't-02' %}<img src="{{ 'pq-compare-t02.png' | asset_url }}" width="1456" height="1093" loading="lazy" alt="{{ model.title | escape }}">
+                    {% when 't-03' %}<img src="{{ 'pq-compare-t03.png' | asset_url }}" width="3072" height="2048" loading="lazy" alt="{{ model.title | escape }}">
                     {% else %}{% if model.featured_image %}{{ model.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300,600', sizes: '(min-width: 990px) 300px, 200px', alt: model.title }}{% endif %}
                   {% endcase %}
                 </div>
@@ -38,6 +50,12 @@
               </a>
             </th>
           {% endfor %}
+          {% unless has_t03 %}
+            <th scope="col" data-current="false">
+              <div class="pq-model-comparison__image"><img src="{{ 'pq-compare-t03.png' | asset_url }}" width="3072" height="2048" loading="lazy" alt="T-03"></div>
+              <span class="pq-model-comparison__name">T-03</span>
+            </th>
+          {% endunless %}
         </tr></thead>
         <tbody>
           {% for key in row_keys %}
@@ -46,6 +64,7 @@
               {% for model in models %}
                 {% render 'pq-model-comparison-cell', model: model, current_id: product.id, key: key %}
               {% endfor %}
+              {% unless has_t03 %}{% render 'pq-model-comparison-static-cell', key: key %}{% endunless %}
             </tr>
           {% endfor %}
         </tbody>

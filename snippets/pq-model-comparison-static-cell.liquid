@@ -1,0 +1,38 @@
+{% doc %}
+  Renders the visual-only T-03 comparison value.
+  @param {string} key - Row key.
+{% enddoc %}
+{%- liquid
+  assign value = ''
+  assign numeric = ''
+  assign mode = 'none'
+  case key
+    when 'price'
+      assign value = '$1,699.00 USD'
+      assign numeric = 169900
+      assign mode = 'lower'
+    when 'peak_motor_power'
+      assign value = '9,500 W'
+      assign numeric = 9500
+      assign mode = 'higher'
+    when 'battery_capacity'
+      assign value = '60 V 31.2 Ah / 1872 Wh'
+      assign numeric = 31.2
+      assign mode = 'higher'
+    when 'claimed_range'
+      assign value = '80 km (Eco mode)'
+    when 'maximum_speed'
+      assign value = '80 km/h'
+      assign numeric = 80
+      assign mode = 'higher'
+    when 'maximum_load'
+      assign value = '150 kg'
+      assign numeric = 150
+      assign mode = 'higher'
+    when 'weight'
+      assign value = '55 kg (net)'
+    when 'wheels'
+      assign value = '12″ / 12″'
+  endcase
+-%}
+<td data-current="false" data-mode="{{ mode }}" data-number="{{ numeric }}">{{- value | escape -}}</td>

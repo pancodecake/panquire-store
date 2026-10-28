@@ -1,16 +1,14 @@
-.pq-model-comparison { display: block; --model-gold: var(--color-accent-solid, #b17b2c); --model-red: #d85b59; color: #f5f5f5; background: #111214; padding: clamp(24px, 4vw, 48px); }
+.pq-model-comparison { display: block; --model-gold: var(--color-accent-solid, #b17b2c); color: #f5f5f5; background: #111214; padding: clamp(24px, 4vw, 48px); }
 .pq-model-comparison .pq-product-table-scroll { margin-top: 24px; }
 .pq-model-comparison table { width: 100%; min-width: calc(180px + var(--model-count) * 220px); table-layout: fixed; border-collapse: collapse; }
 .pq-model-comparison th,.pq-model-comparison td { padding: 17px 22px; text-align: center; border-bottom: 1px solid #38393b; font-size: 14px; line-height: 1.4; }
 .pq-model-comparison tr > th:first-child { width: 23%; min-width: 180px; text-align: left; }
 .pq-model-comparison tbody th { color: #f5f5f5; font-weight: 600; }
 .pq-model-comparison thead th { padding-top: 0; font-size: 16px; }
-.pq-model-comparison thead a { display: block; color: var(--model-red); text-decoration: none; }
-.pq-model-comparison thead [data-current=true] a { color: var(--model-gold); }
+.pq-model-comparison thead a,.pq-model-comparison__name { display: block; color: #f5f5f5; text-decoration: none; }
 .pq-model-comparison__image { height: clamp(150px, 18vw, 240px); margin-bottom: 24px; }
 .pq-model-comparison .pq-model-comparison__image img { width: 100%; height: 100%; object-fit: contain; }
-.pq-model-comparison td.is-winner { font-weight: 720; color: var(--model-red); background: color-mix(in srgb, var(--model-red) 10%, transparent); }
-.pq-model-comparison td.is-winner[data-current=true] { color: color-mix(in srgb, var(--model-gold) 78%, white); background: color-mix(in srgb, var(--model-gold) 9%, transparent); }
+.pq-model-comparison td.is-winner { font-weight: 720; color: color-mix(in srgb, var(--model-gold) 78%, white); background: color-mix(in srgb, var(--model-gold) 9%, transparent); }
 .pq-model-comparison .pq-product-note { color: #b8b9bd; margin: 22px 0 0; line-height: 1.6; }
 @media (max-width: 599px) {
   .pq-model-comparison { padding: 24px 12px; }

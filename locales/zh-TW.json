@@ -24,7 +24,7 @@
   "seat_height": "Seat-to-floor height",
   "best_for": "Best for",
   "net": "net",
-  "note": "Gold highlights the current model’s advantage; red highlights another model’s advantage. Ties, qualified claims and unranked specifications stay neutral. Blank cells mean no specification is available. Range and weight figures may use different measurement conditions."
+  "note": "Gold highlights the strongest comparable value. Ties, qualified claims and unranked specifications stay neutral. Blank cells mean no specification is available. Range and weight figures may use different measurement conditions."
 },
     "product_page": {
       "battery": "Battery", "speed": "Top speed", "power": "Peak power",
