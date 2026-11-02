@@ -1,0 +1,184 @@
+{% doc %}
+Renders the included accessory grid for a Panquire product.
+
+@param {product} product - The current Panquire product.
+
+@example
+{% render 'pq-included-accessories', product: product %}
+{% enddoc %}
+
+<div class="pq-included-accessories">
+  <p class="pq-included-accessories__intro">{{ 'panquire.product_page.accessories_intro' | t }}</p>
+  <div class="pq-included-accessories__grid" role="list">
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-nfc-smart-key-fobs.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_nfc_title' | t }}</h3>
+        <p>{{ 'panquire.product_page.accessories_nfc_description' | t }}</p>
+      </div>
+    </article>
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-m25-connector.png' | asset_url }}" alt="" width="1254" height="1254" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_m25_title' | t }}</h3>
+        <p>{{ 'panquire.product_page.accessories_m25_description' | t }}</p>
+      </div>
+    </article>
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-battery.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_battery_title' | t }}</h3>
+        {% if product.handle == 't-02' %}
+          <p>{{ 'panquire.product_page.accessories_battery_t02_html' | t }}</p>
+        {% else %}
+          <p>{{ 'panquire.product_page.accessories_battery_t01_html' | t }}</p>
+        {% endif %}
+      </div>
+    </article>
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-battery-charger.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_charger_title' | t }}</h3>
+        {% if product.handle == 't-02' %}
+          <p>{{ 'panquire.product_page.accessories_charger_t02_description' | t }}</p>
+        {% else %}
+          <p>{{ 'panquire.product_page.accessories_charger_t01_description' | t }}</p>
+        {% endif %}
+      </div>
+    </article>
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-charging-connector.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_charging_connector_title' | t }}</h3>
+        <p>{{ 'panquire.product_page.accessories_charging_connector_description' | t }}</p>
+      </div>
+    </article>
+    <article class="pq-accessory" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-hex-key-set.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_hex_keys_title' | t }}</h3>
+        <p>{{ 'panquire.product_page.accessories_hex_keys_description' | t }}</p>
+      </div>
+    </article>
+    <article class="pq-accessory pq-accessory--wide" role="listitem">
+      <div class="pq-accessory__media">
+        <img src="{{ 'pq-accessory-ignition-keys.png' | asset_url }}" alt="" width="1086" height="1448" loading="lazy" decoding="async">
+      </div>
+      <div class="pq-accessory__copy">
+        <h3>{{ 'panquire.product_page.accessories_ignition_keys_title' | t }}</h3>
+        <p>{{ 'panquire.product_page.accessories_ignition_keys_description' | t }}</p>
+      </div>
+    </article>
+  </div>
+</div>
+
+{% stylesheet %}
+  .pq-included-accessories {
+    padding: 2px 0 22px;
+  }
+
+  .pq-included-accessories__intro {
+    margin: 0 0 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .pq-included-accessories__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .pq-accessory {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 13px;
+    align-items: center;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid var(--pq-line);
+    border-radius: 3px;
+    background: var(--surface);
+  }
+
+  .pq-accessory--wide {
+    grid-column: 1 / -1;
+  }
+
+  .pq-accessory__media {
+    display: grid;
+    place-items: center;
+    width: 78px;
+    height: 78px;
+    padding: 5px;
+    border-radius: 2px;
+    background: var(--pq-page-background);
+  }
+
+  .pq-accessory__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .pq-accessory__copy {
+    min-width: 0;
+  }
+
+  .pq-accessory__copy h3 {
+    margin: 0 0 5px;
+    color: var(--color-heading-accent);
+    font-family: var(--pq-heading-font);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .pq-accessory__copy p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .pq-accessory__copy strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  @media (max-width: 749px) {
+    .pq-included-accessories__grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .pq-accessory--wide {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .pq-accessory {
+      grid-template-columns: 64px minmax(0, 1fr);
+      gap: 11px;
+      padding: 11px;
+    }
+
+    .pq-accessory__media {
+      width: 64px;
+      height: 64px;
+    }
+  }
+{% endstylesheet %}
