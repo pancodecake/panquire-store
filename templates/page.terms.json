@@ -448,7 +448,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays return shipping?",
-                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer is responsible for return shipping.</p><p><em><strong>Panquire </strong></em>pays applicable return shipping for:</p><ul><li>confirmed defective products;</li><li>incorrect products sent by us;</li><li>and confirmed transit-damaged products.</li></ul>"
+                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer is responsible for return shipping.</p><p><em><strong>Panquire </strong></em>pays applicable return shipping for:</p><ul><li>confirmed defective products;</li><li>incorrect products sent by us;</li><li>and confirmed transit-damaged products.</li></ul><p>If the return is caused by the consumer, the consumer is responsible for the shipping fee. The specific fee is based on the express company the consumer chooses.</p><p>If, due to our reasons, the goods received are damaged or incorrect, the consumer is not required to bear the shipping fee.</p>"
               },
               "blocks": {}
             },

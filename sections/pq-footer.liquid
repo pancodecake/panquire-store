@@ -118,8 +118,14 @@
       </aside>
     </div>
     {% if section.settings.text != blank %}<p class="pq-footer-note">{{ section.settings.text | escape }}</p>{% endif %}
+    <div class="pq-footer-payment-icons" style="display:flex;flex-wrap:wrap;gap:8px;padding:20px 0">
+      {% assign oceanpayment_card_types = 'visa,master,maestro,jcb,american_express,diners_club,discover' | split: ',' %}
+      {% for card_type in oceanpayment_card_types %}
+        {{ card_type | payment_type_svg_tag }}
+      {% endfor %}
+    </div>
     <div class="pq-footer-bottom">
-      <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}"><a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a><a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a></nav>
+      <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}"><a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a><a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a>{% assign oceanpayment_terms_page = pages['terms-and-conditions'] %}{% if oceanpayment_terms_page != blank %}<a href="{{ oceanpayment_terms_page.url }}">{{ oceanpayment_terms_page.title | escape }}</a>{% endif %}</nav>
       <span>© {{ 'now' | date: '%Y' }} {{ settings.pq_store_name | default: 'Panquire' | escape }}. {{ section.settings.rights_text | escape }}</span>
     </div>
   </div>
@@ -150,8 +156,8 @@
     {"type":"text","id":"support_email","label":"Support email","default":"support@panquire.com"},
     {"type":"header","content":"Checkout trust badges"},
     {"type":"text","id":"trust_badges_caption","label":"Caption","default":"Protected checkout"},
-    {"type":"text","id":"guarantee_title","label":"Guarantee title","default":"100%"},
-    {"type":"text","id":"guarantee_text","label":"Guarantee text","default":"Money-back guarantee"},
+    {"type":"text","id":"guarantee_title","label":"Guarantee title","default":"14 days"},
+    {"type":"text","id":"guarantee_text","label":"Guarantee text","default":"Eligible returns"},
     {"type":"text","id":"ssl_title","label":"SSL title","default":"Fully secured"},
     {"type":"text","id":"ssl_text","label":"SSL text","default":"SSL checkout"},
     {"type":"text","id":"safe_title","label":"Safe checkout title","default":"Safe checkout"},
@@ -184,3 +190,4 @@
   "presets": [{ "name": "Panquire footer" }]
 }
 {% endschema %}
+
