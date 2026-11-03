@@ -8,16 +8,7 @@
     <h2 id="FinancingTitle-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
     <p>{{ block.settings.text | escape }}</p>
   </div>
-  {% if shop.enabled_payment_types != empty %}
-    <div class="pq-payment-methods pq-payment-methods--product-finance" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
-      <span class="pq-payment-methods__label">{{ 'blocks.payment_methods' | t }}</span>
-      <ul class="pq-payment-methods__list" role="list">
-        {% for type in shop.enabled_payment_types %}
-          <li>{{ type | payment_type_svg_tag: class: 'pq-payment-methods__icon' }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endif %}
+  {% render 'pq-payment-methods', class: 'pq-payment-methods--product-finance' %}
 </aside>
 
 {% schema %}

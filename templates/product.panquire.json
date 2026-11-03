@@ -70,7 +70,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 20,
+            "gap": 12,
             "sticky_details_desktop": false,
             "background_media": "none",
             "background_color": "",
@@ -246,7 +246,7 @@
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
-                    "style_class": "button",
+                    "style_class": "button-secondary",
                     "custom_button_background": "{{ settings.color_palette.foreground }}",
                     "custom_button_text": "{{ settings.color_palette.background }}",
                     "custom_button_border": "{{ settings.color_palette.background }}"
@@ -325,8 +325,8 @@
           "block_order": [
             "group_icgrde",
             "text_aEtTtq",
-            "variant_picker_R3rGDr",
             "inventory",
+            "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "payments",
             "shipping",
