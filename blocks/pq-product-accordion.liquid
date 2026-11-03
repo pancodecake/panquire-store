@@ -1,6 +1,12 @@
 <div class="pq pq-purchase-accordion" {{ block.shopify_attributes }}>
-  <details{% if block.settings.open %} open{% endif %}>
-    <summary>{{ block.settings.heading | escape }}</summary>
+  <details class="pq-purchase-accordion__details"{% if block.settings.open %} open{% endif %}>
+    <summary>
+      <span class="pq-purchase-accordion__heading">
+        {% unless block.settings.show_included_accessories %}<span class="pq-purchase-accordion__icon-slot" aria-hidden="true"></span>{% endunless %}
+        <span>{{ block.settings.heading | escape }}</span>
+      </span>
+      <span class="pq-purchase-accordion__indicator" aria-hidden="true"></span>
+    </summary>
     {% if block.settings.show_included_accessories %}
       {% render 'pq-included-accessories', product: product %}
     {% else %}

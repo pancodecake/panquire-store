@@ -269,16 +269,32 @@
             "shipping": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Shipping",
-                "text": "<p>Shipping is not included in the listed price. Charges depend on the destination and order details and are shown at checkout before purchase.</p><p>Panquire currently ships to eligible United States addresses configured in checkout.</p>",
+                "heading": "Secure Shipping",
+                "text": "<p>We offer international shipping through trusted logistics partners, including <strong>FedEx, UPS, and freight carriers</strong>, to ensure reliable delivery worldwide. Orders are shipped from China or, where inventory is available, from our regional warehouses in <strong>Germany, Poland, and the U.S. West Coast</strong>.</p><p>In-stock eBikes are typically dispatched within <strong>3 business days</strong>, with international delivery generally taking <strong>approximately 30 days</strong>, depending on the destination and shipping method.</p><p>As our U.S. and EU warehouse network expands, we expect to <strong>significantly reduce delivery times</strong>, with faster regional fulfillment becoming available.</p><p><strong>Please Note:</strong> All shipping and delivery times are estimates and cannot be guaranteed. Actual delivery times may vary due to customs clearance, carrier operations, and other logistical factors. Once your order has been dispatched, you will receive tracking information to monitor your shipment's progress.</p>",
+                "open": false
+              }
+            },
+            "price_protection": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "heading": "30-Day Price Protection",
+                "text": "<p>Shop with confidence, knowing you're getting great value with Panquire. If the price of the same product and configuration on our official website drops within <strong>30 days of your purchase</strong>, we'll refund the difference.</p>",
                 "open": false
               }
             },
             "warranty": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Warranty & support",
-                "text": "<p>2-year warranty. <a href=\"/pages/contact\">Contact Panquire support</a> for applicable coverage and claim terms.</p>",
+                "heading": "Full Year Warranty Protection",
+                "text": "<p>At Panquire, we stand behind the quality and durability of our electric bikes. Our products are built for performance and reliability, with dedicated warranty coverage to give you confidence in every ride. That's why we provide <strong>one year warranty protection</strong> on <strong>all</strong> of our models.</p>",
+                "open": false
+              }
+            },
+            "legal_compliance": {
+              "type": "pq-product-accordion",
+              "settings": {
+                "heading": "Vehicle Use & Legal Compliance",
+                "text": "<p>Panquire electric bikes are designed for performance and recreational riding. Due to their power, speed, and technical specifications, <strong>certain models may not qualify as Class 1, 2, or 3 electric bicycles</strong> and may instead be classified as off-road motorcycles or other motor vehicles.</p><p>Vehicle classification, registration requirements, licensing, insurance, and permitted riding areas vary by country, state, and local jurisdiction.</p><p><strong>Before riding, please check your local laws and regulations.</strong> Do not operate your vehicle on public roads, bicycle lanes, or designated pathways unless its use is legally permitted in your area.</p>",
                 "open": false
               }
             },
@@ -299,10 +315,10 @@
               }
             },
             "payments": {
-              "type": "payment-icons",
+              "type": "pq-flexible-financing",
               "settings": {
-                "horizontal_alignment": "flex-start",
-                "gap": 8
+                "heading": "Flexible financing",
+                "text": "Secure payment options available at checkout."
               }
             }
           },
@@ -314,7 +330,9 @@
             "buy_buttons_eYQEYi",
             "payments",
             "shipping",
+            "price_protection",
             "warranty",
+            "legal_compliance",
             "box"
           ]
         }
