@@ -112,14 +112,14 @@ const currentProducts = require('./fixtures/comparison-products-2026-10.json').m
   specificationAdditions: record.metafields.find(field => field.key === 'specification_additions').value
 }));
 
-test('replacement products use current metafield rows, not stale comparison values', () => {
+test('typed comparison metafields override specification row fallbacks', () => {
   const [t01, t02] = currentProducts.map(record => normalize({ ...record, fields: { peak_motor_power: 1, ready_to_ride_weight: 99 } }));
-  assert.equal(t01.name, 'T-01');
-  assert.equal(t02.name, 'T-02');
+  assert.equal(t01.name, 'Panquire T-01 Electric Dirt Bike');
+  assert.equal(t02.name, 'Panquire T-02 Electric Dirt Bike');
   assert.equal(t01.specs.continuous_motor_power.value, 3000);
   assert.equal(t02.specs.continuous_motor_power.value, 6000);
-  assert.equal(t01.specs.peak_motor_power.value, 8000);
-  assert.equal(t02.specs.peak_motor_power.value, 11000);
+  assert.equal(t01.specs.peak_motor_power.value, 1);
+  assert.equal(t02.specs.peak_motor_power.value, 1);
   assert.equal(t01.specs.battery_energy.value, 1.872);
   assert.equal(t02.specs.battery_energy.value, 2.952);
   assert.equal(t02.specs.battery_energy.display, '2.952 kWh (voltage × capacity)');
@@ -127,7 +127,7 @@ test('replacement products use current metafield rows, not stale comparison valu
   assert.equal(t01.specs.netBikeWeight.value, 55);
   assert.equal(t02.specs.bikeWeight.value, 68);
   for (const product of [t01, t02]) {
-    assert.equal(product.specs.ready_to_ride_weight.value, null);
+    assert.equal(product.specs.ready_to_ride_weight.value, 99);
     assert.equal(product.specs.maximum_climbing_ability.display, 'Less than 30°');
     assert.equal(product.specs.maximum_climbing_ability.value, null);
     assert.equal(product.specs.maximum_climbing_ability.plotValue, 30);
@@ -153,7 +153,7 @@ test('current row parser preserves missing, qualified and unsupported values wit
   assert.equal(record.specs.battery_capacity.value, 0);
   assert.equal(record.specs.battery_energy.value, null);
   const empty = normalize({ specificationRows: '', fields: { peak_motor_power: 999 } });
-  assert.equal(empty.specs.peak_motor_power.value, null);
+  assert.equal(empty.specs.peak_motor_power.value, 999);
 });
 
 test('all restored pairings have shared current specifications and retain competitor source profiles', () => {

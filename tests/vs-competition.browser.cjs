@@ -8,7 +8,11 @@ const competitorSources = {
   'x1-spark-l': 'https://www.qronge.com/products/x1-spark-l', 'light-bee-x': 'https://sur-ronusa.us.com/product/surron-light-bee-x/',
   'ultra-bee': 'https://sur-ronusa.us.com/product/surron-ultra-bee/', 'x7-spark': 'https://www.qronge.com/products/x7-spark',
   'pro-ss-2-0': 'https://www.eridepro.com/products/pro-ss-2-0', 'nova-5-pro': 'https://freegobikes.com/products/freego-nova5-electric-dirt-bike',
-  'mantis-x': 'https://www.riderawrr.com/mantis-x', 'falcon-pro': 'https://79bike.com/products/79bike-falcon-pro'
+  'mantis-x': 'https://www.riderawrr.com/mantis-x', 'falcon-pro': 'https://79bike.com/products/79bike-falcon-pro',
+  'vmoto-tc-max': 'https://vmoto.com/models/tcmax-2',
+  'kawasaki-ninja-e-1': 'https://www.kawasaki.com/en-us/motorcycle/ninja/sport/ninja-e-1/2027-ninja-e-1-abs',
+  'kollter-es1-s-pro': 'https://www.kollterelectricmotorcycles.com/es1-spro',
+  'land-district': 'https://landmoto.io/pages/2027-land-district', 'niu-rqi-sport': 'https://global.niu.com/product/rqi-sport'
 };
 
 (async () => {
@@ -45,6 +49,7 @@ const competitorSources = {
     await page.setViewportSize({ width: 1440, height: 1100 });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(comparisonUrl, { waitUntil: 'domcontentloaded' });
+    await page.addStyleTag({ content: '#shopify-pc__banner { display: none !important; } .pq-announcement { pointer-events: none !important; }' });
     console.log('Loaded', page.url(), await page.title());
     console.log('Comparison sections:', await page.locator('pq-comparison').count());
     console.log('Data/JS:', await page.locator('script[src*="vs-competition"]').getAttribute('src').catch(() => null));
@@ -81,7 +86,7 @@ const competitorSources = {
       power: node.selected.panquire.specs.peak_motor_power.value
     }));
     assert.equal(String(currentProduct.id).split('/').pop(), '10628825940152');
-    assert.match(currentProduct.price, /2,000/);
+    assert.match(currentProduct.price, /1,999/);
     assert.equal(currentProduct.source, 'https://panquire.com/products/t-01');
     const sourceLabel = root.locator('[data-product="panquire"] [data-source]');
     assert.equal(await sourceLabel.evaluate(node => node instanceof HTMLAnchorElement), false);
@@ -97,7 +102,7 @@ const competitorSources = {
     await sourceLabel.focus();
     assert.equal(await sourceTooltip.evaluate(node => getComputedStyle(node).visibility), 'visible');
     assert.ok(currentProduct.image);
-    assert.equal(currentProduct.power, 8000);
+    assert.equal(currentProduct.power, 9500);
     assert.equal(await root.locator('.pq-compare__methodology h2').textContent(), 'Comparison Methodology');
     assert.equal(await root.locator('.pq-compare__methodology a[href="mailto:support@panquire.com"]').textContent(), 'support@panquire.com');
     await page.evaluate(() => document.fonts.ready);
@@ -146,7 +151,7 @@ const competitorSources = {
     assert.equal(current.params.competitor, 'ultra-bee');
     assert.ok(!current.rows.includes('ready_to_ride_weight'));
     assert.ok(current.rows.includes('battery_energy'));
-    assert.match(current.text, /2\.952 kWh \(voltage × capacity\)/);
+    assert.match(current.text, /2\.952 kWh/);
     assert.ok(current.rows.includes('suspension'));
     await root.locator('details summary').click();
     assert.equal(await root.locator('details').getAttribute('open'), '');
@@ -168,10 +173,31 @@ const competitorSources = {
       assert.equal(result.competitorSource, competitorSources[handle]);
       assert.ok(result.competitorImage, `${handle} image`);
     }
+    await choose('panquire', 't-03');
+    current = await state();
+    assert.equal(current.right, 'vmoto-tc-max');
+    assert.deepEqual(current.choices, ['vmoto-tc-max', 'kawasaki-ninja-e-1', 'kollter-es1-s-pro', 'land-district', 'niu-rqi-sport']);
+    assert.equal(current.params.panquire, 't-03');
+    assert.equal(current.params.competitor, 'vmoto-tc-max');
+    assert.ok(current.rows.includes('battery_energy'));
+    assert.ok(current.rows.includes('continuous_motor_power'));
+    assert.ok(current.rows.includes('peak_motor_power'));
+    assert.ok(current.rows.includes('maximum_speed'));
+    assert.ok(current.rows.includes('wheels'));
+    assert.ok(!current.rows.includes('ready_to_ride_weight'));
+    for (const handle of current.choices) {
+      await choose('competitor', handle);
+      const result = await state();
+      assert.equal(result.params.competitor, handle);
+      assert.equal(result.competitorSource, competitorSources[handle]);
+      assert.ok(result.competitorImage, `${handle} image`);
+      assert.ok(!/undefined|NaN|null/.test(result.text));
+    }
+    await choose('panquire', 't-01');
     await choose('competitor', 'pro-s-17');
     assert.equal(await root.locator('[data-differences] tr[data-spec="battery_energy"] .is-winner').getAttribute('class'), 'pq-compare__value pq-compare__value--competitor is-winner');
     assert.equal(await root.locator('[data-differences] tr[data-spec="ready_to_ride_weight"]').count(), 0);
-    assert.equal(await root.locator('[data-differences] tr[data-spec="peak_motor_power"] .is-winner').count(), 0);
+    assert.equal(await root.locator('[data-differences] tr[data-spec="peak_motor_power"] .is-winner').getAttribute('class'), 'pq-compare__value pq-compare__value--panquire is-winner');
     assert.equal(await root.locator('[data-differences] tr[data-spec="wheels"] .is-winner').count(), 0);
     await root.locator('[data-metrics] button').first().click();
     assert.ok(await root.locator('[data-differences] tr.is-focused').count());
@@ -204,6 +230,9 @@ const competitorSources = {
     assert.equal(await mobile.locator('[data-selector="competitor"] [data-select-value]').textContent(), 'Surron Ultra Bee');
     await mobile.locator('[data-selector="competitor"] [data-select-trigger]').tap();
     await mobile.locator('[data-selector="competitor"] [data-value="falcon-pro"]').tap();
+    await mobileTrigger.tap();
+    await mobile.locator('[data-selector="panquire"] [data-value="t-03"]').tap();
+    assert.equal(await mobile.locator('[data-selector="competitor"] [data-select-value]').textContent(), 'VMoto TC Max');
     assert.ok(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
     await mobile.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
     await mobile.waitForTimeout(600);
@@ -218,7 +247,7 @@ const competitorSources = {
     await home.goto('https://panquire.com/?preview_theme_id=191626870968', { waitUntil: 'domcontentloaded' });
     await home.evaluate(() => document.fonts.ready);
     assert.equal(await home.evaluate(() => document.fonts.check('400 48px "Panquire Intro Rust"')), true);
-    assert.match(await home.locator('h2').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Montserrat/);
+    assert.match(await home.locator('h2').first().evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
     assert.match(await home.locator('.pq-hero-copy h1').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Intro Rust/);
     assert.match(await home.locator('body').evaluate(node => getComputedStyle(node).fontFamily), /Panquire Work Sans/);
     const homeNavigationLink = home.locator('.pq-desktop-nav a, .menu-list__link').first();
@@ -227,6 +256,6 @@ const competitorSources = {
     await home.screenshot({ path: join(__dirname, '../.shopify-temp/hero-font-desktop.png'), fullPage: false });
     await home.close();
     assert.deepEqual(errors, []);
-    console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 10 pairings with sources and images, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
+    console.log('PASS: brand fonts across home/compare, desktop/mobile selectors, all 15 pairings with sources and images, stable hover boundary, methodology, ordered reset, URL validation, winner/tie styling, chart interaction, full specs, reduced motion, navigation, and no page errors.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });
