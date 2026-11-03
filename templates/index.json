@@ -115,11 +115,29 @@
             "label_4": "",
             "value_4": ""
           }
+        },
+        "item3": {
+          "type": "model",
+          "settings": {
+            "model": "T-03",
+            "heading": "T-03",
+            "text": "A compact mini electric motorcycle built for responsive street and urban riding.",
+            "product": "t-03",
+            "label_1": "Peak Motor Power",
+            "value_1": "9,500W",
+            "label_2": "Top Speed",
+            "value_2": "80 km/h",
+            "label_3": "Battery",
+            "value_3": "60V 31.2Ah",
+            "label_4": "Road Wheels",
+            "value_4": "12 in / 12 in"
+          }
         }
       },
       "block_order": [
         "item1",
-        "item2"
+        "item2",
+        "item3"
       ],
       "settings": {
         "heading": "Panquire Performance",

@@ -10,9 +10,13 @@
               {% if block.settings.image != blank %}
                 {% assign media_label = 'panquire.product_image' | t %}
                 {% render 'pq-media', image: block.settings.image, label: media_label, sizes: '(min-width: 900px) 760px, 100vw' %}
+              {% elsif block.settings.product != blank and block.settings.product.featured_image != blank %}
+                {{ block.settings.product.featured_image | image_url: width: 1600 | image_tag: class: 'pq-image', widths: '600,900,1200,1600', sizes: '(min-width: 900px) 760px, 100vw', loading: 'lazy', alt: block.settings.product.title }}
               {% else %}
                 {% if block.settings.model == 'T-02' %}
                   <img class="pq-image" src="{{ 'panquire-t02.png' | asset_url }}" alt="Panquire T-02 electric dirt bike" width="3200" height="2560" loading="lazy">
+                {% elsif block.settings.model == 'T-03' %}
+                  <img class="pq-image" src="{{ 'panquire-t03.png' | asset_url }}" alt="Panquire T-03 mini electric motorcycle" width="3200" height="2560" loading="lazy">
                 {% else %}
                   <img class="pq-image" src="{{ 'panquire-t01.png' | asset_url }}" alt="Panquire T-01 electric dirt bike" width="3200" height="2560" loading="lazy">
                 {% endif %}
@@ -58,3 +62,4 @@
   "presets": [{ "name": "Panquire product feature", "blocks": [{"type":"model"},{"type":"model"},{"type":"model"}] }]
 }
 {% endschema %}
+

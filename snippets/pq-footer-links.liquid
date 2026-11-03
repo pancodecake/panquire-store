@@ -10,6 +10,7 @@
     {% when 'shop' %}
       <a href="/products/t-01">T-01</a>
       <a href="/products/t-02">T-02</a>
+      <a href="/products/t-03">T-03</a>
     {% when 'company' %}
       <a href="{{ settings.pq_about_url | default: '/pages/about' }}">About Us <span class="pq-footer-link-detail">Our Story, Team &amp; Mission</span></a>
       <a href="{{ partner_url }}#partners">Strategic Partnerships</a>
@@ -25,3 +26,4 @@
       <a href="{{ terms_url }}#returns-refunds">Returns &amp; Refunds</a>
   {% endcase %}
 </nav>
+

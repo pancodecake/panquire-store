@@ -3,14 +3,43 @@
   @param {string} [model] - Product handle.
   @param {string} field - Specification label, rows, image, or handles.
 {% enddoc %}
-{%- if field == 'handles' -%}t-01,t-02
-{%- elsif model == 't-01' or model == 't-02' -%}
+{%- if field == 'handles' -%}t-01,t-02,t-03
+{%- elsif model == 't-01' or model == 't-02' or model == 't-03' -%}
   {%- if field == 'image' -%}
-    {%- if model == 't-01' -%}panquire-t01.png{%- else -%}panquire-t02.png{%- endif -%}
+    {%- if model == 't-01' -%}panquire-t01.png{%- elsif model == 't-02' -%}panquire-t02.png{%- else -%}panquire-t03.png{%- endif -%}
   {%- else -%}
     {%- assign model_product = all_products[model] -%}
     {%- assign rows = model_product.metafields.custom.panquire_specifications.value -%}
     {%- if rows == blank -%}
+    {%- if model == 't-03' -%}
+    {%- capture rows -%}
+Overview|Model|T-03
+Overview|Type|Mini Electric Motorcycle
+Overview|Color|Black
+Overview|Frame material|Aluminum alloy
+Overview|Warranty|1 year
+Performance|Motor|60V 5,000W central motor
+Performance|Peak motor power|9,500W
+Performance|Maximum speed|80 km/h
+Performance|Range — Eco mode|Up to 80 km
+Performance|Climbing ability|Less than 30°
+Performance|Max load|150 kg
+Performance|Drivetrain|Chain drive
+Performance|Power levels|3 selectable electronic power levels
+Battery & charging|Battery|Removable lithium-ion battery
+Battery & charging|Battery voltage|60V
+Battery & charging|Battery capacity|31.2Ah
+Battery & charging|Nominal battery energy|1.872 kWh (voltage × capacity)
+Battery & charging|Charger|18A
+Suspension & brakes|Front/rear suspension|Hydraulic suspension
+Suspension & brakes|Rear shock|Adjustable oil-hydraulic nitrogen shock absorber
+Suspension & brakes|Brakes|Hydraulic disc brakes
+Suspension & brakes|Front tire|12 inches
+Suspension & brakes|Rear tire|12 inches
+Dimensions & weight|Vehicle dimensions|1,770 × 800 × 1,100 mm
+Dimensions & weight|Net weight|55 kg
+    {%- endcapture -%}
+    {%- else -%}
     {%- capture rows -%}
 Overview|Model|{% if model == 't-01' %}T-01{% else %}T-02{% endif %}
 Overview|Type|Electric Dirt Bike
@@ -46,6 +75,7 @@ Dimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm
 {% if model == 't-01' %}Dimensions & weight|Net weight|55 kg{% else %}Battery & charging|Battery pack weight|15 kg{% endif %}
     {%- endcapture -%}
     {%- endif -%}
+    {%- endif -%}
     {%- if field == 'rows' -%}{{ rows }}
     {%- else -%}
       {%- assign entries = rows | newline_to_br | split: '<br />' -%}
@@ -56,3 +86,4 @@ Dimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm
     {%- endif -%}
   {%- endif -%}
 {%- endif -%}
+
