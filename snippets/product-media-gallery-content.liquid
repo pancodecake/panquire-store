@@ -27,7 +27,7 @@
 {%- liquid
   assign selected_product = closest.product
   assign product_media = selected_product.media
-  if template.suffix == 'panquire' and selected_product.metafields.panquire.gallery_media.value != blank
+  if template.suffix == 'panquire' and selected_product.handle != 't-03' and selected_product.metafields.panquire.gallery_media.value != blank
     assign product_media = selected_product.metafields.panquire.gallery_media.value
   endif
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
@@ -1063,3 +1063,4 @@
     content-visibility: visible;
   }
 {% endstylesheet %}
+
