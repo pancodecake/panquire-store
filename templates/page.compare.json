@@ -18,6 +18,7 @@
         "default_competitor": "",
         "t01_competitors": "pro-s-17, falcon-lite, x1-spark-l, light-bee-x",
         "t02_competitors": "ultra-bee, x7-spark, pro-ss-2-0, nova-5-pro, mantis-x, falcon-pro",
+        "t03_competitors": "vmoto-tc-max, kawasaki-ninja-e-1, kollter-es1-s-pro, land-district, niu-rqi-sport",
         "difference_count": 6,
         "show_radar": true,
         "show_price": true,
