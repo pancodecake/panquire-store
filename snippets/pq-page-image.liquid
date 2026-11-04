@@ -7,7 +7,7 @@
 {% liquid
   assign chosen_image = product.featured_image
   for item in product.metafields.panquire.gallery_media.value
-    assign identifier = item.id | append: ''
+    assign identifier = item.id | append: '' | split: '/' | last
     if identifier == media_id
       assign chosen_image = item.preview_image
       break

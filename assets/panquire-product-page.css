@@ -31,7 +31,7 @@
 .pq-product-editorial img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .pq-product-story { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(28px,4vw,56px); padding-block: 24px; }
 .pq-product-story:nth-child(even) .pq-product-story__image { order: 2; }
-.pq-product-story__image { aspect-ratio: 1.5; min-width: 0; background: #151619; border-radius: 6px; overflow: hidden; }
+.pq-product-story__image { aspect-ratio: 1.5; min-width: 0; border-radius: 6px; overflow: hidden; }
 .pq-product-story__copy { max-width: 480px; }
 .pq-product-eyebrow { display: block; color: #8d672c; font-size: 12px; font-weight: 600; letter-spacing: .13em; margin-bottom: 20px; }
 .pq-product-features { padding-block: 90px; }

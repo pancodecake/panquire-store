@@ -8,7 +8,23 @@
   <div class="pq-product-wrap">
     {% for story in data.stories.value %}
       <section class="pq-product-story">
-        <div class="pq-product-story__image">{% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}</div>
+        <div class="pq-product-story__image">
+          {% if product.handle == 't-01' and forloop.index == 1 %}
+            <img src="{{ 'RiderGreen.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-02' and forloop.index == 1 %}
+            <img src="{{ 'RiderJump2.png' | asset_url }}" width="1920" height="1080" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-01' and forloop.index == 2 %}
+            <img src="{{ 'RiderHill.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-02' and forloop.index == 2 %}
+            <img src="{{ 'Control And Ride.png' | asset_url }}" width="7680" height="4320" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-01' and forloop.index == 3 %}
+            <img src="{{ 'riderJump.png' | asset_url }}" width="2334" height="2905" alt="{{ product.title | escape }}" loading="lazy">
+          {% elsif product.handle == 't-02' and forloop.index == 3 %}
+            <img src="{{ 'RiderDrift.png' | asset_url }}" width="1920" height="1080" alt="{{ product.title | escape }}" loading="lazy">
+          {% else %}
+            {% render 'pq-page-image', product: product, media_id: story.media_id, alt: product.title %}
+          {% endif %}
+        </div>
         <div class="pq-product-story__copy"><span class="pq-product-eyebrow">{{ product.handle | upcase | escape }} / 0{{ forloop.index }}</span><h2>{{ story.heading | escape }}</h2><p>{{ story.body | escape }}</p></div>
       </section>
     {% endfor %}
