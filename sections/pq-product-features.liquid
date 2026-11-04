@@ -1,36 +1,62 @@
 <section class="pq pq-section pq-product-features" style="--pq-space: {{ section.settings.spacing }}px;">
   <div class="pq-container">
     <h2 class="pq-section-title" data-pq-reveal>{{ section.settings.heading | escape }}</h2>
-    <div class="pq-feature-mosaic">
+    <pq-product-tabs>
+      <div class="pq-product-tablist" role="tablist" aria-label="{{ section.settings.heading | escape }}">
+        {% for block in section.blocks %}
+          <button type="button" role="tab" id="Tab-{{ section.id }}-{{ block.id }}" aria-controls="Panel-{{ section.id }}-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">{{ block.settings.label | escape }}</button>
+        {% endfor %}
+      </div>
       {% for block in section.blocks %}
-        <article class="pq-feature-tile" {{ block.shopify_attributes }}>
-          {% if block.settings.image != blank %}
-            <div class="pq-feature-tile-media">
-              {{ block.settings.image | image_url: width: 1600 | image_tag: widths: '480, 750, 1100, 1600', sizes: '(min-width: 750px) 520px, 100vw', loading: 'lazy', alt: block.settings.image_alt, class: 'pq-image' }}
-            </div>
-          {% endif %}
-          <div class="pq-feature-tile-copy">
-            <span class="pq-feature-tile-label">{{ block.settings.label | escape }}</span>
+        <article class="pq-product-tabpanel" role="tabpanel" id="Panel-{{ section.id }}-{{ block.id }}" aria-labelledby="Tab-{{ section.id }}-{{ block.id }}" tabindex="0" {{ block.shopify_attributes }}{% unless forloop.first %} hidden{% endunless %}>
+          <div class="pq-product-tabpanel-copy">
             <h3>{{ block.settings.heading | escape }}</h3>
             <p>{{ block.settings.text | escape }}</p>
-            {% if block.settings.detail != blank %}<strong class="pq-feature-tile-detail">{{ block.settings.detail | escape }}</strong>{% endif %}
+            {% if block.settings.detail != blank %}<strong>{{ block.settings.detail | escape }}</strong>{% endif %}
+          </div>
+          <div class="pq-product-feature-image">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 1600 | image_tag: widths: '480, 750, 1100, 1600', sizes: '(min-width: 750px) 520px, 100vw', loading: 'lazy', alt: block.settings.image_alt, class: 'pq-image' }}
+            {% else %}
+              <span class="pq-product-feature-stat" aria-hidden="true">450A</span>
+            {% endif %}
           </div>
         </article>
       {% endfor %}
-    </div>
+      <div class="pq-product-tab-arrows">
+        <button type="button" data-tab-step="-1" aria-label="Previous feature">‹</button>
+        <button type="button" data-tab-step="1" aria-label="Next feature">›</button>
+      </div>
+    </pq-product-tabs>
   </div>
 </section>
+<script src="{{ 'panquire-product-page.js' | asset_url }}" defer></script>
 {% stylesheet %}
-  .pq-product-features .pq-feature-mosaic { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .pq-product-features .pq-feature-tile { overflow: hidden; background: var(--pq-surface); border: 1px solid var(--pq-line); }
-  .pq-product-features .pq-feature-tile-media { aspect-ratio: 1.65; background: var(--pq-bg); }
-  .pq-product-features .pq-feature-tile-media img { object-fit: contain; }
-  .pq-product-features .pq-feature-tile-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 26px; border-top: 0; }
-  .pq-product-features .pq-feature-tile-label { color: var(--pq-accent); font-size: 12px; font-weight: 700; letter-spacing: .08em; }
-  .pq-product-features .pq-feature-tile h3 { margin: 0; color: var(--color-heading-accent); font-size: clamp(23px, 2.2vw, 32px); line-height: 1.15; }
-  .pq-product-features .pq-feature-tile p { margin: 0; color: var(--pq-muted); font-size: 15px; line-height: 1.65; }
-  .pq-product-features .pq-feature-tile-detail { margin-top: auto; padding-top: 8px; color: var(--pq-text); font-size: 13px; }
-  @media (max-width: 749px) { .pq-product-features .pq-feature-mosaic { grid-template-columns: minmax(0, 1fr); } }
+  .pq-product-features pq-product-tabs { display: block; }
+  .pq-product-features .pq-product-tablist { display: flex; overflow-x: auto; border-bottom: 1px solid var(--pq-line); scrollbar-width: thin; }
+  .pq-product-features .pq-product-tablist button { flex: 1 0 auto; padding: 16px 18px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--pq-muted); font: 600 12px/1.4 var(--pq-heading-font); cursor: pointer; transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease; }
+  .pq-product-features .pq-product-tablist button[aria-selected='true'] { color: var(--pq-text); background: var(--pq-surface); border-bottom-color: var(--pq-accent); }
+  .pq-product-features .pq-product-tablist button:hover { color: var(--pq-text); }
+  .pq-product-features .pq-product-tabpanel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(32px, 6vw, 90px); padding-top: 36px; }
+  .pq-product-features .pq-product-tabpanel[hidden] { display: none; }
+  .pq-product-features .pq-product-tabpanel-copy { max-width: 48ch; }
+  .pq-product-features .pq-product-tabpanel h3 { margin: 0 0 20px; color: var(--color-heading-accent); font-size: clamp(26px, 3vw, 42px); }
+  .pq-product-features .pq-product-tabpanel p { margin: 0; color: var(--pq-muted); font-size: 16px; line-height: 1.7; }
+  .pq-product-features .pq-product-tabpanel strong { display: block; margin-top: 24px; color: var(--pq-text); font-size: 14px; }
+  .pq-product-features .pq-product-feature-image { display: grid; place-items: center; min-width: 0; aspect-ratio: 1.4; background: var(--pq-surface); }
+  .pq-product-features .pq-product-feature-image img { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .pq-product-features .pq-product-feature-stat { color: var(--pq-accent); font: 700 clamp(76px, 12vw, 160px)/1 var(--pq-heading-font); letter-spacing: -.08em; }
+  .pq-product-features .pq-product-tab-arrows { display: flex; gap: 10px; margin-top: 16px; }
+  .pq-product-features .pq-product-tab-arrows button { width: 44px; height: 44px; border: 1px solid var(--pq-line); background: var(--pq-surface); color: var(--pq-text); font-size: 24px; cursor: pointer; transition: background-color 180ms ease, border-color 180ms ease; }
+  .pq-product-features .pq-product-tab-arrows button:hover { background: var(--pq-bg); border-color: var(--pq-accent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .pq-product-features .pq-product-tabpanel:not([hidden]) { animation: pq-feature-panel-enter 240ms cubic-bezier(.22, 1, .36, 1) both; }
+    @keyframes pq-feature-panel-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  }
+  @media (max-width: 749px) {
+    .pq-product-features .pq-product-tabpanel { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .pq-product-features .pq-product-feature-image { order: -1; }
+  }
 {% endstylesheet %}
 {% schema %}
 {
