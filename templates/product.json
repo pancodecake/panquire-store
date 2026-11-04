@@ -534,53 +534,6 @@
         "spacing": 90
       }
     },
-    "features": {
-      "type": "pq-product-features",
-      "settings": {
-        "heading": "Explore every detail",
-        "spacing": 70
-      },
-      "blocks": {
-        "item1": {
-          "type": "feature",
-          "settings": {
-            "heading": "Power on demand",
-            "text": "Motor specifications coming soon.",
-            "media_label": "Motor detail placeholder"
-          }
-        },
-        "item2": {
-          "type": "feature",
-          "settings": {
-            "heading": "Take the long way",
-            "text": "Riding review coming soon.",
-            "media_label": "Riding review placeholder"
-          }
-        },
-        "item3": {
-          "type": "feature",
-          "settings": {
-            "heading": "Energy for the journey",
-            "text": "Battery specifications coming soon.",
-            "media_label": "Battery detail placeholder"
-          }
-        },
-        "item4": {
-          "type": "feature",
-          "settings": {
-            "heading": "Comfort in every turn",
-            "text": "Suspension specifications coming soon.",
-            "media_label": "Suspension detail placeholder"
-          }
-        }
-      },
-      "block_order": [
-        "item1",
-        "item2",
-        "item3",
-        "item4"
-      ]
-    },
     "display": {
       "type": "pq-product-story",
       "settings": {
@@ -757,7 +710,6 @@
     "panorama",
     "ride_film",
     "ride_story",
-    "features",
     "display",
     "specifications",
     "comparison",

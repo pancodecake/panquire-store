@@ -236,14 +236,94 @@
         "desktop_height": 760,
         "spacing": 70
       }
+    },
+    "motorcycle_details": {
+      "type": "pq-product-features",
+      "settings": {
+        "heading": "Panquire electric motorcycles",
+        "spacing": 70
+      },
+      "blocks": {
+        "battery": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/panquire-t02-closeup-_Battery_Frame_Closeup.png",
+            "image_alt": "Battery inside the frame of a Panquire T-02 electric motorcycle.",
+            "label": "THE BATTERY",
+            "heading": "72 volts, ready for the trail.",
+            "text": "The Panquire T-02 carries a 72V 41Ah battery inside an aluminum frame. That is 2,952 watt-hours of capacity, with a stated range of up to 90 km in Eco mode. A full charge takes approximately four hours, so the bike can be ready again between rides. Range varies with terrain, speed, rider weight and conditions.",
+            "detail": "T-02 · 72V 41Ah battery"
+          }
+        },
+        "suspension": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/panquire-t02-closeup-_Rear_Shock_Suspension_Closeup.png",
+            "image_alt": "Rear coil shock and suspension on a Panquire T-02 electric motorcycle.",
+            "label": "THE REAR SUSPENSION",
+            "heading": "A rear shock you can set for the ride.",
+            "text": "The adjustable rear shock helps the wheel respond to bumps and changing ground. Set the suspension for your weight and riding conditions, whether you are taking on a rough trail or finding your way through a technical section. It is there to keep the ride controlled when the surface is not.",
+            "detail": "Adjustable rear shock"
+          }
+        },
+        "controller": {
+          "type": "feature",
+          "settings": {
+            "label": "THE CONTROLLER",
+            "heading": "Tuned for the bike, with up to 450 amps.",
+            "text": "The controller is tuned specifically for the bike and can provide a maximum current of 450A. It manages power delivery between the battery and motor, with three selectable riding modes and adjustable regenerative braking.",
+            "detail": "450A maximum controller current"
+          }
+        },
+        "controls": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/panquire-t02-closeup-Panquire_Handlebar_Controls_Closeup.png",
+            "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
+            "label": "THE CONTROLS",
+            "heading": "Three modes, within reach.",
+            "text": "Panquire electric motorcycles put their handlebar controls close to the grip. Choose from low, medium and high riding modes to suit your speed and experience; the first mode limits maximum power for a more beginner-friendly setting. Adjustable regenerative braking lets you choose how much the bike slows when you release the throttle. The handlebar also places the lights, turn signals and horn within reach, so you can keep your attention on the ride.",
+            "detail": "3 selectable riding modes"
+          }
+        },
+        "motor": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/panquire-t01-closeup-Motor.png",
+            "image_alt": "Motor cover and chain drive on a Panquire T-01 electric motorcycle.",
+            "label": "THE MOTOR",
+            "heading": "8 kW peak, in a lighter package.",
+            "text": "The Panquire T-01 pairs an 8 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
+            "detail": "T-01 · 8 kW peak power"
+          }
+        },
+        "cockpit": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/Electric_Scooter_Dashboard_Cockpit.png",
+            "image_alt": "Panquire T-01 electric motorcycle digital dashboard showing speed, battery level and trip distance.",
+            "label": "THE COCKPIT",
+            "heading": "The ride, in one glance.",
+            "text": "The digital dashboard puts speed, battery level, selected mode and trip distance in front of you. The large central speed readout is easy to find, while the rest of the information stays close by when you need to check it."
+          }
+        }
+      },
+      "block_order": [
+        "battery",
+        "suspension",
+        "controller",
+        "controls",
+        "motor",
+        "cockpit"
+      ]
     }
   },
   "order": [
     "hero",
     "benefits",
     "feature",
+    "motorcycle_details",
     "experts",
     "diagonal_promo"
   ]
 }
-
