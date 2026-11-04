@@ -3,10 +3,10 @@
   @param {string} name - Accessory translation key.
   @param {string} image - Accessory image asset.
 {% enddoc %}
-{% assign title_key = 'panquire.purchase.' | append: name | append: '_title' %}
-{% assign description_key = 'panquire.purchase.' | append: name | append: '_description' %}
+{% assign title_key = '' | append: name | append: '_title' %}
+{% assign description_key = '' | append: name | append: '_description' %}
 <li class="pq-purchase__accessory">
   <img src="{{ image | asset_url }}" alt="" width="60" height="60" loading="lazy" decoding="async">
-  <div><h2>{{ title_key | t }}</h2><p>{{ description_key | t }}</p></div>
-  <span class="pq-purchase__free">{{ 'panquire.purchase.free' | t }}</span>
+  <div><h2>{% render 'pq-purchase-copy', key: title_key %}</h2><p>{% render 'pq-purchase-copy', key: description_key %}</p></div>
+  <span class="pq-purchase__free">{% render 'pq-purchase-copy', key: 'free' %}</span>
 </li>

@@ -31,39 +31,39 @@
 %}
 
 <div class="pq-purchase" {{ block.shopify_attributes }}>
-  <p class="pq-purchase__tagline">{{ 'panquire.purchase.tagline' | t }}</p>
-  <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {{ 'panquire.purchase.title_suffix' | t }}{% endif %}</h1>
+  <p class="pq-purchase__tagline">{% render 'pq-purchase-copy', key: 'tagline' %}</p>
+  <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
   <div class="pq-purchase__reviews">
-    <span class="pq-purchase__stars" role="img" aria-label="{{ 'panquire.purchase.rating' | t: rating: rating }}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
-    <span class="pq-purchase__review-count">{{ 'panquire.purchase.review_count' | t: count: rating_count }}</span>
+    <span class="pq-purchase__stars" role="img" aria-label="{% render 'pq-purchase-copy', key: 'rating', rating: rating %}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
+    <span class="pq-purchase__review-count">{% render 'pq-purchase-copy', key: 'review_count', count: rating_count %}</span>
   </div>
   <div class="pq-purchase__price-row" aria-live="polite">
     <strong>{{ variant.price | money }}</strong>
     {% if variant.compare_at_price > variant.price %}
       <s>{{ variant.compare_at_price | money }}</s>
       {% assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
-      <span class="pq-purchase__discount">{{ 'panquire.purchase.discount' | t: percent: discount }}</span>
+      <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
   </div>
   <div class="pq-purchase__campaign">
     <span class="pq-purchase__ribbon pq-purchase__ribbon--left" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
-    <div><strong>{{ 'panquire.purchase.campaign_title' | t }}</strong><p>{{ 'panquire.purchase.campaign_text_html' | t }}</p></div>
+    <div><strong>{% render 'pq-purchase-copy', key: 'campaign_title' %}</strong><p>{% render 'pq-purchase-copy', key: 'campaign_text_html' %}</p></div>
     <span class="pq-purchase__ribbon pq-purchase__ribbon--right" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
   </div>
   <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
-    <span aria-hidden="true"></span>{% if can_purchase %}{{ 'panquire.purchase.in_stock' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+    <span aria-hidden="true"></span>{% if can_purchase %}{% render 'pq-purchase-copy', key: 'in_stock' %}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
   </p>
   {% unless product.has_only_default_variant %}
     <script src="{{ 'pq-purchase-variants.js' | asset_url }}" defer></script>
     <pq-purchase-variants class="pq-purchase__variants">
       <form action="{{ product.url }}" method="get">
-        <label for="PurchaseVariant-{{ section.id }}">{{ 'panquire.purchase.configuration' | t }}</label>
+        <label for="PurchaseVariant-{{ section.id }}">{% render 'pq-purchase-copy', key: 'configuration' %}</label>
         <select id="PurchaseVariant-{{ section.id }}" name="variant">
           {% for option in product.variants %}
             <option value="{{ option.id }}"{% if option.id == variant.id %} selected{% endif %}>{{ option.title | escape }}</option>
           {% endfor %}
         </select>
-        <button type="submit">{{ 'panquire.purchase.select_variant' | t }}</button>
+        <button type="submit">{% render 'pq-purchase-copy', key: 'select_variant' %}</button>
       </form>
     </pq-purchase-variants>
   {% endunless %}
@@ -87,13 +87,13 @@
   {% endif %}
   <aside class="pq-purchase__payments" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
     <span class="pq-purchase__payment-icon" aria-hidden="true">{{ 'icon-discount.svg' | inline_asset_content }}</span>
-    <div><strong>{{ 'panquire.purchase.financing' | t }}</strong><p>{{ 'panquire.purchase.payment_text' | t }}</p></div>
+    <div><strong>{% render 'pq-purchase-copy', key: 'financing' %}</strong><p>{% render 'pq-purchase-copy', key: 'payment_text' %}</p></div>
     <ul class="pq-footer-payment-icons" role="list">
       {% for type in payment_types %}<li>{{ type | payment_type_svg_tag }}</li>{% endfor %}
     </ul>
   </aside>
   <details class="pq-purchase__accessories" open>
-    <summary>{{ 'panquire.purchase.accessories' | t }}<span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+    <summary>{% render 'pq-purchase-copy', key: 'accessories' %}<span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
     <div class="pq-purchase__accessory-box">
       <ul role="list">
         {% render 'pq-purchase-accessory', name: 'nfc', image: 'pq-accessory-nfc-smart-key-fobs.png' %}
@@ -102,7 +102,7 @@
         {% render 'pq-purchase-accessory', name: 'charger', image: 'pq-accessory-battery-charger.png' %}
       </ul>
       <details class="pq-purchase__more">
-        <summary><span class="pq-purchase__show-more">{{ 'panquire.purchase.show_more' | t }}</span><span class="pq-purchase__show-less">{{ 'actions.show_less' | t }}</span></summary>
+        <summary><span class="pq-purchase__show-more">{% render 'pq-purchase-copy', key: 'show_more' %}</span><span class="pq-purchase__show-less">{{ 'actions.show_less' | t }}</span></summary>
         <ul role="list">
           {% render 'pq-purchase-accessory', name: 'charging', image: 'pq-accessory-charging-connector.png' %}
           {% render 'pq-purchase-accessory', name: 'tools', image: 'pq-accessory-hex-key-set.png' %}
@@ -114,12 +114,12 @@
   <div class="pq-purchase__policies">
     {% assign policies = 'shipping,price,warranty,legal' | split: ',' %}
     {% for policy in policies %}
-      {% assign heading_key = 'panquire.purchase.' | append: policy | append: '_heading' %}
-      {% assign body_key = 'panquire.purchase.' | append: policy | append: '_html' %}
+      {% assign heading_key = '' | append: policy | append: '_heading' %}
+      {% assign body_key = '' | append: policy | append: '_html' %}
       {% assign policy_icon = 'pq-purchase-' | append: policy | append: '.svg' %}
       <details class="pq-purchase__policy">
-        <summary><span class="pq-purchase__policy-icon" aria-hidden="true">{{ policy_icon | inline_asset_content }}</span><span>{{ heading_key | t }}</span><span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
-        <div class="pq-purchase__policy-body">{{ body_key | t }}</div>
+        <summary><span class="pq-purchase__policy-icon" aria-hidden="true">{{ policy_icon | inline_asset_content }}</span><span>{% render 'pq-purchase-copy', key: heading_key %}</span><span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+        <div class="pq-purchase__policy-body">{% render 'pq-purchase-copy', key: body_key %}</div>
       </details>
     {% endfor %}
   </div>

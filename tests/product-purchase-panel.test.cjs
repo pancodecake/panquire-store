@@ -19,7 +19,9 @@ const engine = new Liquid({
     readFileSync: file => prepare(fs.readFileSync(file, 'utf8')),
   },
 });
+let missingPurchaseTranslations = false;
 engine.registerFilter('t', (key, ...args) => {
+  if (missingPurchaseTranslations && key.startsWith('panquire.purchase.')) return 'Translation missing: en.' + key;
   let text = key.split('.').reduce((obj, part) => obj?.[part], translations);
   assert.equal(typeof text, 'string', `Missing translation: ${key}`);
   for (const [name, value] of args) text = text.replaceAll(`{{ ${name} }}`, String(value));
@@ -71,5 +73,12 @@ async function render(overrides = {}, handle = 't-01') {
   assert.match(sale, /\$909.00/);
   assert.match(sale, /\$1299.00/);
   assert.match(sale, /BF 30% OFF/);
+  missingPurchaseTranslations = true;
+  const fallback = await render({ price: 90900, compare_at_price: 129900 });
+  assert.match(fallback, /30 reviews/);
+  assert.match(fallback, /BF 30% OFF/);
+  assert.match(fallback, /NFC Smart Key Fobs/);
+  assert.match(fallback, /one year warranty protection/);
+  assert.doesNotMatch(fallback, /translation missing|panquire\.purchase\./i);
   console.log('Purchase panel: models, real prices, seven accessories, policies, payment logos and no-preorder stock guards passed.');
 })().catch(error => { console.error(error); process.exitCode = 1; });

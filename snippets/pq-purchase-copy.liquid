@@ -1,0 +1,53 @@
+{% doc %}
+  Renders purchase-panel copy with a fallback during Shopify locale synchronization.
+  @param {string} key - Purchase copy key.
+  @param {number} [count] - Review count.
+  @param {number} [rating] - Review rating.
+  @param {number} [percent] - Discount percentage.
+{% enddoc %}
+{%- assign translation_key = 'panquire.purchase.' | append: key -%}
+{%- capture translated -%}{{- translation_key | t: count: count, rating: rating, percent: percent -}}{%- endcapture -%}
+{%- assign lower_translation = translated | downcase -%}
+{%- if lower_translation contains 'translation missing' or translated == translation_key -%}
+  {%- case key -%}
+    {%- when 'configuration' -%}Configuration
+    {%- when 'select_variant' -%}Select
+    {%- when 'tagline' -%}Compact Size. Full Power.
+    {%- when 'title_suffix' -%}Electric Mini Bike for Teens and Adults
+    {%- when 'rating' -%}Rated {{ rating }} out of 5 stars
+    {%- when 'review_count' -%}{{ count }} reviews
+    {%- when 'discount' -%}BF {{ percent }}% OFF
+    {%- when 'campaign_title' -%}BLACK FRIDAY IS HERE!
+    {%- when 'campaign_text_html' -%}Order for a chance to win your bike <em>FREE!</em>
+    {%- when 'in_stock' -%}In stock & Ready to ship
+    {%- when 'financing' -%}Flexible financing available
+    {%- when 'payment_text' -%}Secure payment options at checkout.
+    {%- when 'accessories' -%}Included Accessories
+    {%- when 'show_more' -%}Show (3) more...
+    {%- when 'free' -%}FREE
+    {%- when 'nfc_title' -%}NFC Smart Key Fobs
+    {%- when 'nfc_description' -%}Two contactless smart keys designed for quick electronic authentication through the NFC reader.
+    {%- when 'm25_title' -%}M25 Waterproof Hybrid Connector
+    {%- when 'm25_description' -%}Heavy-duty circular connector combining power and signal contacts in a single interface. Features keyed alignment and protective sealing.
+    {%- when 'keys_title' -%}Mechanical Ignition Keys
+    {%- when 'keys_description' -%}Two physical keys for the applicable mechanical locking or ignition system.
+    {%- when 'charger_title' -%}Battery Charger
+    {%- when 'charger_description' -%}Dedicated 6A charger designed for the 60V lithium-ion battery system.
+    {%- when 'charging_title' -%}Charging Connector
+    {%- when 'charging_description' -%}Polarized two-contact charging connector designed for secure alignment and reliable electrical contact between the battery and its compatible charger.
+    {%- when 'tools_title' -%}Metric Hex-Key Tool Set
+    {%- when 'tools_description' -%}Set of metric Allen keys for basic assembly, component adjustments, and routine maintenance.
+    {%- when 'battery_title' -%}Lithium-Ion Battery
+    {%- when 'battery_description' -%}Removable 60V / 31.2Ah lithium-ion battery with 1.872 kWh of nominal energy capacity. Designed to deliver reliable power to the electric drivetrain and support convenient removal and charging with a dedicated 6A charger.
+    {%- when 'shipping_heading' -%}Secure Shipping
+    {%- when 'shipping_html' -%}<p>We offer international shipping through trusted logistics partners, including <strong>FedEx, UPS, and freight carriers</strong>, to ensure reliable delivery worldwide. Orders are shipped from China or, where inventory is available, from our regional warehouses in <strong>Germany, Poland, and the U.S. West Coast</strong>.</p><p>In-stock eBikes are typically dispatched within <strong>3 business days</strong>, with international delivery generally taking <strong>approximately 30 days</strong>, depending on the destination and shipping method.</p><p>As our U.S. and EU warehouse network expands, we expect to <strong>significantly reduce delivery times</strong>, with faster regional fulfillment becoming available.</p><p><strong>Please Note:</strong> All shipping and delivery times are estimates and cannot be guaranteed. Actual delivery times may vary due to customs clearance, carrier operations, and other logistical factors. Once your order has been dispatched, you will receive tracking information to monitor your shipment's progress.</p>
+    {%- when 'price_heading' -%}30-Day Price Protection
+    {%- when 'price_html' -%}<p>Shop with confidence, knowing you're getting great value with Panquire. If the price of the same product and configuration on our official website drops within <strong>30 days of your purchase</strong>, we'll refund the difference.</p>
+    {%- when 'warranty_heading' -%}Full Year Warranty Protection
+    {%- when 'warranty_html' -%}<p>At Panquire, we stand behind the quality and durability of our electric bikes. Our products are built for performance and reliability, with dedicated warranty coverage to give you confidence in every ride. That's why we provide <strong>one year warranty protection</strong> on <strong>all</strong> of our models.</p>
+    {%- when 'legal_heading' -%}Vehicle Use & Legal Compliance
+    {%- when 'legal_html' -%}<p>Panquire electric bikes are designed for performance and recreational riding. Due to their power, speed, and technical specifications, <strong>certain models may not qualify as Class 1, 2, or 3 electric bicycles</strong> and may instead be classified as off-road motorcycles or other motor vehicles.</p><p>Vehicle classification, registration requirements, licensing, insurance, and permitted riding areas vary by country, state, and local jurisdiction.</p><p><strong>Before riding, please check your local laws and regulations.</strong> Do not operate your vehicle on public roads, bicycle lanes, or designated pathways unless its use is legally permitted in your area.</p>
+  {%- endcase -%}
+{%- else -%}
+  {{- translated -}}
+{%- endif -%}
