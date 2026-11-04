@@ -3,7 +3,7 @@
 {% enddoc %}
 
 <aside class="pq pq-flexible-financing" aria-labelledby="FinancingTitle-{{ block.id }}" {{ block.shopify_attributes }}>
-  <span class="pq-flexible-financing__icon-slot" aria-hidden="true"></span>
+  <span class="pq-flexible-financing__icon-slot" aria-hidden="true">{{ 'icon-discount.svg' | inline_asset_content }}</span>
   <div class="pq-flexible-financing__copy">
     <h2 id="FinancingTitle-{{ block.id }}">{{ block.settings.heading | escape }}</h2>
     <p>{{ block.settings.text | escape }}</p>

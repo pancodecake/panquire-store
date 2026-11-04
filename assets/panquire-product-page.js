@@ -38,4 +38,3 @@ if (!customElements.get('pq-product-tabs')) {
     }
   });
 }
-

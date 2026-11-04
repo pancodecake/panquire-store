@@ -1,0 +1,98 @@
+{% liquid
+  assign has_campaign = false
+  if block.settings.enabled
+    if block.settings.image != blank or block.settings.text != blank
+      assign has_campaign = true
+    endif
+  endif
+%}
+
+{% if has_campaign %}
+  {% capture campaign_content %}
+    {% if block.settings.image != blank %}
+      <picture class="pq-product-promo__media">
+        {% if block.settings.mobile_image != blank %}
+          <source media="(max-width: 749px)" srcset="{{ block.settings.mobile_image | image_url: width: 900 }}">
+        {% endif %}
+        {{ block.settings.image | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 990px) 520px, 100vw', loading: 'eager', fetchpriority: 'high' }}
+      </picture>
+    {% endif %}
+    {% if block.settings.text != blank %}
+      <span class="pq-product-promo__text">{{ block.settings.text | escape }}</span>
+    {% endif %}
+  {% endcapture %}
+
+  <div
+    class="pq pq-product-promo"
+    style="--pq-campaign-bg: {{ block.settings.background }}; --pq-campaign-text: {{ block.settings.text_color }};"
+    {{ block.shopify_attributes }}
+  >
+    {% if block.settings.link != blank %}
+      <a href="{{ block.settings.link }}"{% if block.settings.link_label != blank %} aria-label="{{ block.settings.link_label | escape }}"{% endif %}>
+        {{ campaign_content }}
+      </a>
+    {% else %}
+      <div>{{ campaign_content }}</div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .pq-product-promo {
+    min-height: 64px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: var(--pq-campaign-bg, #171719);
+    color: var(--pq-campaign-text, #fff);
+  }
+
+  .pq-product-promo > :is(a, div) {
+    position: relative;
+    display: grid;
+    min-height: inherit;
+    place-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .pq-product-promo__media,
+  .pq-product-promo__media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pq-product-promo__media img {
+    object-fit: cover;
+  }
+
+  .pq-product-promo__text {
+    position: relative;
+    z-index: 1;
+    max-width: 36ch;
+    padding: 14px 18px;
+    font-weight: 750;
+    line-height: 1.25;
+    text-align: center;
+    text-wrap: balance;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Panquire campaign banner",
+  "tag": null,
+  "settings": [
+    {"type":"checkbox","id":"enabled","label":"Show campaign banner","default":false},
+    {"type":"image_picker","id":"image","label":"Desktop image"},
+    {"type":"image_picker","id":"mobile_image","label":"Mobile image"},
+    {"type":"text","id":"text","label":"Campaign text"},
+    {"type":"url","id":"link","label":"Campaign link"},
+    {"type":"text","id":"link_label","label":"Accessible link label"},
+    {"type":"color","id":"background","label":"Fallback background","default":"#171719"},
+    {"type":"color","id":"text_color","label":"Text color","default":"#FFFFFF"}
+  ],
+  "presets": [{"name":"Panquire campaign banner"}]
+}
+{% endschema %}

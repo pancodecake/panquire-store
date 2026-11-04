@@ -38,10 +38,8 @@
     {%- render 'meta-tags' -%}
     {{ 'montserrat-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
     {{ 'work-sans-variable.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
-    {{ 'introrustg-base2line-webfont.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2' }}
     {%- render 'stylesheets' -%}
     {%- render 'card-hover-effect-styles' -%}
-    {%- render 'fonts' -%}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-palette' -%}
@@ -51,7 +49,6 @@
       {%- render 'theme-editor' -%}
     {% endif %}
 
-    {{ content_for_header }}
     {% render 'pq-color-tokens' %}
     {{ 'panquire.css' | asset_url | stylesheet_tag }}
     {{ 'panquire-product.css' | asset_url | stylesheet_tag }}
@@ -59,6 +56,7 @@
     {{ 'panquire-pages.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'panquire.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>
+    {{ content_for_header }}
   </head>
 
   <body class="pq-storefront page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">

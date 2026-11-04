@@ -156,6 +156,7 @@
                   "type": "price",
                   "settings": {
                     "show_sale_price_first": true,
+                    "show_discount_badge": true,
                     "show_installments": false,
                     "show_tax_info": false,
                     "type_preset": "paragraph",
@@ -173,12 +174,36 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
+                },
+                "review_verified": {
+                  "type": "review",
+                  "settings": {
+                    "stars_style": "shaded",
+                    "show_number": true,
+                    "text_color": "#B27B25",
+                    "type_preset": "paragraph",
+                    "width": "100%",
+                    "alignment": "left"
+                  },
+                  "blocks": {}
                 }
               },
               "block_order": [
                 "text_xrnftG",
+                "review_verified",
                 "price_tVjtKg"
               ]
+            },
+            "campaign": {
+              "type": "pq-product-promo",
+              "settings": {
+                "enabled": false,
+                "text": "",
+                "link": "",
+                "link_label": "",
+                "background": "#171719",
+                "text_color": "#FFFFFF"
+              }
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
@@ -269,7 +294,8 @@
             "shipping": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Secure Shipping",
+                "heading": "Fast & Secure Shipping",
+                "icon": "shipping",
                 "text": "<p>We offer international shipping through trusted logistics partners, including <strong>FedEx, UPS, and freight carriers</strong>, to ensure reliable delivery worldwide. Orders are shipped from China or, where inventory is available, from our regional warehouses in <strong>Germany, Poland, and the U.S. West Coast</strong>.</p><p>In-stock eBikes are typically dispatched within <strong>3 business days</strong>, with international delivery generally taking <strong>approximately 30 days</strong>, depending on the destination and shipping method.</p><p>As our U.S. and EU warehouse network expands, we expect to <strong>significantly reduce delivery times</strong>, with faster regional fulfillment becoming available.</p><p><strong>Please Note:</strong> All shipping and delivery times are estimates and cannot be guaranteed. Actual delivery times may vary due to customs clearance, carrier operations, and other logistical factors. Once your order has been dispatched, you will receive tracking information to monitor your shipment's progress.</p>",
                 "open": false
               }
@@ -278,6 +304,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "30-Day Price Protection",
+                "icon": "price",
                 "text": "<p>Shop with confidence, knowing you're getting great value with Panquire. If the price of the same product and configuration on our official website drops within <strong>30 days of your purchase</strong>, we'll refund the difference.</p>",
                 "open": false
               }
@@ -285,8 +312,9 @@
             "warranty": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Full Year Warranty Protection",
-                "text": "<p>At Panquire, we stand behind the quality and durability of our electric bikes. Our products are built for performance and reliability, with dedicated warranty coverage to give you confidence in every ride. That's why we provide <strong>one year warranty protection</strong> on <strong>all</strong> of our models.</p>",
+                "heading": "Warranty Protection",
+                "icon": "warranty",
+                "text": "<p>Panquire provides a <strong>two-year limited commercial warranty</strong> on covered components. Coverage begins on delivery to the original purchaser and is provided in addition to statutory consumer rights that cannot legally be excluded. Proof of purchase is required.</p><p>For warranty support, contact <strong>support@panquire.com</strong> before returning a vehicle, battery, or component.</p>",
                 "open": false
               }
             },
@@ -294,6 +322,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "Vehicle Use & Legal Compliance",
+                "icon": "legal",
                 "text": "<p>Panquire electric bikes are designed for performance and recreational riding. Due to their power, speed, and technical specifications, <strong>certain models may not qualify as Class 1, 2, or 3 electric bicycles</strong> and may instead be classified as off-road motorcycles or other motor vehicles.</p><p>Vehicle classification, registration requirements, licensing, insurance, and permitted riding areas vary by country, state, and local jurisdiction.</p><p><strong>Before riding, please check your local laws and regulations.</strong> Do not operate your vehicle on public roads, bicycle lanes, or designated pathways unless its use is legally permitted in your area.</p>",
                 "open": false
               }
@@ -302,6 +331,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "Included Accessories",
+                "icon": "included",
                 "show_included_accessories": true,
                 "text": "<p>Bike, owner's manual ×1 and charger ×1.</p>",
                 "open": false
@@ -311,7 +341,8 @@
               "type": "product-inventory",
               "settings": {
                 "inventory_threshold": 10,
-                "show_inventory_quantity": false
+                "show_inventory_quantity": false,
+                "continue_selling_text": "Available to order"
               }
             },
             "payments": {
@@ -320,15 +351,27 @@
                 "heading": "Flexible financing",
                 "text": "Secure payment options available at checkout."
               }
+            },
+            "complete_ride": {
+              "type": "pq-complete-ride",
+              "settings": {
+                "heading": "Complete Your Ride",
+                "products": [],
+                "visible_rows": 4,
+                "open": true,
+                "selected_note": "Use Add to Cart to include selected accessories with your bike."
+              }
             }
           },
           "block_order": [
-            "group_icgrde",
             "text_aEtTtq",
+            "group_icgrde",
+            "campaign",
             "inventory",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "payments",
+            "complete_ride",
             "shipping",
             "price_protection",
             "warranty",

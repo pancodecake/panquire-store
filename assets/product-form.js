@@ -193,6 +193,7 @@ if (!customElements.get('add-to-cart-component')) {
  * @property {string | null} intendedVariantId - The selected option's data-variant-id, when present.
  * @property {Promise<unknown> | null} pendingVariantChange - The server-side section fetch for the clicked selection.
  * @property {string | null} variantResolutionUrl - A section-rendering URL that resolves the clicked selection.
+ * @property {Array<{variantId: string, quantity: number}>} accessoryItems - Optional accessory variants captured when Add was clicked.
  *
  * @typedef {object} QuantityConstraints
  * @property {string} min
@@ -214,6 +215,9 @@ class ProductFormComponent extends Component {
 
   /** @type {number} */
   #variantChangeGeneration = 0;
+
+  /** @type {boolean} */
+  #batchAddInProgress = false;
 
   /**
    * Adds queued while a variant change is in flight. Each entry captures the selection state and
@@ -248,6 +252,16 @@ class ProductFormComponent extends Component {
 
   #getVariantIdInput() {
     return /** @type {HTMLInputElement | null} */ (this.querySelector('input[name="id"]'))?.value;
+  }
+
+  /** @returns {Array<{variantId: string, quantity: number}>} */
+  #getSelectedAccessoryItems() {
+    const details = this.closest('.product-details');
+    if (!details) return [];
+
+    return Array.from(details.querySelectorAll('pq-complete-ride [data-accessory-toggle]:checked'))
+      .filter((input) => input instanceof HTMLInputElement && !input.disabled && input.dataset.variantId)
+      .map((input) => ({ variantId: input.dataset.variantId, quantity: 1 }));
   }
 
   async #refreshCart() {
@@ -349,6 +363,7 @@ class ProductFormComponent extends Component {
       intendedVariantId: selectedOption?.dataset.variantId ?? null,
       pendingVariantChange: this.#pendingVariantChange,
       variantResolutionUrl: picker && selectedOption ? picker.buildRequestUrl(selectedOption) : null,
+      accessoryItems: this.#getSelectedAccessoryItems(),
     };
   }
 
@@ -424,6 +439,22 @@ class ProductFormComponent extends Component {
     }
     if (overrideQuantity !== undefined) {
       formData.set('quantity', overrideQuantity.toString());
+    }
+
+    const accessoryItems = overrideVariantId ? [] : this.#getSelectedAccessoryItems();
+    const mainVariantId = formData.get('id');
+    if (accessoryItems.length > 0 && mainVariantId) {
+      this.#processBatchAddToCart(
+        [
+          {
+            variantId: String(mainVariantId),
+            quantity: Number(formData.get('quantity')) || Number(this.dataset.quantityDefault) || 1,
+          },
+          ...accessoryItems,
+        ],
+        event
+      );
+      return;
     }
 
     const cartItemsComponents = document.querySelectorAll('cart-items-component');
@@ -583,11 +614,25 @@ class ProductFormComponent extends Component {
       });
   }
 
-  /** @param {Array<{variantId: string, quantity: number}>} items */
-  #processBatchAddToCart(items) {
-    if (items.length === 0) return;
+  /**
+   * @param {Array<{variantId: string, quantity: number}>} items
+   * @param {Event} [event]
+   */
+  #processBatchAddToCart(items, event) {
+    if (items.length === 0 || this.#batchAddInProgress) return;
+    this.#batchAddInProgress = true;
+
+    const mergedItems = new Map();
+    for (const item of items) {
+      mergedItems.set(item.variantId, (mergedItems.get(item.variantId) || 0) + item.quantity);
+    }
+    items = Array.from(mergedItems, ([variantId, quantity]) => ({ variantId, quantity }));
 
     const { addToCartTextError } = this.refs;
+    const allAddToCartContainers = /** @type {NodeListOf<AddToCartComponent>} */ (
+      this.querySelectorAll('add-to-cart-component')
+    );
+    for (const container of allAddToCartContainers) container.disable();
 
     if (this.#timeout) clearTimeout(this.#timeout);
 
@@ -683,9 +728,6 @@ class ProductFormComponent extends Component {
           addToCartTextError.removeAttribute('aria-live');
         }
 
-        const allAddToCartContainers = /** @type {NodeListOf<AddToCartComponent>} */ (
-          this.querySelectorAll('add-to-cart-component')
-        );
         const anyAddToCartButton = allAddToCartContainers[0]?.refs.addToCartButton;
         if (anyAddToCartButton) {
           const addedTextElement = anyAddToCartButton.querySelector('.add-to-cart-text--added');
@@ -719,6 +761,13 @@ class ProductFormComponent extends Component {
             code: 'SERVICE_UNAVAILABLE',
           })
         );
+      })
+      .finally(() => {
+        this.#batchAddInProgress = false;
+        for (const container of allAddToCartContainers) container.enable();
+        if (event) {
+          cartPerformance.measureFromEvent('add:user-action', event);
+        }
       });
   }
 
@@ -954,6 +1003,7 @@ class ProductFormComponent extends Component {
       const resolvedItem = await this.#resolveQueuedAddToCartItem(item);
       if (resolvedItem) {
         resolvedItems.push(resolvedItem);
+        resolvedItems.push(...item.accessoryItems);
       }
     }
 

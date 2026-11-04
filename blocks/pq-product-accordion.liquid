@@ -2,7 +2,15 @@
   <details class="pq-purchase-accordion__details"{% if block.settings.open %} open{% endif %}>
     <summary>
       <span class="pq-purchase-accordion__heading">
-        {% unless block.settings.show_included_accessories %}<span class="pq-purchase-accordion__icon-slot" aria-hidden="true"></span>{% endunless %}
+        <span class="pq-purchase-accordion__icon-slot" aria-hidden="true">
+          {% case block.settings.icon %}
+            {% when 'shipping' %}{{ 'icon-cart.svg' | inline_asset_content }}
+            {% when 'price' %}{{ 'icon-discount.svg' | inline_asset_content }}
+            {% when 'warranty' %}{{ 'icon-checkmark-burst.svg' | inline_asset_content }}
+            {% when 'legal' %}{{ 'icon-info.svg' | inline_asset_content }}
+            {% when 'included' %}{{ 'icon-checkmark.svg' | inline_asset_content }}
+          {% endcase %}
+        </span>
         <span>{{ block.settings.heading | escape }}</span>
       </span>
       <span class="pq-purchase-accordion__indicator" aria-hidden="true"></span>
@@ -20,6 +28,14 @@
   "settings":[
     {"type":"checkbox","id":"use_product_description","label":"Use product description","default":false},
     {"type":"checkbox","id":"show_included_accessories","label":"Show included accessories","default":false},
+    {"type":"select","id":"icon","label":"Icon","options":[
+      {"value":"none","label":"None"},
+      {"value":"shipping","label":"Shipping"},
+      {"value":"price","label":"Price protection"},
+      {"value":"warranty","label":"Warranty"},
+      {"value":"legal","label":"Legal information"},
+      {"value":"included","label":"Included accessories"}
+    ],"default":"none"},
     {"type":"text","id":"heading","label":"Heading","default":"Shipping & returns"},
     {"type":"richtext","id":"text","label":"Content","default":"<p>Details coming soon.</p>"},
     {"type":"checkbox","id":"open","label":"Open initially","default":false}

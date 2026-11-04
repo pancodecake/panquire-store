@@ -3,7 +3,7 @@
   @param {string} [class] - Optional additional class name.
 {% enddoc %}
 {% if shop.enabled_payment_types != empty %}
-  <div class="pq-payment-methods{% if class != blank %} {{ class }}{% endif %}" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
+  <div class="pq-payment-methods pq-footer-payment-icons{% if class != blank %} {{ class }}{% endif %}" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
     <span class="pq-payment-methods__label">{{ 'blocks.payment_methods' | t }}</span>
     <ul class="pq-payment-methods__list" role="list">
       {% for type in shop.enabled_payment_types %}
