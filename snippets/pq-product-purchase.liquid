@@ -49,20 +49,6 @@
   <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
     <span aria-hidden="true"></span>{% if can_purchase %}{% render 'pq-purchase-copy', key: 'in_stock' %}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
   </p>
-  {% unless product.has_only_default_variant %}
-    <script src="{{ 'pq-purchase-variants.js' | asset_url }}" defer></script>
-    <pq-purchase-variants class="pq-purchase__variants">
-      <form action="{{ product.url }}" method="get">
-        <label for="PurchaseVariant-{{ section.id }}">{% render 'pq-purchase-copy', key: 'configuration' %}</label>
-        <select id="PurchaseVariant-{{ section.id }}" name="variant">
-          {% for option in product.variants %}
-            <option value="{{ option.id }}"{% if option.id == variant.id %} selected{% endif %}>{{ option.title | escape }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit">{% render 'pq-purchase-copy', key: 'select_variant' %}</button>
-      </form>
-    </pq-purchase-variants>
-  {% endunless %}
   {% if can_purchase %}
     <product-form-component data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-url="{{ product.url }}" data-quantity-default="{{ minimum }}" data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}" on:submit="/handleSubmit">
       <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>

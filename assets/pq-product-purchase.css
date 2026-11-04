@@ -39,11 +39,6 @@
 .pq-purchase__stock > span { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--color-accent-solid); }
 .pq-purchase .pq-purchase__stock--unavailable { color: var(--color-text-secondary); }
 .pq-purchase__stock--unavailable > span { background: var(--color-text-secondary); }
-.pq-purchase__variants { display: block; margin-block: 0 16px; }
-.pq-purchase__variants form { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-.pq-purchase__variants label { width: 100%; color: var(--color-text-secondary); font-size: 12px; }
-.pq-purchase__variants select, .pq-purchase__variants button { min-width: 0; max-width: 100%; min-height: 44px; padding: 8px 14px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--surface); color: var(--color-text-primary); font: inherit; font-size: 13px; color-scheme: dark; }
-.pq-purchase__variants select { flex: 1; }
 .pq-purchase product-form-component, .pq-purchase add-to-cart-component { display: block; min-width: 0; }
 .pq-purchase__buttons { display: grid; grid-template-columns: minmax(112px, .42fr) minmax(0, 1fr); gap: 10px 8px; }
 .pq-purchase .quantity-selector-wrapper, .pq-purchase .quantity-selector { width: 100%; }
@@ -94,13 +89,17 @@
 .pq-purchase :focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
 .pq-purchase .quantity-selector button:disabled { opacity: .4; }
 .pq-purchase__chevron { transition: transform var(--pq-motion-base) var(--pq-ease-out); }
+.pq-purchase .quantity-selector { transition: border-color var(--pq-motion-base) ease, box-shadow var(--pq-motion-base) ease; }
+.pq-purchase .quantity-selector:focus-within { border-color: var(--color-accent-solid); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent-solid) 22%, transparent); }
+.pq-purchase summary { transition: color var(--pq-motion-base) ease; }
 .pq-purchase summary:focus-visible .pq-purchase__chevron { transition: none; }
 .pq-storefront .pq-purchase :is(.pq-purchase__add, .shopify-payment-button__button--unbranded, .quantity-selector button, .pq-purchase__variants button) { transition: transform var(--pq-motion-fast) var(--pq-ease-out), background-color var(--pq-motion-base) ease, border-color var(--pq-motion-base) ease; }
 .pq-storefront .pq-purchase :is(.pq-purchase__add, .shopify-payment-button__button--unbranded, .quantity-selector button, .pq-purchase__variants button):active { scale: 1; translate: 0; transform: scale(.97); }
 @media (hover: hover) and (pointer: fine) {
   .pq-storefront .pq-purchase .pq-purchase__add:hover:not(:disabled) { background: var(--color-action-solid-hover); border-color: var(--color-action-solid-hover); }
   .pq-storefront .pq-purchase .shopify-payment-button__button--unbranded:hover:not(:disabled) { background: var(--color-secondary-solid); transform: translateY(-1px); }
-  .pq-storefront .pq-purchase .quantity-selector button:hover:not(:disabled), .pq-purchase__variants button:hover { background: var(--color-border); }
+  .pq-storefront .pq-purchase .quantity-selector button:hover:not(:disabled) { background: var(--color-border); }
+  .pq-purchase summary:hover { color: var(--color-accent-solid); }
 }
 @media (prefers-reduced-motion: reduce) {
   .pq-purchase .pq-purchase__chevron { transition: none; }

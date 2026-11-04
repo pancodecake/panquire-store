@@ -34,9 +34,9 @@ engine.registerFilter('money', value => '$' + (value / 100).toFixed(2));
 engine.registerFilter('payment_button', () => '<button class="shopify-payment-button__button--unbranded">Buy now</button>');
 engine.registerFilter('payment_type_svg_tag', value => `<svg aria-label="${value}"></svg>`);
 const source = prepare(fs.readFileSync(path.join(root, 'snippets/pq-product-purchase.liquid'), 'utf8'));
-async function render(overrides = {}, handle = 't-01') {
+async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
   const variant = { id: 123, available: true, price: 200000, inventory_management: 'shopify', inventory_quantity: 10, inventory_policy: 'deny', quantity_rule: { min: 1, increment: 1 }, ...overrides };
-  const product = { id: 1, title: handle.toUpperCase(), handle, url: '/products/' + handle, has_only_default_variant: true, selected_or_first_available_variant: variant, metafields: {} };
+  const product = { id: 1, title: handle.toUpperCase(), handle, url: '/products/' + handle, has_only_default_variant: true, selected_or_first_available_variant: variant, metafields: {}, ...productOverrides };
   return engine.parseAndRender(source, { product, section: { id: 'template-test__main' }, block: { id: 'product-details' }, form: {}, settings: {}, routes: {} });
 }
 (async () => {
@@ -65,6 +65,9 @@ async function render(overrides = {}, handle = 't-01') {
   const untracked = await render({ inventory_management: null, inventory_quantity: 0 });
   assert.match(untracked, /<product-form-component/);
   const normal = await render();
+  const multipleVariants = await render({}, 't-01', { has_only_default_variant: false });
+  assert.doesNotMatch(multipleVariants, /pq-purchase__variants|PurchaseVariant-|<select\b/);
+  assert.match(multipleVariants, /ref="variantId"\s+value="123"/);
   assert.doesNotMatch(normal, /pq-purchase__discount/);
   assert.match(normal, /max="10"/);
   const capped = await render({ inventory_policy: 'continue', inventory_quantity: 4 });
