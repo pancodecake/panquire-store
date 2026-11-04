@@ -6,6 +6,7 @@
 {% enddoc %}
 
 {{ 'pq-product-purchase.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'pq-purchase-panel.js' | asset_url }}" defer></script>
 {% render 'add-to-cart-button-styles' %}
 {% render 'fly-to-cart-styles' %}
 {% render 'buy-buttons-styles' %}
@@ -25,12 +26,12 @@
   endif
   assign form_id = 'PanquirePurchase-' | append: section.id
   assign payment_types = 'visa,master,maestro,jcb,american_express,diners_club,discover' | split: ','
-  assign rating_count = product.metafields.reviews.rating_count.value | default: 30
+  assign rating_count = 17
   assign rating = product.metafields.reviews.rating.value.rating | default: 4.5
   assign rating_width = rating | times: 20 | at_least: 0 | at_most: 100
 %}
 
-<div class="pq-purchase" {{ block.shopify_attributes }}>
+<pq-purchase-panel class="pq-purchase" {{ block.shopify_attributes }}>
   <p class="pq-purchase__tagline">{% render 'pq-purchase-copy', key: 'tagline' %}</p>
   <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
   <div class="pq-purchase__reviews">
@@ -44,11 +45,6 @@
       {% assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
       <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
-  </div>
-  <div class="pq-purchase__campaign">
-    <span class="pq-purchase__ribbon pq-purchase__ribbon--left" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
-    <div><strong>{% render 'pq-purchase-copy', key: 'campaign_title' %}</strong><p>{% render 'pq-purchase-copy', key: 'campaign_text_html' %}</p></div>
-    <span class="pq-purchase__ribbon pq-purchase__ribbon--right" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
   </div>
   <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
     <span aria-hidden="true"></span>{% if can_purchase %}{% render 'pq-purchase-copy', key: 'in_stock' %}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
@@ -123,4 +119,4 @@
       </details>
     {% endfor %}
   </div>
-</div>
+</pq-purchase-panel>

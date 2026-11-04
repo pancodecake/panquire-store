@@ -16,9 +16,7 @@
     {%- when 'title_suffix' -%}Electric Mini Bike for Teens and Adults
     {%- when 'rating' -%}Rated {{ rating }} out of 5 stars
     {%- when 'review_count' -%}{{ count }} reviews
-    {%- when 'discount' -%}BF {{ percent }}% OFF
-    {%- when 'campaign_title' -%}BLACK FRIDAY IS HERE!
-    {%- when 'campaign_text_html' -%}Order for a chance to win your bike <em>FREE!</em>
+    {%- when 'discount' -%}{{ percent }}% OFF
     {%- when 'in_stock' -%}In stock & Ready to ship
     {%- when 'financing' -%}Flexible financing available
     {%- when 'payment_text' -%}Secure payment options at checkout.
@@ -49,5 +47,5 @@
     {%- when 'legal_html' -%}<p>Panquire electric bikes are designed for performance and recreational riding. Due to their power, speed, and technical specifications, <strong>certain models may not qualify as Class 1, 2, or 3 electric bicycles</strong> and may instead be classified as off-road motorcycles or other motor vehicles.</p><p>Vehicle classification, registration requirements, licensing, insurance, and permitted riding areas vary by country, state, and local jurisdiction.</p><p><strong>Before riding, please check your local laws and regulations.</strong> Do not operate your vehicle on public roads, bicycle lanes, or designated pathways unless its use is legally permitted in your area.</p>
   {%- endcase -%}
 {%- else -%}
-  {{- translated -}}
+  {%- if key == 'discount' -%}{{- translated | remove: 'BF ' -}}{%- else -%}{{- translated -}}{%- endif -%}
 {%- endif -%}

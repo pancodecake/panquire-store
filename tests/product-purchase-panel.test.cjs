@@ -49,6 +49,8 @@ async function render(overrides = {}, handle = 't-01') {
     assert.match(html, /one year warranty protection/);
     assert.doesNotMatch(html, /type="checkbox"|pre[- ]?order|two-year/i);
     assert.match(html, /aria-label="american_express"/);
+    assert.match(html, /<span class="pq-purchase__review-count">17 reviews<\/span>/);
+    assert.doesNotMatch(html, /BLACK FRIDAY|pq-purchase__campaign|<a\b[^>]*>17 reviews/i);
   }
   for (const overrides of [
     { available: false },
@@ -72,11 +74,13 @@ async function render(overrides = {}, handle = 't-01') {
   const sale = await render({ price: 90900, compare_at_price: 129900 });
   assert.match(sale, /\$909.00/);
   assert.match(sale, /\$1299.00/);
-  assert.match(sale, /BF 30% OFF/);
+  assert.match(sale, /30% OFF/);
+  assert.doesNotMatch(sale, /BF /);
   missingPurchaseTranslations = true;
   const fallback = await render({ price: 90900, compare_at_price: 129900 });
-  assert.match(fallback, /30 reviews/);
-  assert.match(fallback, /BF 30% OFF/);
+  assert.match(fallback, /17 reviews/);
+  assert.match(fallback, /30% OFF/);
+  assert.doesNotMatch(fallback, /BLACK FRIDAY|BF /i);
   assert.match(fallback, /NFC Smart Key Fobs/);
   assert.match(fallback, /one year warranty protection/);
   assert.doesNotMatch(fallback, /translation missing|panquire\.purchase\./i);
