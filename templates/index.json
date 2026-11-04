@@ -266,24 +266,15 @@
             "detail": "Adjustable rear shock"
           }
         },
-        "controller": {
-          "type": "feature",
-          "settings": {
-            "label": "THE CONTROLLER",
-            "heading": "Tuned for the bike, with up to 450 amps.",
-            "text": "The controller is tuned specifically for the bike and can provide a maximum current of 450A. It manages power delivery between the battery and motor, with three selectable riding modes and adjustable regenerative braking.",
-            "detail": "450A maximum controller current"
-          }
-        },
         "controls": {
           "type": "feature",
           "settings": {
             "image": "shopify://shop_images/panquire-t02-closeup-Panquire_Handlebar_Controls_Closeup.png",
             "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
             "label": "THE CONTROLS",
-            "heading": "Three modes, within reach.",
-            "text": "Panquire electric motorcycles put their handlebar controls close to the grip. Choose from low, medium and high riding modes to suit your speed and experience; the first mode limits maximum power for a more beginner-friendly setting. Adjustable regenerative braking lets you choose how much the bike slows when you release the throttle. The handlebar also places the lights, turn signals and horn within reach, so you can keep your attention on the ride.",
-            "detail": "3 selectable riding modes"
+            "heading": "Precision Power. Total Control.",
+            "text": "Panquire controller delivers up to 450A, ensuring responsive power delivery. Switch between three riding modes to match your experience, and fine-tune regenerative braking for controlled deceleration. Ergonomic handlebar controls keep riding modes, lights, turn signals, and horn within easy reach.",
+            "detail": "450A Max Current | 3 Riding Modes | Adjustable Regenerative Braking"
           }
         },
         "motor": {
@@ -311,7 +302,6 @@
       "block_order": [
         "battery",
         "suspension",
-        "controller",
         "controls",
         "motor",
         "cockpit"
