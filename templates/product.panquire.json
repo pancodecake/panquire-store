@@ -12,29 +12,11 @@
     "main": {
       "type": "product-information",
       "blocks": {
-        "disclosures_g9mWze": {
-          "type": "disclosures",
-          "name": "t:names.disclosures",
-          "settings": {
-            "heading": "Disclosures",
-            "heading_preset": "h5",
-            "open_by_default": false,
-            "icon": "caret",
-            "disclosure_heading_preset": "h6",
-            "text_color": "",
-            "dividers": true,
-            "divider_color": "{{ settings.color_palette.color2 }}",
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
+            "pq_placeholder": false,
             "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
@@ -55,8 +37,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "pq_placeholder": false
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -98,7 +79,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "gap": 8,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -194,31 +175,20 @@
                 "price_tVjtKg"
               ]
             },
-            "campaign": {
-              "type": "pq-product-promo",
-              "settings": {
-                "enabled": false,
-                "text": "",
-                "link": "",
-                "link_label": "",
-                "background": "#171719",
-                "text_color": "#FFFFFF"
-              }
-            },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
                 "variant_style": "buttons",
                 "show_swatches": false,
-                "option_label_text_color": "#171719",
-                "variant_style_class": "default",
-                "custom_variant_background": "{{ settings.color_palette.background }}",
-                "custom_variant_text": "{{ settings.color_palette.foreground }}",
-                "custom_variant_border": "{{ settings.color_palette.foreground }}",
-                "selected_variant_style_class": "default",
-                "custom_selected_variant_background": "{{ settings.color_palette.foreground }}",
-                "custom_selected_variant_text": "{{ settings.color_palette.background }}",
-                "custom_selected_variant_border": "{{ settings.color_palette.foreground }}",
+                "option_label_text_color": "#F5F3ED",
+                "variant_style_class": "custom",
+                "custom_variant_background": "#111317",
+                "custom_variant_text": "#F5F3ED",
+                "custom_variant_border": "#35383F",
+                "selected_variant_style_class": "custom",
+                "custom_selected_variant_background": "#D6A12B",
+                "custom_selected_variant_text": "#08090B",
+                "custom_selected_variant_border": "#D6A12B",
                 "alignment": "left",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -289,13 +259,15 @@
             },
             "text_aEtTtq": {
               "type": "pq-product-intro",
-              "settings": {}
+              "settings": {
+                "tagline": "Compact size. Full power."
+              }
             },
             "shipping": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Fast & Secure Shipping",
                 "icon": "shipping",
+                "heading": "Fast & Secure Shipping",
                 "text": "<p>We offer international shipping through trusted logistics partners, including <strong>FedEx, UPS, and freight carriers</strong>, to ensure reliable delivery worldwide. Orders are shipped from China or, where inventory is available, from our regional warehouses in <strong>Germany, Poland, and the U.S. West Coast</strong>.</p><p>In-stock eBikes are typically dispatched within <strong>3 business days</strong>, with international delivery generally taking <strong>approximately 30 days</strong>, depending on the destination and shipping method.</p><p>As our U.S. and EU warehouse network expands, we expect to <strong>significantly reduce delivery times</strong>, with faster regional fulfillment becoming available.</p><p><strong>Please Note:</strong> All shipping and delivery times are estimates and cannot be guaranteed. Actual delivery times may vary due to customs clearance, carrier operations, and other logistical factors. Once your order has been dispatched, you will receive tracking information to monitor your shipment's progress.</p>",
                 "open": false
               }
@@ -303,8 +275,8 @@
             "price_protection": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "30-Day Price Protection",
                 "icon": "price",
+                "heading": "30-Day Price Protection",
                 "text": "<p>Shop with confidence, knowing you're getting great value with Panquire. If the price of the same product and configuration on our official website drops within <strong>30 days of your purchase</strong>, we'll refund the difference.</p>",
                 "open": false
               }
@@ -312,17 +284,17 @@
             "warranty": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Warranty Protection",
                 "icon": "warranty",
-                "text": "<p>Panquire provides a <strong>two-year limited commercial warranty</strong> on covered components. Coverage begins on delivery to the original purchaser and is provided in addition to statutory consumer rights that cannot legally be excluded. Proof of purchase is required.</p><p>For warranty support, contact <strong>support@panquire.com</strong> before returning a vehicle, battery, or component.</p>",
+                "heading": "Full Year Warranty Protection",
+                "text": "<p>At Panquire, we stand behind the quality and durability of our electric bikes. Our products are built for performance and reliability, with dedicated warranty coverage to give you confidence in every ride. That's why we provide <strong>one year warranty protection</strong> on <strong>all</strong> of our models.</p>",
                 "open": false
               }
             },
             "legal_compliance": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Vehicle Use & Legal Compliance",
                 "icon": "legal",
+                "heading": "Vehicle Use & Legal Compliance",
                 "text": "<p>Panquire electric bikes are designed for performance and recreational riding. Due to their power, speed, and technical specifications, <strong>certain models may not qualify as Class 1, 2, or 3 electric bicycles</strong> and may instead be classified as off-road motorcycles or other motor vehicles.</p><p>Vehicle classification, registration requirements, licensing, insurance, and permitted riding areas vary by country, state, and local jurisdiction.</p><p><strong>Before riding, please check your local laws and regulations.</strong> Do not operate your vehicle on public roads, bicycle lanes, or designated pathways unless its use is legally permitted in your area.</p>",
                 "open": false
               }
@@ -330,11 +302,10 @@
             "box": {
               "type": "pq-product-accordion",
               "settings": {
-                "heading": "Included Accessories",
-                "icon": "included",
                 "show_included_accessories": true,
-                "text": "<p>Bike, owner's manual ×1 and charger ×1.</p>",
-                "open": false
+                "icon": "included",
+                "heading": "Included Accessories",
+                "open": true
               }
             },
             "inventory": {
@@ -351,38 +322,23 @@
                 "heading": "Flexible financing",
                 "text": "Secure payment options available at checkout."
               }
-            },
-            "complete_ride": {
-              "type": "pq-complete-ride",
-              "settings": {
-                "heading": "Complete Your Ride",
-                "products": [],
-                "visible_rows": 4,
-                "open": true,
-                "selected_note": "Use Add to Cart to include selected accessories with your bike."
-              }
             }
           },
           "block_order": [
             "text_aEtTtq",
             "group_icgrde",
-            "campaign",
             "inventory",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "payments",
-            "complete_ride",
+            "box",
             "shipping",
             "price_protection",
             "warranty",
-            "legal_compliance",
-            "box"
+            "legal_compliance"
           ]
         }
       },
-      "block_order": [
-        "disclosures_g9mWze"
-      ],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
@@ -390,9 +346,9 @@
         "limit_details_width": false,
         "gap": 48,
         "enable_sticky_add_to_cart": false,
-        "background_color": "#ffffff",
-        "padding-block-start": 40,
-        "padding-block-end": 70
+        "background_color": "#08090B",
+        "padding-block-start": 32,
+        "padding-block-end": 56
       }
     },
     "model_story": {

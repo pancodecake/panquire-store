@@ -4,10 +4,10 @@
       <span class="pq-purchase-accordion__heading">
         <span class="pq-purchase-accordion__icon-slot" aria-hidden="true">
           {% case block.settings.icon %}
-            {% when 'shipping' %}{{ 'icon-cart.svg' | inline_asset_content }}
-            {% when 'price' %}{{ 'icon-discount.svg' | inline_asset_content }}
-            {% when 'warranty' %}{{ 'icon-checkmark-burst.svg' | inline_asset_content }}
-            {% when 'legal' %}{{ 'icon-info.svg' | inline_asset_content }}
+            {% when 'shipping' %}{{ 'pq-trust-shipping.svg' | inline_asset_content }}
+            {% when 'price' %}{{ 'pq-trust-price.svg' | inline_asset_content }}
+            {% when 'warranty' %}{{ 'pq-trust-warranty.svg' | inline_asset_content }}
+            {% when 'legal' %}{{ 'pq-trust-legal.svg' | inline_asset_content }}
             {% when 'included' %}{{ 'icon-checkmark.svg' | inline_asset_content }}
           {% endcase %}
         </span>
