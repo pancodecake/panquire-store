@@ -42,7 +42,7 @@
 .pq-product-tab-arrows button { width: 44px; height: 44px; border: 1px solid #414349; background: #151619; color: #f5f5f3; border-radius: 3px; font-size: 24px; cursor: pointer; }
 .pq-product-tabpanel { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: clamp(32px,6vw,90px); padding-top: 36px; }
 .pq-product-tabpanel[hidden] { display: none; }
-.pq-product-feature-image { aspect-ratio: 1.4; min-width: 0; background: #151619; }
+.pq-product-feature-image { aspect-ratio: 1.4; min-width: 0 }
 .pq-product-disclosure { border-top: 1px solid #292b30; }
 .pq-product-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 28px; cursor: pointer; list-style: none; }
 .pq-product-disclosure > summary::-webkit-details-marker { display: none; }

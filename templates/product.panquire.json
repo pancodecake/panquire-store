@@ -35,6 +35,7 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
+            "pq_placeholder": false,
             "media_presentation": "carousel",
             "media_columns": "two",
             "image_gap": 4,
@@ -55,8 +56,7 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "pq_placeholder": false
+            "padding-inline-end": 0
           },
           "blocks": {}
         },
@@ -86,8 +86,7 @@
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {},
-          "block_order": []
+          "blocks": {}
         }
       },
       "block_order": [
