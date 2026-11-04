@@ -1,0 +1,12 @@
+{% doc %}
+  Renders one accessory included with the bike.
+  @param {string} name - Accessory translation key.
+  @param {string} image - Accessory image asset.
+{% enddoc %}
+{% assign title_key = 'panquire.purchase.' | append: name | append: '_title' %}
+{% assign description_key = 'panquire.purchase.' | append: name | append: '_description' %}
+<li class="pq-purchase__accessory">
+  <img src="{{ image | asset_url }}" alt="" width="60" height="60" loading="lazy" decoding="async">
+  <div><h2>{{ title_key | t }}</h2><p>{{ description_key | t }}</p></div>
+  <span class="pq-purchase__free">{{ 'panquire.purchase.free' | t }}</span>
+</li>

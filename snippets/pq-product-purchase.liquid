@@ -1,0 +1,126 @@
+{% doc %}
+  Renders the Panquire product information purchase panel.
+  @param {product} product - Current product.
+  @param {section} section - Product information section.
+  @param {block} block - Product details block.
+{% enddoc %}
+
+{{ 'pq-product-purchase.css' | asset_url | stylesheet_tag }}
+{% render 'add-to-cart-button-styles' %}
+{% render 'fly-to-cart-styles' %}
+{% render 'buy-buttons-styles' %}
+{% liquid
+  assign variant = product.selected_or_first_available_variant
+  assign can_purchase = variant.available
+  assign minimum = variant.quantity_rule.min | default: 1
+  assign maximum = variant.quantity_rule.max
+  if variant.inventory_management != blank
+    assign maximum = variant.inventory_quantity
+    if variant.quantity_rule.max != blank
+      assign maximum = maximum | at_most: variant.quantity_rule.max
+    endif
+  endif
+  if variant.inventory_management != blank and variant.inventory_quantity < minimum
+    assign can_purchase = false
+  endif
+  assign form_id = 'PanquirePurchase-' | append: section.id
+  assign payment_types = 'visa,master,maestro,jcb,american_express,diners_club,discover' | split: ','
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 30
+  assign rating = product.metafields.reviews.rating.value.rating | default: 4.5
+  assign rating_width = rating | times: 20 | at_least: 0 | at_most: 100
+%}
+
+<div class="pq-purchase" {{ block.shopify_attributes }}>
+  <p class="pq-purchase__tagline">{{ 'panquire.purchase.tagline' | t }}</p>
+  <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {{ 'panquire.purchase.title_suffix' | t }}{% endif %}</h1>
+  <div class="pq-purchase__reviews">
+    <span class="pq-purchase__stars" role="img" aria-label="{{ 'panquire.purchase.rating' | t: rating: rating }}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
+    <span class="pq-purchase__review-count">{{ 'panquire.purchase.review_count' | t: count: rating_count }}</span>
+  </div>
+  <div class="pq-purchase__price-row" aria-live="polite">
+    <strong>{{ variant.price | money }}</strong>
+    {% if variant.compare_at_price > variant.price %}
+      <s>{{ variant.compare_at_price | money }}</s>
+      {% assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
+      <span class="pq-purchase__discount">{{ 'panquire.purchase.discount' | t: percent: discount }}</span>
+    {% endif %}
+  </div>
+  <div class="pq-purchase__campaign">
+    <span class="pq-purchase__ribbon pq-purchase__ribbon--left" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
+    <div><strong>{{ 'panquire.purchase.campaign_title' | t }}</strong><p>{{ 'panquire.purchase.campaign_text_html' | t }}</p></div>
+    <span class="pq-purchase__ribbon pq-purchase__ribbon--right" aria-hidden="true">BLACK FRIDAY · BLACK FRIDAY</span>
+  </div>
+  <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
+    <span aria-hidden="true"></span>{% if can_purchase %}{{ 'panquire.purchase.in_stock' | t }}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+  </p>
+  {% unless product.has_only_default_variant %}
+    <script src="{{ 'pq-purchase-variants.js' | asset_url }}" defer></script>
+    <pq-purchase-variants class="pq-purchase__variants">
+      <form action="{{ product.url }}" method="get">
+        <label for="PurchaseVariant-{{ section.id }}">{{ 'panquire.purchase.configuration' | t }}</label>
+        <select id="PurchaseVariant-{{ section.id }}" name="variant">
+          {% for option in product.variants %}
+            <option value="{{ option.id }}"{% if option.id == variant.id %} selected{% endif %}>{{ option.title | escape }}</option>
+          {% endfor %}
+        </select>
+        <button type="submit">{{ 'panquire.purchase.select_variant' | t }}</button>
+      </form>
+    </pq-purchase-variants>
+  {% endunless %}
+  {% if can_purchase %}
+    <product-form-component data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-url="{{ product.url }}" data-quantity-default="{{ minimum }}" data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}" on:submit="/handleSubmit">
+      <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>
+      {% form 'product', product, id: form_id, data-type: 'add-to-cart-form' %}
+        <input type="hidden" name="id" ref="variantId" value="{{ variant.id }}">
+        <div class="pq-purchase__buttons" ref="productFormButtons">
+          {% render 'quantity-selector', product: product, variant: variant, can_update_quantity: true, max: maximum %}
+          {% assign add_text = 'products.product.add_to_cart' | t %}
+          {% assign add_id = 'BuyButtons-ProductSubmitButton-' | append: section.id %}
+          {% render 'add-to-cart-button', product: product, can_add_to_cart: can_purchase, add_to_cart_text: add_text, class: 'add-to-cart-button pq-purchase__add', id: add_id %}
+          <div class="pq-purchase__checkout" ref="acceleratedCheckoutButtonContainer">{{ form | payment_button }}</div>
+        </div>
+        <span class="product-form-text__error hidden" ref="addToCartTextError"><span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span></span>
+      {% endform %}
+    </product-form-component>
+  {% else %}
+    <div class="pq-purchase__unavailable"><button type="button" disabled>{{ 'products.product.sold_out' | t }}</button></div>
+  {% endif %}
+  <aside class="pq-purchase__payments" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
+    <span class="pq-purchase__payment-icon" aria-hidden="true">{{ 'icon-discount.svg' | inline_asset_content }}</span>
+    <div><strong>{{ 'panquire.purchase.financing' | t }}</strong><p>{{ 'panquire.purchase.payment_text' | t }}</p></div>
+    <ul class="pq-footer-payment-icons" role="list">
+      {% for type in payment_types %}<li>{{ type | payment_type_svg_tag }}</li>{% endfor %}
+    </ul>
+  </aside>
+  <details class="pq-purchase__accessories" open>
+    <summary>{{ 'panquire.purchase.accessories' | t }}<span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+    <div class="pq-purchase__accessory-box">
+      <ul role="list">
+        {% render 'pq-purchase-accessory', name: 'nfc', image: 'pq-accessory-nfc-smart-key-fobs.png' %}
+        {% render 'pq-purchase-accessory', name: 'm25', image: 'pq-accessory-m25-connector.png' %}
+        {% render 'pq-purchase-accessory', name: 'keys', image: 'pq-accessory-ignition-keys.png' %}
+        {% render 'pq-purchase-accessory', name: 'charger', image: 'pq-accessory-battery-charger.png' %}
+      </ul>
+      <details class="pq-purchase__more">
+        <summary><span class="pq-purchase__show-more">{{ 'panquire.purchase.show_more' | t }}</span><span class="pq-purchase__show-less">{{ 'actions.show_less' | t }}</span></summary>
+        <ul role="list">
+          {% render 'pq-purchase-accessory', name: 'charging', image: 'pq-accessory-charging-connector.png' %}
+          {% render 'pq-purchase-accessory', name: 'tools', image: 'pq-accessory-hex-key-set.png' %}
+          {% render 'pq-purchase-accessory', name: 'battery', image: 'pq-accessory-battery.png' %}
+        </ul>
+      </details>
+    </div>
+  </details>
+  <div class="pq-purchase__policies">
+    {% assign policies = 'shipping,price,warranty,legal' | split: ',' %}
+    {% for policy in policies %}
+      {% assign heading_key = 'panquire.purchase.' | append: policy | append: '_heading' %}
+      {% assign body_key = 'panquire.purchase.' | append: policy | append: '_html' %}
+      {% assign policy_icon = 'pq-purchase-' | append: policy | append: '.svg' %}
+      <details class="pq-purchase__policy">
+        <summary><span class="pq-purchase__policy-icon" aria-hidden="true">{{ policy_icon | inline_asset_content }}</span><span>{{ heading_key | t }}</span><span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+        <div class="pq-purchase__policy-body">{{ body_key | t }}</div>
+      </details>
+    {% endfor %}
+  </div>
+</div>

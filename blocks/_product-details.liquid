@@ -18,6 +18,9 @@
     data-view-transition-type="product-details"
   {% endif %}
 >
+  {% if request.page_type == 'product' and template.suffix == 'panquire' and section.id contains '__main' %}
+    {% render 'pq-product-purchase', product: closest.product, section: section, block: block %}
+  {% else %}
   {% capture children %}
     <div class="view-product-title">
       <a
@@ -36,6 +39,7 @@
     background_color: block_settings.background_color,
     block_id: block.id
   %}
+  {% endif %}
 </div>
 
 {% stylesheet %}

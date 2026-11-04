@@ -9,6 +9,7 @@
   @param {string} [class] - custom class for the quantity selector, optional
   @param {boolean} [can_update_quantity] - whether the quantity can be updated, defaults to true
   @param {number} [min] - override the minimum quantity (e.g., 0 for quick order list)
+  @param {number} [max] - Optional maximum quantity override for the current purchase.
   @param {block} [block] - The block object, used for Shopify editor attributes.
   @param {string} [wrapper_class] - Extra class for the wrapper, used to scope block-level CSS variable overrides so surface-level styles (e.g. quick-add modal) can override them.
 {%- enddoc -%}
@@ -29,6 +30,7 @@
   else
     assign min_quantity = variant.quantity_rule.min | default: 1
   endif
+  assign max_quantity = max | default: variant.quantity_rule.max
 %}
 
 <div
@@ -75,8 +77,8 @@
       {% if line_index %}
         data-cart-line="{{ line_index | plus: 1 }}"
       {% endif %}
-      {% if variant.quantity_rule.max %}
-        max="{{ variant.quantity_rule.max }}"
+      {% if max_quantity %}
+        max="{{ max_quantity }}"
       {% endif %}
       step="{{ variant.quantity_rule.increment | default: 1 }}"
       {% if can_update_quantity == false or variant.available == false %}
