@@ -31,6 +31,7 @@ engine.registerFilter('asset_url', value => '/assets/' + value);
 engine.registerFilter('stylesheet_tag', value => `<link rel="stylesheet" href="${value}">`);
 engine.registerFilter('inline_asset_content', value => fs.readFileSync(path.join(root, 'assets', value), 'utf8'));
 engine.registerFilter('money', value => '$' + (value / 100).toFixed(2));
+engine.registerFilter('money_with_currency', value => '$' + (value / 100).toFixed(2) + ' USD');
 engine.registerFilter('payment_button', () => '<button class="shopify-payment-button__button--unbranded">Buy now</button>');
 engine.registerFilter('payment_type_svg_tag', value => `<svg aria-label="${value}"></svg>`);
 const source = prepare(fs.readFileSync(path.join(root, 'snippets/pq-product-purchase.liquid'), 'utf8'));
@@ -75,8 +76,8 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
   const quantityRule = await render({ quantity_rule: { min: 1, increment: 1, max: 2 } });
   assert.match(quantityRule, /max="2"/);
   const sale = await render({ price: 90900, compare_at_price: 129900 });
-  assert.match(sale, /\$909.00/);
-  assert.match(sale, /\$1299.00/);
+  assert.match(sale, /\$909\.00 USD/);
+  assert.match(sale, /\$1299\.00 USD/);
   assert.match(sale, /30% OFF/);
   assert.doesNotMatch(sale, /BF /);
   missingPurchaseTranslations = true;

@@ -38,9 +38,9 @@
     <span class="pq-purchase__review-count">{% render 'pq-purchase-copy', key: 'review_count', count: rating_count %}</span>
   </div>
   <div class="pq-purchase__price-row" aria-live="polite">
-    <strong>{{ variant.price | money }}</strong>
+    <strong>{{ variant.price | money_with_currency }}</strong>
     {% if variant.compare_at_price > variant.price %}
-      <s>{{ variant.compare_at_price | money }}</s>
+      <s>{{ variant.compare_at_price | money_with_currency }}</s>
       {% assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
       <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
