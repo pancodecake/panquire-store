@@ -178,7 +178,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays return shipping?",
-                "answer": "<p>For an eligible <strong>change-of-mind or non-quality return</strong>, the customer is responsible for return shipping.</p><p>For a <strong>confirmed defective product</strong>, <strong>incorrect product</strong>, or <strong>confirmed shipping-damaged product</strong>, Panquire will cover the applicable return-shipping cost.</p>"
+                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer pays return shipping. The fee is based on the rate charged by the carrier the customer chooses, subject to the return instructions we provide.</p><p>Panquire covers the applicable return-shipping cost for confirmed defects, incorrect products we sent, and confirmed transit damage. The customer does not pay return shipping when the goods arrive damaged or incorrect due to our error.</p>"
               },
               "blocks": {}
             },
@@ -439,7 +439,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Who pays return shipping?",
-                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer is responsible for return shipping.</p><p><em><strong>Panquire </strong></em>pays applicable return shipping for:</p><ul><li>confirmed defective products;</li><li>incorrect products sent by us;</li><li>and confirmed transit-damaged products.</li></ul>"
+                "answer": "<p>For eligible <strong>change-of-mind or non-quality returns</strong>, the customer pays return shipping. The fee is based on the rate charged by the carrier the customer chooses, subject to the return instructions we provide.</p><p>Panquire covers the applicable return-shipping cost for confirmed defects, incorrect products we sent, and confirmed transit damage. The customer does not pay return shipping when the goods arrive damaged or incorrect due to our error.</p>"
               },
               "blocks": {}
             },

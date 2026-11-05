@@ -120,7 +120,14 @@
     </div>
     {% if section.settings.text != blank %}<p class="pq-footer-note">{{ section.settings.text | escape }}</p>{% endif %}
     <div class="pq-footer-bottom">
-      <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}"><a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a><a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a></nav>
+      <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}">
+        <a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a>
+        <a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a>
+        {% assign ip_rights_page = pages['intellectual-property-rights'] %}
+        {% if ip_rights_page != blank %}
+          <a href="{{ ip_rights_page.url }}">{{ ip_rights_page.title | escape }}</a>
+        {% endif %}
+      </nav>
       <span>© {{ 'now' | date: '%Y' }} {{ settings.pq_store_name | default: 'Panquire' | escape }}. {{ section.settings.rights_text | escape }}</span>
     </div>
   </div>

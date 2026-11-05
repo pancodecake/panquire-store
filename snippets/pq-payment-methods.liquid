@@ -1,17 +1,21 @@
 {% doc %}
-  Renders payment icons for methods that are enabled in Shopify.
+  Renders the card brands requested for Panquire's Oceanpayment review.
   @param {string} [class] - Optional additional class name.
+  @param {boolean} [list_only] - Renders just the card list inside an existing payment panel.
 {% enddoc %}
-{% if shop.enabled_payment_types != empty %}
+{% assign payment_types = 'visa,master,maestro,jcb,american_express,diners_club,discover' | split: ',' %}
+{% unless list_only %}
   <div class="pq-payment-methods pq-footer-payment-icons{% if class != blank %} {{ class }}{% endif %}" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
     <span class="pq-payment-methods__label">{{ 'blocks.payment_methods' | t }}</span>
-    <ul class="pq-payment-methods__list" role="list">
-      {% for type in shop.enabled_payment_types %}
-        <li>{{ type | payment_type_svg_tag: class: 'pq-payment-methods__icon' }}</li>
-      {% endfor %}
-    </ul>
+{% endunless %}
+  <ul class="pq-payment-methods__list{% if list_only %} pq-footer-payment-icons{% endif %}" role="list">
+    {% for type in payment_types %}
+      <li>{{ type | payment_type_svg_tag: class: 'pq-payment-methods__icon' }}</li>
+    {% endfor %}
+  </ul>
+{% unless list_only %}
   </div>
-{% endif %}
+{% endunless %}
 
 {% stylesheet %}
   .pq-payment-methods {

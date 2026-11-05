@@ -45,8 +45,8 @@
         "item1": {
           "type": "benefit",
           "settings": {
-            "heading": "Worldwide Shipping",
-            "text": "Worldwide delivery. US and European orders target delivery within 30 days after dispatch."
+            "heading": "U.S. Shipping",
+            "text": "Delivery to eligible U.S. addresses. Shipping options and costs are shown at checkout."
           }
         },
         "item2": {
