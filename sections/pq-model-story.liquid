@@ -10,7 +10,7 @@
     {% render 'pq-media', image: model_images.panorama, label: label %}
   </section>
   <section class="pq-container pq-model-chapter">
-    <h2 class="pq-model-title">{{ model | upcase }}<br>{{ 'panquire.model.electric_dirt_bike' | t }}</h2>
+    <h2 class="pq-model-title">{{ model | upcase }}{{ 'panquire.model.electric_dirt_bike' | t }}</h2>
     {% capture label %}[{{ model | upcase }} LIFESTYLE IMAGE]{% endcapture %}
     <div class="pq-model-landscape">{% render 'pq-media', image: model_images.lifestyle, label: label %}</div>
   </section>
