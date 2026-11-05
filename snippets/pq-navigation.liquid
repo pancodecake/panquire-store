@@ -16,5 +16,5 @@
 <a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>VS Competition</a>
 <a href="{{ settings.pq_about_url | default: '/pages/about' }}"{% if page.handle == 'about' %} aria-current="page"{% endif %}>{{ 'panquire.about' | t }}</a>
 <a href="{{ settings.pq_partners_url | default: '/pages/partners' }}"{% if page.handle == 'partners' %} aria-current="page"{% endif %}>{{ 'panquire.partners' | t }}</a>
-<a href="{{ settings.pq_terms_url | default: '/pages/terms' }}"{% if page.handle == 'terms' %} aria-current="page"{% endif %}>{{ 'panquire.terms' | t }}</a>
+<a href="{{ pages.tos.url | default: '/pages/tos' }}"{% if page.handle == 'tos' %} aria-current="page"{% endif %}>{{ 'panquire.terms' | t }}</a>
 {% endif %}

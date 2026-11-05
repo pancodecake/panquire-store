@@ -4,7 +4,7 @@
   @param {object} footer_settings - Footer destination settings.
 {% enddoc %}
 {% assign partner_url = settings.pq_partners_url | default: '/pages/partners' %}
-{% assign terms_url = settings.pq_terms_url | default: '/pages/terms' %}
+{% assign terms_url = pages.tos.url | default: '/pages/tos' %}
 <nav aria-label="{{ block.settings.heading | escape }}">
   {% case block.settings.built_in %}
     {% when 'shop' %}
