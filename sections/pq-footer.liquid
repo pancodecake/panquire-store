@@ -121,7 +121,11 @@
     {% if section.settings.text != blank %}<p class="pq-footer-note">{{ section.settings.text | escape }}</p>{% endif %}
     <div class="pq-footer-bottom">
       <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}">
-        <a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a>
+        {% if shop.terms_of_service != blank %}
+          <a href="{{ shop.terms_of_service.url }}">Terms &amp; Conditions</a>
+        {% else %}
+          <a href="{{ settings.pq_terms_url | default: '/pages/terms' }}">{{ section.settings.terms_label | escape }}</a>
+        {% endif %}
         <a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a>
         {% assign ip_rights_page = pages['intellectual-property-rights'] %}
         {% if ip_rights_page != blank %}
