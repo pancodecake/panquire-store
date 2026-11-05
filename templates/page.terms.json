@@ -88,7 +88,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "Where do you currently ship?",
-                "answer": "<p>Enter your address at checkout to see available destinations and delivery services. Product availability, carrier coverage, customs rules and battery shipping restrictions can affect eligibility.</p>"
+                "answer": "<p>We ship to the United States and the European Union. Standard shipping is free for EU orders. For all other countries, enter your shipping address at checkout to confirm availability.</p>"
               },
               "blocks": {}
             },
