@@ -486,8 +486,8 @@
         "recommendation_type": "related",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 4,
-        "columns": 4,
+        "max_products": 3,
+        "columns": 3,
         "mobile_columns": "2",
         "columns_gap": 12,
         "rows_gap": 24,
@@ -498,8 +498,7 @@
         "background_color": "{{ settings.color_palette.background }}",
         "padding-block-start": 48,
         "padding-block-end": 48
-      },
-      "disabled": true
+      }
     },
     "panorama": {
       "type": "pq-product-story",

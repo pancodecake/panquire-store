@@ -5,14 +5,14 @@
     {% if left_image != blank %}
       {{ left_image | image_url: width: 1800 | image_tag: class: 'pq-diagonal-hero__photo', alt: '', loading: 'lazy' }}
     {% else %}
-      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111615_625_5.jpg' | asset_url }}" alt="" loading="lazy">
+      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111615_625_5.jpg' | asset_url }}" width="4284" height="5712" alt="" loading="lazy">
     {% endif %}
   </div>
   <div class="pq-diagonal-hero__image pq-diagonal-hero__image--right">
     {% if right_image != blank %}
       {{ right_image | image_url: width: 1800 | image_tag: class: 'pq-diagonal-hero__photo', alt: '', loading: 'lazy' }}
     {% else %}
-      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111547_621_5.jpg' | asset_url }}" alt="" loading="lazy">
+      <img class="pq-diagonal-hero__photo" src="{{ 'Weixin Image_20260927111547_621_5.jpg' | asset_url }}" width="4284" height="5712" alt="" loading="lazy">
     {% endif %}
   </div>
   <div class="pq-diagonal-hero__center" aria-hidden="true"></div>
