@@ -21,7 +21,7 @@
             "text": "<p>If the return is caused by the consumer, consumer<br/>should be responsible for the shipping fee. The specific fee should be based on<br/>the express company you choose.</p><p>If due to our reasons, the goods received are<br/>damaged or not correct, and the consumer is not required to bear the shipping<br/>fee for this reason.</p>",
             "width": "100%",
             "max_width": "none",
-            "alignment": "left",
+            "alignment": "center",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
             "font_size": "",
