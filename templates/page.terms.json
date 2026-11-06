@@ -329,6 +329,15 @@
                 "answer": "<p>For a voluntary exchange, request authorization for the original return and place a new order for the desired product. For defective or incorrect items, Panquire reviews the applicable remedy. See the <a href=\"/policies/refund-policy\">Return and Refund Policy</a>.</p>"
               },
               "blocks": {}
+            },
+            "pq_policy_question_xXY8a4": {
+              "type": "pq-policy-question",
+              "name": "Policy question",
+              "settings": {
+                "question": "Your question",
+                "answer": "<p>If the return is caused by the consumer, consumer<br/>should be responsible for the shipping fee. The specific fee should be based on<br/>the express company you choose.</p><p>If due to our reasons, the goods received are<br/>damaged or not correct, and the consumer is not required to bear the shipping<br/>fee for this reason.</p>"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -341,7 +350,8 @@
             "returns_refunds_7",
             "returns_refunds_8",
             "returns_refunds_9",
-            "returns_refunds_10"
+            "returns_refunds_10",
+            "pq_policy_question_xXY8a4"
           ]
         },
         "privacy_legal": {
