@@ -73,13 +73,29 @@
             "show_shop": false,
             "show_policies": false
           }
+        },
+        "column_3EPxLA": {
+          "type": "column",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer",
+            "built_in": "none",
+            "product_1": "",
+            "product_1_label": "[Product 1 Name]",
+            "product_2": "",
+            "product_2_label": "[Product 2 Name]",
+            "text": "",
+            "show_shop": false,
+            "show_policies": false
+          }
         }
       },
       "block_order": [
         "shop",
         "company",
         "business",
-        "care"
+        "care",
+        "column_3EPxLA"
       ],
       "settings": {
         "newsletter_eyebrow": "Ride farther. Know more.",
