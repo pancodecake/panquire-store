@@ -163,17 +163,49 @@
       const panels = [...root.querySelectorAll('[data-pq-panel]')];
       const buttons = [...root.querySelectorAll('[data-pq-select]')];
       const selectors = root.querySelector('[data-pq-selectors]');
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+      let current = 0;
+      let transitionTimer;
+      let scrollLocked = false;
       if (selectors) selectors.hidden = buttons.length < 2;
-      const select = (index) => {
-        panels.forEach((panel, n) => panel.hidden = n !== index);
-        buttons.forEach((button, n) => button.setAttribute('aria-pressed', String(n === index)));
+      const select = (index, animate = true) => {
+        const next = Math.max(0, Math.min(panels.length - 1, index));
+        if (next === current && panels[next] && !panels[next].hidden) return;
+        current = next;
+        panels.forEach((panel, n) => panel.hidden = n !== current);
+        buttons.forEach((button, n) => button.setAttribute('aria-pressed', String(n === current)));
+        const panel = panels[current];
+        if (!panel || !animate || reduced.matches) return;
+        clearTimeout(transitionTimer);
+        panel.classList.remove('is-transitioning-in');
+        void panel.offsetWidth;
+        panel.classList.add('is-transitioning-in');
+        transitionTimer = setTimeout(() => panel.classList.remove('is-transitioning-in'), 560);
       };
       buttons.forEach((button, index) => button.addEventListener('click', () => select(index)));
+      const onWheel = (event) => {
+        if (reduced.matches || buttons.length < 2 || Math.abs(event.deltaY) < Math.abs(event.deltaX) || Math.abs(event.deltaY) < 8) return;
+        const bounds = root.getBoundingClientRect();
+        const centered = bounds.top < innerHeight * .4 && bounds.bottom > innerHeight * .6;
+        if (!centered) return;
+        const next = current + Math.sign(event.deltaY);
+        if (next < 0 || next >= panels.length) return;
+        event.preventDefault();
+        if (scrollLocked) return;
+        scrollLocked = true;
+        select(next);
+        setTimeout(() => { scrollLocked = false; }, reduced.matches ? 0 : 520);
+      };
+      root.addEventListener('wheel', onWheel, { passive: false });
+      root.addEventListener('pq:dispose', () => {
+        clearTimeout(transitionTimer);
+        root.removeEventListener('wheel', onWheel);
+      }, { once: true });
       root.addEventListener('shopify:block:select', (event) => {
         const index = panels.findIndex((panel) => panel === event.target || panel.contains(event.target));
         if (index >= 0) select(index);
       });
-      select(0);
+      select(0, false);
     });
     scope.querySelectorAll('.pq-model-menu').forEach((menu) => {
       if (menu.dataset.pqReady) return;

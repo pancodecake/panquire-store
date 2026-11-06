@@ -127,10 +127,11 @@
 .pq-specs dt { color: var(--pq-muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .pq-specs dd { color: var(--pq-text); font-size: clamp(20px, 2vw, 27px); font-weight: 700; line-height: 1.08; margin-block-start: 5px; }
 .pq-feature-selectors {margin-top:30px; position: relative; z-index: 1; display: flex; justify-content: center; gap: clamp(18px, 4vw, 52px); min-height: 90px;  }
-.pq-feature-selectors button { position: relative; min-width: 112px; min-height: 78px; padding: 10px 18px 34px; border: 0; background: transparent; color: #8c8e93; font-size: clamp(21px, 2vw, 28px); font-weight: 700; letter-spacing: .01em; }
+.pq-feature-selectors button { position: relative; min-width: 112px; min-height: 78px; padding: 10px 18px 34px; border: 0; background: transparent; color: #8c8e93; font-size: clamp(21px, 2vw, 28px); font-weight: 700; letter-spacing: .01em; transition: color var(--pq-motion-base) ease, transform var(--pq-motion-base) var(--pq-ease-out); }
 
-.pq-feature-selectors button::after { content: ''; position: absolute; inset-inline-start: 50%; bottom: 8px; width: 8px; height: 8px; border-radius: 50%; background: currentColor; transform: translateX(-50%); }
+.pq-feature-selectors button::after { content: ''; position: absolute; inset-inline-start: 50%; bottom: 8px; width: 8px; height: 8px; border-radius: 50%; background: currentColor; transform: translateX(-50%); transition: transform var(--pq-motion-base) var(--pq-ease-out); }
 .pq-feature-selectors button[aria-pressed='true'] { color: var(--color-accent-solid); }
+.pq-feature-selectors button[aria-pressed='true']::after { transform: translateX(-50%) scale(1.25); }
 .pq-feature-selectors button[aria-pressed='true']::before { opacity: 1; }
 .pq-text-link { display: inline-flex; align-items: center; gap: 12px; margin-block-start: 24px; min-height: 44px; text-decoration: underline !important; }
 .pq-product-track, .pq-tile-track { display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - (var(--pq-columns, 3) - 1) * 16px) / var(--pq-columns, 3)); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px; margin: -4px; scrollbar-width: thin; }
@@ -396,6 +397,12 @@
 @media (prefers-reduced-motion: no-preference) {
   .pq-button:not([aria-disabled='true']):not(:disabled):active,
   .pq-square:not(:disabled):active { transform: scale(.97); }
+  .pq-feature-panel.is-transitioning-in .pq-feature-image { animation: pq-feature-bike-in 520ms var(--pq-ease-out) both; will-change: opacity, transform; }
+  .pq-feature-panel.is-transitioning-in .pq-feature-copy { animation: pq-feature-copy-in 420ms 70ms var(--pq-ease-out) both; will-change: opacity, transform; }
+  .pq-feature-panel.is-transitioning-in .pq-specs > div { animation: pq-feature-copy-in 360ms var(--pq-feature-spec-delay, 120ms) var(--pq-ease-out) both; }
+  .pq-feature-panel.is-transitioning-in .pq-specs > div:nth-child(2) { --pq-feature-spec-delay: 150ms; }
+  .pq-feature-panel.is-transitioning-in .pq-specs > div:nth-child(3) { --pq-feature-spec-delay: 180ms; }
+  .pq-feature-panel.is-transitioning-in .pq-specs > div:nth-child(4) { --pq-feature-spec-delay: 210ms; }
   .pq-hero-media > * { animation: pq-hero-media-in 800ms var(--pq-ease-out) both; }
   .pq-hero-kicker,
   .pq-hero-content > h1,
@@ -405,6 +412,14 @@
   .pq-hero-description { animation-delay: 100ms; }
   .pq-hero-actions { animation-delay: 150ms; }
   [data-pq-reveal].pq-reveal-pending { opacity: 0; transform: translateY(12px); }
+}
+@keyframes pq-feature-bike-in {
+  from { opacity: 0; transform: translate3d(-20px, 20px, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes pq-feature-copy-in {
+  from { opacity: 0; transform: translate3d(16px, 0, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
   body.pq-storefront a:not(:where(.pq-button, .button, .button-secondary, .button-custom, .button-unstyled, .pq-icon-button, .skip-to-content-link, [aria-disabled='true'])):is(:hover, :focus-visible) { color: var(--color-accent-solid); }
