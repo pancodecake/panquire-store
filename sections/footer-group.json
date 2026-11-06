@@ -76,6 +76,7 @@
         },
         "column_3EPxLA": {
           "type": "column",
+          "disabled": true,
           "settings": {
             "heading": "Company",
             "menu": "footer",
