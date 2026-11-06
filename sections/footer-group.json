@@ -44,6 +44,7 @@
       "block_order": [
         "text_7cpLGa"
       ],
+      "disabled": true,
       "name": "t:names.rich_text_section",
       "settings": {
         "content_direction": "column",
