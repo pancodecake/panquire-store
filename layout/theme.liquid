@@ -6,13 +6,7 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
-    {%- if settings.favicon != blank -%}
-      <link
-        rel="icon"
-        type="image/png"
-        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
-      >
-    {%- endif -%}
+    <link rel="icon" type="image/svg+xml" href="{{ 'panquire-logo-transparent.svg' | asset_url }}">
 
     {% comment %}
       Opt into cross-document (MPA) view transitions and hold first paint until #MainContent

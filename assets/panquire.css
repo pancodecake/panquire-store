@@ -458,3 +458,6 @@
   .pq-model-menu-card, .pq-model-menu-card img, .pq-mobile-menu-icon span { transition: none; }
   .pq-model-menu-card:is(:hover, :focus-visible) img, .pq-model-menu-card:active { transform: none; }
 }
+.pq-header .pq-wordmark { display:inline-flex; align-items:center; gap:10px; flex-shrink:0; }
+.pq-brand-emblem { display:block; width:36px; height:36px; object-fit:contain; flex-shrink:0; }
+@media(max-width:600px) { .pq-header .pq-wordmark { gap:7px; } .pq-brand-emblem { width:30px; height:30px; } }
