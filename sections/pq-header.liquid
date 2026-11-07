@@ -8,11 +8,10 @@
     <nav class="pq-desktop-nav" aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation', menu: section.settings.menu %}</nav>
     <div class="pq-header-actions">
       <a class="pq-icon-button" href="{{ routes.search_url }}" aria-label="{{ 'panquire.search' | t }}">{% render 'pq-icon', name: 'search' %}</a>
-      {% if shop.customer_accounts_enabled %}<a class="pq-icon-button" href="{{ routes.account_url }}" aria-label="{{ 'panquire.account' | t }}">{% render 'pq-icon', name: 'account' %}</a>{% endif %}
       <a class="pq-icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'panquire.cart' | t }}"><cart-icon>{% render 'pq-icon', name: 'cart' %}<span ref="cartBubble" class="pq-cart-count{% if cart.item_count == 0 %} visually-hidden{% endif %}"><span ref="cartBubbleText"><span ref="cartBubbleCount">{{ cart.item_count }}</span></span></span></cart-icon></a>
     </div>
     <details class="pq-mobile-menu">
-      <summary>{{ 'panquire.menu' | t }}</summary>
+      <summary aria-label="{{ 'panquire.menu' | t }}"><span class="pq-mobile-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></summary>
       <nav aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation', menu: section.settings.menu %}</nav>
     </details>
   </div>
