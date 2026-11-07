@@ -9,11 +9,11 @@
   {% for link in menu.links %}
     {% if link.url contains '/pages/compare' %}{% assign has_comparison_link = true %}{% endif %}
     {% assign link_label = link.title | downcase %}
-    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url == '/collections/all' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>{% endunless %}
+    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url == '/collections/all' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if link.url contains '/pages/compare' %}Competitor Comparison{% else %}{{ link.title | escape }}{% endif %}</a>{% endunless %}
   {% endfor %}
-  {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>VS Competition</a>{% endunless %}
+  {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Competitor Comparison</a>{% endunless %}
 {% else %}
-<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>VS Competition</a>
+<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Competitor Comparison</a>
 <a href="{{ settings.pq_about_url | default: '/pages/about' }}"{% if page.handle == 'about' %} aria-current="page"{% endif %}>{{ 'panquire.about' | t }}</a>
 <a href="{{ settings.pq_partners_url | default: '/pages/partners' }}"{% if page.handle == 'partners' %} aria-current="page"{% endif %}>{{ 'panquire.partners' | t }}</a>
 <a href="{{ pages.tos.url | default: '/pages/tos' }}"{% if page.handle == 'tos' %} aria-current="page"{% endif %}>{{ 'panquire.terms' | t }}</a>

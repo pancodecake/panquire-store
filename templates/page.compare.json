@@ -12,7 +12,7 @@
     "main": {
       "type": "vs-competition",
       "settings": {
-        "heading": "Competitive Comparison",
+        "heading": "Competitor Comparison",
         "supporting_text": "Select an area to explore the differences",
         "default_product": "",
         "default_competitor": "",
