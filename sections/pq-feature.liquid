@@ -5,7 +5,7 @@
     <div class="pq-feature-layout" data-pq-reveal style="--pq-reveal-delay: 50ms;">
       <div class="pq-feature-panels">
         {% for block in section.blocks %}
-          <article class="pq-feature-panel" id="Feature-{{ section.id }}-{{ block.id }}" data-pq-panel {{ block.shopify_attributes }}>
+          <article class="pq-feature-panel" id="Feature-{{ section.id }}-{{ block.id }}" data-pq-panel {% unless forloop.first %}hidden{% endunless %} {{ block.shopify_attributes }}>
             <div class="pq-feature-image">
               {% if block.settings.image != blank %}
                 {% assign media_label = 'panquire.product_image' | t %}
