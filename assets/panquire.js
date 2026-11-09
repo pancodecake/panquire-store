@@ -164,7 +164,7 @@
       const buttons = [...root.querySelectorAll('[data-pq-select]')];
       const selectors = root.querySelector('[data-pq-selectors]');
       const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-      let current = 0;
+      let current = -1;
       let transitionTimer;
       let scrollLocked = false;
       if (selectors) selectors.hidden = buttons.length < 2;
