@@ -14,7 +14,7 @@
     {%- if model == 't-03' -%}
     {%- capture rows -%}
 Overview|Model|T-03
-Overview|Type|Mini Electric Motorcycle
+Overview|Type|Electric street bike
 Overview|Color|Black
 Overview|Frame material|Aluminum alloy
 Overview|Warranty|1 year
@@ -61,7 +61,8 @@ Battery & charging|Battery cell supplier|Tianpeng
 Battery & charging|Battery voltage|{% if model == 't-01' %}60V{% else %}72V{% endif %}
 Battery & charging|Battery capacity|{% if model == 't-01' %}31.2Ah{% else %}41Ah{% endif %}
 Battery & charging|Nominal battery energy|{% if model == 't-01' %}1.872 kWh (voltage × capacity){% else %}2.952 kWh (voltage × capacity){% endif %}
-Battery & charging|Charger|6A
+Battery & charging|Charger|{% if model == 't-01' %}6A{% else %}18A{% endif %}
+{% if model == 't-01' %}Battery & charging|Charging time|5.2 hours{% endif %}
 Suspension & brakes|Front/rear suspension|Hydraulic Suspension
 Suspension & brakes|Rear shock|Adjustable compression, rebound and preload
 Suspension & brakes|Suspension rider-weight range|Approx. 40–95 kg
@@ -72,7 +73,8 @@ Suspension & brakes|Front tire|19 inches
 Suspension & brakes|Rear tire|17 inches
 Suspension & brakes|Tire type|Tubed
 Dimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm
-{% if model == 't-01' %}Dimensions & weight|Net weight|55 kg{% else %}Battery & charging|Battery pack weight|15 kg{% endif %}
+{% if model == 't-01' %}Dimensions & weight|Net weight|55 kg{% else %}Battery & charging|Battery pack weight|15 kg
+Dimensions & weight|Bike weight|60 kg{% endif %}
     {%- endcapture -%}
     {%- endif -%}
     {%- endif -%}
