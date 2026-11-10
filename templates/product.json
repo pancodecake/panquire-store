@@ -305,7 +305,7 @@
               "type": "pq-product-accordion",
               "settings": {
                 "heading": "Shipping & returns",
-                "text": "<p>Shipping and returns information will be available here.</p>",
+                "text": "<p>Free outbound shipping is included in the product price for supported destinations. Duties and taxes may apply separately. Return shipping depends on the reason for the return.</p>",
                 "open": false
               }
             },
