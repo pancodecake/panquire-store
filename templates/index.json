@@ -45,8 +45,8 @@
         "item1": {
           "type": "benefit",
           "settings": {
-            "heading": "Worldwide Shipping",
-            "text": "Recive your e-motorcycle from anywhere in the world"
+            "heading": "Free Shipping",
+            "text": "Included in the price for supported destinations"
           }
         },
         "item2": {
