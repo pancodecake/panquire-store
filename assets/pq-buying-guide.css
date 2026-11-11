@@ -22,7 +22,6 @@
 .pq-buying-guide__product.pq-t01-guide {
   display: grid;
   gap: 8px;
-  max-width: 1120px;
   margin-inline: auto;
   padding: 0;
   border: 0;
