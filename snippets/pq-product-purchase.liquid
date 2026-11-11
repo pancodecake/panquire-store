@@ -25,18 +25,20 @@
     assign can_purchase = false
   endif
   assign form_id = 'PanquirePurchase-' | append: section.id
-  assign rating_count = 17
-  assign rating = product.metafields.reviews.rating.value.rating | default: 4.5
+  assign rating_count = product.metafields.reviews.rating_count.value | default: 0
+  assign rating = product.metafields.reviews.rating.value.rating
   assign rating_width = rating | times: 20 | at_least: 0 | at_most: 100
 %}
 
 <pq-purchase-panel class="pq-purchase" {{ block.shopify_attributes }}>
   <p class="pq-purchase__tagline">{% render 'pq-purchase-copy', key: 'tagline' %}</p>
   <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
-  <div class="pq-purchase__reviews">
-    <span class="pq-purchase__stars" role="img" aria-label="{% render 'pq-purchase-copy', key: 'rating', rating: rating %}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
-    <span class="pq-purchase__review-count">{% render 'pq-purchase-copy', key: 'review_count', count: rating_count %}</span>
-  </div>
+  {% if rating != blank and rating_count > 0 %}
+    <div class="pq-purchase__reviews">
+      <span class="pq-purchase__stars" role="img" aria-label="{% render 'pq-purchase-copy', key: 'rating', rating: rating %}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
+      <span class="pq-purchase__review-count">{% render 'pq-purchase-copy', key: 'review_count', count: rating_count %}</span>
+    </div>
+  {% endif %}
   <div class="pq-purchase__price-row" aria-live="polite">
     <strong>{{ variant.price | money_with_currency }}</strong>
     {% if variant.compare_at_price > variant.price %}

@@ -4,16 +4,18 @@
   @param {object} [menu] - Optional Shopify menu selected in the header section.
 {% enddoc %}
 {% render 'pq-model-menu' %}
+<a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}"{% if collection.handle == 'electric-dirt-bikes' %} aria-current="page"{% endif %}>Electric Dirt Bikes</a>
+<a href="{{ collections['electric-motorcycles'].url | default: '/collections/electric-motorcycles' }}"{% if collection.handle == 'electric-motorcycles' %} aria-current="page"{% endif %}>Electric Motorcycles</a>
 {% if menu != blank %}
   {% assign has_comparison_link = false %}
   {% for link in menu.links %}
     {% if link.url contains '/pages/compare' %}{% assign has_comparison_link = true %}{% endif %}
     {% assign link_label = link.title | downcase %}
-    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url == '/collections/all' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if link.url contains '/pages/compare' %}Competitor Comparison{% else %}{{ link.title | escape }}{% endif %}</a>{% endunless %}
+    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url == '/collections/all' or link.url contains '/collections/electric-dirt-bikes' or link.url contains '/collections/electric-motorcycles' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if link.url contains '/pages/compare' %}Compare Models{% else %}{{ link.title | escape }}{% endif %}</a>{% endunless %}
   {% endfor %}
-  {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Competitor Comparison</a>{% endunless %}
+  {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Compare Models</a>{% endunless %}
 {% else %}
-<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Competitor Comparison</a>
+<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Compare Models</a>
 <a href="{{ settings.pq_about_url | default: '/pages/about' }}"{% if page.handle == 'about' %} aria-current="page"{% endif %}>{{ 'panquire.about' | t }}</a>
 <a href="{{ settings.pq_partners_url | default: '/pages/partners' }}"{% if page.handle == 'partners' %} aria-current="page"{% endif %}>{{ 'panquire.partners' | t }}</a>
 <a href="{{ pages.tos.url | default: '/pages/tos' }}"{% if page.handle == 'tos' %} aria-current="page"{% endif %}>{{ 'panquire.terms' | t }}</a>

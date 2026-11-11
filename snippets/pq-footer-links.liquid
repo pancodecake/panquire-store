@@ -8,6 +8,9 @@
 <nav aria-label="{{ block.settings.heading | escape }}">
   {% case block.settings.built_in %}
     {% when 'shop' %}
+      <a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}">Electric Dirt Bikes</a>
+      <a href="{{ collections['electric-motorcycles'].url | default: '/collections/electric-motorcycles' }}">Electric Motorcycles</a>
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare Models</a>
       <a href="/products/t-01">T-01</a>
       <a href="/products/t-02">T-02</a>
       <a href="/products/t-03">T-03</a>
@@ -20,10 +23,10 @@
       <a href="{{ partner_url }}#affiliate-terms">Affiliate Terms</a>
     {% when 'care' %}
       <a href="{{ footer_settings.contact_url | default: '/pages/contact' }}">Contact Us</a>
-      <a href="{{ terms_url }}#shipping">Shipping Policy</a>
+      <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
       <a href="{{ terms_url }}#payment">Payment Methods</a>
       <a href="{{ terms_url }}#warranty">Warranty Policy</a>
-      <a href="{{ terms_url }}#returns-refunds">Returns &amp; Refunds</a>
+      <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Returns &amp; Refunds</a>
   {% endcase %}
 </nav>
 

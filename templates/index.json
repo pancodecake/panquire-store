@@ -16,13 +16,13 @@
           "type": "slide",
           "settings": {
             "video": "shopify://files/videos/panquire-home-hero.mp4",
-            "kicker": "Introducing Panquire",
-            "heading": "The Ride You Deserve",
-            "text": "Great ride, doesn't have to come at a great cost",
-            "button": "Explore products",
-            "link": "/products/t-01",
-            "secondary_button": "Our story",
-            "secondary_link": "/pages/about",
+            "kicker": "",
+            "heading": "Panquire Electric Dirt Bikes & Motorcycles",
+            "text": "Choose the T-01 or T-02 for off-road riding, or explore the compact T-03 mini electric motorcycle. Compare power, removable batteries and rider fit.",
+            "button": "Explore electric dirt bikes",
+            "link": "/collections/electric-dirt-bikes",
+            "secondary_button": "Explore electric motorcycles",
+            "secondary_link": "/collections/electric-motorcycles",
             "text_color": "#f3f3f1"
           }
         }
@@ -46,28 +46,32 @@
           "type": "benefit",
           "settings": {
             "heading": "Free Shipping",
-            "text": "Free shipping to the any part of the world"
+            "link": "/policies/shipping-policy",
+            "text": "Free outbound shipping to supported destinations. Duties and taxes may apply separately."
           }
         },
         "item2": {
           "type": "benefit",
           "settings": {
-            "heading": "1 Year Warranty",
-            "text": "Built for lasting confidence, backed by a 1-year warranty."
+            "heading": "1-Year Limited Warranty",
+            "link": "/pages/tos#warranty",
+            "text": "Coverage for the motor, battery and controller under the warranty terms."
           }
         },
         "item3": {
           "type": "benefit",
           "settings": {
-            "heading": "14-Day Returns",
-            "text": "Eligible change-of-mind returns within 14 days after delivery."
+            "heading": "Eligible Returns",
+            "link": "/policies/refund-policy",
+            "text": "Request an eligible change-of-mind return within 7 days of delivery. See the policy for conditions and applicable rights."
           }
         },
         "item4": {
           "type": "benefit",
           "settings": {
-            "heading": "Factory Direct",
-            "text": "Custom designs available without middleman"
+            "heading": "Model and Fit Support",
+            "link": "/pages/contact",
+            "text": "Ask Panquire about fit, parts compatibility or your order."
           }
         }
       },
@@ -87,11 +91,11 @@
           "settings": {
             "model": "T-01",
             "heading": "T-01",
-            "text": "High-output electric performance for demanding off-road rides.",
+            "text": "A 60V electric dirt bike for recreational trails, with a 55 kg net weight.",
             "product": "t-01",
             "image": "shopify://shop_images/panquire-t01-product.png",
             "label_1": "Peak Motor Power",
-            "value_1": "8000W",
+            "value_1": "9,500W",
             "label_2": "Net Weight",
             "value_2": "55 kg",
             "label_3": "Battery",
@@ -105,7 +109,7 @@
           "settings": {
             "model": "T-02",
             "heading": "T-02",
-            "text": "Central-motor power paired with extended battery capacity.",
+            "text": "A 72V electric dirt bike with 13 kW peak power and a removable 41Ah battery.",
             "product": "t-02",
             "image": "shopify://shop_images/panquire-t02-product.png",
             "label_1": "Battery",
@@ -123,7 +127,7 @@
           "settings": {
             "model": "T-03",
             "heading": "T-03",
-            "text": "A compact mini electric motorcycle built for responsive street and urban riding.",
+            "text": "A compact mini electric motorcycle with 12-inch Kenda road tires and a removable 60V battery.",
             "product": "t-03",
             "image": "shopify://shop_images/panquire-t03-product.png",
             "label_1": "Peak Motor Power",
@@ -218,7 +222,7 @@
       ],
       "settings": {
         "heading": "Customer Reviews",
-        "text": "We asked our first customers to send their pic and write their opinion, while their language is not \"marketing quality\" most of the time, their honesty is what we value the most and we are thankfull for all of them. Hopefully we will see you in our Panquire family album next!",
+        "text": "Read what Panquire customers say about their T-01 and T-02.",
         "spacing": 90
       }
     },
@@ -276,8 +280,8 @@
             "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
             "label": "THE CONTROLS",
             "heading": "Precision Power. Total Control.",
-            "text": "Panquire controller delivers up to 450A, ensuring responsive power delivery. Switch between three riding modes to match your experience, and fine-tune regenerative braking for controlled deceleration. Ergonomic handlebar controls keep riding modes, lights, turn signals, and horn within easy reach.",
-            "detail": "450A Max Current | 3 Riding Modes | Adjustable Regenerative Braking"
+            "text": "Select low, medium or high electronic power from the handlebar controls. Both T-01 and T-02 use three selectable power levels with no clutch. Choose the setting for your riding conditions and experience.",
+            "detail": "3 electronic power levels | Handlebar controls | No clutch"
           }
         },
         "motor": {
@@ -286,9 +290,9 @@
             "image": "shopify://shop_images/panquire-t01-closeup-Motor.png",
             "image_alt": "Motor cover and chain drive on a Panquire T-01 electric motorcycle.",
             "label": "THE MOTOR",
-            "heading": "8 kW peak, in a lighter package.",
-            "text": "The Panquire T-01 pairs an 8 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
-            "detail": "T-01 · 8 kW peak power"
+            "heading": "9.5 kW peak, in a lighter package.",
+            "text": "The Panquire T-01 pairs a 9.5 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
+            "detail": "T-01 · 9.5 kW peak power"
           }
         },
         "cockpit": {

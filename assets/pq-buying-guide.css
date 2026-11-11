@@ -1,0 +1,31 @@
+.pq-buying-guide { padding-block: clamp(36px, 6vw, 76px); }
+.pq-buying-guide__heading { max-width: 22ch; font-size: clamp(26px, 3vw, 40px); margin-bottom: 20px !important; }
+.pq-buying-guide p { max-width: 72ch; color: var(--pq-muted); line-height: 1.75; }
+.pq-buying-guide p + p { margin-top: 16px; }
+.pq-buying-guide a:not(.pq-button), .pq-breadcrumbs a { text-decoration: underline; text-underline-offset: 4px; }
+.pq-buying-guide a:hover { color: var(--pq-text); }
+.pq-buying-guide__table { width: 100%; border-collapse: collapse; margin-block: 28px 16px; table-layout: fixed; }
+.pq-buying-guide__table th, .pq-buying-guide__table td { padding: 16px 12px; text-align: start; border-bottom: 1px solid var(--pq-line); overflow-wrap: anywhere; vertical-align: top; }
+.pq-buying-guide__table thead th { font: 600 20px/1.3 var(--pq-heading-font); color: var(--color-accent-solid); }
+.pq-buying-guide__table tbody th { color: var(--pq-muted); font-weight: 400; }
+.pq-buying-guide__table caption { text-align: start; color: var(--pq-muted); padding-bottom: 8px; }
+.pq-buying-guide__columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 64px; margin-block: 40px; }
+.pq-buying-guide h3 { font-size: clamp(20px, 2vw, 25px); margin-bottom: 14px; }
+.pq-buying-guide__links { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 24px; }
+.pq-buying-guide__faq { border-top: 1px solid var(--pq-line); padding-top: 32px; }
+.pq-buying-guide__faq h2 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 20px; }
+.pq-buying-guide details { border-bottom: 1px solid var(--pq-line); padding: 18px 0; }
+.pq-buying-guide summary { cursor: pointer; min-height: 28px; font-weight: 600; padding-inline-end: 16px; }
+.pq-buying-guide details p { margin-top: 14px; }
+.pq-buying-guide__product { border-block: 1px solid var(--pq-line); padding-block: 28px; margin-block: 24px 48px; }
+.pq-buying-guide__product h2 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 16px; }
+.pq-breadcrumbs { padding-block: 18px; color: var(--pq-muted); font: 400 13px/1.6 var(--pq-body-font); }
+.pq-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.pq-breadcrumbs li + li::before { content: '/'; padding-inline-end: 8px; }
+.pq-breadcrumbs [aria-current] { text-decoration: none; color: var(--pq-text); }
+@media (max-width: 640px) {
+  .pq-buying-guide__columns { grid-template-columns: 1fr; gap: 28px; }
+  .pq-buying-guide__table th, .pq-buying-guide__table td { padding: 12px 6px; font-size: 13px; }
+  .pq-buying-guide__table thead th { font-size: 17px; }
+}
+.pq-compare .pq-buying-guide__table { min-width: 0; }
