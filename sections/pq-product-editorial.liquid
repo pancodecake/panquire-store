@@ -1,10 +1,17 @@
 {% liquid
   assign data = product.metafields.panquire
+  assign t01_editorial = false
+  if product.handle == 't-01' and request.locale.iso_code == 'en'
+    assign t01_editorial = true
+  endif
 %}
 {{ 'panquire-product-page.css' | asset_url | stylesheet_tag }}
 <div class="pq pq-product-editorial" id="ProductEditorial-{{ section.id }}">
   <div class="pq-product-wrap">
     {% render 'pq-product-selection', product: product %}
+    {% if t01_editorial %}
+      {% render 'pq-t01-product-story' %}
+    {% else %}
     {% for story in data.stories.value %}
       <section class="pq-product-story">
         <div class="pq-product-story__image">
@@ -27,6 +34,7 @@
         <div class="pq-product-story__copy"><span class="pq-product-eyebrow">{{ product.handle | upcase | escape }} / 0{{ forloop.index }}</span><h2>{{ story.heading | escape }}</h2><p>{{ story.body | escape }}</p></div>
       </section>
     {% endfor %}
+    {% endif %}
     {% if data.geometry_image.value %}
       <details class="pq-product-disclosure" open>
         <summary><h2>{{ 'panquire.product_page.geometry' | t }}</h2><span aria-hidden="true">+</span></summary>
@@ -59,7 +67,9 @@
       </div>
     </details>
     {% render 'pq-model-comparison', product: product, section_id: section.id %}
-    {% if data.faqs.value.size > 0 %}
+    {% if t01_editorial %}
+      {% render 'pq-t01-product-faq' %}
+    {% elsif data.faqs.value.size > 0 %}
       <section class="pq-product-faq"><h2>{{ 'panquire.product_page.faqs' | t }}</h2>
         {% for faq in data.faqs.value %}<details class="pq-product-disclosure"><summary><h3>{{ faq.question | escape }}</h3><span aria-hidden="true">+</span></summary><div class="pq-product-answer"><p>{% if faq.question == 'Is this product in stock?' and request.locale.iso_code == 'en' %}Check the availability shown next to the purchase button for your selected configuration. See the <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a> for dispatch and delivery details.{% else %}{{ faq.answer | escape }}{% endif %}</p></div></details>{% endfor %}
         <a href="{{ pages.contact.url }}">{{ 'panquire.product_page.support' | t }}</a>

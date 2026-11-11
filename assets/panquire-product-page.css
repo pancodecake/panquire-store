@@ -66,6 +66,11 @@
 .pq-product-faq summary h3 { font-size: 17px; letter-spacing: 0; }
 .pq-product-answer { max-width: 850px; padding-bottom: 28px; }
 .pq-product-answer p { margin-top: 0; }
+.pq-product-faq--t01 .pq-product-answer a { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 599px) {
+  .pq-product-faq--t01 .pq-product-disclosure > summary { gap: 12px; padding-block: 18px; }
+  .pq-product-faq--t01 .pq-product-answer { padding-bottom: 22px; }
+}
 .pq-product-faq > a,.pq-product-comparison > a { display: inline-block; padding-block: 16px; text-decoration: underline; text-underline-offset: 4px; }
 .pq-product-table-scroll { overflow-x: auto; margin-top: 36px; scrollbar-width: thin; }
 .pq-product-comparison table { border-collapse: collapse; width: 100%; min-width: 720px; table-layout: fixed; font-size: 14px; }

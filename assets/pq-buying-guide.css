@@ -19,6 +19,70 @@
 .pq-buying-guide details p { margin-top: 14px; }
 .pq-buying-guide__product { border-block: 1px solid var(--pq-line); padding-block: 28px; margin-block: 24px 48px; }
 .pq-buying-guide__product h2 { font-size: clamp(24px, 2.5vw, 32px); margin-bottom: 16px; }
+.pq-buying-guide__product.pq-t01-guide {
+  display: grid;
+  gap: 8px;
+  max-width: 1020px;
+  margin-inline: auto;
+  padding: 0;
+  border: 0;
+}
+.pq-t01-guide__media,
+.pq-t01-guide__body {
+  border: 1px solid var(--pq-line);
+  border-radius: 16px;
+  background: var(--surface);
+}
+.pq-t01-guide__media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.pq-t01-guide__media img {
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+}
+.pq-t01-guide__body { padding: clamp(20px, 4vw, 52px); }
+.pq-t01-guide .pq-t01-guide__eyebrow {
+  margin: 0 0 10px;
+  color: var(--color-accent-solid);
+  font: 700 12px/1.4 var(--pq-heading-font);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.pq-t01-guide h2 {
+  max-width: 24ch;
+  color: var(--pq-text);
+  font-size: clamp(26px, 4.1vw, 54px);
+  line-height: 1.08;
+  text-transform: none;
+}
+.pq-t01-guide h2 + p { margin-top: 0; }
+.pq-t01-guide .pq-t01-guide__capacity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin-block: 24px;
+}
+.pq-t01-guide__capacity strong {
+  color: var(--color-accent-solid);
+  font: 750 clamp(32px, 5vw, 58px)/1.1 var(--pq-heading-font);
+}
+.pq-t01-guide__capacity span { font-size: 13px; }
+.pq-t01-guide .pq-t01-guide__specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pq-line);
+}
+.pq-t01-guide__specs dd { font-size: clamp(13px, 2vw, 18px); }
+@media (max-width: 380px) {
+  .pq-t01-guide .pq-t01-guide__specs { gap: 10px; }
+}
 .pq-breadcrumbs { padding-block: 18px; color: var(--pq-muted); font: 400 13px/1.6 var(--pq-body-font); }
 .pq-breadcrumbs ol { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
 .pq-breadcrumbs li + li::before { content: '/'; padding-inline-end: 8px; }
