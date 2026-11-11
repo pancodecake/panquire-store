@@ -14,10 +14,12 @@
         {% if model_product.url == blank %}{% continue %}{% endif %}
         {% assign model_price = model_product.selected_or_first_available_variant.price | default: model_product.price %}
         <a class="pq-model-menu-card" href="{{ model_product.url }}"{% if product.handle == model %} aria-current="page"{% endif %}>
-          <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="" loading="lazy">
-          <span class="pq-model-menu-spec">{% render 'pq-model-data', model: model, field: 'Maximum speed' %} | {% render 'pq-model-data', model: model, field: 'Peak motor power' %} {{ 'panquire.model.peak' | t }}</span>
+          <span class="pq-model-menu-image">
+            <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="" loading="lazy">
+          </span>
           <strong>{{ model | upcase }}</strong>
           <span class="pq-model-menu-price">{{ model_price | money_with_currency }}</span>
+          <span class="pq-model-menu-spec">{% render 'pq-model-data', model: model, field: 'Maximum speed' %} | {% render 'pq-model-data', model: model, field: 'Peak motor power' %} {{ 'panquire.model.peak' | t }}</span>
         </a>
       {% endfor %}
     </div>
