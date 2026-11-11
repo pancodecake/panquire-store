@@ -61,6 +61,43 @@
 .pq-model-menu-card:is(:hover, :focus-visible) img { transform: scale(1.05); }
 .pq-model-menu-card:active { transform: scale(.98); }
 .pq-model-menu-card:hover strong { color: var(--color-accent-solid); }
+@media (width > 1000px) {
+  .pq-desktop-nav .pq-model-menu:has(.pq-model-menu-card:nth-child(2)) { position: static; }
+  .pq-desktop-nav .pq-model-menu-panel { width: min(860px, calc(100vw - 32px)); padding: 24px; }
+  .pq-desktop-nav .pq-model-menu-panel:has(.pq-model-menu-card:nth-child(2)) {
+    inset-inline: 0;
+    margin-inline: auto;
+  }
+  .pq-desktop-nav .pq-model-menu-panel:has(.pq-model-menu-card:only-child) { width: 470px; }
+  .pq-desktop-nav .pq-model-menu-panel::before {
+    content: '';
+    position: absolute;
+    inset: -12px 0 auto;
+    height: 12px;
+  }
+  .pq-desktop-nav .pq-model-menu-grid { gap: 24px; }
+  .pq-desktop-nav .pq-model-menu-card { min-height: 264px; padding: 28px; }
+  .pq-desktop-nav .pq-model-menu-card strong { font-size: 36px; }
+  .pq-desktop-nav .pq-model-menu-spec { font-size: 15px; }
+  .pq-desktop-nav .pq-model-menu-card img { height: 200px; }
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .pq-model-menu-card { position: relative; isolation: isolate; overflow: hidden; }
+  .pq-model-menu-card:hover::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    inset: -30% auto -30% -40%;
+    width: 30%;
+    background: linear-gradient(90deg, transparent, #df9f44, transparent);
+    opacity: .55;
+    animation: pq-model-card-shine 1.7s cubic-bezier(.4, 0, .2, 1) infinite;
+  }
+  @keyframes pq-model-card-shine {
+    from { transform: translateX(0) skewX(-15deg); }
+    to { transform: translateX(510%) skewX(-15deg); }
+  }
+}
 @media (prefers-reduced-motion: no-preference) {
   .pq-model-menu[open] .pq-model-menu-panel { animation: pq-menu-open 200ms cubic-bezier(.22,1,.36,1) both; }
   .pq-model-menu.is-closing .pq-model-menu-panel { animation: pq-menu-close 160ms ease both; }
