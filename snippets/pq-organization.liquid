@@ -1,8 +1,0 @@
-{% doc %}Organization identity for the custom Panquire header, which replaces the theme header.{% enddoc %}
-{% assign organization_logo = 'panquire-logo-transparent.svg' | asset_url %}
-{% assign logo_prefix = organization_logo | slice: 0, 2 %}
-{% if logo_prefix == '//' %}{% assign organization_logo = organization_logo | prepend: 'https:' %}{% endif %}
-{% capture organization_schema %}
-  {"@context":"https://schema.org","@type":"Organization","@id":{{ request.origin | append: '/#organization' | json }},"name":{{ settings.pq_store_name | default: 'Panquire' | json }},"url":{{ request.origin | json }},"logo":{{ organization_logo | json }}}
-{% endcapture %}
-  <script type="application/ld+json">{{ organization_schema | replace: '<', '\\u003c' }}</script>

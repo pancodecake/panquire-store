@@ -8,11 +8,8 @@
   assign mode = 'none'
   case key
     when 'price'
-      assign t03_product = all_products['t-03']
-      if t03_product != blank
-        assign value = t03_product.price | money_with_currency
-        assign numeric = t03_product.price
-      endif
+      assign value = '$1,699.00 USD'
+      assign numeric = 169900
       assign mode = 'lower'
     when 'peak_motor_power'
       assign value = '9,500 W'

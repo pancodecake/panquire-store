@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Liquid } = require(process.env.LIQUIDJS_MODULE || '../.preview-runtime/node_modules/liquidjs');
+const { Liquid } = require('../.preview-runtime/node_modules/liquidjs');
 const root = path.resolve(__dirname, '..');
 const prepare = source => source
   .replace(/{%-?\s*doc\s*-?%}[\s\S]*?{%-?\s*enddoc\s*-?%}/g, '')
@@ -48,8 +48,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
     assert.match(html, /one year warranty protection/);
-    // A policy may describe separately agreed preorders without declaring this stock a preorder.
-    assert.doesNotMatch(html, /type="checkbox"|available for pre[- ]?order|stock is expected to reach|two-year/i);
+    assert.doesNotMatch(html, /type="checkbox"|pre[- ]?order|two-year/i);
     assert.match(html, /aria-label="american_express"/);
     assert.match(html, /<span class="pq-purchase__review-count">17 reviews<\/span>/);
     assert.doesNotMatch(html, /BLACK FRIDAY|pq-purchase__campaign|<a\b[^>]*>17 reviews/i);

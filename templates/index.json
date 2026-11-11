@@ -18,9 +18,9 @@
             "video": "shopify://files/videos/panquire-home-hero.mp4",
             "kicker": "Introducing Panquire",
             "heading": "The Ride You Deserve",
-            "text": "Explore Panquire electric dirt bikes for recreational off-road riding. Compare the 60V T-01 and 72V T-02.",
-            "button": "Explore electric dirt bikes",
-            "link": "/collections/electric-dirt-bikes",
+            "text": "Great ride, doesn't have to come at a great cost",
+            "button": "Explore products",
+            "link": "/products/t-01",
             "secondary_button": "Our story",
             "secondary_link": "/pages/about",
             "text_color": "#f3f3f1"
@@ -46,7 +46,7 @@
           "type": "benefit",
           "settings": {
             "heading": "Free Shipping",
-            "text": "Free outbound shipping to supported destinations. Duties and taxes may apply separately."
+            "text": "Free shipping to the any part of the world"
           }
         },
         "item2": {
@@ -91,7 +91,7 @@
             "product": "t-01",
             "image": "shopify://shop_images/panquire-t01-product.png",
             "label_1": "Peak Motor Power",
-            "value_1": "9,500W",
+            "value_1": "8000W",
             "label_2": "Net Weight",
             "value_2": "55 kg",
             "label_3": "Battery",
@@ -276,8 +276,8 @@
             "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
             "label": "THE CONTROLS",
             "heading": "Precision Power. Total Control.",
-            "text": "Select low, medium or high electronic power from the handlebar controls. Both T-01 and T-02 use three selectable power levels with no clutch. Choose the setting for your riding conditions and experience.",
-            "detail": "3 electronic power levels | Handlebar controls | No clutch"
+            "text": "Panquire controller delivers up to 450A, ensuring responsive power delivery. Switch between three riding modes to match your experience, and fine-tune regenerative braking for controlled deceleration. Ergonomic handlebar controls keep riding modes, lights, turn signals, and horn within easy reach.",
+            "detail": "450A Max Current | 3 Riding Modes | Adjustable Regenerative Braking"
           }
         },
         "motor": {
@@ -286,9 +286,9 @@
             "image": "shopify://shop_images/panquire-t01-closeup-Motor.png",
             "image_alt": "Motor cover and chain drive on a Panquire T-01 electric motorcycle.",
             "label": "THE MOTOR",
-            "heading": "9.5 kW peak, in a lighter package.",
-            "text": "The Panquire T-01 pairs a 9.5 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
-            "detail": "T-01 · 9.5 kW peak power"
+            "heading": "8 kW peak, in a lighter package.",
+            "text": "The Panquire T-01 pairs an 8 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
+            "detail": "T-01 · 8 kW peak power"
           }
         },
         "cockpit": {
