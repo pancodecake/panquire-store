@@ -1,5 +1,38 @@
 pq-comparison { display: block; }
 .pq-compare { --compare-bronze: var(--color-accent-solid); padding-block: 56px 90px; }
+.pq-compare__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 1.25rem clamp(2rem, 5vw, 5rem);
+  margin-block-end: clamp(2rem, 5vw, 4rem);
+}
+.pq-compare__intro h1 {
+  max-width: 19ch;
+  margin: 0;
+  font-size: clamp(2rem, 4.4vw, 3.75rem);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  font-optical-sizing: auto;
+}
+.pq-compare__intro h1::before {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  margin-block-end: .45em;
+  background: var(--compare-bronze);
+}
+.pq-compare__intro p {
+  max-width: 53ch;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  line-height: 1.65;
+}
+@media (max-width: 749px) {
+  .pq-compare__intro { grid-template-columns: minmax(0, 1fr); }
+}
 .pq-compare__hero { display: grid; grid-template-columns: minmax(0,1fr) 86px minmax(0,1fr); gap: 24px; padding-bottom: 44px; }
 .pq-compare__product { position: relative; min-width: 0; text-align: center; }
 .pq-compare__eyebrow { margin-bottom: 18px; text-align: left; color: var(--compare-bronze); font: 650 clamp(22px,2.4vw,30px)/1.2 var(--pq-heading-font); letter-spacing: -.025em; }
