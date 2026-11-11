@@ -69,8 +69,7 @@
     <div class="pq-purchase__unavailable"><button type="button" disabled>{{ 'products.product.sold_out' | t }}</button></div>
   {% endif %}
   <aside class="pq-purchase__payments" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
-    <span class="pq-purchase__payment-icon" aria-hidden="true">{{ 'icon-discount.svg' | inline_asset_content }}</span>
-    <div><strong>{% render 'pq-purchase-copy', key: 'financing' %}</strong><p>{% render 'pq-purchase-copy', key: 'payment_text' %}</p></div>
+    <strong>{% render 'pq-purchase-copy', key: 'financing' %}</strong>
     {% render 'pq-payment-methods', list_only: true %}
   </aside>
   <details class="pq-purchase__accessories" open>
