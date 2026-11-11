@@ -35,11 +35,7 @@
             <span>{{ cart.currency.iso_code | escape }}</span>
           </span>
           <span>
-            {% if variant.available and cart.currency.iso_code == 'USD' and variant.price < 200000 %}
-              Electric dirt bike for sale under US$2,000
-            {% else %}
-              T-01 selling price
-            {% endif %}
+           Your best budget electric dirt bike that you ever purchased
           </span>
           {% if variant.compare_at_price > variant.price %}
             <span>Was <s>{{ variant.compare_at_price | money_with_currency }}</s>. Save {{ variant.compare_at_price | minus: variant.price | money_with_currency }}.</span>
