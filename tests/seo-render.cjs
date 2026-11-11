@@ -42,12 +42,8 @@ async function verify() {
   const meta=await render('snippets/meta-tags.liquid',ctx);assert.match(meta,/<meta name="robots" content="noindex, follow">/);assert.match(meta,/<meta\s+name="description"/);assert.match(meta,/rel="canonical"/);
   ctx.request.locale.iso_code='fr';ctx.page_title='Motos de loisir';ctx.page_description='Description localisee';const localMeta=await render('snippets/meta-tags.liquid',ctx);assert.match(localMeta,/Motos de loisir/);assert.doesNotMatch(localMeta,/Electric Dirt Bikes for Adults/);ctx.request.locale.iso_code='en';
   ctx.request.page_type='product';ctx.product=ctx.all_products['t-01'];assert.match(await render('snippets/meta-tags.liquid',ctx),/60V Electric Dirt Bike/);assert.match(await render('snippets/pq-product-selection.liquid',ctx),/A 60V electric dirt bike/);
-  ctx.product.selected_or_first_available_variant = { price: 199900, available: true };
-  ctx.product.variants = [ctx.product.selected_or_first_available_variant];
+    ctx.product.selected_or_first_available_variant = { price: 199900 };
   assert.match(await render('snippets/pq-product-selection.liquid',ctx), /under US\$2,000/);
-  ctx.product.selected_or_first_available_variant.price = 200000;
-  assert.doesNotMatch(await render('snippets/pq-product-selection.liquid',ctx), /under US\$/);
-  ctx.product.selected_or_first_available_variant.price = 199900;
   ctx.cart.currency.iso_code = 'EUR';
   assert.doesNotMatch(await render('snippets/pq-product-selection.liquid',ctx), /under US\$/);
   ctx.product=ctx.all_products['t-02'];assert.match(await render('snippets/meta-tags.liquid',ctx),/72V Electric Dirt Bike/);

@@ -3,17 +3,21 @@
   @param {product} product - Current product.
 {% enddoc %}
 {% if request.locale.iso_code == 'en' %}
-{% if product.handle == 't-01' %}
-  {% render 'pq-t01-buying-guide', product: product %}
-{% elsif product.handle == 't-02' %}
+{% if product.handle == 't-01' or product.handle == 't-02' %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
   <section class="pq-buying-guide pq-buying-guide__product">
-    <h2>A 72V electric dirt bike with more battery capacity</h2>
-    <p>The Panquire T-02 uses a removable 72V / 41Ah battery with 2.952 kWh of nominal energy. Its stated 13 kW peak output and three electronic power levels give you another option in the Panquire range. Peak output is not a measured acceleration result, and actual range depends on riding conditions.</p>
-    <p>Prefer the lower-priced option? <a href="{{ all_products['t-01'].url }}">Explore the 60V Panquire T-01</a>.</p>
+    {% if product.handle == 't-01' %}
+      <h2>A 60V electric dirt bike for recreational riding</h2>
+      <p>The Panquire T-01 has 9.5 kW peak power, a 55 kg net weight, a removable 60V 31.2Ah battery and three electronic power levels. It is the lower-priced option in the T-01 and T-02 range. Start with your fit, experience and riding location, then compare battery capacity and the full purchase cost.</p>
+      <p>Considering more battery capacity and stated peak power? <a href="{{ all_products['t-02'].url }}">Explore the 72V Panquire T-02</a>.</p>
+    {% else %}
+      <h2>A 72V electric dirt bike with more battery capacity</h2>
+      <p>The Panquire T-02 uses a removable 72V / 41Ah battery with 2.952 kWh of nominal energy. Its stated 13 kW peak output and three electronic power levels give you another option in the Panquire range. Peak output is not a measured acceleration result, and actual range depends on riding conditions.</p>
+      <p>Prefer the lower-priced option? <a href="{{ all_products['t-01'].url }}">Explore the 60V Panquire T-01</a>.</p>
+    {% endif %}
     <h3>Fit, range and total cost</h3>
     <p>The {{ product.handle | upcase }} is an adult off-road electric dirt bike with a 19-inch front wheel and a 17-inch rear wheel. The recommended rider height is approximately 160–190 cm. Check your inseam and the suspension guidance in the specifications before choosing.</p>
-    <p>The 72V T-02 has a stated Eco-mode range of 90 km and uses an 18A charger. Actual range varies with terrain, temperature, speed and rider weight.</p>
+    <p>{% if product.handle == 't-01' %}The 60V T-01 has a stated Eco-mode range of 80 km and uses a 6A charger.{% else %}The 72V T-02 has a stated Eco-mode range of 90 km and uses an 18A charger.{% endif %} Actual range varies with terrain, temperature, speed and rider weight.</p>
     {% if cart.currency.iso_code == 'USD' %}
       {% assign bike_price = product.selected_or_first_available_variant.price %}
       {% if bike_price != blank and bike_price < 300000 %}
