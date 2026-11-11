@@ -28,3 +28,4 @@
   .pq-buying-guide__table th, .pq-buying-guide__table td { padding: 12px 6px; font-size: 13px; }
   .pq-buying-guide__table thead th { font-size: 17px; }
 }
+.pq-compare .pq-buying-guide__table { min-width: 0; }
