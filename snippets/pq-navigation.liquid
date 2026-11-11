@@ -3,15 +3,14 @@
 
   @param {object} [menu] - Optional Shopify menu selected in the header section.
 {% enddoc %}
-{% render 'pq-model-menu' %}
-<a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}"{% if collection.handle == 'electric-dirt-bikes' %} aria-current="page"{% endif %}>Electric Dirt Bikes</a>
-<a href="{{ collections['electric-motorcycles'].url | default: '/collections/electric-motorcycles' }}"{% if collection.handle == 'electric-motorcycles' %} aria-current="page"{% endif %}>Electric Motorcycles</a>
+{% render 'pq-model-menu', label: 'Electric Dirt Bikes', handles: 't-01,t-02' %}
+{% render 'pq-model-menu', label: 'Electric Motorcycles', handles: 't-03' %}
 {% if menu != blank %}
   {% assign has_comparison_link = false %}
   {% for link in menu.links %}
     {% if link.url contains '/pages/compare' %}{% assign has_comparison_link = true %}{% endif %}
     {% assign link_label = link.title | downcase %}
-    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url == '/collections/all' or link.url contains '/collections/electric-dirt-bikes' or link.url contains '/collections/electric-motorcycles' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if link.url contains '/pages/compare' %}Compare Models{% else %}{{ link.title | escape }}{% endif %}</a>{% endunless %}
+    {% unless link.url == routes.root_url or link_label == 'products' or link.url == '/pages/products' or link.url == '/products' or link.url contains '/collections' %}<a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{% if link.url contains '/pages/compare' %}Compare Models{% else %}{{ link.title | escape }}{% endif %}</a>{% endunless %}
   {% endfor %}
   {% unless has_comparison_link %}<a href="/pages/compare"{% if page.handle == 'compare' %} aria-current="page"{% endif %}>Compare Models</a>{% endunless %}
 {% else %}

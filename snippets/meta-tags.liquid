@@ -28,13 +28,7 @@
   assign seo_language = request.locale.iso_code | slice: 0, 2
 
   if seo_language == 'en'
-  if request.page_type == 'collection' and collection.handle == 'electric-dirt-bikes'
-    assign document_title = 'Electric Dirt Bikes for Adults | Panquire'
-    assign og_description = 'Compare Panquire electric dirt bikes for adults. Explore the 60V T-01 and 72V T-02, current prices, battery capacity, rider fit and ownership details.'
-  elsif request.page_type == 'collection' and collection.handle == 'electric-motorcycles'
-    assign document_title = 'Electric Motorcycles | Panquire'
-    assign og_description = 'Explore the Panquire T-03 mini electric motorcycle with 12-inch Kenda road tires, a removable 60V battery and three selectable power levels.'
-  elsif request.page_type == 'product' and product.handle == 't-03'
+  if request.page_type == 'product' and product.handle == 't-03'
     assign document_title = 'Panquire T-03 Mini Electric Motorcycle | 9.5 kW Peak'
     assign og_description = 'Meet the Panquire T-03 mini electric motorcycle with 12-inch Kenda road tires, 9.5 kW peak power and a removable 60V 31.2Ah battery.'
   elsif request.page_type == 'product' and product.handle == 't-01'
@@ -72,6 +66,9 @@
     assign og_url = request.origin
   endif
 %}
+{% if request.page_type == 'collection' or request.page_type == 'list-collections' %}
+  <meta name="robots" content="noindex, follow">
+{% endif %}
 
 <meta
   property="og:site_name"

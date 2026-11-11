@@ -1,0 +1,17 @@
+<section class="pq pq-section">
+  <div class="pq-container">
+    <h1>Explore Panquire models</h1>
+    <ul>
+      {% assign models = 't-01,t-02,t-03' | split: ',' %}
+      {% for handle in models %}
+        {% assign model = all_products[handle] %}
+        {% if model != blank %}
+          <li><a href="{{ model.url }}">{{ model.title | escape }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{"name":"Panquire model links","settings":[]}
+{% endschema %}

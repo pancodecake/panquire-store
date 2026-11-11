@@ -19,10 +19,10 @@
             "kicker": "",
             "heading": "Panquire Electric Dirt Bikes & Motorcycles",
             "text": "Choose the T-01 or T-02 for off-road riding, or explore the compact T-03 mini electric motorcycle. Compare power, removable batteries and rider fit.",
-            "button": "Explore electric dirt bikes",
-            "link": "/collections/electric-dirt-bikes",
-            "secondary_button": "Explore electric motorcycles",
-            "secondary_link": "/collections/electric-motorcycles",
+            "button": "Explore T-01",
+            "link": "/products/t-01",
+            "secondary_button": "Explore T-03",
+            "secondary_link": "/products/t-03",
             "text_color": "#f3f3f1"
           }
         }
