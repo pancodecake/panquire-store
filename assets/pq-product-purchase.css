@@ -52,8 +52,9 @@
 .pq-storefront .pq-purchase .shopify-payment-button__button--unbranded { display: block; width: 100%; min-height: 48px; padding: 10px 16px; border: 1px solid var(--color-secondary-solid); border-radius: 999px; background: var(--color-secondary-solid); color: var(--color-text-on-secondary) !important; font-family: var(--pq-heading-font); font-size: 14px; font-weight: 700; letter-spacing: .025em; text-transform: uppercase; }
 .pq-purchase .shopify-payment-button__more-options { display: none; }
 .pq-purchase__unavailable button { width: 100%; min-height: 48px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--surface); color: var(--color-text-secondary); font: inherit; }
-.pq-storefront .pq-purchase .pq-purchase__payments { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin-top: 16px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--surface); }
-.pq-purchase__payments strong { color: var(--color-text-primary); font-size: 13px; font-weight: 600; }
+.pq-purchase__payment-section { margin-top: 18px; }
+.pq-purchase .pq-purchase__payment-title { display: flex; align-items: center; min-height: 48px; padding-right: 12px; color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: 15px; font-weight: 600; }
+.pq-storefront .pq-purchase .pq-purchase__payments { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 4px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--surface); }
 .pq-purchase .pq-purchase__payments .pq-footer-payment-icons { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(4px, 1vw, 8px); width: 100%; margin: 0; padding: 0; list-style: none; }
 .pq-purchase .pq-footer-payment-icons li { display: flex; min-width: 0; }
 .pq-purchase .pq-footer-payment-icons svg { display: block; width: 100%; height: auto; aspect-ratio: 38 / 24; }

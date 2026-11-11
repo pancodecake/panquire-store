@@ -68,10 +68,12 @@
   {% else %}
     <div class="pq-purchase__unavailable"><button type="button" disabled>{{ 'products.product.sold_out' | t }}</button></div>
   {% endif %}
-  <aside class="pq-purchase__payments" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
-    <strong>{% render 'pq-purchase-copy', key: 'financing' %}</strong>
-    {% render 'pq-payment-methods', list_only: true %}
-  </aside>
+  <section class="pq-purchase__payment-section">
+    <h2 class="pq-purchase__payment-title">{% render 'pq-purchase-copy', key: 'financing' %}</h2>
+    <div class="pq-purchase__payments">
+      {% render 'pq-payment-methods', list_only: true %}
+    </div>
+  </section>
   <details class="pq-purchase__accessories" open>
     <summary>{% render 'pq-purchase-copy', key: 'accessories' %}<span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
     <div class="pq-purchase__accessory-box">
