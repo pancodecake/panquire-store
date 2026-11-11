@@ -16,6 +16,7 @@ function fixture() {
 }
 async function render(file, ctx=fixture()) {
   const engine = new Liquid({root:path.join(root,'snippets'),extname:'.liquid',globals:ctx});
+  engine.registerFilter('t', x=>x);
   engine.registerFilter('json', x=>JSON.stringify(x ?? null));
   engine.registerFilter('asset_url', x=>'/assets/'+x);
   engine.registerFilter('stylesheet_tag', x=>'<link rel="stylesheet" href="'+x+'">');
@@ -25,24 +26,24 @@ async function render(file, ctx=fixture()) {
   return engine.parseAndRender(read(file),ctx);
 }
 async function verify() {
-  let ctx=fixture(); const guide=await render('sections/pq-collection-guide.liquid',ctx);
-  assert.match(guide,/\$1,999\.00 USD/); assert.match(guide,/\$2,699\.00 USD/);assert.match(guide,/under US\$3,000/);assert.match(guide,/9,500W/);assert.match(guide,/13,000W/);assert.equal((guide.match(/<h1/g)||[]).length,0);
-  ctx.all_products['t-01'].price=209900;ctx.all_products['t-02'].price=309900;
-  const changed=await render('sections/pq-collection-guide.liquid',ctx);assert.match(changed,/\$2,099\.00 USD/);assert.doesNotMatch(changed,/under US\$2,000|under US\$3,000/);
-  ctx.cart.currency.iso_code='EUR';assert.doesNotMatch(await render('sections/pq-collection-guide.liquid',ctx),/under US\$/);
-  ctx.collection.handle='electric-motorcycles';
-  const streetGuide = await render('sections/pq-collection-guide.liquid', ctx);
-  assert.match(streetGuide, /Choosing between paved and off-road riding/);
-  assert.doesNotMatch(streetGuide, /Electric dirt bike buying questions/);
-  assert.match(await render('snippets/meta-tags.liquid', ctx), /Electric Motorcycles \| Panquire/);
-  ctx=fixture();delete ctx.all_products['t-02'];assert.equal((await render('sections/pq-collection-guide.liquid',ctx)).trim(),'');
-  ctx=fixture();ctx.request.page_type='product';ctx.canonical_url='https://panquire.com/products/t-02';
-  const crumbs=await render('snippets/pq-seo-breadcrumbs.liquid',ctx);const schema=JSON.parse(crumbs.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);assert.equal(schema.itemListElement.length,3);assert.equal(schema.itemListElement[2].item,ctx.canonical_url);
+  let ctx = fixture();
+  const links = await render('sections/pq-product-destinations.liquid', ctx);
+  for (const handle of ['t-01','t-02','t-03']) assert.match(links, new RegExp('/products/' + handle));
+  assert.doesNotMatch(links, /\/collections\//);
+  const navigation = await render('snippets/pq-navigation.liquid', ctx);
+  assert.match(navigation, /Electric Dirt Bikes[\s\S]*?\/products\/t-01[\s\S]*?\/products\/t-02[\s\S]*?Electric Motorcycles[\s\S]*?\/products\/t-03/);
+  assert.doesNotMatch(navigation, /E-motos|\/collections\//);
+  ctx.request.page_type='product';ctx.canonical_url='https://panquire.com/products/t-02';
+  const crumbs=await render('snippets/pq-seo-breadcrumbs.liquid',ctx);const schema=JSON.parse(crumbs.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);assert.equal(schema.itemListElement.length,2);assert.equal(schema.itemListElement[1].item,ctx.canonical_url);
   ctx.product.title='Bike </script><script>bad()</script>';const escaped=await render('snippets/pq-seo-breadcrumbs.liquid',ctx);assert.equal((escaped.match(/<script/g)||[]).length,1);JSON.parse(escaped.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);
   ctx=fixture();const org=JSON.parse((await render('snippets/pq-organization.liquid',ctx)).match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);assert.equal(org['@type'],'Organization');assert.equal(org.url,'https://panquire.com');
-  const meta=await render('snippets/meta-tags.liquid',ctx);assert.match(meta,/Electric Dirt Bikes for Adults/);assert.match(meta,/<meta\s+name="description"/);assert.match(meta,/rel="canonical"/);
+  const meta=await render('snippets/meta-tags.liquid',ctx);assert.match(meta,/<meta name="robots" content="noindex, follow">/);assert.match(meta,/<meta\s+name="description"/);assert.match(meta,/rel="canonical"/);
   ctx.request.locale.iso_code='fr';ctx.page_title='Motos de loisir';ctx.page_description='Description localisee';const localMeta=await render('snippets/meta-tags.liquid',ctx);assert.match(localMeta,/Motos de loisir/);assert.doesNotMatch(localMeta,/Electric Dirt Bikes for Adults/);ctx.request.locale.iso_code='en';
   ctx.request.page_type='product';ctx.product=ctx.all_products['t-01'];assert.match(await render('snippets/meta-tags.liquid',ctx),/60V Electric Dirt Bike/);assert.match(await render('snippets/pq-product-selection.liquid',ctx),/A 60V electric dirt bike/);
+    ctx.product.selected_or_first_available_variant = { price: 199900 };
+  assert.match(await render('snippets/pq-product-selection.liquid',ctx), /under US\$2,000/);
+  ctx.cart.currency.iso_code = 'EUR';
+  assert.doesNotMatch(await render('snippets/pq-product-selection.liquid',ctx), /under US\$/);
   ctx.product=ctx.all_products['t-02'];assert.match(await render('snippets/meta-tags.liquid',ctx),/72V Electric Dirt Bike/);
   const price=await render('snippets/pq-model-comparison-static-cell.liquid',{...ctx,key:'price'});assert.match(price,/1,999/);assert.doesNotMatch(price,/1,699/);
   const selection=await render('snippets/pq-comparison-guide.liquid',fixture());assert.match(selection,/Sur-Ron alternative/);assert.match(selection,/2\.952 kWh/);

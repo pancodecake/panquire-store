@@ -1,16 +1,21 @@
-{% doc %}Model navigation shared by desktop and mobile.{% enddoc %}
+{% doc %}
+  Model navigation shared by desktop and mobile.
+  @param {string} label - Group name.
+  @param {string} handles - Comma-separated product handles.
+{% enddoc %}
 <details class="pq-model-menu">
-  <summary>E-motos</summary>
+  <summary>{{ label | escape }}</summary>
   <div class="pq-model-menu-panel">
     <div class="pq-container pq-model-menu-grid">
-      {% capture handles %}{% render 'pq-model-data', field: 'handles' %}{% endcapture %}
-      {% assign models = handles | strip | split: ',' %}
+      {% assign models = handles | split: ',' %}
       {% for model in models %}
         {% capture image %}{% render 'pq-model-data', model: model, field: 'image' %}{% endcapture %}
-        <a class="pq-model-menu-card" href="/products/{{ model }}">
+        {% assign model_url = all_products[model].url %}
+        {% if model_url == blank %}{% continue %}{% endif %}
+        <a class="pq-model-menu-card" href="{{ model_url }}"{% if product.handle == model %} aria-current="page"{% endif %}>
           <span class="pq-model-menu-spec">{% render 'pq-model-data', model: model, field: 'Maximum speed' %} | {% render 'pq-model-data', model: model, field: 'Peak motor power' %} {{ 'panquire.model.peak' | t }}</span>
           <strong>{{ model | upcase }}</strong>
-          <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="{{ model | upcase }}" loading="lazy">
+          <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="" loading="lazy">
         </a>
       {% endfor %}
     </div>

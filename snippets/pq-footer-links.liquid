@@ -8,8 +8,6 @@
 <nav aria-label="{{ block.settings.heading | escape }}">
   {% case block.settings.built_in %}
     {% when 'shop' %}
-      <a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}">Electric Dirt Bikes</a>
-      <a href="{{ collections['electric-motorcycles'].url | default: '/collections/electric-motorcycles' }}">Electric Motorcycles</a>
       <a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare Models</a>
       <a href="/products/t-01">T-01</a>
       <a href="/products/t-02">T-02</a>

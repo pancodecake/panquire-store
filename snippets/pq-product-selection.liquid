@@ -15,14 +15,23 @@
       <p>The Panquire T-02 uses a removable 72V / 41Ah battery with 2.952 kWh of nominal energy. Its stated 13 kW peak output and three electronic power levels give you another option in the Panquire range. Peak output is not a measured acceleration result, and actual range depends on riding conditions.</p>
       <p>Prefer the lower-priced option? <a href="{{ all_products['t-01'].url }}">Explore the 60V Panquire T-01</a>.</p>
     {% endif %}
-    <div class="pq-buying-guide__links"><a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}">Compare Panquire electric dirt bikes</a><a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare alternatives from other brands</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about fit and ownership</a></div>
+    <h3>Fit, range and total cost</h3>
+    <p>The {{ product.handle | upcase }} is an adult off-road electric dirt bike with a 19-inch front wheel and a 17-inch rear wheel. The recommended rider height is approximately 160–190 cm. Check your inseam and the suspension guidance in the specifications before choosing.</p>
+    <p>{% if product.handle == 't-01' %}The 60V T-01 has a stated Eco-mode range of 80 km and uses a 6A charger.{% else %}The 72V T-02 has a stated Eco-mode range of 90 km and uses an 18A charger.{% endif %} Actual range varies with terrain, temperature, speed and rider weight.</p>
+    {% if cart.currency.iso_code == 'USD' %}
+      {% assign bike_price = product.selected_or_first_available_variant.price %}
+      {% if bike_price != blank and bike_price < 300000 %}
+        <p>The {{ product.handle | upcase }} is listed at {{ bike_price | money_with_currency }}, under US${% if bike_price < 200000 %}2,000{% else %}3,000{% endif %} before applicable taxes and duties. Check your total at checkout.</p>
+      {% endif %}
+    {% endif %}
+    <div class="pq-buying-guide__links"><a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare electric dirt bike specifications</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about fit and ownership</a></div>
   </section>
 {% elsif product.handle == 't-03' %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
   <section class="pq-buying-guide pq-buying-guide__product">
     <h2>A compact mini electric motorcycle</h2>
     <p>The Panquire T-03 uses 12-inch Kenda road tires for paved surfaces. It has a removable 60V 31.2Ah battery, 9.5 kW peak power and three selectable electronic power levels. Use its model-specific 18A charger. Charging time has yet to be confirmed.</p>
-    <p>Check your local rules for vehicle classification, registration, licensing and permitted riding areas. <a href="{{ collections['electric-motorcycles'].url | default: '/collections/electric-motorcycles' }}">Explore Panquire electric motorcycles</a> or <a href="{{ pages.contact.url | default: '/pages/contact' }}">ask about fit and ownership</a>.</p>
+    <p>The T-03 is designed for paved surfaces. For recreational trail riding, see the <a href="{{ all_products['t-01'].url }}">T-01</a> or <a href="{{ all_products['t-02'].url }}">T-02 electric dirt bike</a>. Check your local rules for vehicle classification, registration, licensing and permitted riding areas.</p>
   </section>
 {% endif %}
 {% endif %}

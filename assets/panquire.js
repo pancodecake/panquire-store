@@ -214,7 +214,14 @@
       const hover = matchMedia('(hover: hover) and (pointer: fine)');
       const desktopHover = () => hover.matches && Boolean(menu.closest('.pq-desktop-nav'));
       let timer;
-      const open = () => { clearTimeout(timer); menu.classList.remove('is-closing'); menu.open = true; };
+      const open = () => {
+        menu.parentElement.querySelectorAll(':scope > .pq-model-menu[open]').forEach((other) => {
+          if (other !== menu) other.open = false;
+        });
+        clearTimeout(timer);
+        menu.classList.remove('is-closing');
+        menu.open = true;
+      };
       const close = () => {
         clearTimeout(timer);
         menu.classList.add('is-closing');
@@ -222,9 +229,12 @@
       };
       menu.addEventListener('pointerenter', () => { if (desktopHover()) open(); });
       menu.addEventListener('pointerleave', () => { if (desktopHover() && !menu.contains(document.activeElement)) timer = setTimeout(close, 120); });
-      menu.addEventListener('focusin', () => { if (desktopHover()) open(); });
       menu.addEventListener('focusout', (event) => { if (!menu.contains(event.relatedTarget)) close(); });
-      trigger.addEventListener('click', (event) => { event.preventDefault(); if (menu.open) close(); else open(); });
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (menu.open && !(desktopHover() && event.detail > 0)) close();
+        else open();
+      });
       menu.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); trigger.focus(); close(); }
       });

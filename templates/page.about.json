@@ -21,7 +21,7 @@
           "type": "brand_text",
           "settings": {
             "label": "Intro",
-            "content": "<p>Panquire sells electric motorcycles and off-road electric dirt bikes. Explore the <a href=\"/collections/electric-dirt-bikes\">T-01 and T-02 dirt bikes</a> for recreational off-road riding or the <a href=\"/collections/electric-motorcycles\">T-03 mini electric motorcycle</a>. For help choosing a model or with an existing order, <a href=\"/pages/contact\">contact Panquire support</a>.</p>"
+            "content": "<p>Panquire sells electric motorcycles and off-road electric dirt bikes. Explore the <a href=\"/products/t-01\">T-01</a> and <a href=\"/products/t-02\">T-02</a> for recreational off-road riding or the <a href=\"/products/t-03\">T-03 mini electric motorcycle</a>. For help choosing a model or with an existing order, <a href=\"/pages/contact\">contact Panquire support</a>.</p>"
           }
         },
         "story": {
