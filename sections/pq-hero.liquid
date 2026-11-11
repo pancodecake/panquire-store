@@ -38,6 +38,11 @@
               {% capture highlighted_text %}<span class="pq-hero-highlight">{{ highlight_text }}</span>{% endcapture %}
               {% assign hero_description = hero_description | replace: highlight_text, highlighted_text %}
             {% endif %}
+            {% if hero.settings.italic_text != blank %}
+              {% assign italic_text = hero.settings.italic_text | escape %}
+              {% capture italicized_text %}<em>{{ italic_text }}</em>{% endcapture %}
+              {% assign hero_description = hero_description | replace: italic_text, italicized_text %}
+            {% endif %}
             <p class="pq-hero-description">{{ hero_description }}</p>
           {% endif %}
           <div class="pq-hero-actions">
@@ -74,6 +79,7 @@
     { "type": "text", "id": "subheading", "label": "Bold subheading" },
     { "type": "text", "id": "text", "label": "Description", "default": "Find your next adventure with a ride designed for everyday freedom." },
     { "type": "text", "id": "highlight_text", "label": "Description text to highlight" },
+    { "type": "text", "id": "italic_text", "label": "Description text to italicize" },
     { "type": "text", "id": "button", "label": "Primary button label", "default": "Explore products" },
     { "type": "url", "id": "link", "label": "Primary button link" },
     { "type": "text", "id": "secondary_button", "label": "Secondary button label", "default": "Our story" },
