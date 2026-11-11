@@ -33,6 +33,8 @@ async function verify() {
   const navigation = await render('snippets/pq-navigation.liquid', ctx);
   assert.match(navigation, /Electric Dirt Bikes[\s\S]*?\/products\/t-01[\s\S]*?\/products\/t-02[\s\S]*?Electric Motorcycles[\s\S]*?\/products\/t-03/);
   assert.doesNotMatch(navigation, /E-motos|\/collections\//);
+  assert.match(navigation, /<strong>T-01<\/strong>\s*<span class="pq-model-menu-price">\$1,999\.00 USD/);
+  assert.match(navigation, /<strong>T-02<\/strong>\s*<span class="pq-model-menu-price">\$2,699\.00 USD/);
   ctx.request.page_type='product';ctx.canonical_url='https://panquire.com/products/t-02';
   const crumbs=await render('snippets/pq-seo-breadcrumbs.liquid',ctx);const schema=JSON.parse(crumbs.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);assert.equal(schema.itemListElement.length,2);assert.equal(schema.itemListElement[1].item,ctx.canonical_url);
   ctx.product.title='Bike </script><script>bad()</script>';const escaped=await render('snippets/pq-seo-breadcrumbs.liquid',ctx);assert.equal((escaped.match(/<script/g)||[]).length,1);JSON.parse(escaped.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1]);
