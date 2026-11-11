@@ -1,0 +1,63 @@
+{% doc %}
+  Price and comparison guide for the T-01.
+  @param {product} product - The current T-01 product.
+{% enddoc %}
+{% liquid
+  assign guide_image = images['panquire-t01_outside_pavement.jpg'] | default: product.featured_image
+  assign variant = product.selected_or_first_available_variant
+  assign light_bee = shop.metaobjects.competitor_product['light-bee-x']
+  assign spark = shop.metaobjects.competitor_product['x1-spark-l']
+%}
+{{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
+{% if product.variants.size > 1 %}
+  <script type="module" src="{{ 'pq-t01-guide-price.js' | asset_url }}"></script>
+{% endif %}
+<section class="pq-buying-guide pq-buying-guide__product pq-t01-guide">
+  {% if guide_image != blank %}
+    <div class="pq-t01-guide__image">
+      {{ guide_image | image_url: width: 2240 | image_tag: widths: '360, 540, 750, 990, 1120, 1500, 1800, 2240', sizes: '(min-width: 1216px) 1120px, (min-width: 990px) calc(100vw - 96px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)', loading: 'lazy', decoding: 'async', alt: 'Side view of the black and gold Panquire T-01 electric dirt bike on pavement' }}
+    </div>
+  {% endif %}
+  <div class="pq-t01-guide__card">
+    <p class="pq-t01-guide__eyebrow">Panquire T-01 / Price and performance</p>
+    <h2>A 60V electric dirt bike for weekend trails</h2>
+    <div class="pq-t01-guide__lead">
+      <div>
+        <p>Shopping for an affordable electric dirt bike? The T-01 pairs a removable 1,872 Wh battery with 19-inch front and 17-inch rear wheels. If you’re weighing a Sur-Ron alternative, the 60V Light Bee X has a larger 2,400 Wh battery. The Qronge X1 Spark L has a 1,728 Wh battery and smaller 17-inch front and 14-inch rear wheels.</p>
+        {% if cart.currency.iso_code == 'USD' and light_bee.price.value > 0 and light_bee.currency.value == 'USD' and spark.price.value > 0 and spark.currency.value == 'USD' %}
+          <p>Our comparison lists the Light Bee X at about US{{ light_bee.price.value | times: 100 | money_without_trailing_zeros }} and the X1 Spark L at about US{{ spark.price.value | times: 100 | money_without_trailing_zeros }}. Check current dealer prices for the exact model and year.</p>
+        {% endif %}
+      </div>
+      <div class="pq-t01-guide__price" data-t01-guide-price="{{ product.id }}" aria-live="polite">
+        {% if variant.price != blank %}
+          <span class="pq-t01-guide__amount">
+            <strong>{{ variant.price | money }}</strong>
+            <span>{{ cart.currency.iso_code | escape }}</span>
+          </span>
+          <span>
+            {% if variant.available and cart.currency.iso_code == 'USD' and variant.price < 200000 %}
+              Electric dirt bike for sale under US$2,000
+            {% else %}
+              T-01 selling price
+            {% endif %}
+          </span>
+          {% if variant.compare_at_price > variant.price %}
+            <span>Was <s>{{ variant.compare_at_price | money_with_currency }}</s>. Save {{ variant.compare_at_price | minus: variant.price | money_with_currency }}.</span>
+          {% endif %}
+          {% unless variant.available %}<span>{{ 'content.product_badge_sold_out' | t }}</span>{% endunless %}
+        {% else %}
+          <span>{{ 'content.unavailable' | t }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <dl class="pq-t01-guide__specs">
+      <div><dt>60V electric performance</dt><dd>9.5 kW peak power. Choose from three power levels at the handlebar.</dd></div>
+      <div><dt>55 kg bike weight</dt><dd>Aluminum alloy frame with hydraulic disc brakes.</dd></div>
+      <div><dt>Up to 80 km in Eco mode</dt><dd>Manufacturer-stated range. Actual distance varies by rider and conditions.</dd></div>
+    </dl>
+    <div class="pq-buying-guide__links">
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare models and check sources</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about rider fit</a>
+    </div>
+  </div>
+</section>

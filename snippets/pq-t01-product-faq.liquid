@@ -1,0 +1,25 @@
+{%- capture faq_copy -%}
+Is the T-01 suitable for adults or teens?|Both. The T-01 fits adult and teen riders who can comfortably handle the bike. The recommended rider height is 160 to 190 cm (about 5 ft 3 in to 6 ft 3 in). Check local age requirements for where you plan to ride.
+How fast can the T-01 go?|The T-01 has a stated top speed of 80 km/h (about 50 mph). Actual speed depends on riding conditions.
+What is the range on a single charge?|The stated range is 80 km (about 50 miles) in Eco mode. Your actual range depends on speed, rider weight, terrain, temperature, and riding style.
+Why choose the T-01?|The T-01 is a 55 kg electric dirt bike with 9.5 kW of peak power. You can select low, medium, or high power from the handlebar without using a clutch. The battery comes out so you can charge it away from the bike.
+Is it street legal?|The T-01 is designed for off-road riding. Before taking it onto public roads, check whether your local rules allow this model and what they require for registration, licensing, and insurance.
+What warranty do I get?|Panquire’s one-year limited warranty covers the motor, battery, and controller from the date of delivery. Your statutory consumer rights also apply.
+How fast will it ship?|We aim to dispatch in-stock orders within three business days after payment confirmation and any required checks. If you’re preordering, we’ll show the applicable schedule before you pay. For eligible U.S. and European orders, we guarantee delivery within 30 calendar days after the carrier accepts the shipment.
+What if I need help or service?|Email support@panquire.com or use our Contact Us page. If you’ve already ordered, include your order number and a short description of the issue. For a warranty claim, include your proof of purchase so we can review your claim and explain the next steps.
+{%- endcapture -%}
+{%- assign faqs = faq_copy | newline_to_br | split: '<br />' -%}
+{%- assign contact_url = pages.contact.url | default: '/pages/contact' -%}
+{%- capture contact_link -%}<a href="{{ contact_url | escape }}">Contact Us</a>{%- endcapture -%}
+<section class="pq-product-faq pq-product-faq--t01">
+  <h2>{{ 'panquire.product_page.faqs' | t }}</h2>
+  {% for row in faqs %}
+    {% assign entry = row | strip | split: '|' %}
+    <details class="pq-product-disclosure">
+      <summary><h3>{{ entry[0] | escape }}</h3><span aria-hidden="true">+</span></summary>
+      <div class="pq-product-answer">
+        <p>{{ entry[1] | escape | replace: 'support@panquire.com', '<a href="mailto:support@panquire.com">support@panquire.com</a>' | replace: 'Contact Us', contact_link }}</p>
+      </div>
+    </details>
+  {% endfor %}
+</section>
