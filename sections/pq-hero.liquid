@@ -7,8 +7,12 @@
   {% if hero != blank %}
     <div class="pq-hero-slide" {{ hero.shopify_attributes }}>
       <div class="pq-hero-media">
-        {% assign media_label = 'panquire.hero_image' | t %}
-        {% render 'pq-media', image: hero.settings.image, label: media_label, eager: true, sizes: '100vw' %}
+        {% if hero.settings.video != blank %}
+          {{ hero.settings.video | video_tag: class: 'pq-image', image_size: '1920x', autoplay: true, loop: true, muted: true, playsinline: true, controls: false, preload: 'auto' }}
+        {% else %}
+          {% assign media_label = 'panquire.hero_image' | t %}
+          {% render 'pq-media', image: hero.settings.image, label: media_label, eager: true, sizes: '100vw' %}
+        {% endif %}
       </div>
       <div class="pq-hero-copy pq-container" style="--pq-hero-text: {{ hero.settings.text_color }};">
         <div class="pq-hero-content">
@@ -42,6 +46,7 @@
   ],
   "blocks": [{ "type": "slide", "name": "Hero content", "settings": [
     { "type": "image_picker", "id": "image", "label": "Background image" },
+    { "type": "video", "id": "video", "label": "Background video" },
     { "type": "text", "id": "kicker", "label": "Small heading", "default": "Introducing Panquire" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Go small. Ride big." },
     { "type": "text", "id": "text", "label": "Description", "default": "Find your next adventure with a ride designed for everyday freedom." },
