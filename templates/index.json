@@ -17,8 +17,9 @@
           "settings": {
             "video": "shopify://files/videos/panquire-home-hero.mp4",
             "kicker": "",
-            "heading": "Panquire Electric Dirt Bikes & Motorcycles",
-            "text": "Choose the T-01 or T-02 for off-road riding, or explore the compact T-03 mini electric motorcycle. Compare power, removable batteries and rider fit.",
+            "heading": "Panquire",
+            "subheading": "The Ride You Deserve",
+            "text": "Conquer off-road terrain and blaze through the streets for less than $2,000.",
             "button": "Explore T-01",
             "link": "/products/t-01",
             "secondary_button": "Explore T-03",
