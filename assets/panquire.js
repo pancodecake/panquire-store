@@ -246,9 +246,11 @@
       const panel = menu.querySelector(':scope > nav');
       const reduced = matchMedia('(prefers-reduced-motion: reduce)');
       let animation;
+      const concealed = { opacity: '0', transform: 'translateY(-40px)', clipPath: 'inset(40px 0 -40px)' };
+      const revealed = { opacity: '1', transform: 'translateY(0)', clipPath: 'inset(0 0 -40px)' };
       const setOpen = (open) => {
         const style = menu.open ? getComputedStyle(panel) : null;
-        const from = style ? { opacity: style.opacity, transform: style.transform } : { opacity: '0', transform: 'translateY(-8px)' };
+        const from = style && animation ? { opacity: style.opacity, transform: style.transform, clipPath: style.clipPath } : menu.open ? revealed : concealed;
         if (animation) animation.cancel();
         menu.open = true;
         menu.classList.toggle('is-closing', !open);
@@ -257,8 +259,8 @@
           menu.classList.remove('is-closing');
           return;
         }
-        animation = panel.animate([from, open ? { opacity: '1', transform: 'translateY(0)' } : { opacity: '0', transform: 'translateY(-8px)' }], {
-          duration: open ? 220 : 180, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'both'
+        animation = panel.animate([from, open ? revealed : concealed], {
+          duration: open ? 220 : 160, easing: open ? 'cubic-bezier(.23,1,.32,1)' : 'ease', fill: 'both'
         });
         const current = animation;
         current.finished.then(() => {
