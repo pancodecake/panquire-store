@@ -122,7 +122,8 @@
   .pq-header-row { gap: 14px; }
   .pq-desktop-nav { gap: 12px; }
 }
-.pq [aria-current='page'] { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--pq-accent); }
+.pq [aria-current='page']:not(.pq-model-menu-card) { text-decoration: underline; text-underline-offset: 6px; text-decoration-color: var(--pq-accent); }
+.pq-model-menu-card[aria-current='page'] .pq-model-menu-image { background: color-mix(in srgb, var(--color-accent-solid) 80%, var(--surface)); }
 .pq-header-actions { display: flex; gap: 4px; margin-inline-start: auto; }
 .pq-icon-button { display: grid; place-items: center; width: 40px; min-height: 44px; position: relative; }
 .pq-cart-count { position: absolute; top: -2px; inset-inline-end: 0; min-width: 16px; text-align: center; border-radius: 50%; background: var(--color-accent-solid); color: var(--color-text-on-accent); font-size: 11px; }
