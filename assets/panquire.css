@@ -54,7 +54,7 @@
 .pq-model-menu-grid.pq-container { display: grid; width: 100%; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
 .pq-model-menu-card:only-child { grid-column: 1 / -1; }
 .pq-model-menu .pq-model-menu-card { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; text-decoration: none; transition: transform 200ms cubic-bezier(.22,1,.36,1); }
-.pq-model-menu-image { position: relative; isolation: isolate; overflow: hidden; width: 100%; margin-block-end: 4px; background: var(--surface); border-radius: 10px; }
+.pq-model-menu-image { position: relative; isolation: isolate; overflow: hidden; width: 100%; margin-block-end: 4px; background: var(--surface); border-radius: 10px; padding: 7px; }
 .pq-model-menu-card strong { font-size: 24px; }
 .pq-model-menu-spec { color: var(--text-muted); font: 12px/1.5 var(--pq-body-font); }
 .pq-model-menu-price { color: #df9f44; font-weight: 600; }
