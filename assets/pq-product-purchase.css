@@ -62,9 +62,9 @@
 .pq-purchase summary::-webkit-details-marker { display: none; }
 .pq-purchase__accessories { margin-top: 18px; }
 .pq-purchase__accessories > summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; padding-right: 12px; color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: 15px; font-weight: 600; }
-.pq-purchase__chevron { width: 7px; height: 7px; flex: 0 0 7px; border-right: 1px solid var(--color-text-secondary); border-bottom: 1px solid var(--color-text-secondary); transform: rotate(45deg); }
-.pq-purchase details[open] > summary > .pq-purchase__chevron { transform: rotate(225deg); }
-.pq-purchase details[data-purchase-expanded='false'] > summary > .pq-purchase__chevron { transform: rotate(45deg); }
+.pq-purchase__chevron { width: 20px; height: 20px; flex: 0 0 20px; color: var(--color-text-secondary); fill: none; stroke: currentColor; stroke-width: 2; }
+.pq-purchase details[open] > summary > .pq-purchase__chevron { transform: rotate(180deg); }
+.pq-purchase details[data-purchase-expanded='false'] > summary > .pq-purchase__chevron { transform: rotate(0deg); }
 .pq-purchase__accessory-box { margin-top: 4px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: 8px; background: var(--surface); }
 .pq-purchase__accessory-box ul { margin: 0; padding: 0; list-style: none; }
 .pq-purchase__accessory { display: grid; grid-template-columns: 60px minmax(0, 1fr) 50px; gap: 12px; align-items: center; min-height: 92px; padding: 12px 0; border-bottom: 1px solid var(--color-border); }
@@ -78,7 +78,7 @@
 .pq-purchase__more[open] .pq-purchase__show-less { display: inline; }
 .pq-purchase__policies { margin-top: 16px; }
 .pq-purchase__policy { border-bottom: 1px solid var(--color-border); }
-.pq-purchase__policy > summary { display: grid; grid-template-columns: 24px minmax(0,1fr) 9px; align-items: center; gap: 12px; min-height: 62px; padding: 14px 12px 14px 2px; color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: 14px; font-weight: 600; letter-spacing: 0; }
+.pq-purchase__policy > summary { display: grid; grid-template-columns: 24px minmax(0,1fr) 20px; align-items: center; gap: 12px; min-height: 62px; padding: 14px 12px 14px 2px; color: var(--color-text-primary); font-family: var(--pq-heading-font); font-size: 14px; font-weight: 600; letter-spacing: 0; }
 .pq-purchase__policy-icon { display: flex; }
 .pq-purchase__policy-icon svg { width: 22px; height: 22px; }
 .pq-purchase__policy-body { padding: 0 12px 20px 38px; color: var(--color-text-secondary); font-size: 13px; line-height: 1.7; }

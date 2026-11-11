@@ -75,7 +75,7 @@
     </div>
   </section>
   <details class="pq-purchase__accessories" open>
-    <summary>{% render 'pq-purchase-copy', key: 'accessories' %}<span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+    <summary>{% render 'pq-purchase-copy', key: 'accessories' %}<svg class="pq-purchase__chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5"></path></svg></summary>
     <div class="pq-purchase__accessory-box">
       <ul role="list">
         {% render 'pq-purchase-accessory', name: 'nfc', image: 'pq-accessory-nfc-smart-key-fobs.png' %}
@@ -100,7 +100,7 @@
       {% assign body_key = '' | append: policy | append: '_html' %}
       {% assign policy_icon = 'pq-purchase-' | append: policy | append: '.svg' %}
       <details class="pq-purchase__policy">
-        <summary><span class="pq-purchase__policy-icon" aria-hidden="true">{{ policy_icon | inline_asset_content }}</span><span>{% render 'pq-purchase-copy', key: heading_key %}</span><span class="pq-purchase__chevron" aria-hidden="true"></span></summary>
+        <summary><span class="pq-purchase__policy-icon" aria-hidden="true">{{ policy_icon | inline_asset_content }}</span><span>{% render 'pq-purchase-copy', key: heading_key %}</span><svg class="pq-purchase__chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 7.5 5 5 5-5"></path></svg></summary>
         <div class="pq-purchase__policy-body">
           {% if policy == 'shipping' %}
             {% assign shipping_url = pages.tos.url | default: '/pages/tos' | append: '#shipping' %}
