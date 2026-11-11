@@ -12,16 +12,16 @@
     "main": {
       "type": "pq-about-story",
       "settings": {
-        "brand_heading": "Our Brand",
+        "brand_heading": "About Panquire",
         "manufacturer_heading": "Manufacturer Info",
-        "manufacturer": "<p>Shenzhen Jing’aosi Industrial Co., Ltd. is an electric motorcycle manufacturer based in Shenzhen. Buy directly from the company behind your motorcycle.</p><ul><li><strong>Legal entity:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li><li><strong>Business type:</strong> Manufacturer</li><li><strong>Based in:</strong> Shenzhen</li><li><strong>Registered address:</strong> Building B3, Unit 11H, Yuling Garden, Nanwan Street, Longgang District, Shenzhen</li><li><strong>Established:</strong> 2018</li><li><strong>Contact:</strong> <a href=\"mailto:support@panquire.com\">support@panquire.com</a></li></ul>"
+        "manufacturer": "<p>Panquire is operated by Shenzhen Jingao Si Industrial Co., Ltd. in Shenzhen.</p><ul><li><strong>Legal entity:</strong> Shenzhen Jing’aosi Industrial Co., Ltd.</li><li><strong>Business type:</strong> Manufacturer</li><li><strong>Based in:</strong> Shenzhen</li><li><strong>Registered address:</strong> Building B3, Unit 11H, Yuling Garden, Nanwan Street, Longgang District, Shenzhen</li><li><strong>Established:</strong> 2018</li><li><strong>Contact:</strong> <a href=\"mailto:support@panquire.com\">support@panquire.com</a></li></ul>"
       },
       "blocks": {
         "intro": {
           "type": "brand_text",
           "settings": {
             "label": "Intro",
-            "content": "<p>Panquire was created in 2018 to manufacture electric two-wheeler’s to address the riders who didn’t want to pay high end price but also not wanting to settle on low-end bikes, just like us.</p>"
+            "content": "<p>Panquire sells electric motorcycles and off-road electric dirt bikes. Explore the <a href=\"/collections/electric-dirt-bikes\">T-01 and T-02 dirt bikes</a> for recreational off-road riding or the <a href=\"/collections/electric-motorcycles\">T-03 mini electric motorcycle</a>. For help choosing a model or with an existing order, <a href=\"/pages/contact\">contact Panquire support</a>.</p>"
           }
         },
         "story": {

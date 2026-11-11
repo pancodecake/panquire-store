@@ -7,7 +7,7 @@
         {% when 3 %}{% assign benefit_icon = 'return-vector.svg' %}
         {% when 4 %}{% assign benefit_icon = 'factory-svgrepo-com.svg' %}
       {% endcase %}
-      <div class="pq-benefit" {{ block.shopify_attributes }}><span class="pq-benefit-icon" aria-hidden="true">{{ benefit_icon | inline_asset_content }}</span><div><h2>{{ block.settings.heading | escape }}</h2><p>{{ block.settings.text | escape }}</p></div></div>
+      <div class="pq-benefit" {{ block.shopify_attributes }}><span class="pq-benefit-icon" aria-hidden="true">{{ benefit_icon | inline_asset_content }}</span><div><h2>{% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{{ block.settings.heading | escape }}</a>{% else %}{{ block.settings.heading | escape }}{% endif %}</h2><p>{{ block.settings.text | escape }}</p></div></div>
     {% endfor %}
   </div>
 </section>
@@ -16,7 +16,8 @@
   "name": "Panquire service strip", "max_blocks": 4,
   "blocks": [{ "type": "benefit", "name": "Service item", "settings": [
     { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery" },
-    { "type": "text", "id": "text", "label": "Description", "default": "Delivery details coming soon." }
+    { "type": "text", "id": "text", "label": "Description", "default": "Delivery details coming soon." },
+    { "type": "url", "id": "link", "label": "Details link" }
   ] }],
   "presets": [{ "name": "Panquire service strip", "blocks": [{"type":"benefit"},{"type":"benefit"},{"type":"benefit"},{"type":"benefit"}] }]
 }

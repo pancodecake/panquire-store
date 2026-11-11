@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "pq-contact-page",
-      "settings": {},
+      "settings": {
+        "text": "<p>For order, fit, parts or warranty questions, email <a href=\"mailto:support@panquire.com\">support@panquire.com</a> or use the form. Include your model and order number if available.</p><p>For sales, email <a href=\"mailto:sales@panquire.com\">sales@panquire.com</a>. For dealer or partnership inquiries, email <a href=\"mailto:partnership@panquire.com\">partnership@panquire.com</a>.</p>"
+      },
       "blocks": {
         "contact": {
           "type": "contact-form",

@@ -15,7 +15,7 @@
           "type": "text",
           "name": "t:names.title",
           "settings": {
-            "text": "<h1>{{ closest.collection.title }}</h1>",
+            "text": "<h1>{% if request.locale.iso_code == 'en' and closest.collection.handle == 'electric-dirt-bikes' %}Electric Dirt Bikes for Adults{% else %}{{ closest.collection.title | escape }}{% endif %}</h1>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -39,7 +39,7 @@
           "type": "text",
           "name": "t:names.description",
           "settings": {
-            "text": "{{ closest.collection.description }}",
+            "text": "{% if request.locale.iso_code == 'en' and closest.collection.handle == 'electric-dirt-bikes' %}<p>Panquire’s T-01 and T-02 are electric dirt bikes for adult off-road riders. Choose the lighter 60V T-01 for recreational trails, or the 72V T-02 for more peak power and battery capacity. Both use removable batteries and three selectable power levels.</p>{% elsif request.locale.iso_code == 'en' and closest.collection.handle == 'electric-motorcycles' %}<p>Explore the Panquire T-03, a mini electric motorcycle with 12-inch Kenda road tires and a removable 60V battery. Review fit, charging information and local vehicle-use requirements before choosing a model.</p>{% else %}{{ closest.collection.description }}{% endif %}",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -213,10 +213,15 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
+    },
+    "buying_guide": {
+      "type": "pq-collection-guide",
+      "settings": {}
     }
   },
   "order": [
     "section",
-    "main"
+    "main",
+    "buying_guide"
   ]
 }

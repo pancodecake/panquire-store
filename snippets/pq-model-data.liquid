@@ -46,8 +46,8 @@ Overview|Type|Electric Dirt Bike
 Overview|Color|Black
 Overview|Frame material|High-Strength Aluminum Alloy
 Overview|Warranty|1 year
-Performance|Motor|{% if model == 't-01' %}60V 3,000W Central Motor{% else %}72V 6,000W Central Motor{% endif %}
-Performance|Peak motor power|{% if model == 't-01' %}8000W{% else %}11,000W{% endif %}
+Performance|Motor|{% if model == 't-01' %}60V 5,000W Central Motor{% else %}72V 6,000W Central Motor{% endif %}
+Performance|Peak motor power|{% if model == 't-01' %}9,500W{% else %}13,000W{% endif %}
 Performance|Maximum speed|{% if model == 't-01' %}80 km/h{% else %}100 km/h{% endif %}
 Performance|Range — Eco mode|{% if model == 't-01' %}80 km{% else %}90 km{% endif %}
 Performance|Climbing ability|Less than 30°
@@ -72,7 +72,7 @@ Suspension & brakes|Brake lever|Reach adjustable
 Suspension & brakes|Front tire|19 inches
 Suspension & brakes|Rear tire|17 inches
 Suspension & brakes|Tire type|Tubed
-Dimensions & weight|Vehicle dimensions|1770 × 800 × 1200 mm
+Dimensions & weight|Vehicle dimensions|{% if model == 't-01' %}1770 × 800 × 1100 mm{% else %}1820 × 800 × 1200 mm{% endif %}
 {% if model == 't-01' %}Dimensions & weight|Net weight|55 kg{% else %}Battery & charging|Battery pack weight|15 kg
 Dimensions & weight|Bike weight|60 kg{% endif %}
     {%- endcapture -%}

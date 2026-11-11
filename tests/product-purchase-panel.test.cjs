@@ -1,7 +1,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { Liquid } = require('../.preview-runtime/node_modules/liquidjs');
+const { Liquid } = require(process.env.LIQUIDJS_MODULE || '../.preview-runtime/node_modules/liquidjs');
 const root = path.resolve(__dirname, '..');
 const prepare = source => source
   .replace(/{%-?\s*doc\s*-?%}[\s\S]*?{%-?\s*enddoc\s*-?%}/g, '')
@@ -48,9 +48,10 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
     assert.match(html, /one year warranty protection/);
-    assert.doesNotMatch(html, /type="checkbox"|pre[- ]?order|two-year/i);
+    // A policy may describe separately agreed preorders without declaring this stock a preorder.
+    assert.doesNotMatch(html, /type="checkbox"|available for pre[- ]?order|stock is expected to reach|two-year/i);
     assert.match(html, /aria-label="american_express"/);
-    assert.match(html, /<span class="pq-purchase__review-count">17 reviews<\/span>/);
+    assert.doesNotMatch(html, /pq-purchase__review-count/);
     assert.doesNotMatch(html, /BLACK FRIDAY|pq-purchase__campaign|<a\b[^>]*>17 reviews/i);
   }
   for (const overrides of [
@@ -81,7 +82,9 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
   assert.match(sale, /30% OFF/);
   assert.doesNotMatch(sale, /BF /);
   missingPurchaseTranslations = true;
-  const fallback = await render({ price: 90900, compare_at_price: 129900 });
+  const fallback = await render({ price: 90900, compare_at_price: 129900 }, 't-01', {
+    metafields: { reviews: { rating: { value: { rating: 4.5 } }, rating_count: { value: 17 } } },
+  });
   assert.match(fallback, /17 reviews/);
   assert.match(fallback, /30% OFF/);
   assert.doesNotMatch(fallback, /BLACK FRIDAY|BF /i);

@@ -1,0 +1,21 @@
+{% doc %}
+  A server-rendered selection table using current product prices and model data.
+{% enddoc %}
+{% assign first_model = all_products['t-01'] %}
+{% assign second_model = all_products['t-02'] %}
+{% if first_model != blank and second_model != blank %}
+  <table class="pq-buying-guide__table">
+    <caption>T-01 and T-02 manufacturer-stated specifications</caption>
+    <thead><tr><th scope="col">Compare</th><th scope="col"><a href="{{ first_model.url }}">T-01</a></th><th scope="col"><a href="{{ second_model.url }}">T-02</a></th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Current bike price</th><td>{{ first_model.price | money_with_currency }}</td><td>{{ second_model.price | money_with_currency }}</td></tr>
+      {% assign spec_labels = 'Motor,Peak motor power,Maximum speed,Battery voltage,Battery capacity,Nominal battery energy,Range — Eco mode,Charger,Front tire,Rear tire' | split: ',' %}
+      {% for label in spec_labels %}
+        <tr><th scope="row">{{ label | escape }}</th><td>{% render 'pq-model-data', model: 't-01', field: label %}</td><td>{% render 'pq-model-data', model: 't-02', field: label %}</td></tr>
+      {% endfor %}
+      <tr><th scope="row">Listed bike weight</th><td>{% render 'pq-model-data', model: 't-01', field: 'Net weight' %} net</td><td>{% render 'pq-model-data', model: 't-02', field: 'Bike weight' %}</td></tr>
+      <tr><th scope="row">Approximate charging time</th><td>5.2 hours</td><td>4 hours from 0–100%, or 2–3 hours from 20–80%</td></tr>
+    </tbody>
+  </table>
+  <p>Nominal battery energy is voltage multiplied by capacity. Eco range is a manufacturer-stated figure; actual range varies with speed, rider weight, terrain, temperature and riding conditions. Prices reflect the selected market; confirm taxes, duties and the final total at checkout.</p>
+{% endif %}
