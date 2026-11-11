@@ -50,32 +50,28 @@
           "type": "benefit",
           "settings": {
             "heading": "Free Shipping",
-            "link": "/policies/shipping-policy",
-            "text": "Free outbound shipping to supported destinations. Duties and taxes may apply separately."
+            "text": "Free shipping to supported destinations."
           }
         },
         "item2": {
           "type": "benefit",
           "settings": {
-            "heading": "1-Year Limited Warranty",
-            "link": "/pages/tos#warranty",
-            "text": "Coverage for the motor, battery and controller under the warranty terms."
+            "heading": "1 Year Warranty",
+            "text": "Built for lasting confidence, backed by a 1-year warranty."
           }
         },
         "item3": {
           "type": "benefit",
           "settings": {
-            "heading": "Eligible Returns",
-            "link": "/policies/refund-policy",
-            "text": "Request an eligible change-of-mind return within 7 days of delivery. See the policy for conditions and applicable rights."
+            "heading": "7-Day Returns",
+            "text": "Eligible change-of-mind returns within 7 days after delivery."
           }
         },
         "item4": {
           "type": "benefit",
           "settings": {
-            "heading": "Model and Fit Support",
-            "link": "/pages/contact",
-            "text": "Ask Panquire about fit, parts compatibility or your order."
+            "heading": "Factory Direct",
+            "text": "Custom designs available without middleman"
           }
         }
       },
