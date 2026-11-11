@@ -1,0 +1,19 @@
+{% doc %}
+  Model-specific buying context and links, preserving product metafield content.
+  @param {product} product - Current product.
+{% enddoc %}
+{% if product.handle == 't-01' or product.handle == 't-02' %}
+  {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
+  <section class="pq-buying-guide pq-buying-guide__product">
+    {% if product.handle == 't-01' %}
+      <h2>A 60V electric dirt bike for recreational riding</h2>
+      <p>The Panquire T-01 combines a removable 60V / 31.2Ah battery with three electronic power levels. It is the lower-priced option in the T-01 and T-02 range. Start with your fit, experience and riding location, then compare battery capacity and the full purchase cost.</p>
+      <p>Considering more battery capacity and stated peak power? <a href="{{ all_products['t-02'].url }}">Explore the 72V Panquire T-02</a>.</p>
+    {% else %}
+      <h2>A 72V electric dirt bike with more battery capacity</h2>
+      <p>The Panquire T-02 uses a removable 72V / 41Ah battery with 2.952 kWh of nominal energy. Its stated 13 kW peak output and three electronic power levels give you another option in the Panquire range. Peak output is not a measured acceleration result, and actual range depends on riding conditions.</p>
+      <p>Prefer the lower-priced option? <a href="{{ all_products['t-01'].url }}">Explore the 60V Panquire T-01</a>.</p>
+    {% endif %}
+    <div class="pq-buying-guide__links"><a href="{{ collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes' }}">Compare Panquire electric dirt bikes</a><a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare alternatives from other brands</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about fit and ownership</a></div>
+  </section>
+{% endif %}

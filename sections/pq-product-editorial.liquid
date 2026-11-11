@@ -4,6 +4,7 @@
 {{ 'panquire-product-page.css' | asset_url | stylesheet_tag }}
 <div class="pq pq-product-editorial" id="ProductEditorial-{{ section.id }}">
   <div class="pq-product-wrap">
+    {% render 'pq-product-selection', product: product %}
     {% for story in data.stories.value %}
       <section class="pq-product-story">
         <div class="pq-product-story__image">

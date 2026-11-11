@@ -1,0 +1,28 @@
+{% doc %}Visible breadcrumbs and matching JSON-LD for commercial pages.{% enddoc %}
+{% liquid
+  assign show_breadcrumbs = false
+  if request.page_type == 'product' or request.page_type == 'collection' or page.handle == 'compare'
+    assign show_breadcrumbs = true
+  endif
+  assign parent_url = ''
+  assign parent_title = ''
+  if request.page_type == 'product'
+    assign crumb_title = product.title
+    if product.handle == 't-01' or product.handle == 't-02'
+      assign parent_url = collections['electric-dirt-bikes'].url | default: '/collections/electric-dirt-bikes'
+      assign parent_title = 'Electric dirt bikes'
+    endif
+  elsif request.page_type == 'collection'
+    assign crumb_title = collection.title
+  else
+    assign crumb_title = page.title
+  endif
+%}
+{% if show_breadcrumbs %}
+  {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
+  <nav class="pq pq-breadcrumbs" aria-label="Breadcrumb"><ol class="pq-container"><li><a href="{{ routes.root_url }}">Home</a></li>{% if parent_url != blank %}<li><a href="{{ parent_url }}">{{ parent_title | escape }}</a></li>{% endif %}<li><span aria-current="page">{{ crumb_title | escape }}</span></li></ol></nav>
+  {% capture breadcrumb_schema %}
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":{{ request.origin | append: routes.root_url | json }}}{% if parent_url != blank %},{"@type":"ListItem","position":2,"name":{{ parent_title | json }},"item":{{ request.origin | append: parent_url | json }}}{% endif %},{"@type":"ListItem","position":{% if parent_url != blank %}3{% else %}2{% endif %},"name":{{ crumb_title | json }},"item":{{ canonical_url | json }}}]}
+  {% endcapture %}
+  <script type="application/ld+json">{{ breadcrumb_schema | replace: '<', '\\u003c' }}</script>
+{% endif %}
