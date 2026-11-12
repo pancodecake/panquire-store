@@ -4,7 +4,7 @@
   --color-background: var(--neutral-950);
   --color-background-rgb: 8 9 11;
   --color-text-primary: var(--neutral-100);
-  --color-text-secondary: var(--neutral-300);
+  --color-text-secondary: #fff;
   --color-heading-accent: var(--neutral-100);
   --color-border: var(--neutral-700);
   --text: var(--neutral-100);

@@ -2,7 +2,7 @@
 .pq-model-main-image img { width: 100%; height: auto; object-fit: contain; }
 .pq-storefront:has(.pq-model-story) .product-information {
   --text: #151619; --text-muted: #55575d; --surface: #eeeef0; --pq-line: #d5d6d8;
-  --color-text-primary: #151619; --color-text-secondary: #55575d; --color-heading-accent: #151619; --color-border: #d5d6d8;
+  --color-text-primary: #151619; --color-text-secondary: #fff; --color-heading-accent: #151619; --color-border: #d5d6d8;
   --color-foreground: #151619; --color-foreground-rgb: 21 22 25; --color-background: #f3f3f1; --color-background-rgb: 243 243 241;
   background: #f3f3f1; color: #151619;
 }
