@@ -3,7 +3,7 @@ pq-comparison { display: block; }
 .pq-compare__intro {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  align-items: end;
+  align-items: center;
   gap: 1.25rem clamp(2rem, 5vw, 5rem);
   margin-block-end: clamp(2rem, 5vw, 4rem);
 }
@@ -23,15 +23,34 @@ pq-comparison { display: block; }
   margin-block-end: .45em;
   background: var(--compare-bronze);
 }
-.pq-compare__intro p {
+.pq-compare__intro .pq-compare__title-accent {
+  display: block;
+  color: var(--compare-red) !important;
+}
+
+.pq-compare__intro .pq-long-paragraph {
+  justify-self: end;
+  text-align: end;
   max-width: 53ch;
   margin: 0;
   color: var(--color-text-secondary);
   font-size: clamp(1rem, 1.35vw, 1.125rem);
   line-height: 1.65;
 }
+.pq-compare__intro .pq-long-paragraph::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 1px;
+  margin-block-start: 15px;
+  margin-inline-start: auto;
+  background: var(--silver-300);
+}
+
 @media (max-width: 749px) {
   .pq-compare__intro { grid-template-columns: minmax(0, 1fr); }
+  .pq-compare__intro .pq-long-paragraph { justify-self: start; text-align: start; }
+  .pq-compare__intro .pq-long-paragraph::after { margin-inline-start: 0; }
 }
 .pq-compare__hero { display: grid; grid-template-columns: minmax(0,1fr) 86px minmax(0,1fr); gap: 24px; padding-bottom: 44px; }
 .pq-compare__product { position: relative; min-width: 0; text-align: center; }
