@@ -49,6 +49,7 @@
     {% if request.page_type == 'product' %}{{ 'panquire-model.css' | asset_url | stylesheet_tag }}{% endif %}
     {{ 'panquire-pages.css' | asset_url | stylesheet_tag }}
     <script src="{{ 'panquire.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'panquire-us-units.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
     <style>
