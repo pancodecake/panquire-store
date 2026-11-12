@@ -1,12 +1,12 @@
 {% if section.settings.use_full_width_artwork %}
   <img
-    class="pq-diagonal-promo__artwork pq-container"
+    class="pq-diagonal-promo__artwork"
     src="{{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }}"
-    srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2560w"
-    sizes="auto, 100vw"
-    width="2560"
-    height="1440"
-    alt="Gold Panquire emblem between two electric dirt bikes on a rocky trail"
+    srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2880w"
+    sizes="100vw"
+    width="2880"
+    height="1020"
+    alt="Gold Panquire emblem alongside close-ups of electric dirt bikes on a rocky trail"
     loading="lazy"
     decoding="async"
   >
@@ -55,6 +55,7 @@
 {% stylesheet %}
   .pq-diagonal-promo__artwork {
     display: block;
+    width: 100%;
     height: auto;
   }
 
