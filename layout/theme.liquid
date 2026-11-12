@@ -53,7 +53,7 @@
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
     <style>
-      p.pq-long-paragraph { color: #9ca2ad !important; }
+      p.pq-long-paragraph:not(:where(.pq-compare__intro *, .pq-compare__methodology *)) { color: #9ca2ad !important; }
       p.pq-long-paragraph :is(strong, b) { color: #fff !important; }
     </style>
     <script>

@@ -33,7 +33,7 @@ pq-comparison { display: block; }
   text-align: end;
   width: 120%;
   margin: 0;
-  color: var(--color-text-secondary);
+  color: #fff;
   font-size: clamp(1rem, 1.35vw, 1.125rem);
   line-height: 1.65;
 }
