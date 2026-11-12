@@ -59,7 +59,8 @@
       document.addEventListener('DOMContentLoaded', () => {
         const updateParagraph = (paragraph) => {
           const words = paragraph.textContent.trim().split(/\s+/).filter(Boolean);
-          paragraph.classList.toggle('pq-long-paragraph', words.length > 10);
+          const inScope = {{ request.page_type | json }} !== 'index' || paragraph.closest('.pq-product-features');
+          paragraph.classList.toggle('pq-long-paragraph', words.length > 10 && Boolean(inScope));
         };
         const updateWithin = (node) => {
           const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
