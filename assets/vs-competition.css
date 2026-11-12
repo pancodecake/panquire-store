@@ -31,7 +31,7 @@ pq-comparison { display: block; }
 .pq-compare__intro .pq-long-paragraph {
   justify-self: end;
   text-align: end;
-  max-width: 53ch;
+  width: 120%;
   margin: 0;
   color: var(--color-text-secondary);
   font-size: clamp(1rem, 1.35vw, 1.125rem);
