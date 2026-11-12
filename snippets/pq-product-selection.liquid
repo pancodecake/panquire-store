@@ -20,7 +20,7 @@
         <p>The {{ product.handle | upcase }} is listed at {{ bike_price | money_with_currency }}, under US${% if bike_price < 200000 %}2,000{% else %}3,000{% endif %} before applicable taxes and duties. Check your total at checkout.</p>
       {% endif %}
     {% endif %}
-    <div class="pq-buying-guide__links"><a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare electric dirt bike specifications</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about fit and ownership</a></div>
+    <div class="pq-buying-guide__links"><a href="{{ pages.compare.url | default: '/pages/compare' }}">Panquire vs Competitors</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about fit and ownership</a></div>
   </section>
 {% elsif product.handle == 't-03' %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
