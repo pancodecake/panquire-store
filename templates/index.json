@@ -229,6 +229,7 @@
     "diagonal_promo": {
       "type": "panquire-diagonal-promo",
       "settings": {
+        "use_full_width_artwork": true,
         "heading_accent": "Ride with us,",
         "heading_line_2": "is the ride with",
         "heading_line_3": "nature.",

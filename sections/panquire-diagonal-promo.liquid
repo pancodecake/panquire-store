@@ -1,3 +1,16 @@
+{% if section.settings.use_full_width_artwork %}
+  <img
+    class="pq-diagonal-promo__artwork"
+    src="{{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }}"
+    srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2560w"
+    sizes="100vw"
+    width="2560"
+    height="1440"
+    alt="Gold Panquire emblem between two electric dirt bikes on a rocky trail"
+    loading="lazy"
+    decoding="async"
+  >
+{% else %}
 {% liquid
   assign left_alt = section.settings.left_image.alt | default: 'Panquire electric motorcycle on a forest trail'
   assign right_alt = section.settings.right_image.alt | default: 'Panquire electric motorcycle in a rocky stream'
@@ -37,8 +50,15 @@
     <i class="pq-diagonal-promo__accent pq-diagonal-promo__accent--bottom" aria-hidden="true"></i>
   </div>
 </section>
+{% endif %}
 
 {% stylesheet %}
+  .pq-diagonal-promo__artwork {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .pq-diagonal-promo {
     padding-block: var(--promo-space);
     overflow: hidden;
@@ -151,6 +171,7 @@
 {
   "name": "Panquire diagonal promo",
   "settings": [
+    { "type": "checkbox", "id": "use_full_width_artwork", "label": "Use full-width Panquire artwork", "default": false },
     { "type": "image_picker", "id": "left_image", "label": "Upper-left photograph" },
     { "type": "image_picker", "id": "right_image", "label": "Lower-right photograph" },
     { "type": "text", "id": "heading_accent", "label": "Accent headline line", "default": "Ride with us," },
