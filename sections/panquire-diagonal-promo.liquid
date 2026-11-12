@@ -1,15 +1,21 @@
 {% if section.settings.use_full_width_artwork %}
-  <img
-    class="pq-diagonal-promo__artwork"
-    src="{{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }}"
-    srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2880w"
-    sizes="100vw"
-    width="2880"
-    height="1020"
-    alt="Gold Panquire emblem alongside close-ups of electric dirt bikes on a rocky trail"
-    loading="lazy"
-    decoding="async"
-  >
+  <div class="pq-diagonal-promo__composition">
+    <img
+      class="pq-diagonal-promo__artwork"
+      src="{{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }}"
+      srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2880w"
+      sizes="100vw"
+      width="2880"
+      height="1020"
+      alt="Gold Panquire emblem alongside close-ups of electric dirt bikes on a rocky trail"
+      loading="lazy"
+      decoding="async"
+    >
+    <p class="pq-diagonal-promo__headline">
+      <span>Your ride to Freedom</span>
+      <span>Can start Right Now</span>
+    </p>
+  </div>
 {% else %}
 {% liquid
   assign left_alt = section.settings.left_image.alt | default: 'Panquire electric motorcycle on a forest trail'
@@ -53,6 +59,49 @@
 {% endif %}
 
 {% stylesheet %}
+  .pq-diagonal-promo__composition {
+    position: relative;
+    container-type: inline-size;
+  }
+
+  .pq-diagonal-promo__headline {
+    position: absolute;
+    top: 46%;
+    left: 69.5%;
+    width: max-content;
+    margin: 0;
+    transform: translate(-50%, -50%);
+    color: var(--bronze-600);
+    font-family: 'Panquire Favela', 'Arial Narrow', sans-serif;
+    font-size: 1.95cqw;
+    font-style: italic;
+    font-weight: 900;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .pq-diagonal-promo__headline span {
+    display: block;
+  }
+
+  .pq-diagonal-promo__headline::before,
+  .pq-diagonal-promo__headline::after {
+    content: '';
+    display: block;
+    width: 44%;
+    height: 0.16cqw;
+    background: currentColor;
+  }
+
+  .pq-diagonal-promo__headline::before {
+    margin-bottom: 0.22em;
+  }
+
+  .pq-diagonal-promo__headline::after {
+    margin-top: 0.22em;
+    margin-left: auto;
+  }
+
   .pq-diagonal-promo__artwork {
     display: block;
     width: 100%;
