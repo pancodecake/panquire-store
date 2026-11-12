@@ -1,0 +1,57 @@
+{% doc %}
+  T-02 product showcase using the shared Panquire buying-guide layout.
+  @param {product} product - Current T-02 product.
+{% enddoc %}
+{% liquid
+  assign guide_image = images['panquire-t02-garage.jpg'] | default: product.featured_image
+  assign variant = product.selected_or_first_available_variant
+%}
+{{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
+{% if product.variants.size > 1 %}
+  <script type="module" src="{{ 'pq-product-guide-price.js' | asset_url }}"></script>
+{% endif %}
+<section class="pq-buying-guide pq-buying-guide__product pq-product-guide pq-product-guide--t02">
+  {% if guide_image != blank %}
+    <div class="pq-product-guide__image">
+      {{ guide_image | image_url: width: 2640 | image_tag: widths: '360, 540, 750, 990, 1320, 1800, 2240, 2640', sizes: '(min-width: 1416px) 1320px, (min-width: 990px) calc(100vw - 96px), (min-width: 600px) calc(100vw - 48px), calc(100vw - 40px)', loading: 'lazy', decoding: 'async', alt: 'Black and gold Panquire T-02 72V electric dirt bike in a motorcycle workshop' }}
+    </div>
+  {% endif %}
+  <div class="pq-product-guide__card">
+    <div class="pq-product-guide__lead">
+      <div>
+        <p class="pq-product-guide__eyebrow">Panquire T-02 / Price and performance</p>
+        <h2>A 72V electric dirt bike for demanding trails</h2>
+        <p>The T-02 pairs a 13 kW peak motor with a removable 2,952 Wh battery and an adjustable rear shock. The Qronge X7 Spark lists 12 kW peak and a larger 3,600 Wh battery. If you’re choosing between them, weigh that extra battery capacity against the T-02’s vehicle price and equipment. Peak power alone tells you little about how either bike accelerates or handles.</p>
+      </div>
+      <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
+        {% if variant.price != blank %}
+          <span class="pq-product-guide__amount">
+            <strong>{{ variant.price | money }}</strong>
+            <span>{{ cart.currency.iso_code | escape }}</span>
+          </span>
+          {% if variant.available and cart.currency.iso_code == 'USD' and variant.price < 300000 %}
+            <span>Vehicle price under US$3,000. Check your final total at checkout.</span>
+          {% else %}
+            <span>Current vehicle price. Check your final total at checkout.</span>
+          {% endif %}
+          {% if variant.compare_at_price > variant.price %}
+            <span>Was <s>{{ variant.compare_at_price | money_with_currency }}</s>. Save {{ variant.compare_at_price | minus: variant.price | money_with_currency }}.</span>
+          {% endif %}
+          {% unless variant.available %}<span>{{ 'content.product_badge_sold_out' | t }}</span>{% endunless %}
+        {% else %}
+          <span>{{ 'content.unavailable' | t }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <dl class="pq-product-guide__specs">
+      <div><dt>13 kW peak performance</dt><dd>Stated top speed of 100 km/h (about 62 mph), depending on riding conditions.</dd></div>
+      <div><dt>Removable 72V 41Ah battery</dt><dd>Up to 90 km in Eco mode, as rated by Panquire. Actual range varies.</dd></div>
+      <div><dt>Off-road control</dt><dd>Three power levels, dual-piston hydraulic disc brakes and an adjustable rear shock.</dd></div>
+    </dl>
+    <div class="pq-buying-guide__links">
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare electric dirt bike models</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about rider fit</a>
+      {% if all_products['t-01'].url != blank %}<a href="{{ all_products['t-01'].url }}">Explore the 60V T-01</a>{% endif %}
+    </div>
+  </div>
+</section>
