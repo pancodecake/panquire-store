@@ -158,12 +158,14 @@
 
   /* Mobile styles */
   @media screen and (max-width: 749px) {
-    .product-information__media {
-      grid-column: 1 / -1;
+    .product-information__grid {
+      grid-column: 2;
+      grid-template-columns: minmax(0, 1fr);
     }
 
+    .product-information__media,
     .product-details {
-      grid-column: 2 / 3;
+      grid-column: 1;
     }
   }
 

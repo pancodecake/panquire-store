@@ -48,8 +48,8 @@
     position: relative;
     isolation: isolate;
     container-type: inline-size;
-    width: min(1600px, calc(100% - clamp(40px, 6vw, 120px)), calc(var(--promo-height) * 801 / 460));
-    height: auto;
+    width: var(--pq-content-width);
+    max-height: var(--promo-height);
     aspect-ratio: 801 / 460;
     margin-inline: auto;
     overflow: hidden;
@@ -141,8 +141,7 @@
     }
 
     .pq-diagonal-promo__frame {
-      width: calc(100% - 32px);
-      height: auto;
+      max-height: none;
     }
 
   }

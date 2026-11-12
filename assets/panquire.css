@@ -1,4 +1,7 @@
 :root {
+  --pq-content-max: 1050px;
+  --pq-content-gutter: 24px;
+  --pq-content-width: min(var(--pq-content-max), calc(100% - 2 * var(--pq-content-gutter)));
   --pq-bg: var(--color-bg-page);
   --pq-accent: var(--color-accent-solid);
   --pq-secondary: var(--color-secondary-solid);
@@ -31,7 +34,24 @@
 .pq button { cursor: pointer; }
 .pq :focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 4px; }
 .pq-product-card :focus-visible, .pq-hero :focus-visible { outline-color: var(--color-focus-ring); }
-.pq-container { width: min(1050px, calc(100% - 48px)); margin-inline: auto; }
+/* Share the navigation width with Horizon's section grid and Shopify-hosted policies. */
+#MainContent,
+#MainContent :is(.page-width-wide, .page-width-normal, .page-width-narrow, .page-width-content) {
+  --page-margin: var(--pq-content-gutter);
+  --page-content-width: var(--pq-content-max);
+  --page-width: calc(var(--page-content-width) + 2 * var(--page-margin));
+}
+
+.pq-container,
+#MainContent .shopify-policy__container {
+  width: var(--pq-content-width);
+  max-width: none;
+  margin-inline: auto;
+}
+
+#MainContent .shopify-policy__container {
+  padding-inline: 0;
+}
 .pq-section { padding-block: var(--pq-space, 70px); }
 .pq-section-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 20px; margin-block-end: 36px !important; color: var(--color-heading-accent); font-size: clamp(28px, 2.5vw, 40px); letter-spacing: -.035em; }
 .pq-section-title small { color: var(--color-text-secondary); font-size: clamp(16px, 1.4vw, 23px); letter-spacing: .01em; }
@@ -134,7 +154,7 @@
 .pq-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(8 9 11 / var(--pq-hero-overlay, .7)) 0%, rgb(8 9 11 / calc(var(--pq-hero-overlay, .7) * .68)) 48%, rgb(8 9 11 / calc(var(--pq-hero-overlay, .7) * .22)) 100%), linear-gradient(0deg, rgb(8 9 11 / .42), transparent 48%); }
 .pq-hero-media .pq-image { object-position: var(--pq-hero-focus-x, 50%) center; }
 .pq-hero-media .pq-placeholder { background: var(--carbon-gradient); }
-.pq-hero-copy { display: flex; align-items: center; width: calc(100% - 80px); min-height: inherit; padding-block: 72px; color: var(--pq-hero-text, var(--pq-ink)); text-align: left; }
+.pq-hero-copy { display: flex; align-items: center; min-height: inherit; padding-block: 72px; color: var(--pq-hero-text, var(--pq-ink)); text-align: left; }
 .pq-hero-copy h1 { max-width: 11ch; margin-block: 10px 16px; color: var(--color-heading-accent); font-family: 'Panquire Favela', var(--pq-heading-font); line-height: .96; text-transform: uppercase; letter-spacing: -.055em; filter: url(#panquire-hero-weight); }
 .pq-hero-display { max-width: 11ch; margin-block-end: 16px !important; color: var(--color-heading-accent); font-family: var(--pq-hero-font); font-size: clamp(44px, 5vw, 78px); font-weight: 400; line-height: .96; text-transform: uppercase; letter-spacing: -.055em; }
 .pq-hero-subheading { margin-block-end: 8px !important; font-size: clamp(20px, 2vw, 28px); font-weight: 700; line-height: 1.2; }
@@ -165,10 +185,10 @@
 .pq-benefit p { font-size: 12px; line-height: 1.4; color: var(--pq-muted); }
 .pq-feature { padding-block-start: 0; }
 .pq-feature-frame { width: 100%; }
-.pq-feature .pq-section-title { width: min(1600px, calc(100% - clamp(40px, 6vw, 120px))); margin-inline: auto; padding-inline: 0; }
+.pq-feature .pq-section-title { width: var(--pq-content-width); margin-inline: auto; padding-inline: 0; }
 .pq-campaign { height: min(var(--pq-campaign-height, 1000px), 58vw); min-height: 240px; margin-block-end: 60px; }
 .pq-campaign .pq-placeholder { background: var(--carbon-base); color: var(--pq-muted); }
-.pq-feature-layout { --pq-feature-spec-width: clamp(250px, 18vw, 300px); --pq-feature-gap: clamp(32px, 6vw, 112px); position: relative; width: min(1600px, calc(100% - clamp(40px, 6vw, 120px))); min-height: 640px; margin-inline: auto; }
+.pq-feature-layout { --pq-feature-spec-width: clamp(250px, 18vw, 300px); --pq-feature-gap: clamp(32px, 6vw, 112px); position: relative; width: var(--pq-content-width); min-height: 640px; margin-inline: auto; }
 .pq-feature-panel { display: grid; grid-template-columns: minmax(0, 1fr) var(--pq-feature-spec-width); column-gap: var(--pq-feature-gap); align-items: center; min-height: 560px; }
 .pq-feature-copy { min-width: 0; }
 .pq-feature-image { min-width: 0; height: clamp(500px, 42vw, 650px); padding: clamp(0px, 1.5vw, 24px); }
@@ -228,7 +248,7 @@
 .pq-reviews .pq-section-title { justify-content: center; margin-block-end: 16px !important; }
 .pq-reviews { overflow: clip; }
 .pq-reviews .pq-review-intro { max-width: 780px; margin-inline: auto; line-height: 1.65; }
-.pq-review-stage { --post-width: 380px; --post-step: 245px; position: relative; display: grid; justify-items: center; gap: 24px; max-width: 1160px; margin-inline: auto; outline-offset: -3px; }
+.pq-review-stage { --post-width: 380px; --post-step: 245px; position: relative; display: grid; justify-items: center; gap: 24px; width: var(--pq-content-width); margin-inline: auto; outline-offset: -3px; }
 .pq-post { width: var(--post-width); max-width: calc(100vw - 64px); background: #000; color: #fff; border: 1px solid #252525; border-radius: 6px; overflow: hidden; font: 13px/1.5 Arial, sans-serif; text-align: left; }
 .pq-reviews[data-review-ready] .pq-review-stage { display: block; height: var(--post-height, 640px); touch-action: pan-y; }
 .pq-reviews[data-review-ready] .pq-post { position: absolute; top: 0; left: 50%; height: var(--post-height); transform: translateX(calc(-50% + var(--offset) * var(--post-step))) scale(var(--scale)); filter: blur(var(--blur)); opacity: var(--opacity); z-index: var(--layer); transition: transform 520ms cubic-bezier(.22,.61,.36,1), filter 520ms cubic-bezier(.22,.61,.36,1), opacity 350ms ease; box-shadow: 0 16px 38px #0005; cursor: pointer; }
@@ -373,7 +393,7 @@
   .pq-mobile-menu .pq-model-menu > summary { justify-content: space-between; font-size: 14px; }
   .pq-mobile-menu .pq-model-menu > summary::after { content: '+'; font-size: 20px; font-weight: 400; }
   .pq-mobile-menu .pq-model-menu[open] > summary::after { content: '−'; }
-  .pq-feature-layout { --pq-feature-spec-width: 230px; --pq-feature-gap: 32px; width: calc(100% - 48px); min-height: auto; }
+  .pq-feature-layout { --pq-feature-spec-width: 230px; --pq-feature-gap: 32px; min-height: auto; }
   .pq-feature-panel { min-height: 520px; }
   .pq-feature-image { height: 500px; padding: 20px; }
   .pq-benefit-grid { grid-template-columns: repeat(2,1fr); }
@@ -383,7 +403,6 @@
   .pq-footer-identity { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; }
 }
 @media (max-width: 820px) {
-  .pq-feature .pq-section-title, .pq-feature-layout { width: calc(100% - 32px); }
   .pq-feature-layout { display: grid; }
   .pq-feature-panels, .pq-feature-panel:not([hidden]) { display: contents; }
   .pq-feature-image { grid-row: 1; width: 100%; height: min(72vw, 500px); padding: 12px; }
@@ -397,8 +416,17 @@
   .pq-feature-image { height: 500px; }
   .pq-feature-selectors { margin-block-start: -58px; }
 }
+@media (max-width: 749px) {
+  #MainContent .product-grid-container > .collection-wrapper {
+    grid-column: 1 / -1;
+    width: var(--pq-content-width);
+    min-width: 0;
+    margin-inline: auto;
+  }
+}
+
 @media (max-width: 700px) {
-  .pq-container { width: calc(100% - 32px); }
+  :root { --pq-content-gutter: 16px; }
   .pq-section { padding-block: min(var(--pq-space, 56px), 56px); }
   .pq-section-title { font-size: 28px; gap: 8px; margin-block-end: 28px !important; }
   .pq-section-title small { width: 100%; font-size: 15px; }
@@ -408,7 +436,7 @@
   .pq-icon-button { width: 36px; }
   .pq-hero-slide { min-height: var(--pq-hero-mobile-height, 620px); align-items: end; }
   .pq-hero-media::after { background: linear-gradient(0deg, rgb(8 9 11 / .92) 0%, rgb(8 9 11 / .58) 58%, rgb(8 9 11 / .16) 100%); }
-  .pq-hero-copy { align-items: end; width: calc(100% - 32px); padding-block: 64px 54px; }
+  .pq-hero-copy { align-items: end; padding-block: 64px 54px; }
   .pq-hero-copy h1, .pq-hero-display { font-size: clamp(40px, 12vw, 58px); }
   .pq-hero-description { font-size: 16px; }
   .pq-hero-kicker { font-size: 11px; }

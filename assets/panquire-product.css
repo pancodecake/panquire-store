@@ -86,7 +86,7 @@
 .pq-story-copy .rte { max-width: 60ch; line-height: 1.7; font-size: 16px; color: var(--text-muted); margin-top: 24px; }
 .pq-story-copy .pq-button { margin-top: 24px; }
 .pq-story-eyebrow { font-size: 14px; margin-bottom: 20px !important; }
-.pq-story--panorama .pq-story-copy { position: absolute; inset-inline: max(24px,calc((100% - 1050px)/2)); top: 40px; width: fit-content; max-width: calc(100% - 48px); padding: 18px 22px; background: #08090be6; }
+.pq-story--panorama .pq-story-copy { position: absolute; inset-inline: max(var(--pq-content-gutter), calc((100% - var(--pq-content-max)) / 2)); top: 40px; width: fit-content; max-width: var(--pq-content-width); padding: 18px 22px; background: #08090be6; }
 .pq-story--panorama .pq-story-copy h2 { font-size: clamp(24px,2.8vw,42px); }
 .pq-story--editorial .pq-story-layout { display: flex; flex-direction: column-reverse; gap: 44px; }
 .pq-story--editorial .pq-story-copy { max-width: 620px; margin-inline: auto; text-align: center; }
