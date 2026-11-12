@@ -51,6 +51,10 @@
     <script src="{{ 'panquire.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
+    <style>
+      p { color: #9ca2ad !important; }
+      p :is(strong, b) { color: #fff !important; }
+    </style>
   </head>
 
   <body class="pq-storefront page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
