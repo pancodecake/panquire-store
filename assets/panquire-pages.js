@@ -27,24 +27,9 @@
     });
   };
 
-  const setupTerms = root => {
-    if (cleanups.has(root)) return;
-    const controller = new AbortController();
-    const listen = (el, type, fn) => el.addEventListener(type, fn, { signal: controller.signal });
-    const panels = [...root.querySelectorAll('[data-pq-policy-panel]')];
-    const input = root.querySelector('[data-pq-policy-search]');
-    const tabs = root.querySelector('[data-pq-policy-tabs]');
-    const status = root.querySelector('[data-pq-policy-status]');
-    const empty = root.querySelector('[data-pq-policy-empty]');
-    const questions = panels.map(panel => [...panel.querySelectorAll('[data-pq-policy-question]')]);
-    const searchable = new Map(questions.flat().map(q => [q, q.textContent.toLocaleLowerCase()]));
-    const initialOpen = new Map(questions.flat().map(q => [q, q.open]));
+  const createQuestionAccordion = listen => {
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const running = new WeakMap();
-    let active = 0;
-    let query = '';
-    let timer;
-    if (!panels.length) return;
     const resetQuestionMotion = item => {
       running.get(item)?.cancel();
       running.delete(item);
@@ -101,7 +86,7 @@
         delete item.dataset.pqState;
       };
     };
-    questions.forEach(items => items.forEach(item => {
+    const bindQuestions = items => items.forEach(item => {
       const summary = item.querySelector('summary');
       listen(summary, 'click', event => {
         event.preventDefault();
@@ -111,7 +96,40 @@
         });
         animateQuestion(item, shouldOpen, shouldOpen);
       });
-    }));
+    });
+    return { bindQuestions, resetQuestionMotion };
+  };
+
+  const setupFaqAccordion = root => {
+    if (cleanups.has(root) || typeof Element.prototype.animate !== 'function') return;
+    const controller = new AbortController();
+    const listen = (el, type, fn) => el.addEventListener(type, fn, { signal: controller.signal });
+    const items = [...root.querySelectorAll('[data-pq-policy-question]')];
+    const { bindQuestions, resetQuestionMotion } = createQuestionAccordion(listen);
+    // Native grouping covers the no-script case. Animated closure needs both panels mounted briefly.
+    items.forEach(item => item.removeAttribute('name'));
+    bindQuestions(items);
+    cleanups.set(root, () => { controller.abort(); items.forEach(resetQuestionMotion); });
+  };
+
+  const setupTerms = root => {
+    if (cleanups.has(root)) return;
+    const controller = new AbortController();
+    const listen = (el, type, fn) => el.addEventListener(type, fn, { signal: controller.signal });
+    const panels = [...root.querySelectorAll('[data-pq-policy-panel]')];
+    const input = root.querySelector('[data-pq-policy-search]');
+    const tabs = root.querySelector('[data-pq-policy-tabs]');
+    const status = root.querySelector('[data-pq-policy-status]');
+    const empty = root.querySelector('[data-pq-policy-empty]');
+    const questions = panels.map(panel => [...panel.querySelectorAll('[data-pq-policy-question]')]);
+    const searchable = new Map(questions.flat().map(q => [q, q.textContent.toLocaleLowerCase()]));
+    const initialOpen = new Map(questions.flat().map(q => [q, q.open]));
+    let active = 0;
+    let query = '';
+    let timer;
+    if (!panels.length) return;
+    const { bindQuestions, resetQuestionMotion } = createQuestionAccordion(listen);
+    questions.forEach(bindQuestions);
     const buttons = panels.map((panel, i) => {
       const button = document.createElement('button');
       button.type = 'button';
@@ -249,9 +267,10 @@
   };
   const initialize = (scope = document) => {
     scope.querySelectorAll('[data-pq-terms]').forEach(setupTerms);
+    scope.querySelectorAll('[data-pq-faq-accordion]').forEach(setupFaqAccordion);
     scope.querySelectorAll('[data-pq-story]').forEach(setupStory);
   };
   initialize();
   document.addEventListener('shopify:section:load', event => initialize(event.target));
-  document.addEventListener('shopify:section:unload', event => event.target.querySelectorAll('[data-pq-terms],[data-pq-story]').forEach(root => { cleanups.get(root)?.(); cleanups.delete(root); }));
+  document.addEventListener('shopify:section:unload', event => event.target.querySelectorAll('[data-pq-terms],[data-pq-story],[data-pq-faq-accordion]').forEach(root => { cleanups.get(root)?.(); cleanups.delete(root); }));
 })();

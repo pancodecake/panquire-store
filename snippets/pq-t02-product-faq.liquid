@@ -1,0 +1,33 @@
+{% doc %}
+  T-02 questions in the order supplied by the product research.
+  @param {string} section_id - Unique product editorial section ID.
+{% enddoc %}
+{% assign compare_url = pages.compare.url | default: '/pages/compare' %}
+{% assign contact_url = pages.contact.url | default: '/pages/contact' %}
+{% assign shipping_url = shop.shipping_policy.url | default: '/policies/shipping-policy' %}
+{% capture faq_copy %}
+What is an electric dirt bike, and where can you ride one?|An electric dirt bike is a battery-powered motorcycle designed for off-road use. Ride the T-02 at parks and on designated motorized trails that permit electric motorcycles, or on private land with permission. Check local rules before using public roads, bike lanes or shared paths.
+Why choose the Panquire T-02 over alternatives?|The T-02 combines 13 kW of peak motor power, a removable 72V battery and an adjustable rear shock at its listed vehicle price. If you’re considering the Sur-Ron Ultra Bee, 79BIKE Falcon Pro or Qronge X7 Spark, compare the exact configurations, battery capacities and purchase prices in <a href="{{ compare_url | escape }}">Compare Models</a>.
+Is the T-02 suitable for adults?|Panquire recommends the T-02 for riders 160 to 190 cm tall (about 5 ft 3 in to 6 ft 3 in). It has a 19-inch front wheel, a 17-inch rear wheel and an adjustable rear shock. Check your inseam and reach before ordering. The suspension is specified for riders around 40 to 95 kg (88 to 209 lb). The bike’s separate maximum load rating is 150 kg (331 lb).
+What is the range on a single charge?|Panquire rates the T-02 for up to 90 km (56 miles) in Eco mode. Actual range depends on speed, terrain, rider weight, temperature and how you ride.
+What warranty do I get?|Panquire’s <a href="/pages/terms">one-year limited warranty</a> covers the motor, battery and controller from the date of delivery. Your statutory consumer rights also apply.
+How fast will it ship?|We aim to dispatch in-stock orders within three business days after payment confirmation and any required checks. If you preorder, you’ll see the applicable schedule before you pay. For eligible orders to supported U.S. and European destinations, we guarantee delivery within 30 calendar days after the carrier physically accepts the shipment. Order processing before carrier acceptance is separate. See the <a href="{{ shipping_url | escape }}">Shipping Policy</a> for eligibility and timing.
+What if I need help or service?|Email <a href="mailto:support@panquire.com">support@panquire.com</a> or <a href="{{ contact_url | escape }}">contact Panquire</a>. If you’ve already ordered, include your order number and a short description of the issue. For a warranty claim, include your proof of purchase so we can review your claim and explain the next steps.
+{% endcapture %}
+{% assign faqs = faq_copy | strip | newline_to_br | split: '<br />' %}
+<section class="pq-product-faq pq-product-faq--t02">
+  <h2>{{ 'panquire.product_page.faqs' | t }}</h2>
+  <div class="pq-policy-questions" data-pq-faq-accordion>
+    {% for row in faqs %}
+      {% assign entry = row | strip | split: '|' %}
+      {% assign question_id = 'T02Question-' | append: section_id | append: '-' | append: forloop.index %}
+      <details class="pq-policy-question" data-pq-policy-question name="ProductFaq-{{ section_id }}">
+        <span class="pq-policy-flare" aria-hidden="true" data-pq-policy-flare></span>
+        <summary id="{{ question_id }}"><h3>{{ entry[0] | escape }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
+        <div class="pq-prose pq-policy-answer" role="region" aria-labelledby="{{ question_id }}" data-pq-answer>
+          <p>{{ entry[1] }}</p>
+        </div>
+      </details>
+    {% endfor %}
+  </div>
+</section>
