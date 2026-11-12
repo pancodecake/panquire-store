@@ -35,7 +35,7 @@
       <div class="pq-hero-copy pq-container" style="--pq-hero-text: {{ hero.settings.text_color }};">
         <div class="pq-hero-content">
           {% if hero.settings.kicker != blank %}<p class="pq-hero-kicker">{{ hero.settings.kicker | escape }}</p>{% endif %}
-          {% if hero.settings.heading != blank %}<h1>{{ hero.settings.heading | escape }}</h1>{% endif %}
+          {% if hero.settings.heading != blank %}<h1><span>{{ hero.settings.heading | escape }}</span></h1>{% endif %}
           {% if hero.settings.display_heading != blank %}<p class="pq-hero-display">{{ hero.settings.display_heading | escape }}</p>{% endif %}
           {% if hero.settings.subheading != blank %}<p class="pq-hero-subheading">{{ hero.settings.subheading | escape }}</p>{% endif %}
           {% if hero.settings.text != blank %}

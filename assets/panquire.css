@@ -157,7 +157,16 @@
 .pq-hero-media .pq-image { object-position: var(--pq-hero-focus-x, 50%) center; }
 .pq-hero-media .pq-placeholder { background: var(--carbon-gradient); }
 .pq-hero-copy { display: flex; align-items: center; min-height: inherit; padding-block: 72px; color: var(--pq-hero-text, var(--pq-ink)); text-align: left; }
-.pq-hero-copy h1 { color: var(--color-heading-accent); font-family: 'Jost', var(--pq-heading-font); font-style: italic; font-weight: 900; line-height: .96; text-transform: uppercase;  filter: url(#panquire-hero-weight); }
+.pq-hero-copy h1 { color: var(--color-heading-accent); font-family: 'Jost', var(--pq-heading-font); font-style: italic; font-weight: 900; line-height: .96; text-transform: uppercase; width: fit-content; }
+.pq-hero-copy h1 > span { filter: url(#panquire-hero-weight); }
+.pq-hero-copy h1::after {
+  content: '';
+  display: block;
+  width: 50%;
+  height: 2px;
+  margin-block-start: 8px;
+  background: var(--bronze-600);
+}
 .pq-hero-display { max-width: 11ch; margin-block-end: 16px !important; color: var(--color-heading-accent); font-family: var(--pq-hero-font); font-size: clamp(44px, 5vw, 78px); font-weight: 400; line-height: .96; text-transform: uppercase; letter-spacing: -.055em; }
 .pq-hero-subheading { margin-block-end: 8px !important; font-size: clamp(20px, 2vw, 28px); font-weight: 700; line-height: 1.2; }
 .pq-hero-description { max-width: 48ch; color: var(--text-muted); font-size: clamp(16px, 1.2vw, 19px); line-height: 1.55; font-weight: 600; }
