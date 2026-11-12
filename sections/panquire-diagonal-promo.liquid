@@ -1,4 +1,13 @@
 {% if section.settings.use_full_width_artwork %}
+  {% style %}
+    @font-face {
+      font-family: 'Jost';
+      src: url("{{ 'jost-black-italic.otf' | asset_url }}") format('opentype');
+      font-style: italic;
+      font-weight: 900;
+      font-display: swap;
+    }
+  {% endstyle %}
   <div class="pq-diagonal-promo__composition">
     <img
       class="pq-diagonal-promo__artwork"
@@ -72,7 +81,7 @@
     margin: 0;
     transform: translate(-50%, -50%) scaleX(0.64);
     color: var(--bronze-600);
-    font-family: 'Panquire Favela', 'Arial Narrow', sans-serif;
+    font-family: 'Jost', 'Arial Narrow', sans-serif;
     font-size: 1.95cqw;
     font-style: italic;
     font-weight: 900;
