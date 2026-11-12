@@ -24,6 +24,10 @@
             </div>
             <div class="pq-feature-copy">
               <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% if block.settings[label_key] != blank %}<div><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+              {% if block.settings.product != blank %}
+                {% assign bike_price = block.settings.product.selected_or_first_available_variant.price | default: block.settings.product.price %}
+                <p class="pq-feature-price">{{ bike_price | money_with_currency }}</p>
+              {% endif %}
               {% if block.settings.product != blank %}<a class="pq-text-link" href="{{ block.settings.product.url }}">{{ 'panquire.view_product' | t }} {% render 'pq-icon', name: 'arrow' %}</a>{% endif %}
             </div>
           </article>

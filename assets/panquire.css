@@ -197,6 +197,13 @@
 .pq-feature-image .pq-placeholder { background: var(--pq-surface); color: var(--pq-muted); }
 .pq-feature-image .pq-image { object-fit: contain; filter: drop-shadow(0 28px 28px rgb(0 0 0 / .38)); }
 .pq-specs { display: grid; gap: 22px; }
+.pq-feature-copy .pq-feature-price {
+  margin-block-start: 22px;
+  color: var(--bronze-600);
+  font-size: clamp(20px, 2vw, 27px);
+  font-weight: 700;
+  line-height: 1.08;
+}
 .pq-specs > div { padding-inline-start: 18px; border-inline-start: 2px solid var(--pq-line); }
 .pq-specs > div:nth-child(-n+2) { border-inline-start-color: var(--color-accent-solid); }
 .pq-specs dt { color: var(--pq-muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
