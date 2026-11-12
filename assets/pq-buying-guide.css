@@ -10,6 +10,13 @@
 .pq-buying-guide__table tbody th { color: var(--pq-muted); font-weight: 400; }
 .pq-buying-guide__table caption { text-align: start; color: var(--pq-muted); padding-bottom: 8px; }
 .pq-buying-guide__columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 64px; margin-block: 40px; }
+.pq-buying-guide__columns > div {
+  background: var(--surface);
+  border: 1px solid var(--pq-line);
+  border-radius: 8px;
+  padding: clamp(16px, 3vw, 28px);
+}
+
 .pq-buying-guide h3 { font-size: clamp(20px, 2vw, 25px); margin-bottom: 14px; }
 .pq-buying-guide__links { display: flex; flex-wrap: wrap; gap: 16px 28px; margin-top: 24px; }
 .pq-buying-guide__faq { border-top: 1px solid var(--pq-line); padding-top: 32px; }

@@ -20,6 +20,13 @@
   --pq-motion-fast: 150ms;
   --pq-motion-base: 200ms;
 }
+/* Use the store's gold even when a component supplies its own heading color. */
+.pq-storefront :is(h1, h2),
+.pq-storefront :is(h1, h2) :is(a, span, em, strong, small) {
+  color: var(--bronze-600) !important;
+  -webkit-text-fill-color: currentColor;
+}
+
 .pq-storefront :where(.button, .button-secondary, .button-custom, button.shopify-payment-button__button--unbranded) { font-weight: 600; }
 .pq-storefront :where(.menu-list__link, .menu-list__item, .menu-drawer__menu-item--mainlist) { font-family: var(--pq-heading-font); font-weight: 600; }
 .pq { background: var(--pq-bg); color: var(--pq-text); font: 400 14px/1.5 var(--pq-body-font); overflow-wrap: break-word; }
