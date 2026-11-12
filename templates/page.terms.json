@@ -112,7 +112,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What delivery timing applies?",
-                "answer": "<p>Eligible orders to supported U.S. and European destinations are guaranteed delivery in 30 calendar days following order confirmation, including processing. Check eligibility before payment. Delivery estimates for other supported destinations are shown at checkout. The <a href=\"/policies/shipping-policy\">Shipping Policy</a> explains the eligible destinations, timing and remedies for delayed orders. Preorders and backorders may have separately agreed dates.</p>"
+                "answer": "<p>Eligible orders to supported U.S. and European destinations are guaranteed delivery within 30 calendar days after the carrier physically accepts the shipment. Order processing before carrier acceptance is separate. Check eligibility before payment. Delivery estimates for other supported destinations are shown at checkout. The <a href=\"/policies/shipping-policy\">Shipping Policy</a> explains the eligible destinations, timing and remedies for delayed orders. Preorders and backorders may have separately agreed dates.</p>"
               },
               "blocks": {}
             },
