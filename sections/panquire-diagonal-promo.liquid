@@ -1,30 +1,10 @@
 {% if section.settings.use_full_width_artwork %}
-  {% style %}
-    @font-face {
-      font-family: 'Jost';
-      src: url("{{ 'jost-black-italic.otf' | asset_url }}") format('opentype');
-      font-style: italic;
-      font-weight: 900;
-      font-display: swap;
-    }
-  {% endstyle %}
-  <div class="pq-diagonal-promo__composition">
-    <img
-      class="pq-diagonal-promo__artwork"
-      src="{{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }}"
-      srcset="{{ 'panquire-diagonal-banner.png' | asset_img_url: '640x' }} 640w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1280x' }} 1280w, {{ 'panquire-diagonal-banner.png' | asset_img_url: '1920x' }} 1920w, {{ 'panquire-diagonal-banner.png' | asset_url }} 2880w"
-      sizes="100vw"
-      width="2880"
-      height="1020"
-      alt="Gold Panquire emblem alongside close-ups of electric dirt bikes on a rocky trail"
-      loading="lazy"
-      decoding="async"
-    >
-    <p class="pq-diagonal-promo__headline">
-      <span>Your ride to Freedom</span>
-      <span>Can start Right Now</span>
-    </p>
-  </div>
+  {% assign artwork = images['panquire-banner.png'] %}
+  {% if artwork != blank %}
+    <div style="--promo-height: {{ section.settings.desktop_height }}px;">
+      {{ artwork | image_url: width: 2880 | image_tag: class: 'pq-diagonal-promo__artwork', widths: '640, 960, 1280, 1600, 1920, 2400, 2880', sizes: '100vw', loading: 'lazy', alt: 'Panquire electric dirt bikes on a rocky trail. Your ride to freedom can start right now.' }}
+    </div>
+  {% endif %}
 {% else %}
 {% liquid
   assign left_alt = section.settings.left_image.alt | default: 'Panquire electric motorcycle on a forest trail'
@@ -68,53 +48,12 @@
 {% endif %}
 
 {% stylesheet %}
-  .pq-diagonal-promo__composition {
-    position: relative;
-    container-type: inline-size;
-  }
-
-  .pq-diagonal-promo__headline {
-    position: absolute;
-    top: 46%;
-    left: 69.5%;
-    margin: 0;
-    transform: translate(-50%, -50%) scaleX(0.64);
-    color: var(--bronze-600);
-    font-family: 'Jost', 'Arial Narrow', sans-serif;
-    font-size: 1.95cqw;
-    font-style: italic;
-    font-weight: 900;
-    line-height: 1.15;
-    text-align: center;
-    font-size: 45px;
-  }
-
-  .pq-diagonal-promo__headline span {
-    display: block;
-  }
-
-  .pq-diagonal-promo__headline::before,
-  .pq-diagonal-promo__headline::after {
-    content: '';
-    display: block;
-    width: 44%;
-    height: 0.16cqw;
-    background: currentColor;
-  }
-
-  .pq-diagonal-promo__headline::before {
-    margin-bottom: 0.22em;
-  }
-
-  .pq-diagonal-promo__headline::after {
-    margin-top: 0.22em;
-    margin-left: auto;
-  }
-
   .pq-diagonal-promo__artwork {
     display: block;
     width: 100%;
     height: auto;
+    max-height: var(--promo-height);
+    object-fit: cover;
   }
 
   .pq-diagonal-promo {
