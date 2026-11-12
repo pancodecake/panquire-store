@@ -6,7 +6,7 @@
 {%- if field == 'handles' -%}t-01,t-02,t-03
 {%- elsif model == 't-01' or model == 't-02' or model == 't-03' -%}
   {%- if field == 'image' -%}
-    {%- if model == 't-01' -%}panquire-t01.png{%- elsif model == 't-02' -%}panquire-t02.png{%- else -%}panquire-t03.png{%- endif -%}
+    {%- if model == 't-01' -%}{{ 'panquire-t01-product.png' | file_img_url: '1600x' }}{%- elsif model == 't-02' -%}{{ 'panquire-t02.png' | asset_url }}{%- else -%}{{ 'panquire-t03.png' | asset_url }}{%- endif -%}
   {%- else -%}
     {%- assign model_product = all_products[model] -%}
     {%- assign rows = model_product.metafields.custom.panquire_specifications.value -%}

@@ -58,7 +58,7 @@
       <table><caption class="visually-hidden">{{ 'panquire.model.comparison' | t }}</caption><thead><tr><th scope="col">{{ 'panquire.model.specification' | t }}</th>
         {% for other in models %}<th scope="col"{% if other == model %} class="pq-model-current"{% endif %}>
           {% capture image %}{% render 'pq-model-data', model: other, field: 'image' %}{% endcapture %}
-          <a class="pq-model-link" href="/products/{{ other }}"><img src="{{ image | strip | asset_url }}" alt="{{ other | upcase }}" width="3200" height="2560" loading="lazy">{{ other | upcase }}</a>
+          <a class="pq-model-link" href="/products/{{ other }}"><img src="{{ image | strip | escape }}" alt="{{ other | upcase }}" width="3200" height="2560" loading="lazy">{{ other | upcase }}</a>
         </th>{% endfor %}</tr></thead><tbody>
         {% assign comparison_keys = 'Motor,Peak motor power,Battery voltage,Battery capacity,Maximum speed,Range — Eco mode,Max load,Front tire,Rear tire,Front/rear suspension,Brakes,Drivetrain' | split: ',' %}
         {% for key in comparison_keys %}<tr><th scope="row">{{ key | escape }}</th>{% for other in models %}<td{% if other == model %} class="pq-model-current"{% endif %}>{% render 'pq-model-data', model: other, field: key %}</td>{% endfor %}</tr>{% endfor %}

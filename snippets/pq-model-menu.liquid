@@ -15,7 +15,7 @@
         {% assign model_price = model_product.selected_or_first_available_variant.price | default: model_product.price %}
         <a class="pq-model-menu-card" href="{{ model_product.url }}"{% if product.handle == model %} aria-current="page"{% endif %}>
           <span class="pq-model-menu-image">
-            <img src="{{ image | strip | asset_url }}" width="3200" height="2560" alt="" loading="lazy">
+            <img src="{{ image | strip | escape }}" width="3200" height="2560" alt="" loading="lazy">
           </span>
           <strong>{{ model | upcase }}</strong>
           <span class="pq-model-menu-price">{{ model_price | money_with_currency }}</span>
