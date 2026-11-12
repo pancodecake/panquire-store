@@ -23,7 +23,7 @@
               {% endif %}
             </div>
             <div class="pq-feature-copy">
-              <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% if block.settings[label_key] != blank %}<div><dt>{{ block.settings[label_key] | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
+              <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% assign spec_label = block.settings[label_key] %}{% assign spec_key = spec_label | handleize %}{% if block.settings.model == 'T-03' and spec_key == 'road-wheels' %}{% continue %}{% endif %}{% if spec_label != blank %}<div><dt>{{ spec_label | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
               {% if block.settings.product != blank %}
                 {% assign bike_price = block.settings.product.selected_or_first_available_variant.price | default: block.settings.product.price %}
                 <p class="pq-feature-price">{{ bike_price | money_with_currency }}</p>
