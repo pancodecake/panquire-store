@@ -157,7 +157,7 @@
 .pq-hero-media .pq-image { object-position: var(--pq-hero-focus-x, 50%) center; }
 .pq-hero-media .pq-placeholder { background: var(--carbon-gradient); }
 .pq-hero-copy { display: flex; align-items: center; min-height: inherit; padding-block: 72px; color: var(--pq-hero-text, var(--pq-ink)); text-align: left; }
-.pq-hero-copy h1 { color: var(--color-heading-accent); font-family: 'Jost', var(--pq-heading-font); font-style: italic; font-weight: 900; line-height: .96; text-transform: uppercase; width: fit-content; }
+.pq-hero-copy h1 { margin-bottom: 10px; color: var(--color-heading-accent); font-family: 'Jost', var(--pq-heading-font); font-style: italic; font-weight: 900; line-height: .96; text-transform: uppercase; width: fit-content; }
 .pq-hero-copy h1 > span { filter: url(#panquire-hero-weight); }
 .pq-hero-copy h1::after {
   content: '';
