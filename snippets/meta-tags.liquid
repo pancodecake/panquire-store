@@ -21,7 +21,20 @@
 {%- liquid
   assign site_name = settings.pq_store_name | default: 'Panquire'
   assign og_title = page_title | default: site_name
-  assign og_url = canonical_url | default: request.origin
+  assign seo_canonical_url = canonical_url
+  if request.page_type == 'page'
+    assign canonical_policy_url = nil
+    case page.handle
+      when 'terms'
+        assign canonical_policy_url = shop.terms_of_service.url
+      when 'refund-return'
+        assign canonical_policy_url = shop.refund_policy.url
+    endcase
+    if canonical_policy_url != blank
+      assign seo_canonical_url = canonical_policy_url | prepend: request.origin
+    endif
+  endif
+  assign og_url = seo_canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: 'Panquire electric dirt bikes for off-road riding.'
   assign document_title = page_title
@@ -51,7 +64,7 @@
   assign og_title = document_title | default: site_name
 
   if seo_language == 'en'
-  if request.page_type == 'index' or page_title == 'My Store'
+  if request.page_type == 'index'
     assign document_title = 'Panquire Electric Dirt Bikes & Motorcycles'
     assign og_title = document_title
     assign og_description = 'Compare Panquire’s T-01 and T-02 electric dirt bikes and the T-03 mini electric motorcycle. Explore battery, range, rider fit and support before you buy.'
@@ -149,7 +162,7 @@
 
 <link
   rel="canonical"
-  href="{{ canonical_url }}"
+  href="{{ seo_canonical_url | escape }}"
 >
 
 {% if og_description != blank %}
