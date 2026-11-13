@@ -37,7 +37,6 @@
           {% if variant.compare_at_price > variant.price %}
             <span>Was <s>{{ variant.compare_at_price | money_with_currency }}</s>. Save {{ variant.compare_at_price | minus: variant.price | money_with_currency }}.</span>
           {% endif %}
-          {% unless variant.available %}<span>{{ 'content.product_badge_sold_out' | t }}</span>{% endunless %}
         {% else %}
           <span>{{ 'content.unavailable' | t }}</span>
         {% endif %}
