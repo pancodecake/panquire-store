@@ -14,7 +14,7 @@
   assign variant = product.selected_or_first_available_variant
   assign can_purchase = variant.available
   assign minimum = variant.quantity_rule.min | default: 1
-  assign unavailable_label = 'products.product.sold_out' | t
+  assign unavailable_label = 'products.product.unavailable' | t
   assign maximum = variant.quantity_rule.max
   if variant.inventory_management != blank
     assign maximum = variant.inventory_quantity
@@ -28,7 +28,6 @@
   assign has_stock_without_delivery = false
   if variant.available == false and variant.inventory_quantity >= minimum
     assign has_stock_without_delivery = true
-    assign unavailable_label = 'products.product.unavailable' | t
   endif
   assign form_id = 'PanquirePurchase-' | append: section.id
   assign rating_count = product.metafields.reviews.rating_count.value | default: 0
@@ -78,10 +77,8 @@
       {% endform %}
     </product-form-component>
   {% else %}
-    {% if has_stock_without_delivery and shop.shipping_policy.url != blank %}
-      <a class="pq-text-link" href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title | escape }}</a>
-    {% else %}
-      <div class="pq-purchase__unavailable"><button type="button" disabled>{{ unavailable_label }}</button></div>
+    {% if shop.shipping_policy.url != blank %}
+      <a class="pq-text-link" href="{{ shop.shipping_policy.url }}">{% render 'pq-purchase-copy', key: 'delivery_details' %}</a>
     {% endif %}
   {% endif %}
   <section class="pq-purchase__payment-section">
