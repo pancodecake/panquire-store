@@ -14,6 +14,7 @@
   assign variant = product.selected_or_first_available_variant
   assign can_purchase = variant.available
   assign minimum = variant.quantity_rule.min | default: 1
+  assign unavailable_label = 'products.product.sold_out' | t
   assign maximum = variant.quantity_rule.max
   if variant.inventory_management != blank
     assign maximum = variant.inventory_quantity
@@ -24,6 +25,11 @@
   if variant.inventory_management != blank and variant.inventory_quantity < minimum
     assign can_purchase = false
   endif
+  assign has_stock_without_delivery = false
+  if variant.available == false and variant.inventory_quantity >= minimum
+    assign has_stock_without_delivery = true
+    assign unavailable_label = 'products.product.unavailable' | t
+  endif
   assign form_id = 'PanquirePurchase-' | append: section.id
   assign rating_count = product.metafields.reviews.rating_count.value | default: 0
   assign rating = product.metafields.reviews.rating.value.rating
@@ -31,7 +37,6 @@
 %}
 
 <pq-purchase-panel class="pq-purchase" {{ block.shopify_attributes }}>
-  <p class="pq-purchase__tagline">{% render 'pq-purchase-copy', key: 'tagline' %}</p>
   <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
   {% if rating != blank and rating_count > 0 %}
     <div class="pq-purchase__reviews">
@@ -48,7 +53,13 @@
     {% endif %}
   </div>
   <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
-    <span aria-hidden="true"></span>{% if can_purchase %}{% render 'pq-purchase-copy', key: 'in_stock' %}{% else %}{{ 'products.product.sold_out' | t }}{% endif %}
+    <span aria-hidden="true"></span>
+    {%- if can_purchase or has_stock_without_delivery -%}
+      {{ 'content.inventory_in_stock' | t }}
+      {%- if has_stock_without_delivery %}. {% render 'pq-purchase-copy', key: 'delivery_unavailable' %}{% endif -%}
+    {%- else -%}
+      {{ unavailable_label }}
+    {%- endif -%}
   </p>
   {% if can_purchase %}
     <product-form-component data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-url="{{ product.url }}" data-quantity-default="{{ minimum }}" data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}" on:submit="/handleSubmit">
@@ -62,11 +73,16 @@
           {% render 'add-to-cart-button', product: product, can_add_to_cart: can_purchase, add_to_cart_text: add_text, class: 'add-to-cart-button pq-purchase__add', id: add_id %}
           <div class="pq-purchase__checkout" ref="acceleratedCheckoutButtonContainer">{{ form | payment_button }}</div>
         </div>
+        <p data-pq-cart-pending role="status" hidden>{{ 'products.product.adding_to_cart' | t }}</p>
         <span class="product-form-text__error hidden" ref="addToCartTextError"><span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span></span>
       {% endform %}
     </product-form-component>
   {% else %}
-    <div class="pq-purchase__unavailable"><button type="button" disabled>{{ 'products.product.sold_out' | t }}</button></div>
+    {% if has_stock_without_delivery and shop.shipping_policy.url != blank %}
+      <a class="pq-text-link" href="{{ shop.shipping_policy.url }}">{{ shop.shipping_policy.title | escape }}</a>
+    {% else %}
+      <div class="pq-purchase__unavailable"><button type="button" disabled>{{ unavailable_label }}</button></div>
+    {% endif %}
   {% endif %}
   <section class="pq-purchase__payment-section">
     <h2 class="pq-purchase__payment-title">{% render 'pq-purchase-copy', key: 'financing' %}</h2>

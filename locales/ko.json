@@ -18,6 +18,8 @@
       "review_count": "{{ count }} reviews",
       "discount": "{{ percent }}% OFF",
       "in_stock": "In stock & Ready to ship",
+
+      "delivery_unavailable": "해당 국가로는 배송할 수 없습니다",
       "financing": "Payment options",
       "payment_text": "Secure payment options at checkout.",
       "accessories": "Included Accessories",

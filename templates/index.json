@@ -57,7 +57,7 @@
           "type": "benefit",
           "settings": {
             "heading": "1 Year Warranty",
-            "text": "Built for lasting confidence, backed by a 1-year warranty."
+            "text": "One-year limited commercial warranty."
           }
         },
         "item3": {
@@ -71,7 +71,7 @@
           "type": "benefit",
           "settings": {
             "heading": "Factory Direct",
-            "text": "Custom designs available without middleman"
+            "text": "Contact us about custom designs for business orders."
           }
         }
       },
@@ -146,7 +146,7 @@
       ],
       "settings": {
         "heading": "Panquire Models",
-        "subtitle": "Choose from our off-road and street electrick motorcycle collections",
+        "subtitle": "Compare the T-01, T-02 and T-03.",
         "show_campaign": false,
         "campaign_height": 1000,
         "spacing": 70
@@ -220,7 +220,7 @@
       ],
       "settings": {
         "heading": "Customer Reviews",
-        "text": "Read what Panquire customers say about their T-01 and T-02.",
+        "text": "",
         "spacing": 90
       }
     },
@@ -246,7 +246,7 @@
     "motorcycle_details": {
       "type": "pq-product-features",
       "settings": {
-        "heading": "Panquire Features",
+        "heading": "Bike details",
         "spacing": 70
       },
       "blocks": {
@@ -255,10 +255,10 @@
           "settings": {
             "image": "shopify://shop_images/panquire-t02-closeup-_Battery_Frame_Closeup.png",
             "image_alt": "Battery inside the frame of a Panquire T-02 electric motorcycle.",
-            "label": "THE BATTERY",
-            "heading": "72 volts, ready for the trail.",
+            "label": "Battery",
+            "heading": "The T-02 battery",
             "text": "The Panquire T-02 carries a 72V 41Ah battery inside an aluminum frame. That is 2,952 watt-hours of capacity, with a stated range of up to 90 km in Eco mode. A full charge takes approximately four hours, so the bike can be ready again between rides. Range varies with terrain, speed, rider weight and conditions.",
-            "detail": "T-02 · 72V 41Ah battery"
+            "detail": "72 V / 41 Ah"
           }
         },
         "suspension": {
@@ -266,7 +266,7 @@
           "settings": {
             "image": "shopify://shop_images/panquire-t02-closeup-_Rear_Shock_Suspension_Closeup.png",
             "image_alt": "Rear coil shock and suspension on a Panquire T-02 electric motorcycle.",
-            "label": "THE REAR SUSPENSION",
+            "label": "Rear suspension",
             "heading": "A rear shock you can set for the ride.",
             "text": "The adjustable rear shock helps the wheel respond to bumps and changing ground. Set the suspension for your weight and riding conditions, whether you are taking on a rough trail or finding your way through a technical section. It is there to keep the ride controlled when the surface is not.",
             "detail": "Adjustable rear shock"
@@ -277,8 +277,8 @@
           "settings": {
             "image": "shopify://shop_images/panquire-t02-closeup-Panquire_Handlebar_Controls_Closeup.png",
             "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
-            "label": "THE CONTROLS",
-            "heading": "Precision Power. Total Control.",
+            "label": "Controls",
+            "heading": "Three power levels at the handlebar",
             "text": "Select low, medium or high electronic power from the handlebar controls. Both T-01 and T-02 use three selectable power levels with no clutch. Choose the setting for your riding conditions and experience.",
             "detail": "3 electronic power levels | Handlebar controls | No clutch"
           }
@@ -288,10 +288,10 @@
           "settings": {
             "image": "shopify://shop_images/panquire-t01-closeup-Motor.png",
             "image_alt": "Motor cover and chain drive on a Panquire T-01 electric motorcycle.",
-            "label": "THE MOTOR",
+            "label": "Motor",
             "heading": "9.5 kW peak, in a lighter package.",
             "text": "The Panquire T-01 pairs a 9.5 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
-            "detail": "T-01 · 9.5 kW peak power"
+            "detail": "9.5 kW peak power"
           }
         },
         "cockpit": {
@@ -299,8 +299,8 @@
           "settings": {
             "image": "shopify://shop_images/Electric_Scooter_Dashboard_Cockpit.png",
             "image_alt": "Panquire T-01 electric motorcycle digital dashboard showing speed, battery level and trip distance.",
-            "label": "THE COCKPIT",
-            "heading": "The ride, in one glance.",
+            "label": "Dashboard",
+            "heading": "What the dashboard shows",
             "text": "The digital dashboard puts speed, battery level, selected mode and trip distance in front of you. The large central speed readout is easy to find, while the rest of the information stays close by when you need to check it."
           }
         }

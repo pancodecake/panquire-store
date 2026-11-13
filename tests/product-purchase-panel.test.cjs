@@ -44,7 +44,8 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
   for (const handle of ['t-01', 't-02', 't-03']) {
     const html = await render({}, handle);
     assert.match(html, /ref="variantId"\s+value="123"/);
-    assert.match(html, /In stock & Ready to ship/);
+    assert.match(html, /In stock/);
+    assert.match(html, /data-pq-cart-pending role="status" hidden>Adding/);
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
     assert.match(html, /one year warranty protection/);
@@ -55,7 +56,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
     assert.doesNotMatch(html, /BLACK FRIDAY|pq-purchase__campaign|<a\b[^>]*>17 reviews/i);
   }
   for (const overrides of [
-    { available: false },
+    { available: false, inventory_quantity: 0 },
     { inventory_quantity: 0, inventory_policy: 'continue' },
     { inventory_quantity: -1, inventory_policy: 'continue' },
     { inventory_quantity: 1, quantity_rule: { min: 2, increment: 2 } },
@@ -64,6 +65,9 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
     assert.match(html, /Sold out/);
     assert.doesNotMatch(html, /<product-form-component|payment-button__button/);
   }
+  const noDelivery = await render({ available: false });
+  assert.match(noDelivery, /In stock\. Delivery is unavailable in your country/);
+  assert.doesNotMatch(noDelivery, /Sold out|<product-form-component/);
   const untracked = await render({ inventory_management: null, inventory_quantity: 0 });
   assert.match(untracked, /<product-form-component/);
   const normal = await render();

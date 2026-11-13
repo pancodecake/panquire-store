@@ -3,21 +3,14 @@
   <div class="pq-review-stage" tabindex="0" aria-roledescription="carousel">
     {% for block in section.blocks %}
       <article class="pq-post" data-review-card aria-label="{{ block.settings.name | escape }}" {{ block.shopify_attributes }}>
-        <header class="pq-post-header"><img class="pq-post-logo" src="{{ 'panquire-review-logo.webp' | asset_url }}" width="40" height="40" alt="Panquire" loading="lazy"><strong>Panquire</strong><span class="pq-post-menu" aria-hidden="true">•••</span></header>
         {% if block.settings.image != blank %}
           {{ block.settings.image | image_url: width: 1000 | image_tag: class: 'pq-post-photo', alt: block.settings.name, loading: 'lazy', sizes: '(max-width: 600px) 85vw, 380px' }}
         {% elsif block.settings.asset != blank %}
           <img class="pq-post-photo" src="{{ block.settings.asset | asset_url }}" width="1000" height="800" alt="{{ block.settings.name | escape }} with Panquire" loading="lazy" draggable="false">
         {% endif %}
         <div class="pq-post-content">
-          <div class="pq-post-actions" aria-hidden="true">
-            <svg class="pq-post-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M21 11.5a9 9 0 1 0-4.8 8L21 21l-.6-4.8a9 9 0 0 0 .6-4.7Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13"/></svg>
-            <span class="pq-post-dots">{% for dot in section.blocks %}<i data-review-dot="{{ forloop.index0 }}"></i>{% endfor %}</span>
-            <svg class="pq-post-bookmark" viewBox="0 0 24 24"><path d="M5 3h14v19l-7-5-7 5V3Z"/></svg>
-          </div>
-          <p class="pq-post-caption"><strong>{{ block.settings.name | escape }}:</strong> {{ block.settings.quote | escape }}</p>
+          <blockquote class="pq-post-caption">{{ block.settings.quote | escape }}</blockquote>
+          <p class="pq-post-attribution">{{ block.settings.name | escape }}</p>
         </div>
       </article>
     {% endfor %}
