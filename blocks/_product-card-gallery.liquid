@@ -22,7 +22,7 @@
             {%- if product.variants_count == 1 and product.selected_or_first_available_variant.inventory_quantity > 0 -%}
               {{ 'content.inventory_in_stock' | t }}. {{ 'products.product.unavailable' | t }}
             {%- else -%}
-              {{ 'content.product_badge_sold_out' | t }}
+              {{ 'products.product.unavailable' | t }}
             {%- endif -%}
           {%- elsif product.compare_at_price > product.price -%}
             {{ 'content.product_badge_sale' | t }}

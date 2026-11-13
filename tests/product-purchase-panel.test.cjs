@@ -62,7 +62,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
     { inventory_quantity: 1, quantity_rule: { min: 2, increment: 2 } },
   ]) {
     const html = await render(overrides);
-    assert.match(html, /Sold out/);
+    assert.match(html, /Unavailable/);
     assert.doesNotMatch(html, /<product-form-component|payment-button__button/);
   }
   const noDelivery = await render({ available: false });
