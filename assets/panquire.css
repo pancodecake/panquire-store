@@ -23,7 +23,7 @@
 /* Use the store's gold even when a component supplies its own heading color. */
 .pq-storefront :is(h1, h2),
 .pq-storefront :is(h1, h2) :is(a, span, em, strong, small) {
-  color: var(--bronze-600) !important;
+  color: var(--bronze-600);
   -webkit-text-fill-color: currentColor;
 }
 
