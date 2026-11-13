@@ -112,7 +112,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What delivery timing applies?",
-                "answer": "<p>Eligible orders to supported U.S. and European destinations are guaranteed delivery within 30 calendar days after the carrier physically accepts the shipment. Order processing before carrier acceptance is separate. Check eligibility before payment. Delivery estimates for other supported destinations are shown at checkout. The <a href=\"/policies/shipping-policy\">Shipping Policy</a> explains the eligible destinations, timing and remedies for delayed orders. Preorders and backorders may have separately agreed dates.</p>"
+                "answer": "<p>Delivery takes up to 30 calendar days from order confirmation in the United States, Canada, Mexico and Europe, and up to 35 calendar days elsewhere. The <a href=\"/policies/shipping-policy\">Shipping Policy</a> explains the eligible destinations, timing and remedies for delayed orders. Preorders and backorders may have separately agreed dates.</p>"
               },
               "blocks": {}
             },
@@ -144,7 +144,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "How are shipping fees and free shipping determined?",
-                "answer": "<p>Free outbound shipping to supported destinations is included in the product price. No separate standard shipping fee is added at checkout. Duties and taxes may apply separately. Return shipping is governed by the Return &amp; Refund Policy.</p>"
+                "answer": "<p>Free outbound shipping to supported destinations is included in the product price. Shipping is free at checkout. Duties and taxes may apply separately. Return shipping is governed by the Return &amp; Refund Policy.</p>"
               },
               "blocks": {}
             },
