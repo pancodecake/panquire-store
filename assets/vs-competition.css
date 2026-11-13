@@ -49,7 +49,7 @@ pq-comparison { display: block; }
 
 @media (max-width: 749px) {
   .pq-compare__intro { grid-template-columns: minmax(0, 1fr); }
-  .pq-compare__intro .pq-long-paragraph { justify-self: start; text-align: start; }
+  .pq-compare__intro .pq-long-paragraph { width: 100%; max-width: 68ch; justify-self: start; text-align: start; }
   .pq-compare__intro .pq-long-paragraph::after { margin-inline-start: 0; }
 }
 .pq-compare__hero { display: grid; grid-template-columns: minmax(0,1fr) 86px minmax(0,1fr); gap: 24px; padding-bottom: 44px; }

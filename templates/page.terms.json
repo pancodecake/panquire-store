@@ -411,7 +411,7 @@
       ],
       "settings": {
         "eyebrow": "Customer care",
-        "heading": "Terms of Service",
+        "heading": "Panquire Help Center",
         "intro": "<p>Find answers about payment, shipping, warranty, returns, privacy and legal information. Read the <a href=\"/pages/terms\">Terms and Conditions</a> for the full terms of purchase.</p>",
         "search_label": "Search all policies",
         "placeholder": "Try battery, shipping, or refund",
@@ -420,7 +420,7 @@
         "results_label": "results across all topics",
         "topic_label": "in this topic",
         "searching_label": "Search covers every topic. Choose a tab to view its matching answers.",
-        "empty_label": "No results in this topic. Try another tab, change your search, or select Clear to see all questions.",
+        "empty_label": "No results in this topic. Try another topic or clear the search.",
         "panel_background": "#232323",
         "panel_text": "#ffffff",
         "panel_radius": 24

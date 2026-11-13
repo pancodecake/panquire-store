@@ -5,6 +5,23 @@ if (!customElements.get('pq-purchase-panel')) {
       this.animations = new Map();
       this.reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
       const options = { signal: this.controller.signal };
+      let pendingAdds = 0;
+      this.addEventListener('shopify:cart:lines-update', event => {
+        if (event.action !== 'add') return;
+        const status = this.querySelector('[data-pq-cart-pending]');
+        const button = this.querySelector('.pq-purchase__add');
+        if (!status || !button) return;
+        pendingAdds += 1;
+        status.hidden = false;
+        button.setAttribute('aria-busy', 'true');
+        const finish = () => {
+          pendingAdds -= 1;
+          if (pendingAdds > 0) return;
+          status.hidden = true;
+          button.removeAttribute('aria-busy');
+        };
+        event.promise.then(finish, finish);
+      }, options);
       this.addEventListener('click', event => {
         const summary = event.target.closest('summary');
         if (!summary || !this.contains(summary)) return;
