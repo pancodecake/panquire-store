@@ -24,7 +24,7 @@
     {% endif %}
 
     {% capture heading_text %}
-      <h3>{{ heading_text }}</h3>
+      <h1 class="h3">{{ heading_text }}</h1>
     {% endcapture %}
 
     {% content_for 'block', id: 'heading', type: '_heading', text: heading_text %}
