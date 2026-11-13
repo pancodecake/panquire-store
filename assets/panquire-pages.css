@@ -87,7 +87,7 @@
 .pq-policy-toggle::before, .pq-policy-toggle::after { content: ''; position: absolute; inset: 9px 2px auto; height: 2px; background: currentColor; }
 .pq-policy-toggle::after { transform: rotate(90deg); }
 .pq-policy-question[open]:not([data-pq-state='closing']) .pq-policy-toggle { color: var(--color-heading-accent); transform: rotate(45deg); }
-.pq-policy-answer { position: relative; z-index: 1; max-width: 76ch; margin: 0; padding: 34px 48px 36px 45px; color: #FFFFFF; background: transparent; border: 0; border-radius: 0; box-shadow: none; font-family: var(--pq-body-font); font-size: 16px; font-style: italic; font-weight: 500; line-height: 1.78; }
+.pq-policy-answer { position: relative; z-index: 1; max-width: 100%; margin: 0; padding: 34px 48px 36px 45px; color: #FFFFFF; background: transparent; border: 0; border-radius: 0; box-shadow: none; font-family: var(--pq-body-font); font-size: 16px; font-style: italic; font-weight: 500; line-height: 1.78; }
 .pq-policy-answer::before { content: ''; position: absolute; top: 24px; bottom: 24px; inset-inline-start: 28px; width: 1px; background: rgb(213 214 216 / .72); }
 .pq-policy-answer > :first-child { margin-block-start: 0 !important; }
 .pq-policy-answer > :last-child { margin-block-end: 0 !important; }
