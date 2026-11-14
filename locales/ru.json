@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Цены в магазине указаны в валюте {{ display_currency }}. При оплате через Oceanpayment сумма будет списана в валюте {{ store_currency }}. Перед оплатой проверьте валюту и итоговую сумму.",
     "back_to_top": "Back to top"
   },
   "blocks": {

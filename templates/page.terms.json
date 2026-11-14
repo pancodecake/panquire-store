@@ -23,7 +23,7 @@
               "type": "pq-policy-question",
               "settings": {
                 "question": "What currencies do you accept?",
-                "answer": "<p>Storefront prices may be shown in the currency available for your selected country or region. Oceanpayment charges are in U.S. dollars (USD). Review the currency and total shown at checkout before paying.</p>"
+                "answer": "<p>Your checkout summary shows the currency for your order. The store currently lists prices in USD.</p>"
               },
               "blocks": {}
             },

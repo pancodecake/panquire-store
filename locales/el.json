@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Οι τιμές του καταστήματος εμφανίζονται σε {{ display_currency }}. Αν πληρώσετε με Oceanpayment, θα χρεωθείτε σε {{ store_currency }}. Ελέγξτε το νόμισμα και το σύνολο πριν πληρώσετε.",
     "back_to_top": "Back to top"
   },
   "blocks": {

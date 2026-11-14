@@ -36,14 +36,7 @@
   "specificationAdditions": {{ record.metafields.panquire.specification_additions.value | json }},
   {% endif %}
   "image": {% if record_image != blank %}{"src": {{ record_image | image_url: width: 1000 | json }}, "small": {{ record_image | image_url: width: 400 | json }}, "medium": {{ record_image | image_url: width: 700 | json }}, "alt": {{ record_image.alt | default: record_name | json }}}{% else %}null{% endif %},
-  "price": {
-    {% if kind == 'product' %}
-      "display": {% if record != blank %}{{ record.price | money_with_currency | strip_html | strip | json }}{% else %}null{% endif %}
-    {% else %}
-      "amount": {{ record.price.value | json }},
-      "currency": {{ record.currency.value | json }}
-    {% endif %}
-  },
+  "price": {"amount": {% if kind == 'product' %}{% if record != blank and record.price > 0 %}{{ record.price | divided_by: 100.0 | json }}{% else %}null{% endif %}{% else %}{{ record.price.value | json }}{% endif %}, "currency": {% if kind == 'product' %}{{ cart.currency.iso_code | default: shop.currency | json }}{% else %}{{ record.currency.value | json }}{% endif %}},
   "sourceUrl": {{ source_url | json }},
   "details": {% if fields.details.value != blank %}{{ fields.details.value | json }}{% else %}{}{% endif %},
   "fields": { {% for key in keys %}{{ key | json }}: {{ fields[key].value | json }}{% unless forloop.last %},{% endunless %}{% endfor %} }

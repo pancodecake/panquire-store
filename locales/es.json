@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Los precios de la tienda se muestran en {{ display_currency }}. Si pagas con Oceanpayment, el cargo se hará en {{ store_currency }}. Revisa la moneda y el total antes de pagar.",
     "back_to_top": "Back to top"
   },
   "blocks": {

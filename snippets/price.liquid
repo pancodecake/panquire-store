@@ -61,9 +61,6 @@
   elsif settings.currency_code_enabled_product_cards
     assign use_currency = true
   endif
-  if cart.currency.iso_code != shop.currency
-    assign use_currency = true
-  endif
 
   # Format all prices
   if use_currency

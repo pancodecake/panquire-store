@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Ceny v obchodě jsou uvedeny v {{ display_currency }}. Při platbě přes Oceanpayment bude částka účtována v {{ store_currency }}. Před zaplacením zkontrolujte měnu a celkovou částku.",
     "back_to_top": "Back to top"
   },
   "blocks": {

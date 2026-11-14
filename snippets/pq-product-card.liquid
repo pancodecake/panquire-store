@@ -17,9 +17,9 @@
 <article class="pq-product-card">
   <h3>{% if product != blank %}<a href="{{ product.url }}">{{ card_title | escape }}</a>{% else %}{{ card_title | escape }}{% endif %}</h3>
   {% if card.subtitle != blank %}<p class="pq-card-subtitle">{{ card.subtitle | escape }}</p>{% endif %}
-  {% if product != blank and product.compare_at_price > product.price %}<span class="pq-badge">{{ product.compare_at_price | minus: product.price | money_with_currency }} {{ 'panquire.off' | t }}</span>{% elsif product == blank %}<span class="pq-badge">{{ 'panquire.coming_soon' | t }}</span>{% endif %}
+  {% if product != blank and product.compare_at_price > product.price %}<span class="pq-badge">{{ product.compare_at_price | minus: product.price | money }} {{ 'panquire.off' | t }}</span>{% elsif product == blank %}<span class="pq-badge">{{ 'panquire.coming_soon' | t }}</span>{% endif %}
   <div class="pq-product-image">{% render 'pq-media', image: card_image, label: media_label, sizes: '(min-width: 1100px) 340px, (min-width: 700px) 45vw, 85vw' %}</div>
-  <div class="pq-price">{% if product != blank %}{{ product.price | money_with_currency }}{% if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money_with_currency }}</s>{% endif %}{% else %}{{ 'panquire.price_pending' | t }}{% endif %}</div>
+  <div class="pq-price">{% if product != blank %}{{ product.price | money }}{% if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif %}{% else %}{{ 'panquire.price_pending' | t }}{% endif %}</div>
   {% if card.details != blank %}<p class="pq-card-details">{{ card.details | escape }}</p>{% endif %}
   {% if product != blank %}<a class="pq-button pq-button--dark" href="{{ product.url }}">{{ 'panquire.view_product' | t }}</a>{% endif %}
 </article>

@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Butikkprisene vises i {{ display_currency }}. Betaler du med Oceanpayment, blir du belastet i {{ store_currency }}. Kontroller valutaen og totalbeløpet før du betaler.",
     "back_to_top": "Back to top"
   },
   "blocks": {

@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "ストアの価格は {{ display_currency }} で表示されます。Oceanpayment でお支払いの場合は {{ store_currency }} で請求されます。お支払い前に通貨と合計金額をご確認ください。",
     "back_to_top": "Back to top"
   },
   "blocks": {

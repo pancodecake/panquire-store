@@ -8,7 +8,6 @@ const root = join(__dirname, '..');
 const engine = new Liquid();
 engine.registerFilter('json', value => JSON.stringify(value === undefined ? null : value));
 engine.registerFilter('image_url', value => value.src);
-engine.registerFilter('money_with_currency', value => String(value));
 const source = readFileSync(join(root, 'snippets/comparison-record.liquid'), 'utf8').replace(/{% doc %}[\s\S]*?{% enddoc %}/g, '');
 const template = JSON.parse(readFileSync(join(root, 'templates/page.compare.json'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''));
 

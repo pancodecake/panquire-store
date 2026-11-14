@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "Parduotuvės kainos rodomos valiuta {{ display_currency }}. Mokant per „Oceanpayment“, suma bus nuskaičiuota valiuta {{ store_currency }}. Prieš mokėdami patikrinkite valiutą ir bendrą sumą.",
     "back_to_top": "Back to top"
   },
   "blocks": {

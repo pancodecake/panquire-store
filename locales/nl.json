@@ -128,7 +128,6 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
-    "checkout_currency": "De winkelprijzen worden weergegeven in {{ display_currency }}. Als je met Oceanpayment betaalt, wordt het bedrag in {{ store_currency }} afgeschreven. Controleer de valuta en het totaal voordat je betaalt.",
     "back_to_top": "Back to top"
   },
   "blocks": {
