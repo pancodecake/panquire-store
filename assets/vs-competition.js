@@ -185,7 +185,11 @@
       details,
       sourceUrl: safeUrl(record.sourceUrl),
       specs: normalized,
-      price: { amount: number(record.price?.amount), currency: record.price?.currency || null },
+      price: {
+        display: record.price?.display || null,
+        amount: number(record.price?.amount),
+        currency: record.price?.currency || null
+      },
       competitorHandles: Array.isArray(record.competitorHandles) ? record.competitorHandles : []
     };
   }
@@ -459,13 +463,20 @@
         const price = product.querySelector('[data-price]');
         if (price) {
           price.replaceChildren();
-          if (record.price.amount === null || record.price.amount <= 0 || !record.price.currency) price.textContent = '—';
-          else {
-            let formatted;
-            try { formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: record.price.currency, maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(record.price.amount); }
-            catch { formatted = `${format(record.price.amount)} ${record.price.currency}`; }
-            price.append(element('small', 'from'), document.createTextNode(formatted));
+          let formatted = record.price.display;
+          if (!formatted && record.price.amount > 0 && record.price.currency) {
+            try {
+              formatted = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: record.price.currency,
+                currencyDisplay: 'code'
+              }).format(record.price.amount);
+            } catch {
+              formatted = `${format(record.price.amount)} ${record.price.currency}`;
+            }
           }
+          if (formatted) price.append(element('small', 'from'), document.createTextNode(formatted));
+          else price.textContent = '—';
         }
         const source = product.querySelector('[data-source]');
         if (source) {

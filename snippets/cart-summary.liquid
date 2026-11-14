@@ -220,7 +220,7 @@
   {% endif %}
 
   {%- liquid
-    if settings.currency_code_enabled_cart_total
+    if settings.currency_code_enabled_cart_total or cart.currency.iso_code != shop.currency
       assign total_price = cart.total_price | money_with_currency
     else
       assign total_price = cart.total_price | money
@@ -258,6 +258,9 @@
 </div>
 
 <div class="cart__ctas">
+  {% unless cart == empty %}
+    {% render 'pq-checkout-currency' %}
+  {% endunless %}
   <button
     type="submit"
     id="checkout"

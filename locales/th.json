@@ -128,6 +128,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "ราคาในร้านแสดงเป็นสกุลเงิน {{ display_currency }} หากชำระผ่าน Oceanpayment คุณจะถูกเรียกเก็บเป็นสกุลเงิน {{ store_currency }} โปรดตรวจสอบสกุลเงินและยอดรวมก่อนชำระเงิน",
     "back_to_top": "Back to top"
   },
   "blocks": {

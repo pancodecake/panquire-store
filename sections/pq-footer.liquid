@@ -126,6 +126,7 @@
           <a href="{{ ip_rights_page.url }}">{{ ip_rights_page.title | escape }}</a>
         {% endif %}
       </nav>
+      {% render 'pq-country-selector', section_id: section.id %}
       <span>© {{ 'now' | date: '%Y' }} {{ settings.pq_store_name | default: 'Panquire' | escape }}. {{ section.settings.rights_text | escape }}</span>
     </div>
   </div>

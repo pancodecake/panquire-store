@@ -127,6 +127,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "Цените в магазина са в {{ display_currency }}. При плащане с Oceanpayment ще бъдете таксувани в {{ store_currency }}. Проверете валутата и общата сума преди плащане.",
     "back_to_top": "Back to top"
   },
   "blocks": {

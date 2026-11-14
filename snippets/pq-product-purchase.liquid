@@ -70,7 +70,10 @@
           {% assign add_text = 'products.product.add_to_cart' | t %}
           {% assign add_id = 'BuyButtons-ProductSubmitButton-' | append: section.id %}
           {% render 'add-to-cart-button', product: product, can_add_to_cart: can_purchase, add_to_cart_text: add_text, class: 'add-to-cart-button pq-purchase__add', id: add_id %}
-          <div class="pq-purchase__checkout" ref="acceleratedCheckoutButtonContainer">{{ form | payment_button }}</div>
+          <div class="pq-purchase__checkout" ref="acceleratedCheckoutButtonContainer">
+            {% render 'pq-checkout-currency' %}
+            {{ form | payment_button }}
+          </div>
         </div>
         <p data-pq-cart-pending role="status" hidden>{{ 'products.product.adding_to_cart' | t }}</p>
         <span class="product-form-text__error hidden" ref="addToCartTextError"><span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span></span>

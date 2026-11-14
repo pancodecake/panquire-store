@@ -128,6 +128,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "Prețurile din magazin sunt afișate în {{ display_currency }}. Dacă plătești prin Oceanpayment, vei fi taxat în {{ store_currency }}. Verifică moneda și totalul înainte de plată.",
     "back_to_top": "Back to top"
   },
   "blocks": {

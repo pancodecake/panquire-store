@@ -128,6 +128,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "스토어 가격은 {{ display_currency }}로 표시됩니다. Oceanpayment로 결제하면 {{ store_currency }}로 청구됩니다. 결제 전에 통화와 총액을 확인하세요.",
     "back_to_top": "Back to top"
   },
   "blocks": {

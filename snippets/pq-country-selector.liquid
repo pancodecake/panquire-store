@@ -1,0 +1,61 @@
+{% doc %}
+  Renders a native Shopify country and currency selector.
+  @param {string} section_id - ID of the section containing the form.
+{% enddoc %}
+{%- liquid
+  assign form_id = 'PanquireCountry-' | append: section_id
+  assign country_count = localization.available_countries.size
+  assign country_batches = country_count | divided_by: 50.0 | ceil
+-%}
+{% if country_count > 1 %}
+  {% form 'localization', id: form_id, class: 'pq-country-selector' %}
+    <label for="{{ form_id }}-country">{{ 'accessibility.country_region' | t }}</label>
+    <select id="{{ form_id }}-country" name="country_code" data-country-count="{{ country_count }}">
+      {% for batch in (1..country_batches) %}
+        {% assign country_offset = forloop.index0 | times: 50 %}
+        {% for country in localization.available_countries limit: 50 offset: country_offset %}
+          {% assign currency_code = country.currency.iso_code | default: shop.currency %}
+          <option value="{{ country.iso_code | escape }}" data-currency="{{ currency_code | escape }}"{% if country.iso_code == localization.country.iso_code %} selected{% endif %}>
+            {{ country.name | escape }} ({{ currency_code | escape }})
+          </option>
+        {% endfor %}
+      {% endfor %}
+    </select>
+    <button type="submit">{{ 'actions.apply' | t }}</button>
+  {% endform %}
+{% endif %}
+
+{% stylesheet %}
+  .pq-country-selector {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+  }
+
+  .pq-country-selector label {
+    flex-basis: 100%;
+  }
+
+  .pq-country-selector :is(select, button) {
+    min-height: 44px;
+    border: 1px solid #df9f44;
+    border-radius: 4px;
+    background: #151619;
+    color: #f3f3f1;
+    padding-inline: 12px;
+    font: inherit;
+  }
+
+  .pq-country-selector select {
+    min-width: 0;
+    max-width: min(100%, 17rem);
+    color-scheme: dark;
+  }
+
+  .pq-country-selector button {
+    color: #df9f44;
+    cursor: pointer;
+  }
+{% endstylesheet %}

@@ -128,6 +128,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "Mağaza fiyatları {{ display_currency }} cinsinden gösterilir. Oceanpayment ile öderseniz ücret {{ store_currency }} cinsinden alınır. Ödemeden önce para birimini ve toplam tutarı kontrol edin.",
     "back_to_top": "Back to top"
   },
   "blocks": {

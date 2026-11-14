@@ -128,6 +128,7 @@
     "sample_reviewer": "Future rider story",
     "sample_expert": "Independent reviewer",
     "price_pending": "Details coming soon",
+    "checkout_currency": "商店價格以 {{ display_currency }} 顯示。若透過 Oceanpayment 付款，將以 {{ store_currency }} 扣款。請在付款前確認幣別和總金額。",
     "back_to_top": "Back to top"
   },
   "blocks": {
