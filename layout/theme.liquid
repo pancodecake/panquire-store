@@ -51,6 +51,15 @@
     <script src="{{ 'panquire.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-us-units.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'panquire-pages.js' | asset_url }}" defer="defer"></script>
+    {% assign pq_exchange_rates = shop.metafields.panquire.exchange_rates.value %}
+    <script type="application/json" id="PanquireExchangeRates">{{ pq_exchange_rates | json | replace: '<', '\u003c' }}</script>
+    {% if pq_exchange_rates != blank and cart.currency.iso_code == 'USD' and localization.country.iso_code != 'US' %}
+      <style>html[data-pq-rates-pending] [data-pq-usd-cents] { visibility: hidden; }</style>
+      <script>
+        document.documentElement.setAttribute('data-pq-rates-pending', '');
+        setTimeout(() => document.documentElement.removeAttribute('data-pq-rates-pending'), 800);
+      </script>
+    {% endif %}
     {{ content_for_header }}
     <style>
       p.pq-long-paragraph:not(:where(.pq-compare__intro *, .pq-compare__methodology *)) { color: #9ca2ad !important; }

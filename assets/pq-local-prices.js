@@ -1,86 +1,99 @@
 import { currencyForCountry } from './pq-country-currencies.js';
 
 const target = '[data-pq-usd-cents]';
-const cacheTime = 6 * 60 * 60 * 1000;
-const maximumRateAge = 7 * 24 * 60 * 60 * 1000;
+const maximumRateAge = 7 * 86400000;
 const locale = document.documentElement.lang || 'en';
+const originals = new WeakMap();
+const estimates = new Map();
+const usd = new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });
+let snapshot;
+let activeCurrency;
+let estimate;
 
-function isUsableRate(record, currency) {
-  const date = Date.parse(record?.date);
-  const age = Date.now() - date;
-  return record?.base === 'USD' && record.quote === currency &&
-    Number.isFinite(record.rate) && record.rate > 0 && age >= 0 && age < maximumRateAge;
+try {
+  snapshot = JSON.parse(document.getElementById('PanquireExchangeRates')?.textContent || 'null');
+} catch {
+  snapshot = null;
 }
 
-async function getRate(currency) {
-  const key = `pq-usd-rate-v1-${currency}`;
-  let cached;
-  try {
-    cached = JSON.parse(localStorage.getItem(key));
-  } catch {
-    cached = null;
+function estimateFor(country) {
+  const currency = currencyForCountry(country);
+  if (currency === 'USD' || snapshot?.base !== 'USD' || document.body.dataset.pqCartCurrency !== 'USD') return null;
+  const rate = snapshot.rates?.[currency];
+  const age = Date.now() - Date.parse(snapshot.rateDates?.[currency] ?? snapshot.sourceDate);
+  if (!Number.isFinite(rate) || rate <= 0 || !(age >= 0 && age < maximumRateAge)) return null;
+  if (!estimates.has(currency)) {
+    const formatter = new Intl.NumberFormat(locale, { style: 'currency', currency, currencyDisplay: 'code' });
+    estimates.set(currency, { rate, formatter, amounts: new Map() });
   }
-  if (isUsableRate(cached, currency) && Date.now() - cached.fetchedAt < cacheTime) return cached.rate;
+  return estimates.get(currency);
+}
 
-  try {
-    const response = await fetch(`https://api.frankfurter.dev/v2/rate/usd/${currency.toLowerCase()}`, {
-      credentials: 'omit',
-      referrerPolicy: 'no-referrer',
-      signal: AbortSignal.timeout(4500),
-    });
-    if (!response.ok) throw new Error('Exchange rate unavailable');
-    const record = await response.json();
-    if (!isUsableRate(record, currency)) throw new Error('Exchange rate out of date');
-    try {
-      localStorage.setItem(key, JSON.stringify({ ...record, fetchedAt: Date.now() }));
-    } catch {
-      // The rate still works in this page when browser storage is unavailable.
-    }
-    return record.rate;
-  } catch {
-    return isUsableRate(cached, currency) ? cached.rate : null;
+function updatePrice(element) {
+  const cents = element.dataset.pqUsdCents;
+  if (!cents || !Number.isSafeInteger(Number(cents))) return;
+
+  const previous = originals.get(element);
+  const text = element.textContent;
+  // A Shopify section or variant update can replace either the original markup or its amount.
+  const hasEstimate = previous?.rendered != null && text === previous.rendered;
+  const original = hasEstimate && previous.cents !== cents
+    ? usd.format(Number(cents) / 100)
+    : hasEstimate ? previous.original : element.innerHTML;
+
+  if (!estimate) {
+    if (hasEstimate) element.innerHTML = original;
+    originals.delete(element);
+    return;
   }
+
+  const { rate, formatter, amounts } = estimate;
+  if (!amounts.has(cents)) amounts.set(cents, `≈ ${formatter.format(Number(cents) * rate / 100)}`);
+  const rendered = amounts.get(cents);
+  if (hasEstimate && previous.cents === cents && text === rendered) return;
+  originals.set(element, { cents, original, rendered });
+  if (text !== rendered) element.textContent = rendered;
 }
 
-async function localizePrices() {
-  const { pqCountry, pqCartCurrency } = document.body.dataset;
-  const currency = currencyForCountry(pqCountry);
-  if (pqCartCurrency !== 'USD' || currency === 'USD') return;
+function selectCountry(country) {
+  const currency = currencyForCountry(country);
+  if (currency !== activeCurrency) {
+    activeCurrency = currency;
+    estimate = estimateFor(country);
+    document.documentElement.toggleAttribute('data-pq-estimated-prices', Boolean(estimate));
+    if (estimate || estimates.size) document.querySelectorAll(target).forEach(updatePrice);
+  }
+  document.documentElement.removeAttribute('data-pq-rates-pending');
+}
 
-  const rate = await getRate(currency);
-  if (!rate) return;
+selectCountry(document.body.dataset.pqCountry);
 
-  const formatter = new Intl.NumberFormat(locale, { style: 'currency', currency, currencyDisplay: 'code' });
-  document.documentElement.setAttribute('data-pq-estimated-prices', '');
-  const update = (element) => {
-    const cents = element.dataset.pqUsdCents;
-    if (!cents || !Number.isSafeInteger(Number(cents))) return;
-    const display = `≈ ${formatter.format(Number(cents) * rate / 100)}`;
-    if (element.textContent !== display) element.textContent = display;
-  };
-  document.querySelectorAll(target).forEach(update);
+document.addEventListener('submit', (event) => {
+  if (event.defaultPrevented || !event.target.matches('.pq-header-location__panel') ||
+    event.submitter?.name !== 'country_code') return;
+  // Paint the selected currency immediately. Shopify still owns country, language, and shipping context.
+  selectCountry(event.submitter.value);
+});
 
-  new MutationObserver((records) => {
-    const changed = new Set();
-    for (const record of records) {
-      const owner = record.target.closest(target);
-      if (owner) changed.add(owner);
-      for (const node of record.addedNodes) {
-        if (!(node instanceof Element)) continue;
-        if (node.matches(target)) changed.add(node);
-        node.querySelectorAll(target).forEach((element) => changed.add(element));
-      }
+new MutationObserver((records) => {
+  if (!estimate) return;
+  const changed = new Set();
+  for (const record of records) {
+    const owner = record.target.closest(target);
+    if (owner) changed.add(owner);
+    for (const node of record.addedNodes) {
+      if (!(node instanceof Element)) continue;
+      if (node.matches(target)) changed.add(node);
+      node.querySelectorAll(target).forEach((element) => changed.add(element));
     }
-    changed.forEach(update);
-  }).observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['data-pq-usd-cents'],
-  });
-}
-
-localizePrices();
+  }
+  changed.forEach(updatePrice);
+}).observe(document.body, {
+  childList: true,
+  subtree: true,
+  attributes: true,
+  attributeFilter: ['data-pq-usd-cents'],
+});
 
 document.addEventListener('click', (event) => {
   const info = event.target.closest('[data-pq-price-info]');

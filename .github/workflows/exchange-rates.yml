@@ -1,0 +1,30 @@
+name: Refresh Shopify exchange rates
+
+on:
+  schedule:
+    - cron: '17 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: panquire-exchange-rates
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate and refresh Shopify rates
+        env:
+          SHOPIFY_FX_CLIENT_ID: ${{ secrets.SHOPIFY_FX_CLIENT_ID }}
+          SHOPIFY_FX_CLIENT_SECRET: ${{ secrets.SHOPIFY_FX_CLIENT_SECRET }}
+        run: node scripts/refresh-exchange-rates.mjs
