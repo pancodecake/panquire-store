@@ -9,21 +9,21 @@
   {% case block.settings.built_in %}
     {% when 'shop' %}
       <a href="{{ pages.compare.url | default: '/pages/compare' }}">Panquire vs Competitors</a>
-      <a href="/products/t-01">T-01</a>
-      <a href="/products/t-02">T-02</a>
-      <a href="/products/t-03">T-03</a>
+      <a href="{% render 'pq-local-path', url: '/products/t-01' %}">T-01</a>
+      <a href="{% render 'pq-local-path', url: '/products/t-02' %}">T-02</a>
+      <a href="{% render 'pq-local-path', url: '/products/t-03' %}">T-03</a>
     {% when 'company' %}
       <a href="{{ settings.pq_about_url | default: '/pages/about' }}">About Us <span class="pq-footer-link-detail">Our Story, Team &amp; Mission</span></a>
-      <a href="{{ partner_url }}#partners">Strategic Partnerships</a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#partners">Strategic Partnerships</a>
     {% when 'business' %}
-      <a href="{{ partner_url }}#corporate-purchase">Corporate &amp; Bulk Purchase <span class="pq-footer-link-detail">Dealers &amp; Fleet</span></a>
-      <a href="{{ partner_url }}#affiliate-program">Affiliate Program</a>
-      <a href="{{ partner_url }}#affiliate-terms">Affiliate Terms</a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#corporate-purchase">Corporate &amp; Bulk Purchase <span class="pq-footer-link-detail">Dealers &amp; Fleet</span></a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-program">Affiliate Program</a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-terms">Affiliate Terms</a>
     {% when 'care' %}
       <a href="{{ footer_settings.contact_url | default: '/pages/contact' }}">Contact Us</a>
       <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
-      <a href="{{ terms_url }}#payment">Payment Methods</a>
-      <a href="{{ terms_url }}#warranty">Warranty Policy</a>
+      <a href="{% render 'pq-local-path', url: terms_url %}#payment">Payment Methods</a>
+      <a href="{% render 'pq-local-path', url: terms_url %}#warranty">Warranty Policy</a>
       <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Returns &amp; Refunds</a>
   {% endcase %}
 </nav>

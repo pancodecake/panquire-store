@@ -8,6 +8,7 @@
   assign batches = country_count | divided_by: 50.0 | ceil
   assign form_id = 'HeaderLocation-' | append: section_id
   assign active_country = localization.country
+  assign published_languages = shop.published_locales | map: 'iso_code'
 %}
 {% if country_count > 1 %}
   <details class="pq-header-location" data-header-location>
@@ -22,10 +23,11 @@
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </summary>
     {% form 'localization', id: form_id, class: 'pq-header-location__panel' %}
+      <input type="hidden" name="language_code" data-published-languages="{{ published_languages | join: ',' | escape }}" disabled>
       <div class="pq-header-location__search" data-location-search hidden>
         {% render 'pq-icon', name: 'search' %}
         <label class="visually-hidden" for="{{ form_id }}-search">{{ 'accessibility.find_country' | t }}</label>
-        <input id="{{ form_id }}-search" type="search" autocomplete="off" placeholder="{{ 'panquire.search' | t | escape }}" aria-controls="{{ form_id }}-countries">
+        <input id="{{ form_id }}-search" type="search" autocomplete="off" placeholder="{{ 'content.search' | t | escape }}" aria-controls="{{ form_id }}-countries">
       </div>
       <ul class="pq-header-location__countries" id="{{ form_id }}-countries" role="list">
         {% for batch in (1..batches) %}
@@ -33,11 +35,15 @@
           {% for country in countries offset: country_offset limit: 50 %}
             {% assign currency_code = country.currency.iso_code | default: shop.currency %}
             {% assign currency_symbol = country.currency.symbol %}
+            {% assign market_languages = country.available_languages | map: 'iso_code' %}
+            {% if market_languages == blank %}
+              {% assign market_languages = published_languages %}
+            {% endif %}
             {% if currency_symbol == blank and currency_code == 'USD' %}
               {% assign currency_symbol = '$' %}
             {% endif %}
             <li>
-              <button type="submit" name="country_code" value="{{ country.iso_code | escape }}" class="pq-header-location__option" data-currency="{{ currency_code | escape }}"{% if country.iso_code == active_country.iso_code %} aria-current="true"{% endif %}>
+              <button type="submit" name="country_code" value="{{ country.iso_code | escape }}" class="pq-header-location__option" data-currency="{{ currency_code | escape }}" data-languages="{{ market_languages | join: ',' | escape }}"{% if country.iso_code == active_country.iso_code %} aria-current="true"{% endif %}>
                 {{ country | image_url: width: 48 | image_tag: width: 24, height: 24, class: 'pq-header-location__flag', alt: '', loading: 'lazy' }}
                 <span>{{ country.name | replace: '&amp;', '&' | escape }}</span>
                 <span class="pq-header-location__currency">{{ currency_code | escape }}{% if currency_symbol != blank %} / {{ currency_symbol | escape }}{% endif %}</span>

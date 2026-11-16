@@ -1,0 +1,12 @@
+{%- doc -%}
+  Keeps bare storefront resource links in the current Shopify language and market.
+  @param {string} url - Destination URL.
+{%- enddoc -%}
+{%- assign resource_type = url | split: '/' | slice: 1 | first -%}
+{%- assign storefront_resources = 'products,pages,collections,blogs,policies' | split: ',' -%}
+{%- assign first_character = url | slice: 0 -%}
+{%- if routes.root_url != '/' and first_character == '/' and storefront_resources contains resource_type -%}
+  {{- routes.root_url | append: url | escape -}}
+{%- else -%}
+  {{- url | escape -}}
+{%- endif -%}

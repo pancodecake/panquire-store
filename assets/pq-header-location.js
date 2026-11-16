@@ -1,4 +1,5 @@
 import { currencyForCountry } from './pq-country-currencies.js';
+import { languageForCountry } from './pq-country-languages.js';
 
 const normalize = (value) => value.normalize('NFD').replace(/\p{Mark}/gu, '').toLowerCase();
 const featuredCountries = [
@@ -12,14 +13,21 @@ function setupLocation(details) {
 
   const trigger = details.querySelector('summary');
   const form = details.querySelector('form');
+  const languageInput = form.elements.namedItem('language_code');
+  const published = new Set(languageInput.dataset.publishedLanguages.toLowerCase().split(','));
   const confirmed = form.querySelector('[aria-current="true"]');
   form.addEventListener('submit', (event) => {
     const selected = event.submitter;
     if (event.defaultPrevented || selected?.name !== 'country_code') return;
 
-    if (details.hasAttribute('data-location-pending') || selected === confirmed) {
+    const available = selected.dataset.languages.split(',').filter((code) => published.has(code.toLowerCase()));
+    const language = languageForCountry(selected.value, available);
+    const changesLanguage = language && language.toLowerCase() !== document.documentElement.lang.toLowerCase();
+    if (details.hasAttribute('data-location-pending') || (selected === confirmed && !changesLanguage)) {
       event.preventDefault();
     } else {
+      languageInput.disabled = !language;
+      languageInput.value = language;
       details.setAttribute('data-location-pending', '');
       trigger.setAttribute('aria-busy', 'true');
       updateTrigger(details, selected);

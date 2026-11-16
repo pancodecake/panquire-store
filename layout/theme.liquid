@@ -1,9 +1,12 @@
 <!doctype html>
+{% assign pq_language = request.locale.iso_code | split: '-' | first %}
+{% assign pq_rtl_languages = 'ar,fa,he,ur' | split: ',' %}
 <html
   {% if request.design_mode %}
     class="shopify-design-mode"
   {% endif %}
   lang="{{ request.locale.iso_code }}"
+  {% if pq_rtl_languages contains pq_language %}dir="rtl"{% endif %}
 >
   <head>
     <link rel="icon" type="image/svg+xml" href="{{ 'panquire-logo-transparent.svg' | asset_url }}">

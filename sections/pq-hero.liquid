@@ -54,10 +54,10 @@
           {% endif %}
           <div class="pq-hero-actions">
             {% if hero.settings.link != blank and hero.settings.button != blank %}
-              <a class="pq-button pq-button--primary" href="{{ hero.settings.link }}">{{ hero.settings.button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
+              <a class="pq-button pq-button--primary" href="{% render 'pq-local-path', url: hero.settings.link %}">{{ hero.settings.button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
             {% endif %}
             {% if hero.settings.secondary_link != blank and hero.settings.secondary_button != blank %}
-              <a class="pq-button pq-button--secondary" href="{{ hero.settings.secondary_link }}">{{ hero.settings.secondary_button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
+              <a class="pq-button pq-button--secondary" href="{% render 'pq-local-path', url: hero.settings.secondary_link %}">{{ hero.settings.secondary_button | escape }} {% render 'pq-icon', name: 'arrow' %}</a>
             {% endif %}
           </div>
         </div>
