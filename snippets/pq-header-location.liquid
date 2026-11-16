@@ -16,7 +16,7 @@
         <span class="pq-header-location__label">{{ 'accessibility.country_region' | t }}</span>
         <span class="pq-header-location__selected">
           {{ active_country | image_url: width: 48 | image_tag: width: 20, height: 20, class: 'pq-header-location__flag', alt: '' }}
-          <span>{{ active_country.name | escape }}</span>
+          <span>{{ active_country.name | replace: '&amp;', '&' | escape }}</span>
         </span>
       </span>
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -39,7 +39,7 @@
             <li>
               <button type="submit" name="country_code" value="{{ country.iso_code | escape }}" class="pq-header-location__option" data-currency="{{ currency_code | escape }}"{% if country.iso_code == active_country.iso_code %} aria-current="true"{% endif %}>
                 {{ country | image_url: width: 48 | image_tag: width: 24, height: 24, class: 'pq-header-location__flag', alt: '', loading: 'lazy' }}
-                <span>{{ country.name | escape }}</span>
+                <span>{{ country.name | replace: '&amp;', '&' | escape }}</span>
                 <span class="pq-header-location__currency">{{ currency_code | escape }}{% if currency_symbol != blank %} / {{ currency_symbol | escape }}{% endif %}</span>
               </button>
             </li>
