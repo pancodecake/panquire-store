@@ -76,7 +76,7 @@
     justify-content: space-between;
     gap: 8px;
     min-height: 44px;
-    width: 150px;
+    width: 170px;
     padding: 4px 10px;
     list-style: none;
     cursor: pointer;
@@ -99,7 +99,7 @@
     transition: transform var(--location-transition);
   }
 
-  .pq-header-location__trigger > svg { flex: none; color: var(--location-gold); transition: transform var(--location-transition), color 180ms ease; }
+  .pq-header-location__trigger > svg { flex: none; transition: transform var(--location-transition), color 180ms ease; }
   .pq-header-location[open] .pq-header-location__trigger { border-color: var(--location-line); border-radius: 12px 12px 8px 8px; color: var(--location-surface); }
   .pq-header-location[open] .pq-header-location__trigger::after { transform: scaleX(1); transform-origin: right; }
   .pq-header-location[open] .pq-header-location__trigger > svg { transform: rotate(180deg); color: inherit; }
