@@ -3,6 +3,7 @@
 
   @param {object} price - The unit price (money or string).
   @param {object} measurement - The unit_price_measurement object.
+  @param {number} [amount] - The original price in minor units when price is formatted.
 
   @example
   {% render 'unit-price', price: variant.unit_price, measurement: variant.unit_price_measurement %}
@@ -14,5 +15,11 @@
 
 <small class="unit-price">
   <span class="visually-hidden">{{ 'accessibility.unit_price' | t }}</span>
-  {{ price | unit_price_with_measurement: measurement }}
+  {% assign unit_price = price | unit_price_with_measurement: measurement %}
+  {% if amount != blank and cart.currency.iso_code == 'USD' and price != blank %}
+    {% capture estimated_unit_price %}{% render 'pq-local-money', amount: amount, formatted: price %}{% endcapture %}
+    {{ unit_price | replace_first: price, estimated_unit_price }}
+  {% else %}
+    {{ unit_price }}
+  {% endif %}
 </small>

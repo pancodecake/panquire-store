@@ -62,18 +62,6 @@
     assign use_currency = true
   endif
 
-  # Format all prices
-  if use_currency
-    assign price = price | money_with_currency
-    assign compare_at_price = compare_at_price | money_with_currency
-    assign price_min = price_min | money_with_currency
-    assign price_max = price_max | money_with_currency
-  else
-    assign price = price | money
-    assign compare_at_price = compare_at_price | money
-    assign price_min = price_min | money
-    assign price_max = price_max | money
-  endif
 -%}
 
 <div ref="priceContainer">
@@ -82,12 +70,12 @@
     {% if show_compare_price %}
       <span class="price-item__group compare-at-price">
         <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-        {{- compare_at_price -}}
+        {% render 'pq-local-money', amount: compare_at_price, with_currency: use_currency %}
       </span>
     {% endif %}
     <span class="price-item__group price">
       <span class="visually-hidden">{{ 'content.price_range' | t }}&nbsp;</span>
-      {{ price_min }} - {{ price_max }}
+      {% render 'pq-local-money', amount: price_min, with_currency: use_currency %} - {% render 'pq-local-money', amount: price_max, with_currency: use_currency %}
     </span>
     {% if show_discount_badge and discount_percentage > 0 %}
       <span class="pq-discount-badge">-{{ discount_percentage }}%</span>
@@ -98,27 +86,27 @@
       {% if show_sale_price_first %}
         <span class="price-item__group price">
           <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-          {{ price | default: '&nbsp;' }}
+          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}
         </span>
         <span class="price-item__group price-item--regular compare-at-price">
           <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-          {{- compare_at_price -}}
+          {% render 'pq-local-money', amount: compare_at_price, with_currency: use_currency %}
         </span>
       {% else %}
         <span class="price-item__group price-item--regular compare-at-price">
           <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
-          {{- compare_at_price -}}
+          {% render 'pq-local-money', amount: compare_at_price, with_currency: use_currency %}
         </span>
         <span class="price-item__group price">
           <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-          {{ price | default: '&nbsp;' }}
+          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}
         </span>
       {% endif %}
       {% if show_discount_badge and discount_percentage > 0 %}
         <span class="pq-discount-badge">-{{ discount_percentage }}%</span>
       {% endif %}
     {% else %}
-      <span class="price">{{ price | default: '&nbsp;' }}</span>
+      <span class="price">{% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}</span>
     {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}
@@ -129,7 +117,7 @@
         assign unit_price = selected_variant.unit_price | money
       endif
     -%}
-    {% render 'unit-price', price: unit_price, measurement: selected_variant.unit_price_measurement %}
+    {% render 'unit-price', price: unit_price, amount: selected_variant.unit_price, measurement: selected_variant.unit_price_measurement %}
   {%- endif -%}
 </div>
 {%- if has_volume_pricing -%}

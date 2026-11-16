@@ -31,14 +31,13 @@
       <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
         {% if variant.price != blank %}
           <span class="pq-product-guide__amount">
-            <strong>{{ variant.price | money }}</strong>
-            <span>{{ cart.currency.iso_code | escape }}</span>
+            <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
           </span>
           <span>
             Check your final total at checkout.
           </span>
           {% if variant.compare_at_price > variant.price %}
-            <span>Was <s>{{ variant.compare_at_price | money_with_currency }}</s>. Save {{ variant.compare_at_price | minus: variant.price | money_with_currency }}.</span>
+            <span>Was <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>. Save {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
           {% endif %}
         {% else %}
           <span>{{ 'content.unavailable' | t }}</span>

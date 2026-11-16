@@ -16,16 +16,9 @@
 
   assign show_currency = settings.currency_code_enabled_product_pages
 
-  if show_currency
-    assign formatted_price = price_value | money_with_currency
-  else
-    assign formatted_price = price_value | money
-  endif
-
   if price_type == 'per_item'
     assign per_item_text = 'content.quantity_per_item' | t
-    assign formatted_price = formatted_price | append: per_item_text
   endif
 %}
 
-{{- formatted_price -}}
+{%- render 'pq-local-money', amount: price_value, with_currency: show_currency -%}{{- per_item_text -}}

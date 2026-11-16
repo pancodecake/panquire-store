@@ -78,7 +78,8 @@
     </script>
   </head>
 
-  <body class="pq-storefront page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+  <body class="pq-storefront page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}" data-pq-country="{{ localization.country.iso_code | escape }}" data-pq-cart-currency="{{ cart.currency.iso_code | escape }}">
+    <script src="{{ 'pq-local-prices.js' | asset_url }}" type="module"></script>
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
 
     {% render 'chat-drawer' %}

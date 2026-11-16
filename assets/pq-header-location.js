@@ -1,3 +1,5 @@
+import { currencyForCountry } from './pq-country-currencies.js';
+
 const normalize = (value) => value.normalize('NFD').replace(/\p{Mark}/gu, '').toLowerCase();
 const featuredCountries = [
   'NL', 'US', 'DE', 'BR', 'CA', 'GB', 'MX', 'PL', 'ZA', 'IN', 'AU', 'IT', 'AE', 'ES',
@@ -18,14 +20,26 @@ function setupLocation(details) {
   const currencyNames = typeof Intl.DisplayNames === 'function'
     ? new Intl.DisplayNames([document.documentElement.lang || 'en'], { type: 'currency' })
     : null;
-  const options = [...list.querySelectorAll('button')].map((button) => ({
-    button,
-    row: button.closest('li'),
-    terms: normalize([
-      button.textContent, button.value, currencyNames?.of(button.dataset.currency),
-      button.value === 'GB' ? 'UK' : '',
-    ].join(' ')),
-  }));
+  const currencySymbols = new Map();
+  const options = [...list.querySelectorAll('button')].map((button) => {
+    const currency = currencyForCountry(button.value, button.dataset.currency);
+    if (!currencySymbols.has(currency)) {
+      const symbol = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+        style: 'currency', currency, currencyDisplay: 'narrowSymbol',
+      }).formatToParts(0).find((part) => part.type === 'currency')?.value;
+      currencySymbols.set(currency, symbol || currency);
+    }
+    button.dataset.currency = currency;
+    button.querySelector('.pq-header-location__currency').textContent = `${currency} / ${currencySymbols.get(currency)}`;
+    return {
+      button,
+      row: button.closest('li'),
+      terms: normalize([
+        button.textContent, button.value, currencyNames?.of(currency),
+        button.value === 'GB' ? 'UK' : '',
+      ].join(' ')),
+    };
+  });
   const byCountry = new Map(options.map((option) => [option.button.value, option]));
   const featured = featuredCountries.map((code) => byCountry.get(code)).filter(Boolean);
   const featuredRows = new Set(featured.map(({ row }) => row));

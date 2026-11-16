@@ -61,6 +61,7 @@
                         <option
                           value="{{ variant.id }}"
                           data-price="{{ formatted_price | escape }}"
+                          data-price-amount="{{ variant.price }}"
                           {% unless variant.available %}disabled{% endunless %}
                           {% if variant.id == accessory_variant.id %}selected{% endif %}
                         >
@@ -71,7 +72,7 @@
                   {% endunless %}
                 </div>
 
-                <span class="pq-complete-ride__price" data-accessory-price aria-live="polite">
+                <span class="pq-complete-ride__price" data-accessory-price{% if cart.currency.iso_code == 'USD' %} data-pq-usd-cents="{{ accessory_variant.price }}"{% endif %} aria-live="polite">
                   {% if settings.currency_code_enabled_product_pages %}
                     {{ accessory_variant.price | money_with_currency }}
                   {% else %}

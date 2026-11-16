@@ -118,7 +118,7 @@
         assign use_currency = settings.currency_code_enabled_product_pages
       -%}
       {%- capture price_breaks_json -%}
-        [{%- for price_break in variant.quantity_price_breaks -%}{%- unless forloop.first -%},{%- endunless -%}{%- if use_currency -%}{"quantity":{{ price_break.minimum_quantity }},"price":{{ price_break.price | money_with_currency | json }}}{%- else -%}{"quantity":{{ price_break.minimum_quantity }},"price":{{ price_break.price | money | json }}}{%- endif -%}{%- endfor -%}]
+        [{%- for price_break in variant.quantity_price_breaks -%}{%- unless forloop.first -%},{%- endunless -%}{%- if use_currency -%}{"quantity":{{ price_break.minimum_quantity }},"amount":{{ price_break.price | json }},"price":{{ price_break.price | money_with_currency | json }}}{%- else -%}{"quantity":{{ price_break.minimum_quantity }},"amount":{{ price_break.price | json }},"price":{{ price_break.price | money | json }}}{%- endif -%}{%- endfor -%}]
       {%- endcapture -%}
 
       {%- liquid
@@ -142,6 +142,7 @@
         class="price-per-item"
         data-variant-id="{{ variant.id }}"
         data-variant-price="{%- if use_currency -%}{{ variant.price | money_with_currency | escape }}{%- else -%}{{ variant.price | money | escape }}{%- endif -%}"
+        {% if cart.currency.iso_code == 'USD' %}data-variant-usd-cents="{{ variant.price }}"{% endif %}
         data-min-quantity="{{ variant.quantity_rule.min | default: 1 }}"
         data-price-breaks="{{ price_breaks_json | strip | escape }}"
         data-at-text="{{ 'content.price_at' | t | escape }}"
@@ -153,11 +154,7 @@
           ref="pricePerItemText"
         >
           {{- 'content.price_at' | t }}
-          {%- if use_currency -%}
-            {{- display_price | money_with_currency -}}
-          {%- else -%}
-            {{- display_price | money -}}
-          {%- endif -%}
+          {%- render 'pq-local-money', amount: display_price, with_currency: use_currency -%}
           /
           {{- 'content.each_abbreviation' | t }}
         </span>

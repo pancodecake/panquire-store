@@ -8,6 +8,7 @@ import { StandardEvents } from '@shopify/events';
  *
  * @typedef {Object} PriceBreak
  * @property {number} quantity - Minimum quantity for this price tier
+ * @property {number} [amount] - Price in Shopify minor units.
  * @property {string} price - Formatted price string (e.g., "$9.50 USD")
  *
  * @typedef {Object} PricePerItemRefs
@@ -41,15 +42,15 @@ class PricePerItemComponent extends Component {
 
     // Start with base price tier
     if (variantPrice) {
-      this.#priceBreaks.push({ quantity: minQuantity, price: variantPrice });
+      this.#priceBreaks.push({ quantity: minQuantity, price: variantPrice, amount: Number(this.dataset.variantUsdCents) });
     }
 
     // Parse additional price breaks from JSON array
     if (priceBreaksData) {
       const breaks = JSON.parse(priceBreaksData);
-      for (const { quantity, price } of breaks) {
+      for (const { quantity, price, amount } of breaks) {
         if (quantity && price) {
-          this.#priceBreaks.push({ quantity: parseInt(quantity), price });
+          this.#priceBreaks.push({ quantity: parseInt(quantity), price, amount });
         }
       }
     }
@@ -124,7 +125,10 @@ class PricePerItemComponent extends Component {
       this.#priceBreaks.find((pb) => quantity >= pb.quantity) ?? this.#priceBreaks[this.#priceBreaks.length - 1];
 
     if (priceBreak) {
-      this.refs.pricePerItemText.innerHTML = `${this.dataset.atText} ${priceBreak.price}/${this.dataset.eachText}`;
+      const price = this.hasAttribute('data-variant-usd-cents') && Number.isSafeInteger(priceBreak.amount)
+        ? `<span data-pq-usd-cents="${priceBreak.amount}">${priceBreak.price}</span>`
+        : priceBreak.price;
+      this.refs.pricePerItemText.innerHTML = `${this.dataset.atText} ${price}/${this.dataset.eachText}`;
     }
   }
 

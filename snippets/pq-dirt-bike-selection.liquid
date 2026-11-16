@@ -8,7 +8,7 @@
     <caption>T-01 and T-02 manufacturer-stated specifications</caption>
     <thead><tr><th scope="col">Compare</th><th scope="col"><a href="{{ first_model.url }}">T-01</a></th><th scope="col"><a href="{{ second_model.url }}">T-02</a></th></tr></thead>
     <tbody>
-      <tr><th scope="row">Current bike price</th><td>{{ first_model.price | money_with_currency }}</td><td>{{ second_model.price | money_with_currency }}</td></tr>
+      <tr><th scope="row">Current bike price</th><td>{% render 'pq-local-money', amount: first_model.price, with_currency: true %}</td><td>{% render 'pq-local-money', amount: second_model.price, with_currency: true %}</td></tr>
       {% assign spec_labels = 'Motor,Peak motor power,Maximum speed,Battery voltage,Battery capacity,Nominal battery energy,Range — Eco mode,Charger,Front tire,Rear tire' | split: ',' %}
       {% for label in spec_labels %}
         <tr><th scope="row">{{ label | escape }}</th><td>{% render 'pq-model-data', model: 't-01', field: label %}</td><td>{% render 'pq-model-data', model: 't-02', field: label %}</td></tr>

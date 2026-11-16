@@ -12,7 +12,7 @@
   customElements.define('pq-model-comparison', class extends HTMLElement {
     connectedCallback() {
       this.querySelectorAll('tbody tr').forEach(row => {
-        const cells = [...row.querySelectorAll('td')].map(element => ({ element, mode: element.dataset.mode, number: element.dataset.number, text: element.textContent }));
+        const cells = [...row.querySelectorAll('td')].map(element => ({ element, mode: element.dataset.mode, number: element.dataset.number, text: element.querySelector('[data-pq-usd-cents]') ? '' : element.textContent }));
         for (const cell of winningCells(cells)) cell.element.classList.add('is-winner');
       });
     }

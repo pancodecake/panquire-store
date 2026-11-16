@@ -18,7 +18,7 @@
           class="cart-totals__original-value cart-secondary-typography"
           data-testid="cart-subtotal-value"
         >
-          {{- cart.items_subtotal_price | money -}}
+          {%- render 'pq-local-money', amount: cart.items_subtotal_price -%}
         </span>
       </span>
       <ul
@@ -33,7 +33,7 @@
               {{ discount.title | escape }}
             </span>
             <span class="cart-discounts__value cart-secondary-typography"
-              >-{{ discount.total_allocated_amount | money -}}
+              >-{% render 'pq-local-money', amount: discount.total_allocated_amount -%}
             </span>
           </li>
         {%- endfor -%}
@@ -240,10 +240,14 @@
         {% comment %} Used by payment_terms web component {% endcomment %}
         data-testid="cart-total-value"
         data-cart-subtotal
+        {% if cart.currency.iso_code == 'USD' %}data-pq-usd-cents="{{ cart.total_price }}"{% endif %}
       >
         {{ total_price }}
       </text-component>
     </span>
+    {% if cart.currency.iso_code == 'USD' %}
+      <small class="pq-cart-checkout-currency">Checkout total in USD before any additional taxes or shipping: {{ cart.total_price | money_with_currency }}</small>
+    {% endif %}
     {% if settings.show_installments %}
       <span class="cart-totals__item cart-totals__installments">
         {% form 'cart', cart %}
@@ -286,6 +290,9 @@
 </div>
 
 {% stylesheet %}
+  .pq-cart-checkout-currency { display: none; }
+  [data-pq-estimated-prices] .pq-cart-checkout-currency { display: block; }
+
   .cart-actions {
     display: flex;
     flex-direction: column;

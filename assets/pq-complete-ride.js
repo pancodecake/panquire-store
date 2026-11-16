@@ -28,7 +28,10 @@ class PqCompleteRide extends HTMLElement {
       checkbox.dataset.variantId = selectedOption.value;
       checkbox.disabled = selectedOption.disabled;
       if (selectedOption.disabled) checkbox.checked = false;
-      if (price && selectedOption.dataset.price) price.textContent = selectedOption.dataset.price;
+      if (price && selectedOption.dataset.price) {
+        if (price.hasAttribute('data-pq-usd-cents')) price.dataset.pqUsdCents = selectedOption.dataset.priceAmount;
+        price.textContent = selectedOption.dataset.price;
+      }
     }
 
     row.dataset.selected = checkbox.checked ? 'true' : 'false';

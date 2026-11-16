@@ -6,15 +6,8 @@
   assign product = closest.product
   assign block_settings = block.settings
 
-  if settings.currency_code_enabled_product_cards
-    assign price_min = product.price_min | money_with_currency
-  else
-    assign price_min = product.price_min | money
-  endif
-
   if product.price_varies
     assign price_from_text = 'content.price_from' | t: price: '__PRICE__'
-    assign display_price = price_from_text | replace: '__PRICE__', price_min
   endif
 
   assign has_swatches_only = false
@@ -38,8 +31,8 @@
   "
   {{ block.shopify_attributes }}
 >
-  {% if product.price_varies and has_swatches_only == false and price_min != blank %}
-    <span class="price">{{ display_price }}</span>
+  {% if product.price_varies and has_swatches_only == false and product.price_min != blank %}
+    <span class="price">{% capture price_min %}{% render 'pq-local-money', amount: product.price_min, with_currency: settings.currency_code_enabled_product_cards %}{% endcapture %}{{ price_from_text | replace: '__PRICE__', price_min }}</span>
   {% else %}
     {% render 'price',
       show_unit_price: true,

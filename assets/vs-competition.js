@@ -464,7 +464,11 @@
             let formatted;
             try { formatted = new Intl.NumberFormat('en-US', { style: 'currency', currency: record.price.currency, maximumFractionDigits: 2, minimumFractionDigits: 0 }).format(record.price.amount); }
             catch { formatted = `${format(record.price.amount)} ${record.price.currency}`; }
-            price.append(element('small', 'from'), document.createTextNode(formatted));
+            const amount = element('span', formatted);
+            if (side === 'panquire' && record.price.currency === 'USD') {
+              amount.dataset.pqUsdCents = String(Math.round(record.price.amount * 100));
+            }
+            price.append(element('small', 'from'), amount);
           }
         }
         const source = product.querySelector('[data-source]');
