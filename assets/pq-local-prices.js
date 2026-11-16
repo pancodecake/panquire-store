@@ -67,6 +67,9 @@ function selectCountry(country) {
 }
 
 selectCountry(document.body.dataset.pqCountry);
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) selectCountry(document.body.dataset.pqCountry);
+});
 
 document.addEventListener('submit', (event) => {
   if (event.defaultPrevented || !event.target.matches('.pq-header-location__panel') ||

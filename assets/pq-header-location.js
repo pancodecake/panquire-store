@@ -11,6 +11,42 @@ function setupLocation(details) {
   details.setAttribute('data-location-ready', '');
 
   const trigger = details.querySelector('summary');
+  const form = details.querySelector('form');
+  const confirmed = form.querySelector('[aria-current="true"]');
+  form.addEventListener('submit', (event) => {
+    const selected = event.submitter;
+    if (event.defaultPrevented || selected?.name !== 'country_code') return;
+
+    if (details.hasAttribute('data-location-pending') || selected === confirmed) {
+      event.preventDefault();
+    } else {
+      details.setAttribute('data-location-pending', '');
+      trigger.setAttribute('aria-busy', 'true');
+      updateTrigger(details, selected);
+    }
+    details.open = false;
+    trigger.focus({ preventScroll: true });
+  });
+
+  function prepareOnOpen() {
+    if (!details.open) return;
+    details.removeEventListener('toggle', prepareOnOpen);
+    prepareLocation(details, trigger);
+  }
+  details.addEventListener('toggle', prepareOnOpen);
+  prepareOnOpen();
+}
+
+function updateTrigger(details, option) {
+  const { firstElementChild: optionFlag } = option;
+  const name = details.querySelector('[data-location-name]');
+  const flag = details.querySelector('.pq-header-location__selected img');
+  name.textContent = optionFlag.nextElementSibling.textContent;
+  flag.removeAttribute('srcset');
+  flag.src = optionFlag.currentSrc || optionFlag.src;
+}
+
+function prepareLocation(details, trigger) {
   const list = details.querySelector('ul');
   const search = details.querySelector('[data-location-search]');
   const input = search.querySelector('input');
@@ -64,7 +100,12 @@ function setupLocation(details) {
     empty.hidden = visible > 0;
   }
 
+  function focusSearch() {
+    if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
+  }
+
   filterOptions();
+  focusSearch();
   input.addEventListener('input', filterOptions);
   full.addEventListener('click', () => {
     showAll = true;
@@ -82,8 +123,8 @@ function setupLocation(details) {
 
   details.addEventListener('toggle', () => {
     if (details.open) {
-      if (matchMedia('(pointer: fine)').matches) input.focus({ preventScroll: true });
-    } else if (input.value || showAll) {
+      focusSearch();
+    } else if (!details.hasAttribute('data-location-pending') && (input.value || showAll)) {
       input.value = '';
       showAll = false;
       full.setAttribute('aria-expanded', 'false');
@@ -109,6 +150,15 @@ function setupLocations(root = document) {
 
 setupLocations();
 document.addEventListener('shopify:section:load', (event) => setupLocations(event.target));
+window.addEventListener('pageshow', (event) => {
+  if (!event.persisted) return;
+  for (const details of document.querySelectorAll('[data-header-location][data-location-pending]')) {
+    details.removeAttribute('data-location-pending');
+    details.querySelector('summary').removeAttribute('aria-busy');
+    const confirmed = details.querySelector('[aria-current="true"]');
+    if (confirmed) updateTrigger(details, confirmed);
+  }
+});
 document.addEventListener('pointerdown', (event) => {
   for (const details of document.querySelectorAll('[data-header-location][open]')) {
     if (!details.contains(event.target)) details.open = false;

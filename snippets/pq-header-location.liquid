@@ -16,7 +16,7 @@
         <span class="pq-header-location__label">{{ 'accessibility.country_region' | t }}</span>
         <span class="pq-header-location__selected">
           {{ active_country | image_url: width: 48 | image_tag: width: 20, height: 20, class: 'pq-header-location__flag', alt: '' }}
-          <span>{{ active_country.name | replace: '&amp;', '&' | escape }}</span>
+          <span data-location-name>{{ active_country.name | replace: '&amp;', '&' | escape }}</span>
         </span>
       </span>
       <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -61,7 +61,7 @@
     --location-muted: #bcbdc2;
     --location-line: #414349;
     --location-gold: #df9f44;
-    --location-transition: 480ms var(--pq-ease-out);
+    --location-transition: 220ms var(--pq-ease-out);
     color: var(--location-text);
     font-family: var(--pq-body-font);
     font-size: 14px;
@@ -88,6 +88,33 @@
   }
 
   .pq-header-location__trigger::-webkit-details-marker { display: none; }
+  .pq-header-location[data-location-pending] {
+    --location-transition: 150ms var(--pq-ease-out);
+  }
+  .pq-header-location[data-location-pending] .pq-header-location__trigger {
+    border-color: var(--location-gold);
+    cursor: progress;
+  }
+  .pq-header-location[data-location-pending] .pq-header-location__trigger > svg {
+    visibility: hidden;
+    transition: visibility 0s linear 150ms;
+  }
+  .pq-header-location[data-location-pending] .pq-header-location__trigger::before {
+    content: '';
+    position: absolute;
+    inset-inline-end: 12px;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--location-line);
+    border-block-start-color: var(--location-gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: pq-location-wait 650ms linear 150ms infinite;
+  }
+  @keyframes pq-location-wait {
+    from { opacity: 1; transform: rotate(0deg); }
+    to { opacity: 1; transform: rotate(360deg); }
+  }
   .pq-header-location__trigger::after {
     content: '';
     position: absolute;
@@ -274,6 +301,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .pq-header-location::details-content { transition: none; }
+    .pq-header-location[data-location-pending] .pq-header-location__trigger::before { animation: none; opacity: 1; }
     .pq-header-location__trigger,
     .pq-header-location__trigger::after,
     .pq-header-location__trigger > svg,
