@@ -1,0 +1,199 @@
+{% doc %}
+  Renders the searchable country selector in the Panquire header.
+  @param {string} section_id - ID of the header section.
+{% enddoc %}
+{% liquid
+  assign countries = localization.available_countries | sort_natural: 'name'
+  assign country_count = countries.size
+  assign batches = country_count | divided_by: 50.0 | ceil
+  assign form_id = 'HeaderLocation-' | append: section_id
+  assign active_country = localization.country
+%}
+{% if country_count > 1 %}
+  <details class="pq-header-location" data-header-location>
+    <summary class="pq-header-location__trigger">
+      <span class="pq-header-location__copy">
+        <span class="pq-header-location__label">{{ 'accessibility.country_region' | t }}</span>
+        <span class="pq-header-location__selected">
+          {{ active_country | image_url: width: 48 | image_tag: width: 20, height: 20, class: 'pq-header-location__flag', alt: '' }}
+          <span>{{ active_country.name | escape }}</span>
+        </span>
+      </span>
+      <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
+    {% form 'localization', id: form_id, class: 'pq-header-location__panel' %}
+      <div class="pq-header-location__search" data-location-search hidden>
+        {% render 'pq-icon', name: 'search' %}
+        <label class="visually-hidden" for="{{ form_id }}-search">{{ 'accessibility.find_country' | t }}</label>
+        <input id="{{ form_id }}-search" type="search" autocomplete="off" placeholder="{{ 'panquire.search' | t | escape }}" aria-controls="{{ form_id }}-countries">
+      </div>
+      <ul class="pq-header-location__countries" id="{{ form_id }}-countries" role="list">
+        {% for batch in (1..batches) %}
+          {% assign country_offset = forloop.index0 | times: 50 %}
+          {% for country in countries offset: country_offset limit: 50 %}
+            {% assign currency_code = country.currency.iso_code | default: shop.currency %}
+            {% assign currency_symbol = country.currency.symbol %}
+            {% if currency_symbol == blank and currency_code == 'USD' %}
+              {% assign currency_symbol = '$' %}
+            {% endif %}
+            <li>
+              <button type="submit" name="country_code" value="{{ country.iso_code | escape }}" class="pq-header-location__option" data-currency="{{ currency_code | escape }}"{% if country.iso_code == active_country.iso_code %} aria-current="true"{% endif %}>
+                {{ country | image_url: width: 48 | image_tag: width: 24, height: 24, class: 'pq-header-location__flag', alt: '', loading: 'lazy' }}
+                <span>{{ country.name | escape }}</span>
+                <span class="pq-header-location__currency">{{ currency_code | escape }}{% if currency_symbol != blank %} / {{ currency_symbol | escape }}{% endif %}</span>
+              </button>
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+      <p class="pq-header-location__empty" role="status" data-location-empty hidden>{{ 'content.no_results_found' | t }}</p>
+    {% endform %}
+  </details>
+  <script src="{{ 'pq-header-location.js' | asset_url }}" type="module"></script>
+{% endif %}
+
+{% stylesheet %}
+  .pq-header-location {
+    position: relative;
+    --location-surface: #151619;
+    --location-text: #f3f3f1;
+    --location-muted: #bcbdc2;
+    --location-line: #414349;
+    --location-gold: #df9f44;
+    color: var(--location-text);
+    font-family: var(--pq-body-font);
+    font-size: 14px;
+  }
+
+  .pq-header-location__trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    max-width: 170px;
+    padding: 4px 8px;
+    list-style: none;
+    cursor: pointer;
+    border: 1px solid var(--location-line);
+    border-radius: 6px;
+    background: var(--location-surface);
+    transition: border-color 160ms ease;
+  }
+
+  .pq-header-location__trigger::-webkit-details-marker { display: none; }
+  .pq-header-location__trigger > svg { flex: none; transition: transform 180ms ease; }
+  .pq-header-location[open] .pq-header-location__trigger { border-color: var(--location-gold); }
+  .pq-header-location[open] .pq-header-location__trigger > svg { transform: rotate(180deg); }
+  .pq-header-location__copy { display: grid; min-width: 0; gap: 2px; }
+  .pq-header-location__label { color: var(--location-muted); font-size: 10px; line-height: 1.1; }
+  .pq-header-location__selected { display: flex; align-items: center; min-width: 0; gap: 7px; font-size: 12px; font-weight: 600; }
+  .pq-header-location__selected > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pq-header-location__flag { flex: none; border-radius: 50%; object-fit: cover; }
+
+  .pq-header-location__panel {
+    position: absolute;
+    z-index: 5;
+    inset-block-start: calc(100% + 8px);
+    inset-inline-end: 0;
+    width: min(360px, calc(100vw - 32px));
+    padding: 8px;
+    border: 1px solid var(--location-line);
+    border-radius: 10px;
+    background: var(--location-surface);
+    color: var(--location-text);
+    box-shadow: 0 14px 40px rgb(0 0 0 / .4);
+  }
+
+  .pq-header-location[open] .pq-header-location__panel {
+    animation: pq-location-open 180ms var(--pq-ease-out) both;
+  }
+
+  @keyframes pq-location-open {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .pq-header-location__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-inline: 10px;
+    margin-block-end: 6px;
+    border: 1px solid var(--location-line);
+    border-radius: 5px;
+  }
+
+  .pq-header-location__search:focus-within { border-color: var(--location-gold); }
+  .pq-header-location__search svg { width: 19px; height: 19px; flex: none; }
+  .pq-header-location__search input {
+    width: 100%;
+    min-height: 42px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 16px;
+    color-scheme: dark;
+  }
+
+  .pq-header-location__search input::placeholder { color: var(--location-muted); }
+  .pq-header-location__countries {
+    display: grid;
+    gap: 2px;
+    max-height: min(50dvh, 390px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--location-muted) transparent;
+    margin: 0;
+    padding: 2px;
+    list-style: none;
+  }
+
+  .pq-header-location__option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    padding: 7px 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: start;
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+
+  .pq-header-location__currency { justify-self: end; white-space: nowrap; color: var(--location-muted); font-size: 12px; }
+  .pq-header-location__option:is([aria-current="true"], :active) { background: var(--location-gold); color: var(--location-surface); }
+  .pq-header-location__option:is([aria-current="true"], :active) .pq-header-location__currency { color: inherit; }
+  .pq-header-location__empty { margin: 0; padding: 12px 10px; color: var(--location-muted); }
+
+  @media (hover: hover) {
+    .pq-header-location__trigger:hover { border-color: var(--location-gold); }
+    .pq-header-location__option:not([aria-current="true"]):not(:active):hover { background: #25262b; border-color: var(--location-line); }
+  }
+
+  .pq-header-location :is(summary, button, input):focus-visible {
+    outline: 2px solid var(--location-gold);
+    outline-offset: 1px;
+  }
+
+  @media (max-width: 1140px) {
+    .pq-header-location { position: static; }
+    .pq-header-location__panel { inset-block-start: calc(100% + 4px); inset-inline-end: var(--pq-content-gutter); }
+  }
+
+  @media (max-width: 380px) {
+    .pq-header-location__trigger { max-width: 115px; gap: 4px; padding-inline: 6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pq-header-location [class] { animation: none !important; transition: none; }
+  }
+{% endstylesheet %}
