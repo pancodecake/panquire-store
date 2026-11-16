@@ -10,9 +10,9 @@
 {% elsif product.handle == 't-03' %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
   <section class="pq-buying-guide pq-buying-guide__product">
-    <h2>A compact mini electric motorcycle</h2>
-    <p>The Panquire T-03 uses 12-inch Kenda road tires for paved surfaces. It has a removable 60V 31.2Ah battery, 9.5 kW peak power and three selectable electronic power levels. Use its model-specific 18A charger. Charging time has yet to be confirmed.</p>
-    <p>The T-03 is designed for paved surfaces. For recreational trail riding, see the <a href="{{ all_products['t-01'].url }}">T-01</a> or <a href="{{ all_products['t-02'].url }}">T-02 electric dirt bike</a>. Check your local rules for vehicle classification, registration, licensing and permitted riding areas.</p>
+    <h2>{{ 'panquire.storefront.a_compact_mini_electric_motorcycle' | t | escape }}</h2>
+    <p>{{ 'panquire.storefront.the_panquire_t_03_uses_12_inch' | t | escape }}</p>
+    <p>{{ 'panquire.storefront.the_t_03_is_designed_for_paved' | t | escape }} <a href="{{ all_products['t-01'].url }}">T-01</a> {{ 'panquire.storefront.or' | t | escape }} <a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.t_02_electric_dirt_bike' | t | escape }}</a>{{ 'panquire.storefront.check_your_local_rules_for_vehicle_classification' | t | escape }}</p>
   </section>
 {% endif %}
 {% endif %}

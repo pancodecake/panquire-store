@@ -47,10 +47,10 @@
     <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
     {% if request.page_type == 'product' %}
       <span class="pq-purchase__price-info" data-pq-price-info>
-        <button type="button" aria-label="Currency information" aria-describedby="PriceCurrencyInfo-{{ section.id }}">
+        <button type="button" aria-label="{{ 'panquire.storefront.currency_information' | t | escape }}" aria-describedby="PriceCurrencyInfo-{{ section.id }}">
           {{ 'info-circle-svgrepo-com.svg' | inline_asset_content }}
         </button>
-        <span class="pq-purchase__price-tooltip" id="PriceCurrencyInfo-{{ section.id }}" role="tooltip">Local-currency prices are estimates. Checkout is in USD, and the customer's bank determines the conversion rate</span>
+        <span class="pq-purchase__price-tooltip" id="PriceCurrencyInfo-{{ section.id }}" role="tooltip">{{ 'panquire.storefront.local_currency_prices_are_estimates_checkout_is' | t | escape }}</span>
       </span>
     {% endif %}
     {% if variant.compare_at_price > variant.price %}

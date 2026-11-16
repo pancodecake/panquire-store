@@ -79,7 +79,7 @@
       {% render 'pq-t02-product-faq', section_id: section.id %}
     {% elsif data.faqs.value.size > 0 %}
       <section class="pq-product-faq"><h2>{{ 'panquire.product_page.faqs' | t }}</h2>
-        {% for faq in data.faqs.value %}<details class="pq-product-disclosure"><summary><h3>{{ faq.question | escape }}</h3><span aria-hidden="true">+</span></summary><div class="pq-product-answer"><p>{% if faq.question == 'Is this product in stock?' and request.locale.iso_code == 'en' %}Check the availability shown next to the purchase button for your selected configuration. See the <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a> for dispatch and delivery details.{% else %}{{ faq.answer | escape }}{% endif %}</p></div></details>{% endfor %}
+        {% for faq in data.faqs.value %}<details class="pq-product-disclosure"><summary><h3>{{ faq.question | escape }}</h3><span aria-hidden="true">+</span></summary><div class="pq-product-answer"><p>{% if faq.question == 'Is this product in stock?' and request.locale.iso_code == 'en' %}{{ 'panquire.storefront.check_the_availability_shown_next_to_the' | t | escape }} <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">{{ 'panquire.storefront.shipping_policy' | t | escape }}</a> {{ 'panquire.storefront.for_dispatch_and_delivery_details' | t | escape }}{% else %}{{ faq.answer | escape }}{% endif %}</p></div></details>{% endfor %}
         <a href="{{ pages.contact.url }}">{{ 'panquire.product_page.support' | t }}</a>
       </section>
     {% endif %}

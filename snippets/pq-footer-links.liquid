@@ -8,23 +8,23 @@
 <nav aria-label="{{ block.settings.heading | escape }}">
   {% case block.settings.built_in %}
     {% when 'shop' %}
-      <a href="{{ pages.compare.url | default: '/pages/compare' }}">Panquire vs Competitors</a>
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.panquire_vs_competitors' | t | escape }}</a>
       <a href="{% render 'pq-local-path', url: '/products/t-01' %}">T-01</a>
       <a href="{% render 'pq-local-path', url: '/products/t-02' %}">T-02</a>
       <a href="{% render 'pq-local-path', url: '/products/t-03' %}">T-03</a>
     {% when 'company' %}
-      <a href="{{ settings.pq_about_url | default: '/pages/about' }}">About Us <span class="pq-footer-link-detail">Our Story, Team &amp; Mission</span></a>
-      <a href="{% render 'pq-local-path', url: partner_url %}#partners">Strategic Partnerships</a>
+      <a href="{{ settings.pq_about_url | default: '/pages/about' }}">{{ 'panquire.storefront.about_us' | t | escape }} <span class="pq-footer-link-detail">{{ 'panquire.storefront.our_story_team_mission' | t | escape }}</span></a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#partners">{{ 'panquire.storefront.strategic_partnerships' | t | escape }}</a>
     {% when 'business' %}
-      <a href="{% render 'pq-local-path', url: partner_url %}#corporate-purchase">Corporate &amp; Bulk Purchase <span class="pq-footer-link-detail">Dealers &amp; Fleet</span></a>
-      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-program">Affiliate Program</a>
-      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-terms">Affiliate Terms</a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#corporate-purchase">{{ 'panquire.storefront.corporate_bulk_purchase' | t | escape }} <span class="pq-footer-link-detail">{{ 'panquire.storefront.dealers_fleet' | t | escape }}</span></a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-program">{{ 'panquire.storefront.affiliate_program' | t | escape }}</a>
+      <a href="{% render 'pq-local-path', url: partner_url %}#affiliate-terms">{{ 'panquire.storefront.affiliate_terms' | t | escape }}</a>
     {% when 'care' %}
-      <a href="{{ footer_settings.contact_url | default: '/pages/contact' }}">Contact Us</a>
-      <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">Shipping Policy</a>
-      <a href="{% render 'pq-local-path', url: terms_url %}#payment">Payment Methods</a>
-      <a href="{% render 'pq-local-path', url: terms_url %}#warranty">Warranty Policy</a>
-      <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">Returns &amp; Refunds</a>
+      <a href="{{ footer_settings.contact_url | default: '/pages/contact' }}">{{ 'panquire.storefront.contact_us' | t | escape }}</a>
+      <a href="{{ shop.shipping_policy.url | default: '/policies/shipping-policy' }}">{{ 'panquire.storefront.shipping_policy' | t | escape }}</a>
+      <a href="{% render 'pq-local-path', url: terms_url %}#payment">{{ 'panquire.storefront.payment_methods' | t | escape }}</a>
+      <a href="{% render 'pq-local-path', url: terms_url %}#warranty">{{ 'panquire.storefront.warranty_policy' | t | escape }}</a>
+      <a href="{{ shop.refund_policy.url | default: '/policies/refund-policy' }}">{{ 'panquire.storefront.returns_refunds' | t | escape }}</a>
   {% endcase %}
 </nav>
 

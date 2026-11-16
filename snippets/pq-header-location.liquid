@@ -24,6 +24,17 @@
     </summary>
     {% form 'localization', id: form_id, class: 'pq-header-location__panel' %}
       <input type="hidden" name="language_code" data-published-languages="{{ published_languages | join: ',' | escape }}" disabled>
+      <input type="hidden" name="country_code" value="{{ active_country.iso_code | escape }}" data-location-manual-country disabled>
+      {% if localization.available_languages.size > 1 %}
+        <label class="pq-header-location__language" hidden>
+          <span>{{ 'content.language' | t }}</span>
+          <select data-location-language>
+            {% for language in localization.available_languages %}
+              <option value="{{ language.iso_code | escape }}" lang="{{ language.iso_code | escape }}"{% if language.iso_code == localization.language.iso_code %} selected{% endif %}>{{ language.endonym_name | capitalize | escape }}</option>
+            {% endfor %}
+          </select>
+        </label>
+      {% endif %}
       <div class="pq-header-location__search" data-location-search hidden>
         {% render 'pq-icon', name: 'search' %}
         <label class="visually-hidden" for="{{ form_id }}-search">{{ 'accessibility.find_country' | t }}</label>
@@ -36,9 +47,6 @@
             {% assign currency_code = country.currency.iso_code | default: shop.currency %}
             {% assign currency_symbol = country.currency.symbol %}
             {% assign market_languages = country.available_languages | map: 'iso_code' %}
-            {% if market_languages == blank %}
-              {% assign market_languages = published_languages %}
-            {% endif %}
             {% if currency_symbol == blank and currency_code == 'USD' %}
               {% assign currency_symbol = '$' %}
             {% endif %}
@@ -52,7 +60,7 @@
           {% endfor %}
         {% endfor %}
       </ul>
-      <button type="button" class="pq-header-location__full" data-location-full aria-controls="{{ form_id }}-countries" aria-expanded="false" hidden>Full Location List</button>
+      <button type="button" class="pq-header-location__full" data-location-full aria-controls="{{ form_id }}-countries" aria-expanded="false" hidden>{{ 'panquire.storefront.full_location_list' | t | escape }}</button>
       <p class="pq-header-location__empty" role="status" data-location-empty hidden>{{ 'content.no_results_found' | t }}</p>
     {% endform %}
   </details>
@@ -208,6 +216,23 @@
   }
 
   .pq-header-location__search:focus-within { border-color: var(--location-gold); }
+  .pq-header-location__language:not([hidden]) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 4px 2px;
+  }
+  .pq-header-location__language select {
+    min-width: 0;
+    max-width: 65%;
+    border: 1px solid var(--location-line);
+    border-radius: 6px;
+    padding: 6px 8px;
+    background-color: var(--location-surface);
+    color: var(--location-text);
+    font: inherit;
+  }
   .pq-header-location__search svg { width: 19px; height: 19px; flex: none; }
   .pq-header-location__search input {
     width: 100%;

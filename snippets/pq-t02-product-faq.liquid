@@ -5,27 +5,19 @@
 {% assign compare_url = pages.compare.url | default: '/pages/compare' %}
 {% assign contact_url = pages.contact.url | default: '/pages/contact' %}
 {% assign shipping_url = shop.shipping_policy.url | default: '/policies/shipping-policy' %}
-{% capture faq_copy %}
-What is an electric dirt bike, and where can you ride one?|An electric dirt bike is a battery-powered motorcycle designed for off-road use. Ride the T-02 at parks and on designated motorized trails that permit electric motorcycles, or on private land with permission. Check local rules before using public roads, bike lanes or shared paths.
-Why choose the Panquire T-02 over alternatives?|The T-02 combines 13 kW of peak motor power, a removable 72V battery and an adjustable rear shock at its listed vehicle price. If you’re considering the Sur-Ron Ultra Bee, 79BIKE Falcon Pro or Qronge X7 Spark, compare the exact configurations, battery capacities and purchase prices in <a href="{{ compare_url | escape }}">Compare Models</a>.
-Is the T-02 suitable for adults?|While the T-02 is suitable for teenagers with prior motorcycle riding experience, it is primarily designed for adult-sized riders due to its top speed of 100 km/h (62 mph) and peak power of 13,000 W. Our testing has confirmed that the T-02 can support riders weighing up to 150 kg (331 lb) and is ideal for riders taller than 160 cm (5'3"). Therefore, we can confidently say that experienced riders aged 16 and above who meet these requirements can ride the T-02 comfortably and confidently, with appropriate safety precautions.
-What is the range on a single charge?|Panquire rates the T-02 for up to 90 km (56 miles) in Eco mode. Actual range depends on speed, terrain, rider weight, temperature and how you ride.
-What warranty do I get?|Panquire’s <a href="/pages/terms">one-year limited warranty</a> covers the motor, battery and controller from the date of delivery. Your statutory consumer rights also apply.
-How fast will it ship?|We aim to dispatch in-stock orders within three business days after payment confirmation and any required checks. If you preorder, you’ll see the applicable schedule before you pay. Delivery takes up to 30 calendar days from order confirmation in the United States, Canada, Mexico and Europe, and up to 35 calendar days elsewhere. See the <a href="{{ shipping_url | escape }}">Shipping Policy</a> for eligibility and timing.
-What if I need help or service?|Email <a href="mailto:support@panquire.com">support@panquire.com</a> or <a href="{{ contact_url | escape }}">contact Panquire</a>. If you’ve already ordered, include your order number and a short description of the issue. For a warranty claim, include your proof of purchase so we can review your claim and explain the next steps.
-{% endcapture %}
-{% assign faqs = faq_copy | strip | newline_to_br | split: '<br />' %}
+{% assign terms_url = pages.terms.url | default: '/pages/terms' %}
+{% assign faqs = 'faq_t02_1,faq_t02_2,faq_t02_3,faq_t02_4,faq_t02_5,faq_t02_6,faq_t02_7' | split: ',' %}
 <section class="pq-product-faq pq-product-faq--t02">
   <h2>{{ 'panquire.product_page.faqs' | t }}</h2>
   <div class="pq-policy-questions" data-pq-faq-accordion>
-    {% for row in faqs %}
-      {% assign entry = row | strip | split: '|' %}
+    {% for faq in faqs %}
+
       {% assign question_id = 'T02Question-' | append: section_id | append: '-' | append: forloop.index %}
       <details class="pq-policy-question" data-pq-policy-question name="ProductFaq-{{ section_id }}">
         <span class="pq-policy-flare" aria-hidden="true" data-pq-policy-flare></span>
-        <summary id="{{ question_id }}"><h3>{{ entry[0] | escape }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
+        <summary id="{{ question_id }}"><h3>{{ faq | append: '_question' | prepend: 'panquire.storefront.' | t | escape }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
         <div class="pq-prose pq-policy-answer" role="region" aria-labelledby="{{ question_id }}" data-pq-answer>
-          <p>{{ entry[1] }}</p>
+          <p>{{ faq | append: '_answer_html' | prepend: 'panquire.storefront.' | t: compare_url: compare_url, shipping_url: shipping_url, contact_url: contact_url, terms_url: terms_url }}</p>
         </div>
       </details>
     {% endfor %}

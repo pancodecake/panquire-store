@@ -45,7 +45,7 @@
                   </label>
                   {% unless accessory_product.has_only_default_variant %}
                     <label class="visually-hidden" for="AccessoryVariant-{{ block.id }}-{{ accessory_product.id }}">
-                      {{ accessory_product.title | escape }} options
+                      {{ accessory_product.title | escape }} {{ 'panquire.storefront.options' | t | escape }}
                     </label>
                     <select
                       id="AccessoryVariant-{{ block.id }}-{{ accessory_product.id }}"
@@ -102,7 +102,7 @@
       </details>
     {% else %}
       <div class="pq-complete-ride__editor-empty">
-        Select optional accessory products to show “{{ block.settings.heading | escape }}”.
+        {{ 'panquire.storefront.select_optional_accessory_products_to_show' | t | escape }}{{ block.settings.heading | escape }}”.
       </div>
     {% endif %}
   </pq-complete-ride>

@@ -19,18 +19,18 @@
   <div class="pq-product-guide__card">
     <div class="pq-product-guide__lead">
       <div>
-        <p class="pq-product-guide__eyebrow">Panquire T-02 / Price and performance</p>
-        <h2>A 72V electric dirt bike for demanding trails</h2>
-        <p>The T-02 pairs a 13 kW peak motor with a removable 2,952 Wh battery and an adjustable rear shock. The Qronge X7 Spark lists 12 kW peak and a larger 3,600 Wh battery. If you’re choosing between them, weigh that extra battery capacity against the T-02’s vehicle price and equipment. Peak power alone tells you little about how either bike accelerates or handles.</p>
+        <p class="pq-product-guide__eyebrow">{{ 'panquire.storefront.panquire_t_02_price_and_performance' | t | escape }}</p>
+        <h2>{{ 'panquire.storefront.a_72v_electric_dirt_bike_for_demanding' | t | escape }}</h2>
+        <p>{{ 'panquire.storefront.the_t_02_pairs_a_13_kw' | t | escape }}</p>
       </div>
       <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
         {% if variant.price != blank %}
           <span class="pq-product-guide__amount">
             <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
           </span>
-          <span>Check your final total at checkout.</span>
+          <span>{{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape }}</span>
           {% if variant.compare_at_price > variant.price %}
-            <span>Was <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>. Save {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
+            <span>{{ 'panquire.storefront.was' | t | escape }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
           {% endif %}
         {% else %}
           <span>{{ 'content.unavailable' | t }}</span>
@@ -38,14 +38,14 @@
       </div>
     </div>
     <dl class="pq-product-guide__specs">
-      <div><dt>13 kW peak performance</dt><dd>Stated top speed of 100 km/h (about 62 mph), depending on riding conditions.</dd></div>
-      <div><dt>Removable 72V 41Ah battery</dt><dd>Up to 90 km in Eco mode, as rated by Panquire. Actual range varies.</dd></div>
-      <div><dt>Off-road control</dt><dd>Three power levels, dual-piston hydraulic disc brakes and an adjustable rear shock.</dd></div>
+      <div><dt>{{ 'panquire.storefront.13_kw_peak_performance' | t | escape }}</dt><dd>{{ 'panquire.storefront.stated_top_speed_of_100_km_h' | t | escape }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.removable_72v_41ah_battery' | t | escape }}</dt><dd>{{ 'panquire.storefront.up_to_90_km_in_eco_mode' | t | escape }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.off_road_control' | t | escape }}</dt><dd>{{ 'panquire.storefront.three_power_levels_dual_piston_hydraulic_disc' | t | escape }}</dd></div>
     </dl>
     <div class="pq-buying-guide__links">
-      <a href="{{ pages.compare.url | default: '/pages/compare' }}">Compare electric dirt bike models</a>
-      <a href="{{ pages.contact.url | default: '/pages/contact' }}">Ask about rider fit</a>
-      {% if all_products['t-01'].url != blank %}<a href="{{ all_products['t-01'].url }}">Explore the 60V T-01</a>{% endif %}
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.compare_electric_dirt_bike_models' | t | escape }}</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_about_rider_fit' | t | escape }}</a>
+      {% if all_products['t-01'].url != blank %}<a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_60v_t_01' | t | escape }}</a>{% endif %}
     </div>
   </div>
 </section>

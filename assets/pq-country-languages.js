@@ -139,9 +139,23 @@ const byCountry = new Map(groups.flatMap(([languages, countries]) =>
   countries.split(' ').map(country => [country, languages.toLowerCase().split(' ')])
 ));
 
-export function languageForCountry(country, available) {
+const recommended = new Map([
+  ['US GB CA AU NZ IE ZA IN SH', 'en'], ['DE', 'de'], ['BR', 'pt-br'],
+  ['MX ES', 'es'], ['PL', 'pl'], ['IT', 'it'], ['AE', 'ar'], ['FR', 'fr'],
+  ['ID', 'id'], ['JP', 'ja'], ['KR', 'ko'], ['PK', 'ur'], ['VN', 'vi'],
+  ['RO', 'ro'], ['SE', 'sv'], ['TR', 'tr'], ['RU', 'ru'], ['CN', 'zh-cn'],
+].flatMap(([countries, locale]) => countries.split(' ').map(code => [code, locale])));
+
+export function languageForCountry(country, available, preference = '') {
   const codes = available.filter(Boolean);
   const normalized = new Map(codes.map(code => [code.toLowerCase(), code]));
+  const saved = normalized.get(preference.toLowerCase());
+  if (saved) return saved;
+
+  const recommendation = recommended.get(country);
+  if (recommendation) {
+    return normalized.get(recommendation) ?? normalized.get('en') ?? codes[0] ?? '';
+  }
   const candidates = byCountry.get(country) ?? [];
 
   for (const language of [...candidates, 'en']) {
@@ -154,5 +168,5 @@ export function languageForCountry(country, available) {
       if (variant) return variant;
     }
   }
-  return '';
+  return codes[0] ?? '';
 }

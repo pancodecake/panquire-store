@@ -246,7 +246,7 @@
       </text-component>
     </span>
     {% if cart.currency.iso_code == 'USD' %}
-      <small class="pq-cart-checkout-currency">Checkout total in USD before any additional taxes or shipping: {{ cart.total_price | money_with_currency }}</small>
+      <small class="pq-cart-checkout-currency">{{ 'panquire.storefront.checkout_total_in_usd_before_any_additional' | t | escape }} {{ cart.total_price | money_with_currency }}</small>
     {% endif %}
     {% if settings.show_installments %}
       <span class="cart-totals__item cart-totals__installments">

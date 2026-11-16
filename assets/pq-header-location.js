@@ -2,6 +2,9 @@ import { currencyForCountry } from './pq-country-currencies.js';
 import { languageForCountry } from './pq-country-languages.js';
 
 const normalize = (value) => value.normalize('NFD').replace(/\p{Mark}/gu, '').toLowerCase();
+const languagePreferenceKey = 'panquire-language-preference';
+let languagePreference = '';
+try { languagePreference = localStorage.getItem(languagePreferenceKey) || ''; } catch { /* Storage is optional. */ }
 const featuredCountries = [
   'NL', 'US', 'DE', 'BR', 'CA', 'GB', 'MX', 'PL', 'ZA', 'IN', 'AU', 'IT', 'AE', 'ES',
   'FR', 'ID', 'IE', 'JP', 'KR', 'NZ', 'PK', 'VN', 'RO', 'SH', 'SE', 'TR', 'RU', 'CN',
@@ -14,20 +17,40 @@ function setupLocation(details) {
   const trigger = details.querySelector('summary');
   const form = details.querySelector('form');
   const languageInput = form.elements.namedItem('language_code');
+  const countryInput = form.querySelector('[data-location-manual-country]');
+  const languagePicker = form.querySelector('[data-location-language]');
   const published = new Set(languageInput.dataset.publishedLanguages.toLowerCase().split(','));
   const confirmed = form.querySelector('[aria-current="true"]');
+  if (languagePicker && confirmed) {
+    languagePicker.closest('label').hidden = false;
+    languagePicker.addEventListener('change', () => {
+      if (details.hasAttribute('data-location-pending')) return;
+      const language = languagePicker.value;
+      if (!published.has(language.toLowerCase())) return;
+      languagePreference = language;
+      try { localStorage.setItem(languagePreferenceKey, language); } catch { /* Storage is optional. */ }
+      if (language.toLowerCase() === document.documentElement.lang.toLowerCase()) return;
+      languageInput.disabled = false;
+      languageInput.value = language;
+      countryInput.disabled = false;
+      details.setAttribute('data-location-pending', '');
+      trigger.setAttribute('aria-busy', 'true');
+      form.requestSubmit();
+    });
+  }
   form.addEventListener('submit', (event) => {
     const selected = event.submitter;
     if (event.defaultPrevented || selected?.name !== 'country_code') return;
 
     const available = selected.dataset.languages.split(',').filter((code) => published.has(code.toLowerCase()));
-    const language = languageForCountry(selected.value, available);
+    const language = languageForCountry(selected.value, available, languagePreference);
     const changesLanguage = language && language.toLowerCase() !== document.documentElement.lang.toLowerCase();
     if (details.hasAttribute('data-location-pending') || (selected === confirmed && !changesLanguage)) {
       event.preventDefault();
     } else {
       languageInput.disabled = !language;
       languageInput.value = language;
+      countryInput.disabled = true;
       details.setAttribute('data-location-pending', '');
       trigger.setAttribute('aria-busy', 'true');
       updateTrigger(details, selected);
@@ -165,6 +188,10 @@ window.addEventListener('pageshow', (event) => {
     details.querySelector('summary').removeAttribute('aria-busy');
     const confirmed = details.querySelector('[aria-current="true"]');
     if (confirmed) updateTrigger(details, confirmed);
+    const form = details.querySelector('form');
+    form.querySelector('[data-location-manual-country]').disabled = true;
+    const languagePicker = form.querySelector('[data-location-language]');
+    if (languagePicker) languagePicker.value = document.documentElement.lang;
   }
 });
 document.addEventListener('pointerdown', (event) => {

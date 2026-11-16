@@ -8,7 +8,7 @@
 %}
 {% if crumb_title != blank %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
-  <nav class="pq pq-breadcrumbs" aria-label="Breadcrumb"><ol class="pq-container"><li><a href="{{ routes.root_url }}">Home</a></li><li><span aria-current="page">{{ crumb_title | escape }}</span></li></ol></nav>
+  <nav class="pq pq-breadcrumbs" aria-label="{{ 'panquire.storefront.breadcrumb' | t | escape }}"><ol class="pq-container"><li><a href="{{ routes.root_url }}">{{ 'panquire.storefront.home' | t | escape }}</a></li><li><span aria-current="page">{{ crumb_title | escape }}</span></li></ol></nav>
   {% capture breadcrumb_schema %}
     {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":{{ request.origin | append: routes.root_url | json }}},{"@type":"ListItem","position":2,"name":{{ crumb_title | json }},"item":{{ canonical_url | json }}}]}
   {% endcapture %}
