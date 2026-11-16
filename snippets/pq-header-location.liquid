@@ -88,7 +88,18 @@
   .pq-header-location__label { color: var(--location-muted); font-size: 10px; line-height: 1.1; }
   .pq-header-location__selected { display: flex; align-items: center; min-width: 0; gap: 7px; font-size: 12px; font-weight: 600; }
   .pq-header-location__selected > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .pq-header-location__flag { flex: none; border-radius: 50%; object-fit: cover; }
+  .pq-header-location img.pq-header-location__flag {
+    flex: none;
+    inline-size: 24px;
+    block-size: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .pq-header-location__selected img.pq-header-location__flag {
+    inline-size: 20px;
+    block-size: 20px;
+  }
 
   .pq-header-location__panel {
     position: absolute;
@@ -179,10 +190,12 @@
     .pq-header-location__option:not([aria-current="true"]):not(:active):hover { background: #25262b; border-color: var(--location-line); }
   }
 
-  .pq-header-location :is(summary, button, input):focus-visible {
+  .pq-header-location :is(summary, button):focus-visible {
     outline: 2px solid var(--location-gold);
     outline-offset: 1px;
   }
+
+  .pq-header-location .pq-header-location__search input:focus-visible { outline: none; }
 
   @media (max-width: 1140px) {
     .pq-header-location { position: static; }
