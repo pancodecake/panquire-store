@@ -146,6 +146,8 @@
     "price_pending": "Details komen eraan",
     "back_to_top": "terug naar boven",
     "storefront": {
+      "location_country": "Land",
+      "location_currency": "Valuta",
       "checkout_total_in_usd_before_any_additional": "Afrekenen totaal in USD vóór eventuele extra belastingen of verzending:",
       "panquire_vs": "Panquire",
       "competitors": "concurrenten",

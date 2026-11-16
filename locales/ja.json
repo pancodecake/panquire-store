@@ -146,6 +146,8 @@
     "price_pending": "詳細は近日公開予定です",
     "back_to_top": "トップに戻ります",
     "storefront": {
+      "location_country": "国",
+      "location_currency": "通貨",
       "checkout_total_in_usd_before_any_additional": "追加の税金や送料の前に、合計チェックアウト USD",
       "panquire_vs": "Panquire対",
       "competitors": "競合他社",

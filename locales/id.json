@@ -146,6 +146,8 @@
     "price_pending": "Detail segera hadir",
     "back_to_top": "Kembali ke atas",
     "storefront": {
+      "location_country": "Negara",
+      "location_currency": "Mata uang",
       "checkout_total_in_usd_before_any_additional": "Checkout Total di USD Sebelum Pajak atau Pengiriman Tambahan:",
       "panquire_vs": "Panquire vs",
       "competitors": "pesaing",

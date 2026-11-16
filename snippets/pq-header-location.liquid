@@ -14,7 +14,7 @@
   <details class="pq-header-location" data-header-location>
     <summary class="pq-header-location__trigger">
       <span class="pq-header-location__copy">
-        <span class="pq-header-location__label">{{ 'accessibility.country_region' | t }}</span>
+        <span class="pq-header-location__label">{{ 'panquire.storefront.location_country' | t | escape }}/<strong>{{ 'panquire.storefront.location_currency' | t | escape }}</strong></span>
         <span class="pq-header-location__selected">
           {{ active_country | image_url: width: 48 | image_tag: width: 20, height: 20, class: 'pq-header-location__flag', alt: '' }}
           <span data-location-name>{{ active_country.name | replace: '&amp;', '&' | escape }}</span>

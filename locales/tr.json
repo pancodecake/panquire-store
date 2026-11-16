@@ -146,6 +146,8 @@
     "price_pending": "Ayrıntılar Çok Yakında",
     "back_to_top": "başa dön",
     "storefront": {
+      "location_country": "Ülke",
+      "location_currency": "Para birimi",
       "checkout_total_in_usd_before_any_additional": "Herhangi bir ek vergi veya nakliyeden önce USD'deki ödeme toplamı:",
       "panquire_vs": "Panquire vs",
       "competitors": "rakipler",

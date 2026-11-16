@@ -146,6 +146,8 @@
     "price_pending": "자세한 내용은 곧 제공됩니다",
     "back_to_top": "맨 위로 돌아가기",
     "storefront": {
+      "location_country": "국가",
+      "location_currency": "통화",
       "checkout_total_in_usd_before_any_additional": "추가 세금 또는 배송 전에 USD 총액을 확인하십시오.",
       "panquire_vs": "Panquire 대",
       "competitors": "경쟁자",

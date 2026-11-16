@@ -146,6 +146,8 @@
     "price_pending": "Detaljer kommer snart",
     "back_to_top": "Tillbaka till toppen",
     "storefront": {
+      "location_country": "Land",
+      "location_currency": "Valuta",
       "checkout_total_in_usd_before_any_additional": "Utcheckning totalt i USD före eventuella ytterligare skatter eller frakt:",
       "panquire_vs": "Panquire VS",
       "competitors": "konkurrenter",

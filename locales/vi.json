@@ -146,6 +146,8 @@
     "price_pending": "Chi tiết sắp ra mắt",
     "back_to_top": "Trở lại đầu trang",
     "storefront": {
+      "location_country": "Quốc gia",
+      "location_currency": "Tiền tệ",
       "checkout_total_in_usd_before_any_additional": "Tổng thanh toán trong USD trước khi có thêm bất kỳ khoản thuế hoặc phí vận chuyển nào:",
       "panquire_vs": "Panquire vs",
       "competitors": "đối thủ cạnh tranh",

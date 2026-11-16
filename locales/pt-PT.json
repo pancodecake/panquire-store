@@ -146,6 +146,8 @@
     "price_pending": "Details coming soon",
     "back_to_top": "Back to top",
     "storefront": {
+      "location_country": "Country",
+      "location_currency": "Currency",
       "checkout_total_in_usd_before_any_additional": "Checkout total in USD before any additional taxes or shipping:",
       "panquire_vs": "Panquire vs",
       "competitors": "Competitors",

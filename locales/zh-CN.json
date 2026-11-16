@@ -146,6 +146,8 @@
     "price_pending": "细节即将推出",
     "back_to_top": "返回页首",
     "storefront": {
+      "location_country": "国家",
+      "location_currency": "货币",
       "checkout_total_in_usd_before_any_additional": "在任何额外税收或运费之前，在USD中结帐总数：",
       "panquire_vs": "Panquire 与",
       "competitors": "竞争对手",

@@ -146,6 +146,8 @@
     "price_pending": "Детали скоро появятся",
     "back_to_top": "вернуться к началу",
     "storefront": {
+      "location_country": "Страна",
+      "location_currency": "Валюта",
       "checkout_total_in_usd_before_any_additional": "Общая сумма оформления заказа в USD перед любыми дополнительными налогами или доставкой:",
       "panquire_vs": "Panquire против",
       "competitors": "конкуренты",

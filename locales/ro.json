@@ -146,6 +146,8 @@
     "price_pending": "Detalii în curând",
     "back_to_top": "Inapoi sus",
     "storefront": {
+      "location_country": "Țară",
+      "location_currency": "Monedă",
       "checkout_total_in_usd_before_any_additional": "Total de plată în USD Înainte de orice taxe suplimentare sau expediere:",
       "panquire_vs": "Panquire VS",
       "competitors": "Concurenți",

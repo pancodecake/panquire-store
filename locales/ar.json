@@ -146,6 +146,8 @@
     "price_pending": "التفاصيل قريبا",
     "back_to_top": "العودة إلى الأعلى",
     "storefront": {
+      "location_country": "البلد",
+      "location_currency": "العملة",
       "checkout_total_in_usd_before_any_additional": "إجمالي الخروج في USD قبل أي ضرائب أو شحن إضافي:",
       "panquire_vs": "Panquire ضد",
       "competitors": "المنافسين",

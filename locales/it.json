@@ -146,6 +146,8 @@
     "price_pending": "Dettagli in arrivo",
     "back_to_top": "Torna in cima",
     "storefront": {
+      "location_country": "Paese",
+      "location_currency": "Valuta",
       "checkout_total_in_usd_before_any_additional": "Checkout totale in USD prima di eventuali tasse aggiuntive o spedizione:",
       "panquire_vs": "Panquire vs",
       "competitors": "concorrenti",
