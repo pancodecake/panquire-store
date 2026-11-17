@@ -16,7 +16,7 @@
       "title_suffix": "電動バイク",
       "rating": "{{ rating }} 5星から評価されています",
       "review_count": "{{ count }}レビュー",
-      "discount": "{{ percent }}% Off",
+      "discount": "{{ percent }}% オフ",
       "in_stock": "在庫あり、発送準備完了",
       "delivery_unavailable": "お住まいの国には配送できません",
       "financing": "支払いオプション",

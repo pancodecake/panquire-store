@@ -123,7 +123,7 @@
     {% if section.settings.text != blank %}<p class="pq-footer-note">{{ section.settings.text | escape }}</p>{% endif %}
     <div class="pq-footer-bottom">
       <nav class="pq-footer-legal" aria-label="{{ section.settings.legal_label | escape }}">
-        <a href="{{ pages.terms.url | default: '/pages/terms' }}">{{ 'panquire.storefront.terms_conditions' | t | escape }}</a>
+        <a href="{{ pages.terms.url | default: '/pages/terms' }}">{{ 'panquire.storefront.terms_conditions' | t | replace: '&amp;', '&' | escape }}</a>
         <a href="{{ section.settings.privacy_url | default: '/policies/privacy-policy' }}">{{ section.settings.privacy_label | escape }}</a>
         {% assign ip_rights_page = pages['intellectual-property-rights'] %}
         {% if ip_rights_page != blank %}

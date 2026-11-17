@@ -24,7 +24,7 @@
       "accessories": "Mitgeliefertes Zubehör",
       "show_more": "show (3) mehr...",
       "free": "Kostenlos",
-      "nfc_title": "NFC Smart Key Fobs",
+      "nfc_title": "NFC Intelligente Schlüsselanhänger",
       "nfc_description": "Zwei kontaktlose Smart Keys für die schnelle elektronische Authentifizierung über den NFC-Reader.",
       "m25_title": "Wasserdichter M25-Hybridstecker",
       "m25_description": "Hochleistungs-Rundsteckverbinder, der Leistungs- und Signalkontakte in einer einzigen Schnittstelle kombiniert. Verfügt über die Ausrichtung und die Schutzversiegelung.",
@@ -82,7 +82,7 @@
       "view_comparison": "Vergleich anzeigen",
       "comparison_note": "Vergleichszahlen sind vom Hersteller angegebene Spezifikationen von Panquire. Reichweiten- und Leistungstestbedingungen können zwischen Marken und Modellen variieren.",
       "accessories_intro": "Dieses Zubehör ist im Lieferumfang Ihres Panquire-Elektro-Dirt-Bikes enthalten.",
-      "accessories_nfc_title": "NFC Smart Key Fobs",
+      "accessories_nfc_title": "NFC Intelligente Schlüsselanhänger",
       "accessories_nfc_description": "Zwei kontaktlose Smart Keys für die schnelle elektronische Authentifizierung über den NFC-Reader. Ermöglichen Sie einen bequemen Zugriff, ohne dass ein herkömmlicher Zündschlüssel für die elektronische Authentifizierung erforderlich ist.",
       "accessories_m25_title": "Wasserdichter M25-Hybridstecker",
       "accessories_m25_description": "Hochleistungs-Rundsteckverbinder, der Leistungs- und Signalkontakte in einer einzigen Schnittstelle kombiniert. Mit verschlüsselter Ausrichtung und Schutzdichtung Entwickelt, um zuverlässige elektrische Verbindungen unter anspruchsvollen Geländebedingungen aufrechtzuerhalten.",
@@ -131,7 +131,7 @@
     "campaign_media": "Kampagnenmedien",
     "image": "Bildplatzhalter",
     "reviewer_image": "Bild des Rezensenten",
-    "gallery_image": "Lifestyle-Image",
+    "gallery_image": "Lifestyle-Bild",
     "view_product": "Produkt anzeigen",
     "coming_soon": "Kommt bald",
     "off": "aus",
@@ -149,7 +149,7 @@
       "location_country": "Land",
       "location_currency": "Währung",
       "checkout_total_in_usd_before_any_additional": "Kasse Total in USD vor zusätzlichen Steuern oder Versand:",
-      "panquire_vs": "Panquire vs",
+      "panquire_vs": "Panquire im Vergleich zu",
       "competitors": "Konkurrenz",
       "considering_panquire_as_an_alternative_to_sur": "Betrachten Sie Panquire als Alternative zu Sur-Ron, Qronge oder einem anderen Elektromotorrad? Wir helfen Ihnen bei der Entscheidung. Wählen Sie die folgenden genauen Modelle aus, um vom Hersteller angegebene Spezifikationen zu vergleichen, und prüfen Sie dann die Kaufrichtlinien, um die Kompromisse zu verstehen.",
       "comparison_methodology": "Vergleichsmethode",
@@ -270,7 +270,7 @@
       "up_to_90_km_in_eco_mode": "Bis zu 90 km im Eco-Modus, wie mit Panquire bewertet. Der tatsächliche Bereich variiert.",
       "off_road_control": "Offroad-Steuerung",
       "three_power_levels_dual_piston_hydraulic_disc": "Drei Leistungsstufen, hydraulische Zweikolben-Scheibenbremsen und ein einstellbarer Dämpfer.",
-      "compare_electric_dirt_bike_models": "Compare electric dirt bike models",
+      "compare_electric_dirt_bike_models": "Vergleichen Sie elektrische Dirtbike-Modelle",
       "explore_the_60v_t_01": "Entdecken Sie die 60V T-01",
       "panquire_t_02_electric_dirt_bike_being": "Panquire T-02 Elektrisches Dirt-Bike wird von der Straße gefahren",
       "choose_your_power_at_the_handlebar": "Wählen Sie Ihre Kraft am Lenker",
@@ -321,7 +321,7 @@
     "load_video": "Video laden: {{ description }}",
     "sold_out": "Ausverkauft",
     "email_signup": {
-      "label": "E-Mail",
+      "label": "E-Mail-Adresse",
       "placeholder": "E-Mail-Adresse",
       "success": "Danke für deine Anmeldung!"
     },
@@ -335,7 +335,7 @@
       "post_success": "Danke, dass du uns kontaktiert hast. Wir werden uns so schnell wie möglich bei dir melden.",
       "error_heading": "Bitte passe Folgendes an:"
     },
-    "slider_label": "Slider"
+    "slider_label": "Schieberegler"
   },
   "accessibility": {
     "play_model": "3D-Modell abspielen",
@@ -382,7 +382,7 @@
     "nested_product": "{{ product_title }} für {{ parent_title }}",
     "remove": "Entfernen",
     "view_pricing_info": "Preisinformationen anzeigen",
-    "slideshow": "Slideshow",
+    "slideshow": "Diashow",
     "header_navigation_label": "Primär",
     "home_logo_alt": "{{ store_name }} - Startseite",
     "active_filters": "Aktive Filter:",
@@ -439,7 +439,7 @@
     "back_to_main_menu": "Zurück zum Hauptmenü"
   },
   "content": {
-    "reviews": "Reviews",
+    "reviews": "Bewertungen",
     "language": "Sprache",
     "localization_region_and_language": "Region und Sprache",
     "no_results_found": "Keine Ergebnisse gefunden",
@@ -473,7 +473,7 @@
     "shipping_policy_html": "<a href=\"{{ link }}\">Versand</a> wird beim Checkout berechnet.",
     "taxes_included": "Inkl. Steuern.",
     "product_badge_sold_out": "Ausverkauft",
-    "product_badge_sale": "Sale",
+    "product_badge_sale": "Verkauf",
     "search_input_label": "Suchen",
     "search_input_placeholder": "Suchen",
     "search_results": "Suchergebnisse",
@@ -651,7 +651,7 @@
       }
     },
     "comment_form": {
-      "email": "E-Mail",
+      "email": "E-Mail-Adresse",
       "error": "Kommentar konnte nicht gepostet werden. Bitte beachte Folgendes:",
       "heading": "Hinterlasse einen Kommentar",
       "message": "Nachricht",

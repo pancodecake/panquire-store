@@ -117,7 +117,7 @@
     "about": "Tentang kita",
     "partners": "bermitra dengan kami",
     "terms": "Ketentuan Layanan",
-    "menu": "Menu",
+    "menu": "Tidak bisa",
     "main_navigation": "Navigasi utama",
     "footer_navigation": "Navigasi footer",
     "search": "Pencarian",
@@ -149,7 +149,7 @@
       "location_country": "Negara",
       "location_currency": "Mata uang",
       "checkout_total_in_usd_before_any_additional": "Checkout Total di USD Sebelum Pajak atau Pengiriman Tambahan:",
-      "panquire_vs": "Panquire vs",
+      "panquire_vs": "Panquire dibandingkan dengan",
       "competitors": "pesaing",
       "considering_panquire_as_an_alternative_to_sur": "Mempertimbangkan Panquire sebagai alternatif untuk Sur-Ron, Qronge atau sepeda motor listrik lainnya? Kami akan membantu Anda memutuskan. Pilih model yang tepat di bawah ini untuk membandingkan spesifikasi yang dinyatakan pabrikan, kemudian jelajahi panduan pembelian untuk memahami pengorbanan.",
       "comparison_methodology": "Metodologi Perbandingan",
@@ -321,21 +321,21 @@
     "load_video": "Muat video: {{ description }}",
     "sold_out": "Habis",
     "email_signup": {
-      "label": "Email",
+      "label": "Surel",
       "placeholder": "Alamat email",
       "success": "Terima kasih sudah berlangganan!"
     },
-    "filter": "Filter",
+    "filter": "Menyaring",
     "payment_methods": "Metode pembayaran",
     "contact_form": {
       "name": "Nama",
-      "email": "Email",
+      "email": "Surel",
       "phone": "Telepon",
       "comment": "Komentar",
       "post_success": "Terima kasih sudah menghubungi kami. Kami akan segera menghubungi Anda.",
       "error_heading": "Mohon sesuaikan:"
     },
-    "slider_label": "Slider"
+    "slider_label": "Penggeser"
   },
   "accessibility": {
     "play_model": "Putar model 3D",
@@ -363,7 +363,7 @@
       "one": "{{ count }} filter diterapkan",
       "other": "{{ count }} filter diterapkan"
     },
-    "menu": "Menu",
+    "menu": "Tidak bisa",
     "country_region": "Negara/Wilayah",
     "slide_status": "Slide {{ index }} dari {{ length }}",
     "scroll_to": "Gulir ke {{ title }}",
@@ -400,7 +400,7 @@
     "clear_all": "Bersihkan semua",
     "remove": "Hapus",
     "view_in_your_space": "Lihat di ruang Anda",
-    "show_filters": "Filter",
+    "show_filters": "Menyaring",
     "clear": "Bersihkan",
     "continue_shopping": "Lanjutkan belanja",
     "log_in_html": "Sudah punya akun? <a href=\"{{ link }}\">Login</a> untuk checkout lebih cepat.",
@@ -426,7 +426,7 @@
     "view_store_information": "Lihat informasi toko",
     "back": "Kembali",
     "log_in": "Masuk",
-    "log_out": "Logout",
+    "log_out": "Keluar",
     "apply": "Terapkan",
     "sign_in_options": "Opsi masuk lainnya",
     "open_image_in_full_screen": "Buka gambar dalam layar penuh",
@@ -451,7 +451,7 @@
     "product_total": "Total produk",
     "cart_estimated_total": "Estimasi total",
     "seller_note": "Instruksi khusus",
-    "cart_subtotal": "Subtotal",
+    "cart_subtotal": "Jumlah sementara",
     "discounts": "Diskon",
     "discount": "Diskon",
     "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Termasuk bea cukai dan pajak. Diskon dan <a href=\"{{ link }}\">biaya pengiriman</a> dihitung saat checkout.",
@@ -462,7 +462,7 @@
     "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Termasuk bea cukai. Pajak, diskon, dan biaya pengiriman dihitung saat checkout.",
     "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Pajak, diskon, dan <a href=\"{{ link }}\">biaya pengiriman</a> dihitung saat checkout.",
     "taxes_at_checkout_shipping_at_checkout_without_policy": "Pajak, diskon, dan biaya pengiriman dihitung saat checkout.",
-    "checkout": "Check out",
+    "checkout": "Lihat",
     "cart_title": "Keranjang",
     "price": "Harga",
     "price_regular": "Harga reguler",
@@ -491,7 +491,7 @@
       "other": "{{ count }} produk"
     },
     "grid_view": {
-      "default_view": "Default",
+      "default_view": "Bawaan",
       "grid_fieldset": "Grid kolom",
       "single_item": "Tunggal",
       "zoom_out": "Perkecil"
@@ -502,7 +502,7 @@
     "unavailable": "Tidak tersedia",
     "product_count": "Jumlah produk",
     "item_count": {
-      "one": "{{ count }} item",
+      "one": "Barang {{ count }}",
       "other": "{{ count }} item"
     },
     "errors": "Kesalahan",
@@ -651,7 +651,7 @@
       }
     },
     "comment_form": {
-      "email": "Email",
+      "email": "Surel",
       "error": "Komentar gagal dikirim, perbaiki hal-hal berikut:",
       "heading": "Tulis komentar",
       "message": "Pesan",

@@ -16,7 +16,7 @@
       "title_suffix": "전기 오토바이",
       "rating": "등급 {{ rating }} 5 별",
       "review_count": "{{ count }} 리뷰",
-      "discount": "{{ percent }} % OFF",
+      "discount": "{{ percent }}% 할인",
       "in_stock": "재고 있음 및 배송 준비",
       "delivery_unavailable": "해당 국가로는 배송할 수 없습니다",
       "financing": "지불 옵션",
