@@ -100,7 +100,7 @@
               <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.youtube_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'youtube' %}</a>
             {% endif %}
             {% if section.settings.tiktok_url != blank %}
-              <a href="{{ section.settings.tiktok_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.tiktok_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'tiktok' %}</a>
+              <a href="{{ section.settings.tiktok_url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.tiktok_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'tiktok' %}</a>
             {% endif %}
           </div>
         </div>
@@ -110,6 +110,10 @@
           {% if footer_phone != blank %}
             <a href="tel:{{ footer_phone_href }}" aria-label="{{ section.settings.phone_label | escape }}: {{ footer_phone | escape }}"><span class="pq-footer-contact-icon" style="--pq-footer-contact-icon: url('{{ 'phone-handset-svgrepo-com.svg' | asset_url }}')" aria-hidden="true"></span><strong>{{ footer_phone | escape }}</strong></a>
           {% endif %}
+          <a href="https://wa.me/393242681317" aria-label="WhatsApp: +393242681317">
+            <span class="pq-footer-contact-icon" style="--pq-footer-contact-icon: url('{{ 'icon-whatsapp.svg' | asset_url }}')" aria-hidden="true"></span>
+            <strong>+393242681317</strong>
+          </a>
           {% if section.settings.support_email != blank %}
             <a href="mailto:{{ section.settings.support_email | escape }}" aria-label="{{ section.settings.support_label | escape }}: {{ section.settings.support_email | escape }}"><span class="pq-footer-contact-icon" style="--pq-footer-contact-icon: url('{{ 'mail-shield-svgrepo-com.svg' | asset_url }}')" aria-hidden="true"></span><strong>{{ section.settings.support_email | escape }}</strong></a>
           {% endif %}
