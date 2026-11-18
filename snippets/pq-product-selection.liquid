@@ -10,9 +10,9 @@
 {% elsif product.handle == 't-03' %}
   {{ 'pq-buying-guide.css' | asset_url | stylesheet_tag }}
   <section class="pq-buying-guide pq-buying-guide__product">
-    <h2>{{ 'panquire.storefront.a_compact_mini_electric_motorcycle' | t | escape }}</h2>
-    <p>{{ 'panquire.storefront.the_panquire_t_03_uses_12_inch' | t | escape }}</p>
-    <p>{{ 'panquire.storefront.the_t_03_is_designed_for_paved' | t | escape }} <a href="{{ all_products['t-01'].url }}">T-01</a> {{ 'panquire.storefront.or' | t | escape }} <a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.t_02_electric_dirt_bike' | t | escape }}</a>{{ 'panquire.storefront.check_your_local_rules_for_vehicle_classification' | t | escape }}</p>
+    <h2>{{ 'panquire.storefront.a_compact_mini_electric_motorcycle' | t | escape_once }}</h2>
+    <p>{{ 'panquire.storefront.the_panquire_t_03_uses_12_inch' | t | escape_once }}</p>
+    <p>{{ 'panquire.storefront.the_t_03_is_designed_for_paved' | t | escape_once }} <a href="{{ all_products['t-01'].url }}">T-01</a> {{ 'panquire.storefront.or' | t | escape_once }} <a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.t_02_electric_dirt_bike' | t | escape_once }}</a>{{ 'panquire.storefront.check_your_local_rules_for_vehicle_classification' | t | escape_once }}</p>
   </section>
 {% endif %}
 {% endif %}

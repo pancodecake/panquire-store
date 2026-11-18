@@ -29,7 +29,7 @@
 {% liquid
   assign block_settings = block.settings
   assign video_alt = video_alt | default: video.alt
-  assign alt = 'blocks.load_video' | t: description: video_alt | escape
+  assign alt = 'blocks.load_video' | t: description: video_alt | escape_once
   assign video_preview_image = video_preview_image | default: video.preview_image
   assign video_autoplay = video_autoplay | default: block_settings.video_autoplay
   assign video_loop = video_loop | default: block_settings.video_loop

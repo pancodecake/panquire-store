@@ -64,7 +64,7 @@
         {% for key in comparison_keys %}<tr><th scope="row">{{ key | escape }}</th>{% for other in models %}<td{% if other == model %} class="pq-model-current"{% endif %}>{% render 'pq-model-data', model: other, field: key %}</td>{% endfor %}</tr>{% endfor %}
       </tbody></table>
     </div>
-    <p class="pq-model-note">{{ 'panquire.storefront.eco_range_is_a_stated_specification_test' | t | escape }}</p>
+    <p class="pq-model-note">{{ 'panquire.storefront.eco_range_is_a_stated_specification_test' | t | escape_once }}</p>
   </section>
 </div>
 {% endif %}

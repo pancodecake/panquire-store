@@ -144,7 +144,7 @@
                     assign variant_display_name = product.title
                   endif
 
-                  assign remove_button_aria_label = 'accessibility.remove_item' | t: title: variant.title | escape
+                  assign remove_button_aria_label = 'accessibility.remove_item' | t: title: variant.title | escape_once
                   assign sold_out_message = 'products.product.sold_out' | t
 
                   capture quantity_selector_markup

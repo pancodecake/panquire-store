@@ -5,17 +5,17 @@
 {% assign second_model = all_products['t-02'] %}
 {% if first_model != blank and second_model != blank %}
   <table class="pq-buying-guide__table">
-    <caption>{{ 'panquire.storefront.t_01_and_t_02_manufacturer_stated' | t | escape }}</caption>
-    <thead><tr><th scope="col">{{ 'panquire.storefront.compare' | t | escape }}</th><th scope="col"><a href="{{ first_model.url }}">T-01</a></th><th scope="col"><a href="{{ second_model.url }}">T-02</a></th></tr></thead>
+    <caption>{{ 'panquire.storefront.t_01_and_t_02_manufacturer_stated' | t | escape_once }}</caption>
+    <thead><tr><th scope="col">{{ 'panquire.storefront.compare' | t | escape_once }}</th><th scope="col"><a href="{{ first_model.url }}">T-01</a></th><th scope="col"><a href="{{ second_model.url }}">T-02</a></th></tr></thead>
     <tbody>
-      <tr><th scope="row">{{ 'panquire.storefront.current_bike_price' | t | escape }}</th><td>{% render 'pq-local-money', amount: first_model.price, with_currency: true %}</td><td>{% render 'pq-local-money', amount: second_model.price, with_currency: true %}</td></tr>
+      <tr><th scope="row">{{ 'panquire.storefront.current_bike_price' | t | escape_once }}</th><td>{% render 'pq-local-money', amount: first_model.price, with_currency: true %}</td><td>{% render 'pq-local-money', amount: second_model.price, with_currency: true %}</td></tr>
       {% assign spec_labels = 'Motor,Peak motor power,Maximum speed,Battery voltage,Battery capacity,Nominal battery energy,Range — Eco mode,Charger,Front tire,Rear tire' | split: ',' %}
       {% for label in spec_labels %}
         <tr><th scope="row">{{ label | escape }}</th><td>{% render 'pq-model-data', model: 't-01', field: label %}</td><td>{% render 'pq-model-data', model: 't-02', field: label %}</td></tr>
       {% endfor %}
-      <tr><th scope="row">{{ 'panquire.storefront.listed_bike_weight' | t | escape }}</th><td>{% render 'pq-model-data', model: 't-01', field: 'Net weight' %} {{ 'panquire.storefront.net' | t | escape }}</td><td>{% render 'pq-model-data', model: 't-02', field: 'Bike weight' %}</td></tr>
-      <tr><th scope="row">{{ 'panquire.storefront.approximate_charging_time' | t | escape }}</th><td>{{ 'panquire.storefront.5_2_hours' | t | escape }}</td><td>{{ 'panquire.storefront.4_hours_from_0_100_or_2' | t | escape }}</td></tr>
+      <tr><th scope="row">{{ 'panquire.storefront.listed_bike_weight' | t | escape_once }}</th><td>{% render 'pq-model-data', model: 't-01', field: 'Net weight' %} {{ 'panquire.storefront.net' | t | escape_once }}</td><td>{% render 'pq-model-data', model: 't-02', field: 'Bike weight' %}</td></tr>
+      <tr><th scope="row">{{ 'panquire.storefront.approximate_charging_time' | t | escape_once }}</th><td>{{ 'panquire.storefront.5_2_hours' | t | escape_once }}</td><td>{{ 'panquire.storefront.4_hours_from_0_100_or_2' | t | escape_once }}</td></tr>
     </tbody>
   </table>
-  <p>{{ 'panquire.storefront.nominal_battery_energy_is_voltage_multiplied_by' | t | escape }}</p>
+  <p>{{ 'panquire.storefront.nominal_battery_energy_is_voltage_multiplied_by' | t | escape_once }}</p>
 {% endif %}

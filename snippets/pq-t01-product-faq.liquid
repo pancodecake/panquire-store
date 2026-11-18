@@ -6,7 +6,7 @@
   {% for faq in faqs %}
 
     <details class="pq-policy-question" name="ProductFaq-{{ section.id }}">
-      <summary><h3>{{ faq | append: '_question' | prepend: 'panquire.storefront.' | t | escape }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
+      <summary><h3>{{ faq | append: '_question' | prepend: 'panquire.storefront.' | t | escape_once }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
       <div class="pq-prose pq-policy-answer">
         <p>{{ faq | append: '_answer_html' | prepend: 'panquire.storefront.' | t: contact_url: contact_url }}</p>
       </div>

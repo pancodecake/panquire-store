@@ -1,14 +1,14 @@
 {% doc %}Editorial buying context below the existing interactive model comparison.{% enddoc %}
 <section class="pq pq-buying-guide" aria-labelledby="CompareBuying-{{ section.id }}">
-  <h2 class="pq-buying-guide__heading" id="CompareBuying-{{ section.id }}">{{ 'panquire.storefront.choosing_an_electric_dirt_bike_alternative' | t | escape }}</h2>
+  <h2 class="pq-buying-guide__heading" id="CompareBuying-{{ section.id }}">{{ 'panquire.storefront.choosing_an_electric_dirt_bike_alternative' | t | escape_once }}</h2>
   <div class="pq-buying-guide__columns">
-    <div><h3>{{ 'panquire.storefront.start_with_the_bike_you_need' | t | escape }}</h3><p>{{ 'panquire.storefront.when_considering_a_sur_ron_alternative_compare' | t | escape }}</p></div>
-    <div><h3>{{ 'panquire.storefront.compare_the_complete_battery_system' | t | escape }}</h3><p>{{ 'panquire.storefront.voltage_and_amp_hours_describe_different_things' | t | escape }}</p></div>
-    <div><h3>{{ 'panquire.storefront.match_the_comparison_to_your_budget' | t | escape }}</h3><p>{{ 'panquire.storefront.compare_the_exact_configuration_and_the_total' | t | escape }} <a href="{{ all_products['t-01'].url }}">T-01</a> {{ 'panquire.storefront.and' | t | escape }} <a href="{{ all_products['t-02'].url }}">T-02</a> {{ 'panquire.storefront.product_pages_for_current_offers_use_each' | t | escape }}</p></div>
-    <div><h3>{{ 'panquire.storefront.keep_claimed_and_tested_results_separate' | t | escape }}</h3><p>{{ 'panquire.storefront.the_tables_use_published_manufacturer_specifications_they' | t | escape }}</p></div>
+    <div><h3>{{ 'panquire.storefront.start_with_the_bike_you_need' | t | escape_once }}</h3><p>{{ 'panquire.storefront.when_considering_a_sur_ron_alternative_compare' | t | escape_once }}</p></div>
+    <div><h3>{{ 'panquire.storefront.compare_the_complete_battery_system' | t | escape_once }}</h3><p>{{ 'panquire.storefront.voltage_and_amp_hours_describe_different_things' | t | escape_once }}</p></div>
+    <div><h3>{{ 'panquire.storefront.match_the_comparison_to_your_budget' | t | escape_once }}</h3><p>{{ 'panquire.storefront.compare_the_exact_configuration_and_the_total' | t | escape_once }} <a href="{{ all_products['t-01'].url }}">T-01</a> {{ 'panquire.storefront.and' | t | escape_once }} <a href="{{ all_products['t-02'].url }}">T-02</a> {{ 'panquire.storefront.product_pages_for_current_offers_use_each' | t | escape_once }}</p></div>
+    <div><h3>{{ 'panquire.storefront.keep_claimed_and_tested_results_separate' | t | escape_once }}</h3><p>{{ 'panquire.storefront.the_tables_use_published_manufacturer_specifications_they' | t | escape_once }}</p></div>
   </div>
-  <h2 class="pq-buying-guide__heading">{{ 'panquire.storefront.t_01_or_t_02' | t | escape }}</h2>
-  <p>{{ 'panquire.storefront.t_01_is_panquire_s_lower_priced' | t | escape }}</p>
+  <h2 class="pq-buying-guide__heading">{{ 'panquire.storefront.t_01_or_t_02' | t | escape_once }}</h2>
+  <p>{{ 'panquire.storefront.t_01_is_panquire_s_lower_priced' | t | escape_once }}</p>
   {% render 'pq-dirt-bike-selection' %}
-  <div class="pq-buying-guide__links"><a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_t_01' | t | escape }}</a><a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.explore_the_t_02' | t | escape }}</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_a_comparison_question' | t | escape }}</a></div>
+  <div class="pq-buying-guide__links"><a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_t_01' | t | escape_once }}</a><a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.explore_the_t_02' | t | escape_once }}</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_a_comparison_question' | t | escape_once }}</a></div>
 </section>

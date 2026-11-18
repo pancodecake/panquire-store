@@ -5,7 +5,7 @@
 {% enddoc %}
 {% assign payment_types = 'visa,master,maestro,jcb,american_express,diners_club,discover' | split: ',' %}
 {% unless list_only %}
-  <div class="pq-payment-methods pq-footer-payment-icons{% if class != blank %} {{ class }}{% endif %}" aria-label="{{ 'blocks.payment_methods' | t | escape }}">
+  <div class="pq-payment-methods pq-footer-payment-icons{% if class != blank %} {{ class }}{% endif %}" aria-label="{{ 'blocks.payment_methods' | t | escape_once }}">
     <span class="pq-payment-methods__label">{{ 'blocks.payment_methods' | t }}</span>
 {% endunless %}
   <ul class="pq-payment-methods__list{% if list_only %} pq-footer-payment-icons{% endif %}" role="list">

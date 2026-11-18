@@ -30,21 +30,21 @@
   <script type="application/json" data-comparison-data>{{ comparison_data | replace: '<', '\u003c' }}</script>
   <div class="pq-container">
     <header class="pq-compare__intro">
-      <h1>{{ 'panquire.storefront.panquire_vs' | t | escape }} <span class="pq-compare__title-accent">{{ 'panquire.storefront.competitors' | t | escape }}</span></h1>
-      <p class="pq-long-paragraph">{{ 'panquire.storefront.considering_panquire_as_an_alternative_to_sur' | t | escape }}</p>
+      <h1>{{ 'panquire.storefront.panquire_vs' | t | escape_once }} <span class="pq-compare__title-accent">{{ 'panquire.storefront.competitors' | t | escape_once }}</span></h1>
+      <p class="pq-long-paragraph">{{ 'panquire.storefront.considering_panquire_as_an_alternative_to_sur' | t | escape_once }}</p>
     </header>
     <section class="pq-compare__methodology" aria-labelledby="Methodology-{{ section.id }}">
-      <h2 id="Methodology-{{ section.id }}">{{ 'panquire.storefront.comparison_methodology' | t | escape }}</h2>
-      <p>{{ 'panquire.storefront.panquire_models_are_compared_with_similar_electric' | t | escape }}</p>
-      <p>{{ 'panquire.storefront.we_aim_to_keep_every_comparison_accurate' | t | escape }} <strong>{{ 'panquire.storefront.source' | t | escape }}</strong> {{ 'panquire.storefront.for_the_latest_information_if_you_identify' | t | escape }} <a href="mailto:support@panquire.com">support@panquire.com</a>.</p>
-      <p><strong>{{ 'panquire.storefront.competitor_brands_are_not_affiliated_with_or' | t | escape }}</strong></p>
+      <h2 id="Methodology-{{ section.id }}">{{ 'panquire.storefront.comparison_methodology' | t | escape_once }}</h2>
+      <p>{{ 'panquire.storefront.panquire_models_are_compared_with_similar_electric' | t | escape_once }}</p>
+      <p>{{ 'panquire.storefront.we_aim_to_keep_every_comparison_accurate' | t | escape_once }} <strong>{{ 'panquire.storefront.source' | t | escape_once }}</strong> {{ 'panquire.storefront.for_the_latest_information_if_you_identify' | t | escape_once }} <a href="mailto:support@panquire.com">support@panquire.com</a>.</p>
+      <p><strong>{{ 'panquire.storefront.competitor_brands_are_not_affiliated_with_or' | t | escape_once }}</strong></p>
     </section>
     <div class="pq-compare__hero">
       {% assign sides = 'panquire,competitor' | split: ',' %}
       {% for side in sides %}
         {% if forloop.last %}<div class="pq-compare__vs" aria-hidden="true"><span>VS</span></div>{% endif %}
         <div class="pq-compare__product pq-compare__product--{{ side }}" data-product="{{ side }}">
-          <div class="pq-compare__eyebrow" id="Compare-label-{{ side }}-{{ section.id }}">{% if forloop.first %}Panquire{% else %}{{ 'panquire.storefront.competition' | t | escape }}{% endif %}</div>
+          <div class="pq-compare__eyebrow" id="Compare-label-{{ side }}-{{ section.id }}">{% if forloop.first %}Panquire{% else %}{{ 'panquire.storefront.competition' | t | escape_once }}{% endif %}</div>
           <div class="pq-compare__select-wrap" data-selector="{{ side }}">
             <button class="pq-compare__select-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="Compare-label-{{ side }}-{{ section.id }} Compare-value-{{ side }}-{{ section.id }}" aria-controls="Compare-options-{{ side }}-{{ section.id }}" data-select-trigger>
               <span id="Compare-value-{{ side }}-{{ section.id }}" data-select-value>{% if forloop.first %}T-01{% else %}E Ride Pro S (17&quot;){% endif %}</span>
@@ -56,12 +56,12 @@
             <img data-image width="1000" height="700" sizes="(max-width: 700px) 90vw, 440px" alt="" hidden>
             <div class="pq-compare__placeholder" data-placeholder>
               <svg viewBox="0 0 320 180" fill="none" aria-hidden="true"><circle cx="72" cy="120" r="35"/><circle cx="250" cy="120" r="35"/><path d="M72 120 115 58 168 120H72l61-43 51 4 29-41 37 80M168 120l29-63-45-7-19 27m64-20 16-17-14-13h-25M103 55h54M61 159h200"/></svg>
-              <span>{{ 'panquire.storefront.product_image' | t | escape }}</span>
+              <span>{{ 'panquire.storefront.product_image' | t | escape_once }}</span>
             </div>
           </div>
           <div class="pq-compare__pill" {% unless section.settings.show_price or section.settings.show_source %}hidden{% endunless %}>
             {% if section.settings.show_price %}<span data-price>—</span>{% endif %}
-            {% if section.settings.show_source %}<span class="pq-compare__source" data-source tabindex="0" aria-describedby="Source-tooltip-{{ side }}-{{ section.id }}" hidden><span class="pq-compare__source-label">{{ 'panquire.storefront.source' | t | escape }}</span><span class="pq-compare__source-icon" aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Source-tooltip-{{ side }}-{{ section.id }}" role="tooltip" data-source-tooltip></span></span>{% endif %}
+            {% if section.settings.show_source %}<span class="pq-compare__source" data-source tabindex="0" aria-describedby="Source-tooltip-{{ side }}-{{ section.id }}" hidden><span class="pq-compare__source-label">{{ 'panquire.storefront.source' | t | escape_once }}</span><span class="pq-compare__source-icon" aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Source-tooltip-{{ side }}-{{ section.id }}" role="tooltip" data-source-tooltip></span></span>{% endif %}
           </div>
           <p class="pq-compare__availability" data-availability></p>
         </div>
@@ -77,23 +77,23 @@
         {% if section.settings.show_radar %}
           <div class="pq-compare__chart">
             <svg data-radar viewBox="0 0 440 400" role="img" aria-label="Comparison radar. Exact values are available in the specification tables."></svg>
-            <div class="pq-compare__metrics" aria-label="{{ 'panquire.storefront.explore_specifications' | t | escape }}" data-metrics></div>
+            <div class="pq-compare__metrics" aria-label="{{ 'panquire.storefront.explore_specifications' | t | escape_once }}" data-metrics></div>
             <p class="pq-compare__chart-note" data-chart-note></p>
           </div>
         {% endif %}
         <div class="pq-compare__differences">
-          <div class="pq-compare__table-title"><h3 data-table-title>{{ 'panquire.storefront.biggest_differences' | t | escape }}</h3><button type="button" data-reset hidden>{{ 'panquire.storefront.reset' | t | escape }}</button></div>
-          <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.comparison_differences' | t | escape }}" tabindex="0"><table data-differences></table></div>
-          <p class="pq-compare__margin-note">{{ 'panquire.storefront.difference_panquire_competition_accent_highlights_follow_each' | t | escape }}</p>
+          <div class="pq-compare__table-title"><h3 data-table-title>{{ 'panquire.storefront.biggest_differences' | t | escape_once }}</h3><button type="button" data-reset hidden>{{ 'panquire.storefront.reset' | t | escape_once }}</button></div>
+          <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.comparison_differences' | t | escape_once }}" tabindex="0"><table data-differences></table></div>
+          <p class="pq-compare__margin-note">{{ 'panquire.storefront.difference_panquire_competition_accent_highlights_follow_each' | t | escape_once }}</p>
           <details class="pq-compare__full" {% if section.settings.specs_expanded %}open{% endif %}>
-            <summary>{{ 'panquire.storefront.view_all_specifications' | t | escape }} <span aria-hidden="true">↓</span></summary>
-            <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.complete_specifications' | t | escape }}" tabindex="0"><table data-full-specs></table></div>
+            <summary>{{ 'panquire.storefront.view_all_specifications' | t | escape_once }} <span aria-hidden="true">↓</span></summary>
+            <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.complete_specifications' | t | escape_once }}" tabindex="0"><table data-full-specs></table></div>
           </details>
         </div>
       </div>
     </section>
     <p class="visually-hidden" role="status" aria-live="polite" data-status></p>
-    <noscript><p>{{ 'panquire.storefront.the_panquire_model_selection_table_below_is' | t | escape }}</p></noscript>
+    <noscript><p>{{ 'panquire.storefront.the_panquire_model_selection_table_below_is' | t | escape_once }}</p></noscript>
     {% render 'pq-comparison-guide' %}
   </div>
 </pq-comparison>

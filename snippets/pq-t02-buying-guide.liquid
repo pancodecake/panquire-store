@@ -19,18 +19,18 @@
   <div class="pq-product-guide__card">
     <div class="pq-product-guide__lead">
       <div>
-        <p class="pq-product-guide__eyebrow">{{ 'panquire.storefront.panquire_t_02_price_and_performance' | t | escape }}</p>
-        <h2>{{ 'panquire.storefront.a_72v_electric_dirt_bike_for_demanding' | t | escape }}</h2>
-        <p>{{ 'panquire.storefront.the_t_02_pairs_a_13_kw' | t | escape }}</p>
+        <p class="pq-product-guide__eyebrow">{{ 'panquire.storefront.panquire_t_02_price_and_performance' | t | escape_once }}</p>
+        <h2>{{ 'panquire.storefront.a_72v_electric_dirt_bike_for_demanding' | t | escape_once }}</h2>
+        <p>{{ 'panquire.storefront.the_t_02_pairs_a_13_kw' | t | escape_once }}</p>
       </div>
       <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
         {% if variant.price != blank %}
           <span class="pq-product-guide__amount">
             <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
           </span>
-          <span>{{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape }}</span>
+          <span>{{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape_once }}</span>
           {% if variant.compare_at_price > variant.price %}
-            <span>{{ 'panquire.storefront.was' | t | escape }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
+            <span>{{ 'panquire.storefront.was' | t | escape_once }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape_once }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
           {% endif %}
         {% else %}
           <span>{{ 'content.unavailable' | t }}</span>
@@ -38,14 +38,14 @@
       </div>
     </div>
     <dl class="pq-product-guide__specs">
-      <div><dt>{{ 'panquire.storefront.13_kw_peak_performance' | t | escape }}</dt><dd>{{ 'panquire.storefront.stated_top_speed_of_100_km_h' | t | escape }}</dd></div>
-      <div><dt>{{ 'panquire.storefront.removable_72v_41ah_battery' | t | escape }}</dt><dd>{{ 'panquire.storefront.up_to_90_km_in_eco_mode' | t | escape }}</dd></div>
-      <div><dt>{{ 'panquire.storefront.off_road_control' | t | escape }}</dt><dd>{{ 'panquire.storefront.three_power_levels_dual_piston_hydraulic_disc' | t | escape }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.13_kw_peak_performance' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.stated_top_speed_of_100_km_h' | t | escape_once }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.removable_72v_41ah_battery' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.up_to_90_km_in_eco_mode' | t | escape_once }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.off_road_control' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.three_power_levels_dual_piston_hydraulic_disc' | t | escape_once }}</dd></div>
     </dl>
     <div class="pq-buying-guide__links">
-      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.compare_electric_dirt_bike_models' | t | escape }}</a>
-      <a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_about_rider_fit' | t | escape }}</a>
-      {% if all_products['t-01'].url != blank %}<a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_60v_t_01' | t | escape }}</a>{% endif %}
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.compare_electric_dirt_bike_models' | t | escape_once }}</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_about_rider_fit' | t | escape_once }}</a>
+      {% if all_products['t-01'].url != blank %}<a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_60v_t_01' | t | escape_once }}</a>{% endif %}
     </div>
   </div>
 </section>

@@ -19,13 +19,13 @@
     </div>
   {% endif %}
   <div class="pq-product-guide__card">
-    <p class="pq-product-guide__eyebrow">{{ 'panquire.storefront.panquire_t_01_price_and_performance' | t | escape }}</p>
-    <h2>{{ 'panquire.storefront.a_60v_electric_dirt_bike_for_weekend' | t | escape }}</h2>
+    <p class="pq-product-guide__eyebrow">{{ 'panquire.storefront.panquire_t_01_price_and_performance' | t | escape_once }}</p>
+    <h2>{{ 'panquire.storefront.a_60v_electric_dirt_bike_for_weekend' | t | escape_once }}</h2>
     <div class="pq-product-guide__lead">
       <div>
-        <p>{{ 'panquire.storefront.shopping_for_an_affordable_electric_dirt_bike' | t | escape }}</p>
+        <p>{{ 'panquire.storefront.shopping_for_an_affordable_electric_dirt_bike' | t | escape_once }}</p>
         {% if cart.currency.iso_code == 'USD' and light_bee.price.value > 0 and light_bee.currency.value == 'USD' and spark.price.value > 0 and spark.currency.value == 'USD' %}
-          <p>{{ 'panquire.storefront.our_comparison_lists_the_light_bee_x' | t | escape }}{{ light_bee.price.value | times: 100 | money_without_trailing_zeros }} {{ 'panquire.storefront.and_the_x1_spark_l_at_about' | t | escape }}{{ spark.price.value | times: 100 | money_without_trailing_zeros }}{{ 'panquire.storefront.check_current_dealer_prices_for_the_exact' | t | escape }}</p>
+          <p>{{ 'panquire.storefront.our_comparison_lists_the_light_bee_x' | t | escape_once }}{{ light_bee.price.value | times: 100 | money_without_trailing_zeros }} {{ 'panquire.storefront.and_the_x1_spark_l_at_about' | t | escape_once }}{{ spark.price.value | times: 100 | money_without_trailing_zeros }}{{ 'panquire.storefront.check_current_dealer_prices_for_the_exact' | t | escape_once }}</p>
         {% endif %}
       </div>
       <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
@@ -34,10 +34,10 @@
             <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
           </span>
           <span>
-            {{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape }}
+            {{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape_once }}
           </span>
           {% if variant.compare_at_price > variant.price %}
-            <span>{{ 'panquire.storefront.was' | t | escape }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
+            <span>{{ 'panquire.storefront.was' | t | escape_once }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape_once }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
           {% endif %}
         {% else %}
           <span>{{ 'content.unavailable' | t }}</span>
@@ -45,13 +45,13 @@
       </div>
     </div>
     <dl class="pq-product-guide__specs">
-      <div><dt>{{ 'panquire.storefront.60v_electric_performance' | t | escape }}</dt><dd>{{ 'panquire.storefront.9_5_kw_peak_power_choose_from' | t | escape }}</dd></div>
-      <div><dt>{{ 'panquire.storefront.55_kg_bike_weight' | t | escape }}</dt><dd>{{ 'panquire.storefront.aluminum_alloy_frame_with_hydraulic_disc_brakes' | t | escape }}</dd></div>
-      <div><dt>{{ 'panquire.storefront.up_to_80_km_in_eco_mode' | t | escape }}</dt><dd>{{ 'panquire.storefront.manufacturer_stated_range_actual_distance_varies_by' | t | escape }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.60v_electric_performance' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.9_5_kw_peak_power_choose_from' | t | escape_once }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.55_kg_bike_weight' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.aluminum_alloy_frame_with_hydraulic_disc_brakes' | t | escape_once }}</dd></div>
+      <div><dt>{{ 'panquire.storefront.up_to_80_km_in_eco_mode' | t | escape_once }}</dt><dd>{{ 'panquire.storefront.manufacturer_stated_range_actual_distance_varies_by' | t | escape_once }}</dd></div>
     </dl>
     <div class="pq-buying-guide__links">
-      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.panquire_vs_competitors' | t | escape }}</a>
-      <a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_about_rider_fit' | t | escape }}</a>
+      <a href="{{ pages.compare.url | default: '/pages/compare' }}">{{ 'panquire.storefront.panquire_vs_competitors' | t | escape_once }}</a>
+      <a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_about_rider_fit' | t | escape_once }}</a>
     </div>
   </div>
 </section>

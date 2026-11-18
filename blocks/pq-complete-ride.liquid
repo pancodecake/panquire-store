@@ -45,7 +45,7 @@
                   </label>
                   {% unless accessory_product.has_only_default_variant %}
                     <label class="visually-hidden" for="AccessoryVariant-{{ block.id }}-{{ accessory_product.id }}">
-                      {{ accessory_product.title | escape }} {{ 'panquire.storefront.options' | t | escape }}
+                      {{ accessory_product.title | escape }} {{ 'panquire.storefront.options' | t | escape_once }}
                     </label>
                     <select
                       id="AccessoryVariant-{{ block.id }}-{{ accessory_product.id }}"
@@ -88,8 +88,8 @@
               class="pq-complete-ride__more button-unstyled"
               type="button"
               data-accessory-show-more
-              data-show-more="{{ 'actions.show_more' | t | escape }}"
-              data-show-less="{{ 'actions.show_less' | t | escape }}"
+              data-show-more="{{ 'actions.show_more' | t | escape_once }}"
+              data-show-less="{{ 'actions.show_less' | t | escape_once }}"
               aria-expanded="false"
             >
               {{ 'actions.show_more' | t }} ({{ product_count | minus: block.settings.visible_rows }})
@@ -102,7 +102,7 @@
       </details>
     {% else %}
       <div class="pq-complete-ride__editor-empty">
-        {{ 'panquire.storefront.select_optional_accessory_products_to_show' | t | escape }}{{ block.settings.heading | escape }}”.
+        {{ 'panquire.storefront.select_optional_accessory_products_to_show' | t | escape_once }}{{ block.settings.heading | escape }}”.
       </div>
     {% endif %}
   </pq-complete-ride>

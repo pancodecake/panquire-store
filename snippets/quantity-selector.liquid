@@ -145,8 +145,8 @@
         {% if cart.currency.iso_code == 'USD' %}data-variant-usd-cents="{{ variant.price }}"{% endif %}
         data-min-quantity="{{ variant.quantity_rule.min | default: 1 }}"
         data-price-breaks="{{ price_breaks_json | strip | escape }}"
-        data-at-text="{{ 'content.price_at' | t | escape }}"
-        data-each-text="{{ 'content.each_abbreviation' | t | escape }}"
+        data-at-text="{{ 'content.price_at' | t | escape_once }}"
+        data-each-text="{{ 'content.each_abbreviation' | t | escape_once }}"
         ref="pricePerItem"
       >
         <span

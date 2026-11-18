@@ -188,7 +188,7 @@
         <button
           type="button"
           class="cart-disclosure-tooltip__button button-unstyled"
-          aria-label="{{ 'accessibility.view_disclosure_information_for_product' | t: product_title: product.title | escape }}"
+          aria-label="{{ 'accessibility.view_disclosure_information_for_product' | t: product_title: product.title | escape_once }}"
           aria-haspopup="dialog"
           aria-controls="{{ dialog_id }}"
           ref="trigger"

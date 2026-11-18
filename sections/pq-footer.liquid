@@ -36,7 +36,7 @@
 
       <div class="pq-footer-newsletter">
         <div class="pq-footer-newsletter__copy">
-          <p class="pq-footer-newsletter__eyebrow">{{ 'panquire.storefront.join_us_because_we_will_be_riding' | t | escape }}                        </p>
+          <p class="pq-footer-newsletter__eyebrow">{{ 'panquire.storefront.join_us_because_we_will_be_riding' | t | escape_once }}                        </p>
           <h2  id="FooterNewsletterHeading-{{ section.id }}">{{ section.settings.newsletter_heading | escape }}</h2>
         </div>
 
@@ -91,16 +91,16 @@
           <h2 id="FooterSocialHeading-{{ section.id }}">{{ section.settings.social_heading | escape }}</h2>
           <div class="pq-social-links">
             {% if section.settings.facebook_url != blank %}
-              <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.facebook_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'facebook' %}</a>
+              <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.facebook_opens_in_a_new_tab' | t | escape_once }}">{% render 'pq-social-icon', name: 'facebook' %}</a>
             {% endif %}
             {% if section.settings.instagram_url != blank %}
-              <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.instagram_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'instagram' %}</a>
+              <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.instagram_opens_in_a_new_tab' | t | escape_once }}">{% render 'pq-social-icon', name: 'instagram' %}</a>
             {% endif %}
             {% if section.settings.youtube_url != blank %}
-              <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.youtube_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'youtube' %}</a>
+              <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.youtube_opens_in_a_new_tab' | t | escape_once }}">{% render 'pq-social-icon', name: 'youtube' %}</a>
             {% endif %}
             {% if section.settings.tiktok_url != blank %}
-              <a href="{{ section.settings.tiktok_url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.tiktok_opens_in_a_new_tab' | t | escape }}">{% render 'pq-social-icon', name: 'tiktok' %}</a>
+              <a href="{{ section.settings.tiktok_url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="{{ 'panquire.storefront.tiktok_opens_in_a_new_tab' | t | escape_once }}">{% render 'pq-social-icon', name: 'tiktok' %}</a>
             {% endif %}
           </div>
         </div>

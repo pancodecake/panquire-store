@@ -1,6 +1,6 @@
 <section class="pq pq-section">
   <div class="pq-container">
-    <h1>{{ 'panquire.storefront.explore_panquire_models' | t | escape }}</h1>
+    <h1>{{ 'panquire.storefront.explore_panquire_models' | t | escape_once }}</h1>
     <ul>
       {% assign models = 't-01,t-02,t-03' | split: ',' %}
       {% for handle in models %}

@@ -15,7 +15,7 @@
       {% assign question_id = 'T02Question-' | append: section_id | append: '-' | append: forloop.index %}
       <details class="pq-policy-question" data-pq-policy-question name="ProductFaq-{{ section_id }}">
         <span class="pq-policy-flare" aria-hidden="true" data-pq-policy-flare></span>
-        <summary id="{{ question_id }}"><h3>{{ faq | append: '_question' | prepend: 'panquire.storefront.' | t | escape }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
+        <summary id="{{ question_id }}"><h3>{{ faq | append: '_question' | prepend: 'panquire.storefront.' | t | escape_once }}</h3><span class="pq-policy-toggle" aria-hidden="true"></span></summary>
         <div class="pq-prose pq-policy-answer" role="region" aria-labelledby="{{ question_id }}" data-pq-answer>
           <p>{{ faq | append: '_answer_html' | prepend: 'panquire.storefront.' | t: compare_url: compare_url, shipping_url: shipping_url, contact_url: contact_url, terms_url: terms_url }}</p>
         </div>
