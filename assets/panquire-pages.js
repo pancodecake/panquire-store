@@ -270,6 +270,25 @@
     scope.querySelectorAll('[data-pq-faq-accordion]').forEach(setupFaqAccordion);
     scope.querySelectorAll('[data-pq-story]').forEach(setupStory);
   };
+  document.addEventListener('DOMContentLoaded', () => {
+    const isHome = document.getElementById('MainContent')?.dataset.pageType === 'index';
+    const updateParagraph = (paragraph) => {
+      const words = paragraph.textContent.trim().split(/\s+/).filter(Boolean);
+      const inScope = !isHome || paragraph.closest('.pq-product-features');
+      paragraph.classList.toggle('pq-long-paragraph', words.length > 10 && Boolean(inScope));
+    };
+    const updateWithin = (node) => {
+      const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+      if (!element) return;
+      const paragraph = element.closest('p');
+      if (paragraph) updateParagraph(paragraph);
+      element.querySelectorAll('p').forEach(updateParagraph);
+    };
+    document.querySelectorAll('p').forEach(updateParagraph);
+    new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => updateWithin(mutation.target));
+    }).observe(document.body, { childList: true, characterData: true, subtree: true });
+  });
   initialize();
   document.addEventListener('shopify:section:load', event => initialize(event.target));
   document.addEventListener('shopify:section:unload', event => event.target.querySelectorAll('[data-pq-terms],[data-pq-story],[data-pq-faq-accordion]').forEach(root => { cleanups.get(root)?.(); cleanups.delete(root); }));

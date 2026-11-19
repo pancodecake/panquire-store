@@ -557,14 +557,13 @@
                     %}
                     {{
                       media.preview_image
-                      | image_url: width: 1024
+                      | image_url: width: 320
                       | image_tag:
                         loading: 'lazy',
-                        sizes: 'auto, 110, (min-width: 750px) 160',
-                        widths: '240, 352, 832, 1200',
+                        sizes: '(min-width: 750px) 160px, 110px',
+                        widths: '110, 160, 220, 320',
                         alt: media.alt,
                         style: focal_point_style
-                      | escape
                     }}
                   </button>
                 {%- endfor -%}

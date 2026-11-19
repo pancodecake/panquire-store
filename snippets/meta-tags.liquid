@@ -34,6 +34,12 @@
       assign seo_canonical_url = canonical_policy_url | prepend: request.origin
     endif
   endif
+  if request.page_type == 'search'
+    assign search_terms = search.terms | strip
+    if search_terms == blank
+      assign seo_canonical_url = request.origin | append: routes.search_url
+    endif
+  endif
   assign og_url = seo_canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: 'Panquire electric dirt bikes for off-road riding.'
@@ -71,6 +77,38 @@
   endif
   endif
 
+  if seo_language == 'en' and page_description == blank
+    case request.page_type
+      when 'search'
+        assign og_description = 'Search the Panquire lineup of electric dirt bikes and mini electric motorcycles by model or keyword.'
+      when 'cart'
+        assign og_description = 'Review the Panquire items in your shopping cart and update quantities before checking out.'
+      when 'collection'
+        if collection.handle == 'all'
+          assign og_description = 'Browse Panquire electric dirt bikes and mini electric motorcycles, including the T-01, T-02 and T-03.'
+        endif
+      when 'page'
+        case page.handle
+          when 'partners'
+            assign og_description = 'Explore Panquire dealer, fleet, affiliate and business partnership opportunities, and find out how to get in touch.'
+          when 'tos'
+            assign og_description = 'Read Panquire’s terms of service covering orders, payment, shipping, returns and warranty support.'
+        endcase
+      when 'policy'
+        assign policy_handle = request.path | split: '/' | last
+        case policy_handle
+          when 'shipping-policy'
+            assign og_description = 'Read Panquire’s shipping policy for delivery destinations, shipping costs, tracking and order delivery information.'
+          when 'refund-policy'
+            assign og_description = 'Read the Panquire return and refund policy for eligibility, how to request a return, and what happens after a return is received.'
+          when 'privacy-policy'
+            assign og_description = 'Learn how Panquire handles personal information when you browse or order, and how to contact us about your privacy rights.'
+          when 'contact-information'
+            assign og_description = 'Find Panquire’s seller information, business address and customer support contact details.'
+        endcase
+    endcase
+  endif
+
   if request.page_type == 'product'
     assign og_type = 'product'
   elsif request.page_type == 'article'
@@ -79,7 +117,7 @@
     assign og_url = request.origin
   endif
 %}
-{% if request.page_type == 'collection' or request.page_type == 'list-collections' %}
+{% if request.page_type == 'collection' or request.page_type == 'list-collections' or request.page_type == 'search' or request.page_type == 'cart' %}
   <meta name="robots" content="noindex, follow">
 {% endif %}
 

@@ -156,3 +156,6 @@
   .pq-policy-answer { padding: 30px 24px 32px 37px; font-size: 15px; line-height: 1.72; }
   .pq-policy-answer::before { top: 22px; bottom: 22px; inset-inline-start: 20px; }
 }
+
+p.pq-long-paragraph:not(:where(.pq-compare__intro *, .pq-compare__methodology *)) { color: #9ca2ad !important; }
+p.pq-long-paragraph :is(strong, b) { color: #fff !important; }

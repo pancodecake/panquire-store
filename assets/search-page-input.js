@@ -6,10 +6,11 @@ import { debounce } from '@theme/utilities';
  *
  * @typedef {object} Refs
  * @property {HTMLInputElement} searchPageInput - The search input element.
+ * @property {HTMLAnchorElement} clearSearch - The link to the empty search page.
  * @extends {Component<Refs>}
  */
 class SearchPageInputComponent extends Component {
-  requiredRefs = ['searchPageInput'];
+  requiredRefs = ['searchPageInput', 'clearSearch'];
 
   /**
    * Handles the keydown event on the search input and resets the search when
@@ -33,7 +34,7 @@ class SearchPageInputComponent extends Component {
 
     if (this.#isEmptyState()) return;
 
-    searchInput.form?.submit();
+    window.location.assign(this.refs.clearSearch.href);
   }
 
   #isEmptyState = () => {
