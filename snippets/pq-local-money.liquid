@@ -5,9 +5,20 @@
   @param {boolean} [with_currency] - Include the currency code in the original price.
   @param {string} [formatted] - Existing formatted price text.
 {%- enddoc -%}
+{%- liquid
+  assign eu_members = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE' | split: ' '
+  if cart.currency.iso_code == 'USD' and eu_members contains localization.country.iso_code
+    case product_handle
+      when 't-01', 't-03'
+        assign eu_price = '€2,999'
+      when 't-02'
+        assign eu_price = '€3,399'
+    endcase
+  endif
+-%}
 {%- if amount != blank -%}
-  {%- if cart.currency.iso_code == 'USD' -%}<span data-pq-usd-cents="{{ amount }}"{% if product_handle != blank %} data-pq-product-handle="{{ product_handle | escape }}"{% endif %}>{%- endif -%}
-  {%- if formatted != blank -%}
+  {%- if cart.currency.iso_code == 'USD' -%}<span {% if eu_price %}data-pq-fixed-eur data-pq-original-price="{{ amount | money_with_currency | escape }}" {% endif %}data-pq-usd-cents="{{ amount }}"{% if product_handle != blank %} data-pq-product-handle="{{ product_handle | escape }}"{% endif %}>{%- endif -%}
+  {%- if eu_price -%}{{ eu_price }}{%- elsif formatted != blank -%}
     {{- formatted -}}
   {%- elsif with_currency -%}
     {{- amount | money_with_currency -}}

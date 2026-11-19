@@ -1,4 +1,4 @@
-import { currencyForCountry, isEuCountry } from './pq-country-currencies.js';
+import { currencyForCountry, isEuCountry } from '@theme/pq-country-currencies';
 
 const target = '[data-pq-usd-cents]';
 const maximumRateAge = 7 * 86400000;
@@ -42,7 +42,7 @@ function updatePrice(element) {
   const hasEstimate = previous?.rendered != null && text === previous.rendered;
   const original = hasEstimate && previous.cents !== cents
     ? usd.format(Number(cents) / 100)
-    : hasEstimate ? previous.original : element.innerHTML;
+    : hasEstimate ? previous.original : element.dataset.pqOriginalPrice ?? element.innerHTML;
 
   const fixedPrice = showFixedEuroPrices ? fixedEuroPrices.get(element.dataset.pqProductHandle) : undefined;
   element.toggleAttribute('data-pq-fixed-eur', fixedPrice !== undefined);

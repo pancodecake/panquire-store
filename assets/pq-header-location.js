@@ -1,4 +1,4 @@
-import { currencyForCountry, isEuCountry } from './pq-country-currencies.js';
+import { currencyForCountry, isEuCountry } from '@theme/pq-country-currencies';
 import { languageForCountry } from './pq-country-languages.js';
 
 const normalize = (value) => value.normalize('NFD').replace(/\p{Mark}/gu, '').toLowerCase();
