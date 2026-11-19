@@ -26,7 +26,7 @@
               <dl class="pq-specs">{% for n in (1..4) %}{% assign label_key = 'label_' | append: n %}{% assign value_key = 'value_' | append: n %}{% assign spec_label = block.settings[label_key] %}{% assign spec_key = spec_label | handleize %}{% if block.settings.model == 'T-03' and spec_key == 'road-wheels' %}{% continue %}{% endif %}{% if spec_label != blank %}<div><dt>{{ spec_label | escape }}</dt><dd>{{ block.settings[value_key] | escape }}</dd></div>{% endif %}{% endfor %}</dl>
               {% if block.settings.product != blank %}
                 {% assign bike_price = block.settings.product.selected_or_first_available_variant.price | default: block.settings.product.price %}
-                <p class="pq-feature-price">{% render 'pq-local-money', amount: bike_price, with_currency: true %}</p>
+                <p class="pq-feature-price">{% render 'pq-local-money', amount: bike_price, product_handle: block.settings.product.handle, with_currency: true %}</p>
               {% endif %}
               {% if block.settings.product != blank %}<a class="pq-text-link" href="{{ block.settings.product.url }}">{{ 'panquire.view_product' | t }} {% render 'pq-icon', name: 'arrow' %}</a>{% endif %}
             </div>

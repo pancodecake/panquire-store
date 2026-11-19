@@ -32,7 +32,7 @@
   {{ block.shopify_attributes }}
 >
   {% if product.price_varies and has_swatches_only == false and product.price_min != blank %}
-    <span class="price">{% capture price_min %}{% render 'pq-local-money', amount: product.price_min, with_currency: settings.currency_code_enabled_product_cards %}{% endcapture %}{{ price_from_text | replace: '__PRICE__', price_min }}</span>
+    <span class="price">{% capture price_min %}{% render 'pq-local-money', amount: product.price_min, product_handle: product.handle, with_currency: settings.currency_code_enabled_product_cards %}{% endcapture %}{{ price_from_text | replace: '__PRICE__', price_min }}</span>
   {% else %}
     {% render 'price',
       show_unit_price: true,

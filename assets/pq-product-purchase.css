@@ -35,6 +35,11 @@
 .pq-purchase__price-row > strong { color: var(--color-text-primary); font-size: 28px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .pq-purchase__price-row s { color: var(--color-text-secondary); font-size: 14px; }
 .pq-purchase__price-info { display: inline-flex; }
+.pq-purchase__usd-price { display: none; flex-basis: 100%; color: var(--color-text-secondary); font-size: 13px; }
+.pq-purchase__price-row:has([data-pq-fixed-eur]) .pq-purchase__usd-price { display: block; }
+.pq-purchase__price-row:not(:has([data-pq-fixed-eur])) .pq-purchase__fixed-price-info,
+.pq-purchase__price-row:has([data-pq-fixed-eur]) .pq-purchase__estimate-info,
+.pq-purchase__price-row:has([data-pq-fixed-eur]) > :is(s, .pq-purchase__discount) { display: none; }
 .pq-purchase__price-info button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; }
 .pq-purchase__price-info svg { width: 19px; height: 19px; }
 .pq-purchase__price-tooltip {

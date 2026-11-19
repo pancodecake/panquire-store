@@ -75,7 +75,7 @@
     {% endif %}
     <span class="price-item__group price">
       <span class="visually-hidden">{{ 'content.price_range' | t }}&nbsp;</span>
-      {% render 'pq-local-money', amount: price_min, with_currency: use_currency %} - {% render 'pq-local-money', amount: price_max, with_currency: use_currency %}
+      {% render 'pq-local-money', amount: price_min, product_handle: product_resource.handle, with_currency: use_currency %} - {% render 'pq-local-money', amount: price_max, product_handle: product_resource.handle, with_currency: use_currency %}
     </span>
     {% if show_discount_badge and discount_percentage > 0 %}
       <span class="pq-discount-badge">-{{ discount_percentage }}%</span>
@@ -86,7 +86,7 @@
       {% if show_sale_price_first %}
         <span class="price-item__group price">
           <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}
+          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, product_handle: product_resource.handle, with_currency: use_currency %}{% endif %}
         </span>
         <span class="price-item__group price-item--regular compare-at-price">
           <span class="visually-hidden">{{ 'content.price_regular' | t }}&nbsp;</span>
@@ -99,14 +99,14 @@
         </span>
         <span class="price-item__group price">
           <span class="visually-hidden">{{ 'content.price_sale' | t }}&nbsp;</span>
-          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}
+          {% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, product_handle: product_resource.handle, with_currency: use_currency %}{% endif %}
         </span>
       {% endif %}
       {% if show_discount_badge and discount_percentage > 0 %}
         <span class="pq-discount-badge">-{{ discount_percentage }}%</span>
       {% endif %}
     {% else %}
-      <span class="price">{% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, with_currency: use_currency %}{% endif %}</span>
+      <span class="price">{% if price == blank %}&nbsp;{% else %}{% render 'pq-local-money', amount: price, product_handle: product_resource.handle, with_currency: use_currency %}{% endif %}</span>
     {% endif %}
   {% endif %}
   {%- if selected_variant.unit_price and show_unit_price %}

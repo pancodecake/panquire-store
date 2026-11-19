@@ -31,7 +31,7 @@
       <div class="pq-product-guide__price" data-product-guide-price="{{ product.id }}" aria-live="polite">
         {% if variant.price != blank %}
           <span class="pq-product-guide__amount">
-            <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
+            <strong>{% render 'pq-local-money', amount: variant.price, product_handle: product.handle, with_currency: true %}</strong>
           </span>
           <span>
             {{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape_once }}
