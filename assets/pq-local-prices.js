@@ -71,7 +71,6 @@ function selectCountry(country) {
     activeCountry = country;
     showFixedEuroPrices = document.body.dataset.pqCartCurrency === 'USD' && isEuCountry(country);
     estimate = estimateFor(country);
-    document.documentElement.toggleAttribute('data-pq-estimated-prices', Boolean(estimate));
     document.querySelectorAll(target).forEach(updatePrice);
   }
   document.documentElement.removeAttribute('data-pq-rates-pending');
@@ -107,27 +106,4 @@ new MutationObserver((records) => {
   subtree: true,
   attributes: true,
   attributeFilter: ['data-pq-usd-cents', 'data-pq-product-handle'],
-});
-
-document.addEventListener('click', (event) => {
-  const info = event.target.closest('[data-pq-price-info]');
-  document.querySelectorAll('[data-pq-price-info][data-open]').forEach((element) => {
-    if (element !== info) element.removeAttribute('data-open');
-  });
-  if (info && event.target.closest('button')) {
-    info.toggleAttribute('data-dismissed', !info.toggleAttribute('data-open'));
-  }
-});
-
-document.addEventListener('focusin', (event) => event.target.closest('[data-pq-price-info]')?.removeAttribute('data-dismissed'));
-document.addEventListener('pointerover', (event) => {
-  const info = event.target.closest('[data-pq-price-info]');
-  if (info && !info.contains(event.relatedTarget)) info.removeAttribute('data-dismissed');
-});
-document.addEventListener('keydown', (event) => {
-  if (event.key !== 'Escape') return;
-  document.querySelectorAll('[data-pq-price-info]:is(:hover, :focus-within, [data-open])').forEach((info) => {
-    info.removeAttribute('data-open');
-    info.setAttribute('data-dismissed', '');
-  });
 });

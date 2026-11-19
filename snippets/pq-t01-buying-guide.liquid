@@ -33,9 +33,6 @@
           <span class="pq-product-guide__amount">
             <strong>{% render 'pq-local-money', amount: variant.price, product_handle: product.handle, with_currency: true %}</strong>
           </span>
-          <span>
-            {{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape_once }}
-          </span>
           {% if variant.compare_at_price > variant.price %}
             <span>{{ 'panquire.storefront.was' | t | escape_once }} <s>{% render 'pq-local-money', amount: variant.compare_at_price, with_currency: true %}</s>{{ 'panquire.storefront.save' | t | escape_once }} {% assign saving = variant.compare_at_price | minus: variant.price %}{% render 'pq-local-money', amount: saving, with_currency: true %}.</span>
           {% endif %}

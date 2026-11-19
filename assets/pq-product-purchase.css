@@ -34,33 +34,7 @@
 .pq-purchase__price-row { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 16px; }
 .pq-purchase__price-row > strong { color: var(--color-text-primary); font-size: 28px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .pq-purchase__price-row s { color: var(--color-text-secondary); font-size: 14px; }
-.pq-purchase__price-info { display: inline-flex; }
-.pq-purchase__usd-price { display: none; flex-basis: 100%; color: var(--color-text-secondary); font-size: 13px; }
-.pq-purchase__price-row:has([data-pq-fixed-eur]) .pq-purchase__usd-price { display: block; }
-.pq-purchase__price-row:not(:has([data-pq-fixed-eur])) .pq-purchase__fixed-price-info,
-.pq-purchase__price-row:has([data-pq-fixed-eur]) .pq-purchase__estimate-info,
 .pq-purchase__price-row:has([data-pq-fixed-eur]) > :is(s, .pq-purchase__discount) { display: none; }
-.pq-purchase__price-info button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; background: transparent; color: #fff; cursor: pointer; }
-.pq-purchase__price-info svg { width: 19px; height: 19px; }
-.pq-purchase__price-tooltip {
-  visibility: hidden;
-  position: absolute;
-  z-index: 6;
-  inset-block-end: 100%;
-  inset-inline-start: 0;
-  width: min(100%, 320px);
-  padding: 10px 12px;
-  border: 1px solid #fff;
-  border-radius: 6px;
-  background: transparent;
-  backdrop-filter: blur(12px);
-  color: #fff;
-  font: 400 13px/1.45 var(--pq-body-font);
-}
-.pq-purchase__price-info:not([data-dismissed]):is(:focus-within, [data-open]) .pq-purchase__price-tooltip { visibility: visible; }
-@media (hover: hover) {
-  .pq-purchase__price-info:not([data-dismissed]):hover .pq-purchase__price-tooltip { visibility: visible; }
-}
 .pq-purchase__discount { padding: 5px 10px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--surface); color: var(--color-accent-solid); font-size: 11px; font-weight: 700; }
 .pq-purchase .pq-purchase__stock { display: table; margin: 0 0 14px; padding: 6px 10px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--surface); color: var(--color-text-primary); font-size: 12px; }
 .pq-purchase__stock > span { display: inline-block; width: 7px; height: 7px; margin-right: 8px; border-radius: 50%; background: var(--color-accent-solid); }

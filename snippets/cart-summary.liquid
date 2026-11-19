@@ -245,9 +245,6 @@
         {{ total_price }}
       </text-component>
     </span>
-    {% if cart.currency.iso_code == 'USD' %}
-      <small class="pq-cart-checkout-currency">{{ 'panquire.storefront.checkout_total_in_usd_before_any_additional' | t | escape_once }} {{ cart.total_price | money_with_currency }}</small>
-    {% endif %}
     {% if settings.show_installments %}
       <span class="cart-totals__item cart-totals__installments">
         {% form 'cart', cart %}
@@ -290,8 +287,6 @@
 </div>
 
 {% stylesheet %}
-  .pq-cart-checkout-currency { display: none; }
-  [data-pq-estimated-prices] .pq-cart-checkout-currency { display: block; }
 
   .cart-actions {
     display: flex;
