@@ -4,6 +4,7 @@ const target = '[data-pq-usd-cents]';
 const maximumRateAge = 7 * 86400000;
 const locale = document.documentElement.lang || 'en';
 const fixedEuroPrices = new Map([['t-01', 2999], ['t-02', 3399], ['t-03', 2999]]);
+const higherPriceCountries = new Set(['US', 'CA', 'MX', 'AU', 'NZ', 'GB']);
 const euros = new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', currencyDisplay: 'code' });
 const originals = new WeakMap();
 const estimates = new Map();
@@ -44,10 +45,12 @@ function updatePrice(element) {
     ? usd.format(Number(cents) / 100)
     : hasEstimate ? previous.original : element.dataset.pqOriginalPrice ?? element.innerHTML;
 
-  const fixedPrice = showFixedEuroPrices ? fixedEuroPrices.get(element.dataset.pqProductHandle) : undefined;
+  const modelPrice = fixedEuroPrices.get(element.dataset.pqProductHandle);
+  const regionalPrice = document.body.dataset.pqCartCurrency === 'USD' ? modelPrice : undefined;
+  const fixedPrice = showFixedEuroPrices ? regionalPrice : undefined;
   element.toggleAttribute('data-pq-fixed-eur', fixedPrice !== undefined);
 
-  if (fixedPrice === undefined && !estimate) {
+  if (regionalPrice === undefined && !estimate) {
     if (hasEstimate) element.innerHTML = original;
     originals.delete(element);
     return;
@@ -56,6 +59,9 @@ function updatePrice(element) {
   let rendered;
   if (fixedPrice !== undefined) {
     rendered = euros.format(fixedPrice);
+  } else if (regionalPrice !== undefined) {
+    const dollars = higherPriceCountries.has(activeCountry) ? regionalPrice : regionalPrice - 200;
+    rendered = estimate ? estimate.formatter.format(dollars * estimate.rate) : usd.format(dollars);
   } else {
     const { rate, formatter, amounts } = estimate;
     if (!amounts.has(cents)) amounts.set(cents, formatter.format(Number(cents) * rate / 100));
@@ -89,7 +95,7 @@ document.addEventListener('submit', (event) => {
 });
 
 new MutationObserver((records) => {
-  if (!estimate && !showFixedEuroPrices) return;
+  if (document.body.dataset.pqCartCurrency !== 'USD') return;
   const changed = new Set();
   for (const record of records) {
     const owner = record.target.closest(target);
