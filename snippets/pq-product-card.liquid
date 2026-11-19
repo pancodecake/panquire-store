@@ -19,7 +19,7 @@
   {% if card.subtitle != blank %}<p class="pq-card-subtitle">{{ card.subtitle | escape }}</p>{% endif %}
   {% if product != blank and product.compare_at_price > product.price %}<span class="pq-badge">{% assign saving = product.compare_at_price | minus: product.price %}{% render 'pq-local-money', amount: saving %} {{ 'panquire.off' | t }}</span>{% elsif product == blank %}<span class="pq-badge">{{ 'panquire.coming_soon' | t }}</span>{% endif %}
   <div class="pq-product-image">{% render 'pq-media', image: card_image, label: media_label, sizes: '(min-width: 1100px) 340px, (min-width: 700px) 45vw, 85vw' %}</div>
-  <div class="pq-price">{% if product != blank %}{% render 'pq-local-money', amount: product.price %}{% if product.compare_at_price > product.price %} <s>{% render 'pq-local-money', amount: product.compare_at_price %}</s>{% endif %}{% else %}{{ 'panquire.price_pending' | t }}{% endif %}</div>
+  <div class="pq-price">{% if product != blank %}{% render 'pq-local-money', amount: product.price, product_handle: product.handle %}{% if product.compare_at_price > product.price %} <s>{% render 'pq-local-money', amount: product.compare_at_price %}</s>{% endif %}{% else %}{{ 'panquire.price_pending' | t }}{% endif %}</div>
   {% if card.details != blank %}<p class="pq-card-details">{{ card.details | escape }}</p>{% endif %}
   {% if product != blank %}<a class="pq-button pq-button--dark" href="{{ product.url }}">{{ 'panquire.view_product' | t }}</a>{% endif %}
 </article>

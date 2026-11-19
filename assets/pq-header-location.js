@@ -1,4 +1,4 @@
-import { currencyForCountry } from './pq-country-currencies.js';
+import { currencyForCountry, isEuCountry } from './pq-country-currencies.js';
 import { languageForCountry } from './pq-country-languages.js';
 
 const normalize = (value) => value.normalize('NFD').replace(/\p{Mark}/gu, '').toLowerCase();
@@ -89,7 +89,7 @@ function prepareLocation(details, trigger) {
     : null;
   const currencySymbols = new Map();
   const options = [...list.querySelectorAll('button')].map((button) => {
-    const currency = currencyForCountry(button.value, button.dataset.currency);
+    const currency = isEuCountry(button.value) ? 'EUR' : currencyForCountry(button.value, button.dataset.currency);
     if (!currencySymbols.has(currency)) {
       const symbol = new Intl.NumberFormat(document.documentElement.lang || 'en', {
         style: 'currency', currency, currencyDisplay: 'narrowSymbol',

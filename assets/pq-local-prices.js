@@ -1,13 +1,16 @@
-import { currencyForCountry } from './pq-country-currencies.js';
+import { currencyForCountry, isEuCountry } from './pq-country-currencies.js';
 
 const target = '[data-pq-usd-cents]';
 const maximumRateAge = 7 * 86400000;
 const locale = document.documentElement.lang || 'en';
+const fixedEuroPrices = new Map([['t-01', 2999], ['t-02', 3399], ['t-03', 2999]]);
+const euros = new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', currencyDisplay: 'code' });
 const originals = new WeakMap();
 const estimates = new Map();
 const usd = new Intl.NumberFormat(locale, { style: 'currency', currency: 'USD' });
 let snapshot;
-let activeCurrency;
+let activeCountry;
+let showFixedEuroPrices = false;
 let estimate;
 
 try {
@@ -41,27 +44,35 @@ function updatePrice(element) {
     ? usd.format(Number(cents) / 100)
     : hasEstimate ? previous.original : element.innerHTML;
 
-  if (!estimate) {
+  const fixedPrice = showFixedEuroPrices ? fixedEuroPrices.get(element.dataset.pqProductHandle) : undefined;
+  element.toggleAttribute('data-pq-fixed-eur', fixedPrice !== undefined);
+
+  if (fixedPrice === undefined && !estimate) {
     if (hasEstimate) element.innerHTML = original;
     originals.delete(element);
     return;
   }
 
-  const { rate, formatter, amounts } = estimate;
-  if (!amounts.has(cents)) amounts.set(cents, `≈ ${formatter.format(Number(cents) * rate / 100)}`);
-  const rendered = amounts.get(cents);
+  let rendered;
+  if (fixedPrice !== undefined) {
+    rendered = euros.format(fixedPrice);
+  } else {
+    const { rate, formatter, amounts } = estimate;
+    if (!amounts.has(cents)) amounts.set(cents, formatter.format(Number(cents) * rate / 100));
+    rendered = amounts.get(cents);
+  }
   if (hasEstimate && previous.cents === cents && text === rendered) return;
   originals.set(element, { cents, original, rendered });
   if (text !== rendered) element.textContent = rendered;
 }
 
 function selectCountry(country) {
-  const currency = currencyForCountry(country);
-  if (currency !== activeCurrency) {
-    activeCurrency = currency;
+  if (country !== activeCountry) {
+    activeCountry = country;
+    showFixedEuroPrices = document.body.dataset.pqCartCurrency === 'USD' && isEuCountry(country);
     estimate = estimateFor(country);
     document.documentElement.toggleAttribute('data-pq-estimated-prices', Boolean(estimate));
-    if (estimate || estimates.size) document.querySelectorAll(target).forEach(updatePrice);
+    document.querySelectorAll(target).forEach(updatePrice);
   }
   document.documentElement.removeAttribute('data-pq-rates-pending');
 }
@@ -79,7 +90,7 @@ document.addEventListener('submit', (event) => {
 });
 
 new MutationObserver((records) => {
-  if (!estimate) return;
+  if (!estimate && !showFixedEuroPrices) return;
   const changed = new Set();
   for (const record of records) {
     const owner = record.target.closest(target);
@@ -95,7 +106,7 @@ new MutationObserver((records) => {
   childList: true,
   subtree: true,
   attributes: true,
-  attributeFilter: ['data-pq-usd-cents'],
+  attributeFilter: ['data-pq-usd-cents', 'data-pq-product-handle'],
 });
 
 document.addEventListener('click', (event) => {

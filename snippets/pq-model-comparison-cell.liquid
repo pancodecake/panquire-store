@@ -114,4 +114,4 @@
     assign mode = 'none'
   endif
 -%}
-<td data-current="{% if model.id == current_id %}true{% else %}false{% endif %}" data-mode="{{ mode }}" data-number="{{ numeric | escape }}">{%- if key == 'price' and numeric != blank -%}{% render 'pq-local-money', amount: numeric, with_currency: true %}{%- else -%}{{- value | escape -}}{%- endif -%}</td>
+<td data-current="{% if model.id == current_id %}true{% else %}false{% endif %}" data-mode="{{ mode }}" data-number="{{ numeric | escape }}">{%- if key == 'price' and numeric != blank -%}{% render 'pq-local-money', amount: numeric, product_handle: model.handle, with_currency: true %}{%- else -%}{{- value | escape -}}{%- endif -%}</td>
