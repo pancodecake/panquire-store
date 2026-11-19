@@ -1,12 +1,11 @@
 {%- doc -%}
   Renders a Shopify price and exposes its USD amount for display-only conversion.
   @param {number} amount - Shopify price in minor units.
-  @param {string} [product_handle] - Product handle for a main merchandise price.
   @param {boolean} [with_currency] - Include the currency code in the original price.
   @param {string} [formatted] - Existing formatted price text.
 {%- enddoc -%}
 {%- if amount != blank -%}
-  {%- if cart.currency.iso_code == 'USD' -%}<span data-pq-usd-cents="{{ amount }}"{% if product_handle != blank %} data-pq-product-handle="{{ product_handle | escape }}"{% endif %}>{%- endif -%}
+  {%- if cart.currency.iso_code == 'USD' -%}<span data-pq-usd-cents="{{ amount }}">{%- endif -%}
   {%- if formatted != blank -%}
     {{- formatted -}}
   {%- elsif with_currency -%}

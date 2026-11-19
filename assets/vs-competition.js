@@ -467,7 +467,6 @@
             const amount = element('span', formatted);
             if (side === 'panquire' && record.price.currency === 'USD') {
               amount.dataset.pqUsdCents = String(Math.round(record.price.amount * 100));
-              amount.dataset.pqProductHandle = record.handle;
             }
             price.append(element('small', 'from'), amount);
           }

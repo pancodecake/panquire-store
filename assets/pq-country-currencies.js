@@ -159,12 +159,6 @@ const currencies = new Map(Object.entries(territories).flatMap(([currency, count
   countries.split(' ').map((country) => [country, currency])
 ));
 
-const euCountries = new Set('AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE'.split(' '));
-
-export function isEuCountry(country) {
-  return euCountries.has(country);
-}
-
 export function currencyForCountry(country, fallback = 'USD') {
-  return isEuCountry(country) ? 'EUR' : currencies.get(country) || fallback;
+  return currencies.get(country) || fallback;
 }

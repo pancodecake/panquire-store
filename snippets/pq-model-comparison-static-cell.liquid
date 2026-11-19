@@ -38,4 +38,4 @@
       assign value = '12″ / 12″'
   endcase
 -%}
-<td data-current="false" data-mode="{{ mode }}" data-number="{{ numeric }}">{%- if key == 'price' and numeric != blank -%}{% render 'pq-local-money', amount: numeric, product_handle: t03_product.handle, with_currency: true %}{%- else -%}{{- value | escape -}}{%- endif -%}</td>
+<td data-current="false" data-mode="{{ mode }}" data-number="{{ numeric }}">{%- if key == 'price' and numeric != blank -%}{% render 'pq-local-money', amount: numeric, with_currency: true %}{%- else -%}{{- value | escape -}}{%- endif -%}</td>

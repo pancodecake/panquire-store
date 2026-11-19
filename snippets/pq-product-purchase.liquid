@@ -44,16 +44,13 @@
     </div>
   {% endif %}
   <div class="pq-purchase__price-row" aria-live="polite">
-    <strong>{% render 'pq-local-money', amount: variant.price, product_handle: product.handle, with_currency: true %}</strong>
+    <strong>{% render 'pq-local-money', amount: variant.price, with_currency: true %}</strong>
     {% if request.page_type == 'product' %}
       <span class="pq-purchase__price-info" data-pq-price-info>
         <button type="button" aria-label="{{ 'panquire.storefront.currency_information' | t | escape_once }}" aria-describedby="PriceCurrencyInfo-{{ section.id }}">
           {{ 'info-circle-svgrepo-com.svg' | inline_asset_content }}
         </button>
-        <span class="pq-purchase__price-tooltip" id="PriceCurrencyInfo-{{ section.id }}" role="tooltip">
-          <span class="pq-purchase__estimate-info">{{ 'panquire.storefront.local_currency_prices_are_estimates_checkout_is' | t | escape_once }}</span>
-          <span class="pq-purchase__fixed-price-info">{{ 'panquire.storefront.check_your_final_total_at_checkout' | t | escape_once }}</span>
-        </span>
+        <span class="pq-purchase__price-tooltip" id="PriceCurrencyInfo-{{ section.id }}" role="tooltip">{{ 'panquire.storefront.local_currency_prices_are_estimates_checkout_is' | t | escape_once }}</span>
       </span>
     {% endif %}
     {% if variant.compare_at_price > variant.price %}
@@ -61,7 +58,6 @@
       {% assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
       <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
-    <small class="pq-purchase__usd-price">{{ 'content.checkout' | t | escape_once }} · {{ variant.price | money_with_currency }}</small>
   </div>
   <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
     <span aria-hidden="true"></span>
