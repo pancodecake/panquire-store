@@ -1,7 +1,6 @@
 import { Component } from '@theme/component';
 import { ThemeEvents, QuantitySelectorUpdateEvent } from '@theme/events';
 import { morph } from '@theme/morph';
-import { onAnimationEnd } from '@theme/utilities';
 import { StandardEvents, ProductSelectEvent, CartLinesUpdateEvent, CartErrorEvent } from '@shopify/events';
 
 /**
@@ -47,9 +46,6 @@ class StickyAddToCartComponent extends Component {
 
   /** @type {IntersectionObserver | null} */
   #mainBottomObserver = null;
-
-  /** @type {number | undefined} */
-  #resetTimeout;
 
   /** @type {boolean} */
   #isStuck = false;
@@ -173,18 +169,13 @@ class StickyAddToCartComponent extends Component {
   /**
    * Handles the add to cart button click in the sticky bar
    */
-  handleAddToCartClick = async () => {
+  handleAddToCartClick = () => {
     if (!this.#targetAddToCartButton) return;
     this.#targetAddToCartButton.dataset.puppet = 'true';
     this.#targetAddToCartButton.click();
     const cartIcon = document.querySelector('.header-actions__cart-icon');
 
-    if (this.refs.addToCartButton.dataset.added !== 'true') {
-      this.refs.addToCartButton.dataset.added = 'true';
-    }
-
     if (!cartIcon || !this.refs.addToCartButton || !this.refs.productImage) return;
-    if (this.#resetTimeout) clearTimeout(this.#resetTimeout);
 
     const flyToCartElement = /** @type {FlyToCart} */ (document.createElement('fly-to-cart'));
     const sourceStyles = getComputedStyle(this.refs.productImage);
@@ -196,11 +187,6 @@ class StickyAddToCartComponent extends Component {
     flyToCartElement.destination = cartIcon;
 
     document.body.appendChild(flyToCartElement);
-
-    await onAnimationEnd([this.refs.addToCartButton, flyToCartElement]);
-    this.#resetTimeout = setTimeout(() => {
-      this.refs.addToCartButton.removeAttribute('data-added');
-    }, 800);
   };
 
   /**

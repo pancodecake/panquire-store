@@ -116,11 +116,6 @@
     height: var(--button-size-md);
   }
 
-  .quick-add__button .svg-wrapper .checkmark-burst {
-    width: 22px;
-    height: 22px;
-  }
-
   .quick-add__button > .add-to-cart-icon {
     flex-shrink: 0;
     width: var(--quick-add-icon-width);
@@ -157,19 +152,6 @@
       width: var(--quick-add-expanded-width);
       padding-inline-end: var(--padding-sm);
     }
-  }
-
-  .quick-add__button[data-added='true'] {
-    width: var(--quick-add-collapsed-width);
-    color: transparent;
-  }
-
-  .quick-add__button[data-added='true'] > .add-to-cart-icon {
-    opacity: 0;
-  }
-
-  .quick-add__button[data-added='true'] .add-to-cart__added {
-    color: var(--quick-add-foreground, var(--color-foreground));
   }
 
   @media (prefers-reduced-motion: no-preference) {

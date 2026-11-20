@@ -1,5 +1,5 @@
 {%- doc -%}
-  Renders an "Add to cart" button with dynamic text and state. It shows different text based on whether the product can be added to the cart and provides visual feedback when an item is added.
+  Renders an "Add to cart" button with dynamic text and state. It shows different text based on whether the product can be added to the cart.
 
   @param {boolean} can_add_to_cart - Whether the product can be added to the cart.
   @param {string} add_to_cart_text - The text to display on the button.
@@ -48,11 +48,5 @@
       </span>
     {% endif %}
     {{- add_to_cart_text | default: default_add_to_cart_text -}}
-    {% comment %} checkmark burst markup {% endcomment %}
-    <span class="add-to-cart__added">
-      <span class="svg-wrapper add-to-cart__added-icon">
-        {{- 'icon-checkmark-burst.svg' | inline_asset_content -}}
-      </span>
-    </span>
   </button>
 </add-to-cart-component>

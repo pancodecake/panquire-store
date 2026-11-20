@@ -1,5 +1,5 @@
 import { Component } from '@theme/component';
-import { fetchConfig, preloadImage, onAnimationEnd, yieldToMainThread, parseIntOrDefault } from '@theme/utilities';
+import { fetchConfig, preloadImage, parseIntOrDefault } from '@theme/utilities';
 import { cartPerformance } from '@theme/performance';
 import { morph } from '@theme/morph';
 import { CartLinesUpdateEvent, CartErrorEvent, ProductSelectEvent, StandardEvents } from '@shopify/events';
@@ -32,9 +32,6 @@ const SUCCESS_MESSAGE_DISPLAY_DURATION = 5000;
 export class AddToCartComponent extends Component {
   requiredRefs = ['addToCartButton'];
 
-  /** @type {number[] | undefined} */
-  #resetTimeouts = /** @type {number[]} */ ([]);
-
   connectedCallback() {
     super.connectedCallback();
 
@@ -44,9 +41,6 @@ export class AddToCartComponent extends Component {
   disconnectedCallback() {
     super.disconnectedCallback();
 
-    if (this.#resetTimeouts) {
-      this.#resetTimeouts.forEach(/** @param {number} timeoutId */ (timeoutId) => clearTimeout(timeoutId));
-    }
     this.removeEventListener('pointerenter', this.#preloadImage);
   }
 
@@ -87,7 +81,6 @@ export class AddToCartComponent extends Component {
       if (animationEnabled && !event.target.closest('.quick-add-modal')) {
         this.#animateFlyToCart();
       }
-      this.animateAddToCart();
     }
   }
 
@@ -124,43 +117,6 @@ export class AddToCartComponent extends Component {
 
     document.body.appendChild(flyToCartElement);
   }
-
-  /**
-   * Animates the add to cart button.
-   */
-  animateAddToCart = async function () {
-    const { addToCartButton } = this.refs;
-
-    // Initialize the array if it doesn't exist
-    if (!this.#resetTimeouts) {
-      this.#resetTimeouts = [];
-    }
-
-    // Clear all existing timeouts
-    this.#resetTimeouts.forEach(/** @param {number} timeoutId */ (timeoutId) => clearTimeout(timeoutId));
-    this.#resetTimeouts = [];
-
-    if (addToCartButton.dataset.added !== 'true') {
-      addToCartButton.dataset.added = 'true';
-    }
-
-    // The onAnimationEnd can trigger a style recalculation so we yield to the main thread first.
-    await yieldToMainThread();
-    await onAnimationEnd(addToCartButton);
-
-    // Create new timeout and store it in the array
-    const timeoutId = setTimeout(() => {
-      addToCartButton.removeAttribute('data-added');
-
-      // Remove this timeout from the array
-      const index = this.#resetTimeouts.indexOf(timeoutId);
-      if (index > -1) {
-        this.#resetTimeouts.splice(index, 1);
-      }
-    }, 800);
-
-    this.#resetTimeouts.push(timeoutId);
-  };
 }
 
 if (!customElements.get('add-to-cart-component')) {
@@ -340,7 +296,6 @@ class ProductFormComponent extends Component {
 
     if (this.#variantChangeInProgress) {
       this.#addToCartQueue.push(this.#createQueuedAddToCartItem());
-      this.refs.addToCartButtonContainer?.animateAddToCart?.();
       return;
     }
 
