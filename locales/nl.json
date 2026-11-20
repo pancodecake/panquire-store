@@ -450,6 +450,7 @@
     "quantity": "Aantal",
     "product_total": "Totaal product",
     "cart_estimated_total": "Geschat totaal",
+    "cart_checkout_currency_note": "Prijzen die in andere valuta worden weergegeven, worden bij het afrekenen omgerekend naar Amerikaanse dollars (USD).",
     "seller_note": "Speciale instructies",
     "cart_subtotal": "Subtotaal",
     "discounts": "Kortingen",

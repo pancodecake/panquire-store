@@ -454,6 +454,7 @@
     "quantity": "Kiekis",
     "product_total": "Iš viso gaminių",
     "cart_estimated_total": "Apskaičiuota bendra suma",
+    "cart_checkout_currency_note": "Kitomis valiutomis rodomos kainos atsiskaitant bus konvertuotos į JAV dolerius (USD).",
     "seller_note": "Specialios instrukcijos",
     "cart_subtotal": "Tarpinė suma",
     "discounts": "Nuolaidos",

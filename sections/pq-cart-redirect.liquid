@@ -1,0 +1,23 @@
+{%- if request.design_mode -%}
+  <button type="button" class="pq-button" on:click="#cart-drawer/open" aria-haspopup="dialog" aria-controls="cart-drawer">
+    {{ 'content.view_cart' | t }}
+  </button>
+{%- else -%}
+  <script>
+    (function () {
+      var storefront = new URL({{ routes.root_url | json }}, window.location.origin);
+      storefront.search = window.location.search;
+      storefront.searchParams.set('cart', 'open');
+      window.location.replace(storefront);
+    })();
+  </script>
+  <noscript>
+    <a href="{{ routes.root_url }}">{{ 'actions.continue_shopping' | t }}</a>
+  </noscript>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cart drawer redirect"
+}
+{% endschema %}

@@ -450,6 +450,7 @@
     "quantity": "数量",
     "product_total": "产品总计",
     "cart_estimated_total": "预计总额",
+    "cart_checkout_currency_note": "以其他货币显示的价格将在结账时转换为美元（USD）。",
     "seller_note": "特别说明",
     "cart_subtotal": "小计",
     "discounts": "折扣",

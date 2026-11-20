@@ -454,6 +454,7 @@
     "quantity": "Количество",
     "product_total": "Итого",
     "cart_estimated_total": "Ориентировочная общая сумма",
+    "cart_checkout_currency_note": "Цены, указанные в других валютах, будут пересчитаны в доллары США (USD) при оформлении заказа.",
     "seller_note": "Особые указания",
     "cart_subtotal": "Промежуточный итог",
     "discounts": "Скидки",

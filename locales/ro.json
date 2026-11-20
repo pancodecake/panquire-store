@@ -452,6 +452,7 @@
     "quantity": "Cantitate",
     "product_total": "Total produs",
     "cart_estimated_total": "Total estimat",
+    "cart_checkout_currency_note": "Prețurile afișate în alte monede vor fi convertite în dolari SUA (USD) la finalizarea comenzii.",
     "seller_note": "Instrucțiuni speciale",
     "cart_subtotal": "Subtotal",
     "discounts": "Reduceri",

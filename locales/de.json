@@ -450,6 +450,7 @@
     "quantity": "Anzahl",
     "product_total": "Produkt insgesamt",
     "cart_estimated_total": "Geschätzter Gesamtbetrag",
+    "cart_checkout_currency_note": "Preise in anderen Währungen werden beim Bezahlen in US-Dollar (USD) umgerechnet.",
     "seller_note": "Besondere Hinweise",
     "cart_subtotal": "Zwischensumme",
     "discounts": "Rabatte",

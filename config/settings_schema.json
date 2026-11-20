@@ -1544,22 +1544,6 @@
     "settings": [
       {
         "type": "select",
-        "id": "cart_type",
-        "label": "t:settings.cart_type",
-        "options": [
-          {
-            "value": "page",
-            "label": "t:options.page"
-          },
-          {
-            "value": "drawer",
-            "label": "t:options.drawer"
-          }
-        ],
-        "default": "page"
-      },
-      {
-        "type": "select",
         "id": "product_title_case",
         "label": "t:settings.product_title_case",
         "options": [
@@ -1602,8 +1586,7 @@
         "type": "checkbox",
         "id": "auto_open_cart_drawer",
         "label": "t:settings.auto_open_cart_drawer",
-        "default": false,
-        "visible_if": "{{ settings.cart_type == 'drawer' }}"
+        "default": true
       },
       {
         "type": "header",

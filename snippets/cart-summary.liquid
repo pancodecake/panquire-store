@@ -262,7 +262,7 @@
   <button
     type="submit"
     id="checkout"
-    class="cart__checkout-button button"
+    class="cart__checkout-button button pq-button"
     name="checkout"
     {% if cart == empty %}
       disabled
@@ -284,6 +284,16 @@
       {{ content_for_additional_checkout_buttons }}
     </div>
   {% endif %}
+</div>
+
+<div class="pq-cart-payment">
+  {% render 'pq-payment-methods', class: 'pq-payment-methods--cart' %}
+  <p class="pq-cart-payment__currency-note">{{ 'content.cart_checkout_currency_note' | t }}</p>
+  {% assign terms_url = settings.pq_terms_url | default: '/pages/terms' %}
+  <nav class="pq-cart-policy-links cart-primary-typography" aria-label="{{ 'content.terms_and_policies' | t | escape }}">
+    <a href="{{ terms_url }}">{{ 'content.terms_and_policies' | t }}</a>
+    {% if shop.privacy_policy != blank %}<a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title | escape }}</a>{% endif %}
+  </nav>
 </div>
 
 {% stylesheet %}
@@ -329,6 +339,39 @@
 
   .cart-totals__tax-note small {
     font-size: var(--font-size--2xs);
+  }
+
+  .pq-cart-payment {
+    display: grid;
+    gap: 0.5rem;
+    width: 100%;
+    color: var(--pq-muted);
+  }
+
+  .pq-cart-payment__currency-note {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .pq-payment-methods--cart .pq-payment-methods__label {
+    font-size: 0.75rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .pq-cart-policy-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-start;
+    font-size: var(--font-size--2xs);
+  }
+
+  .pq-cart-policy-links a {
+    color: currentColor;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .cart-discounts {
@@ -481,6 +524,7 @@
 
   .cart__ctas .cart__checkout-button {
     width: 100%;
+    min-height: 44px;
     height: clamp(25px, var(--height-buy-buttons), 55px);
     padding-inline: var(--padding-4xl);
   }

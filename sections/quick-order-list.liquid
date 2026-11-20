@@ -370,12 +370,15 @@
       >
         <div class="quick-order-list-total__column">
           <div class="quick-order-list-total__actions">
-            <a
-              href="{{ routes.cart_url }}"
+            <button
+              type="button"
+              on:click="#cart-drawer/open"
+              aria-haspopup="dialog"
+              aria-controls="cart-drawer"
               class="quick-order-list__button button-secondary"
             >
               <span class="quick-order-list__button-text">{{ 'content.view_cart' | t }}</span>
-            </a>
+            </button>
             {% if total_items_count > 0 %}
               <button
                 class="button button--unstyled quick-order-list__remove-all-button"

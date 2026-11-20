@@ -452,6 +452,7 @@
     "quantity": "Količina",
     "product_total": "Proizvod ukupno",
     "cart_estimated_total": "Procijenjen ukupni iznos",
+    "cart_checkout_currency_note": "Cijene prikazane u drugim valutama preračunat će se u američke dolare (USD) pri plaćanju.",
     "seller_note": "Posebne upute",
     "cart_subtotal": "Podzbroj",
     "discounts": "Popusti",

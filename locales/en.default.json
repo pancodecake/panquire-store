@@ -481,6 +481,7 @@
     "account_profile": "Profile",
     "blog_details_separator": "|",
     "cart_estimated_total": "Estimated total",
+    "cart_checkout_currency_note": "Prices shown in other currencies will be converted to USD at checkout.",
     "cart_title": "Cart",
     "cart_subtotal": "Subtotal",
     "cart_total": "Cart total",

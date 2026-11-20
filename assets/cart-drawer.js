@@ -134,3 +134,15 @@ class CartDrawerComponent extends Component {
 if (!customElements.get('cart-drawer-component')) {
   customElements.define('cart-drawer-component', CartDrawerComponent);
 }
+
+const cartLink = new URL(window.location.href);
+if (cartLink.searchParams.get('cart') === 'open') {
+  const drawer = /** @type {import('@theme/theme-drawer').ThemeDrawer | null} */ (
+    document.getElementById('cart-drawer')
+  );
+  if (drawer) {
+    cartLink.searchParams.delete('cart');
+    window.history.replaceState(window.history.state, '', cartLink);
+    drawer.open();
+  }
+}

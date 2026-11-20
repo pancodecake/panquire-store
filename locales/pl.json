@@ -454,6 +454,7 @@
     "quantity": "Ilość",
     "product_total": "Produkt łącznie",
     "cart_estimated_total": "Przewidywana suma",
+    "cart_checkout_currency_note": "Ceny wyświetlane w innych walutach zostaną przeliczone na dolary amerykańskie (USD) podczas finalizacji zakupu.",
     "seller_note": "Instrukcje specjalne",
     "cart_subtotal": "Suma częściowa",
     "discounts": "Rabaty",

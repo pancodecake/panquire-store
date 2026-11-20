@@ -450,6 +450,7 @@
     "quantity": "Jumlah",
     "product_total": "Total produk",
     "cart_estimated_total": "Estimasi total",
+    "cart_checkout_currency_note": "Harga yang ditampilkan dalam mata uang lain akan dikonversi ke dolar AS (USD) saat checkout.",
     "seller_note": "Instruksi khusus",
     "cart_subtotal": "Jumlah sementara",
     "discounts": "Diskon",

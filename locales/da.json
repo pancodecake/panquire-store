@@ -446,6 +446,7 @@
     "cart_total": "Indkøbskurv i alt",
     "your_cart_is_empty": "Din indkøbskurv er tom",
     "cart_estimated_total": "Forventet totalbeløb",
+    "cart_checkout_currency_note": "Priser, der vises i andre valutaer, omregnes til amerikanske dollars (USD) ved betaling.",
     "seller_note": "Særlige instruktioner",
     "cart_subtotal": "Subtotal",
     "discounts": "Rabatter",

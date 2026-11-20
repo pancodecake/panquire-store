@@ -450,6 +450,7 @@
     "quantity": "Antall",
     "product_total": "Sum for produkt",
     "cart_estimated_total": "Estimert totalsum",
+    "cart_checkout_currency_note": "Priser som vises i andre valutaer, blir omregnet til amerikanske dollar (USD) ved betaling.",
     "seller_note": "Spesialinstruksjoner",
     "cart_subtotal": "Delsum",
     "discounts": "Rabatter",

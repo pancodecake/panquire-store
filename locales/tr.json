@@ -450,6 +450,7 @@
     "quantity": "Adet",
     "product_total": "Ürün toplamı",
     "cart_estimated_total": "Tahmini toplam",
+    "cart_checkout_currency_note": "Diğer para birimlerinde gösterilen fiyatlar ödeme sırasında ABD dolarına (USD) çevrilir.",
     "seller_note": "Özel talimatlar",
     "cart_subtotal": "Alt toplam",
     "discounts": "İndirimler",

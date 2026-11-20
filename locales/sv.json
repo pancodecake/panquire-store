@@ -450,6 +450,7 @@
     "quantity": "Kvantitet",
     "product_total": "Produkter totalt",
     "cart_estimated_total": "Beräknad totalsumma",
+    "cart_checkout_currency_note": "Priser som visas i andra valutor räknas om till amerikanska dollar (USD) i kassan.",
     "seller_note": "Särskilda anvisningar",
     "cart_subtotal": "Delsumma",
     "discounts": "Rabatter",

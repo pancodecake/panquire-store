@@ -474,6 +474,7 @@
     "account_profile": "פרופיל",
     "blog_details_separator": "|",
     "cart_estimated_total": "סכום כולל משוער",
+    "cart_checkout_currency_note": "מחירים שמוצגים במטבעות אחרים יומרו לדולר אמריקאי (USD) בעת התשלום.",
     "cart_title": "סל",
     "cart_subtotal": "סכום ביניים",
     "cart_total": "סך הכול לסל",

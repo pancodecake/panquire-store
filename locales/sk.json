@@ -454,6 +454,7 @@
     "quantity": "Množstvo",
     "product_total": "Celková suma za tento produkt",
     "cart_estimated_total": "Odhadovaná celková suma",
+    "cart_checkout_currency_note": "Ceny zobrazené v iných menách sa pri platbe prepočítajú na americké doláre (USD).",
     "seller_note": "Špeciálne pokyny",
     "cart_subtotal": "Medzisúčet",
     "discounts": "Zľavy",

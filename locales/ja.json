@@ -450,6 +450,7 @@
     "quantity": "数量",
     "product_total": "商品合計",
     "cart_estimated_total": "見積もり合計",
+    "cart_checkout_currency_note": "他の通貨で表示された価格は、チェックアウト時に米ドル（USD）に換算されます。",
     "seller_note": "特記事項",
     "cart_subtotal": "小計",
     "discounts": "ディスカウント",

@@ -454,6 +454,7 @@
     "quantity": "Množství",
     "product_total": "Celkem kusů produktu",
     "cart_estimated_total": "Odhadovaný součet",
+    "cart_checkout_currency_note": "Ceny zobrazené v jiných měnách budou při placení převedeny na americké dolary (USD).",
     "seller_note": "Speciální pokyny",
     "cart_subtotal": "Mezisoučet",
     "discounts": "Slevy",

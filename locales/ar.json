@@ -480,6 +480,7 @@
     "account_profile": "الملف الشخصي",
     "blog_details_separator": "|",
     "cart_estimated_total": "الإجمالي التقديري",
+    "cart_checkout_currency_note": "ستُحوَّل الأسعار المعروضة بعملات أخرى إلى الدولار الأمريكي عند إتمام الشراء.",
     "cart_title": "سلة التسوق",
     "cart_subtotal": "الإجمالي الفرعي",
     "cart_total": "إجمالي سلة التسوق",

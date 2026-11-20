@@ -450,6 +450,7 @@
     "quantity": "Số lượng",
     "product_total": "Tổng sản phẩm",
     "cart_estimated_total": "Tổng số tiền ước tính",
+    "cart_checkout_currency_note": "Giá hiển thị bằng các loại tiền tệ khác sẽ được quy đổi sang đô la Mỹ (USD) khi thanh toán.",
     "seller_note": "Hướng dẫn đặc biệt",
     "cart_subtotal": "Tổng phụ",
     "discounts": "Giảm giá",

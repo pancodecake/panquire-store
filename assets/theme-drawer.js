@@ -31,8 +31,8 @@ export class ThemeDrawer extends Component {
   /** Monotonically increasing counter for z-index stacking of multiple open drawers. */
   static #stackOrder = 0;
 
-  /** @type {boolean} */
-  #isClosing = false;
+  /** @type {Promise<void> | null} */
+  #closeAnimation = null;
 
   /** When true, the drawer will reopen after the current close animation finishes. */
   /** @type {{ enter?: 'inline-start' } | false} */
@@ -44,6 +44,14 @@ export class ThemeDrawer extends Component {
 
   /** @type {MediaQueryList} */
   #modalQuery = window.matchMedia(`(max-width: ${MODAL_BREAKPOINT - 1}px)`);
+
+  get #alwaysModal() {
+    return this.hasAttribute('modal');
+  }
+
+  get #isModal() {
+    return this.#alwaysModal || this.#modalQuery.matches;
+  }
 
   /**
    * @returns {boolean} Whether the drawer is currently open.
@@ -78,7 +86,7 @@ export class ThemeDrawer extends Component {
    */
   #onRestore() {
     const { panel } = this.refs;
-    if (this.#modalQuery.matches) {
+    if (this.#isModal) {
       lockScroll(panel);
     }
 
@@ -131,7 +139,7 @@ export class ThemeDrawer extends Component {
    * crosses the modal breakpoint while the drawer is open.
    */
   #onModalBreakpointChange = () => {
-    if (!this.isOpen) return;
+    if (this.#alwaysModal || !this.isOpen) return;
 
     const { panel } = this.refs;
     const nestedDialog = this.#getOpenNestedDialog();
@@ -196,10 +204,16 @@ export class ThemeDrawer extends Component {
    */
   open({ enter } = {}) {
     if (this.isOpen) {
-      this.#bringToFront({ enter });
+      if (!this.#alwaysModal || !this.#isTopmost()) this.#bringToFront({ enter });
       return;
     }
-    if (this.#isClosing) {
+    if (this.#closeAnimation) {
+      if (this.#alwaysModal) {
+        this.#closeAnimation = null;
+        this.refs.panel.classList.remove('theme-drawer__dialog--closing');
+        this.#markOpen();
+        return;
+      }
       this.#deferredOpen = { enter };
       return;
     }
@@ -215,7 +229,7 @@ export class ThemeDrawer extends Component {
 
     this.#previouslyFocused = /** @type {HTMLElement | null} */ (document.activeElement);
 
-    if (this.#modalQuery.matches) {
+    if (this.#isModal) {
       lockScroll(panel);
       panel.showModal();
     } else {
@@ -223,15 +237,22 @@ export class ThemeDrawer extends Component {
       trapFocus(panel);
     }
 
-    this.#focusInitialElement();
-
     onAnimationEnd(panel, () => panel.classList.remove(openClass), { subtree: false });
 
-    this.setAttribute('open', '');
-    this.dispatchEvent(new DrawerOpenEvent());
+    if (this.#alwaysModal) {
+      // Commit the off-screen transform while the dialog enters the top layer.
+      panel.getBoundingClientRect();
+    }
+    this.#markOpen();
 
     document.addEventListener('keydown', this.#onKeyDown);
     panel.addEventListener('click', this.#onBackdropClick);
+  }
+
+  #markOpen() {
+    this.setAttribute('open', '');
+    this.#focusInitialElement();
+    this.dispatchEvent(new DrawerOpenEvent());
   }
 
   /**
@@ -251,7 +272,7 @@ export class ThemeDrawer extends Component {
     // In modal mode, dialogs live in the browser's top layer where z-index
     // is ignored — stacking follows showModal() call order. Re-calling
     // showModal() moves this dialog to the top of the stack.
-    if (this.#modalQuery.matches && panel.open) {
+    if (this.#isModal && panel.open) {
       lockScroll(panel);
       panel.close();
       panel.showModal();
@@ -306,28 +327,27 @@ export class ThemeDrawer extends Component {
    */
   async #closeDialog() {
     if (!this.isOpen) return;
-    if (this.#isClosing) return;
-    this.#isClosing = true;
-
-    this.#removeEventListeners();
-    removeTrapFocus();
 
     const { panel } = this.refs;
 
     this.removeAttribute('open');
     this.dispatchEvent(new DrawerCloseEvent());
 
-    unlockScroll(panel);
-
     if (panel.open) {
       // Cancel any in-progress open animation before starting the close.
       panel.classList.remove('theme-drawer__dialog--opening', 'theme-drawer__dialog--opening-inline-start');
 
       panel.classList.add('theme-drawer__dialog--closing');
-      await onAnimationEnd(panel, undefined, { subtree: false });
+      const animation = onAnimationEnd(panel, undefined, { subtree: false });
+      this.#closeAnimation = animation;
+      await animation;
+      if (this.#closeAnimation !== animation) return;
       panel.classList.remove('theme-drawer__dialog--closing');
     }
 
+    this.#removeEventListeners();
+    removeTrapFocus();
+    unlockScroll(panel);
     panel.close();
     this.style.removeProperty('--drawer-stack-order');
 
@@ -347,7 +367,7 @@ export class ThemeDrawer extends Component {
       /** @type {HTMLElement | null} */ (document.querySelector(`[aria-controls="${this.id}"]`))?.focus();
     }
 
-    this.#isClosing = false;
+    this.#closeAnimation = null;
 
     // Reconcile: if open() was called during the close animation, reopen now.
     if (this.#deferredOpen) {
@@ -361,7 +381,7 @@ export class ThemeDrawer extends Component {
    * Closes the drawer.
    */
   async close() {
-    if (this.#isClosing) {
+    if (this.#closeAnimation) {
       // A close is already in progress — cancel any deferred open so the
       // drawer stays closed when the animation finishes.
       this.#deferredOpen = false;

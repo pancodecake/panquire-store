@@ -450,6 +450,7 @@
     "quantity": "Mennyiség",
     "product_total": "Termék végösszege",
     "cart_estimated_total": "Becsült végösszeg",
+    "cart_checkout_currency_note": "A más pénznemben megjelenített árakat fizetéskor amerikai dollárra (USD) váltjuk át.",
     "seller_note": "Különleges utasítások",
     "cart_subtotal": "Részösszeg",
     "discounts": "Kedvezmények",

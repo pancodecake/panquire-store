@@ -450,6 +450,7 @@
     "quantity": "จำนวน",
     "product_total": "สินค้าทั้งหมด",
     "cart_estimated_total": "ยอดรวมโดยประมาณ",
+    "cart_checkout_currency_note": "ราคาที่แสดงเป็นสกุลเงินอื่นจะถูกแปลงเป็นดอลลาร์สหรัฐ (USD) เมื่อชำระเงิน",
     "seller_note": "คำแนะนำพิเศษ",
     "cart_subtotal": "ยอดรวมย่อย",
     "discounts": "ส่วนลด",

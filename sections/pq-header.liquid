@@ -10,7 +10,25 @@
     <div class="pq-header-actions">
       {% render 'pq-header-location', section_id: section.id %}
       <a class="pq-icon-button" href="{{ routes.search_url }}" aria-label="{{ 'panquire.search' | t }}">{% render 'pq-icon', name: 'search' %}</a>
-      <a class="pq-icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'panquire.cart' | t }}"><cart-icon>{% render 'pq-icon', name: 'cart' %}<span ref="cartBubble" class="pq-cart-count{% if cart.item_count == 0 %} visually-hidden{% endif %}"><span ref="cartBubbleText"><span ref="cartBubbleCount">{{ cart.item_count }}</span></span></span></cart-icon></a>
+      <header-actions>
+        <button
+          type="button"
+          class="pq-icon-button button-unstyled"
+          on:click="#cart-drawer/open"
+          aria-label="{{ 'panquire.cart' | t }}"
+          aria-haspopup="dialog"
+          aria-controls="cart-drawer"
+          aria-expanded="false"
+        >
+          <cart-icon>
+            {% render 'pq-icon', name: 'cart' %}
+            <span ref="cartBubble" class="pq-cart-count{% if cart.item_count == 0 %} visually-hidden{% endif %}" aria-hidden="true">
+              <span ref="cartBubbleText"><span ref="cartBubbleCount">{{ cart.item_count }}</span></span>
+            </span>
+          </cart-icon>
+        </button>
+        <span ref="liveRegion" class="visually-hidden" role="status"></span>
+      </header-actions>
     </div>
     <details class="pq-mobile-menu">
       <summary aria-label="{{ 'panquire.menu' | t }}"><span class="pq-mobile-menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></summary>
@@ -19,6 +37,7 @@
   </div>
 </header>
 <script src="{{ 'cart-icon.js' | asset_url }}" type="module" fetchpriority="low"></script>
+<script src="{{ 'header-actions.js' | asset_url }}" type="module" fetchpriority="low"></script>
 {% schema %}
 {
   "name": "Panquire header",
