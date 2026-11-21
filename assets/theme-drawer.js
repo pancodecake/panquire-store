@@ -113,7 +113,8 @@ export class ThemeDrawer extends Component {
   #onBackdropClick = (event) => {
     const { panel } = this.refs;
 
-    if (isClickedOutside(event, panel)) {
+    // Native backdrop clicks target the dialog, even when a cart click removes its button.
+    if (event.target === panel && isClickedOutside(event, panel)) {
       if (this.#hasOpenNestedDialog()) return;
 
       this.close();
