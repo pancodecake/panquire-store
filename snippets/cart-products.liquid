@@ -259,12 +259,12 @@
                     {%- endif -%}
                   </div>
 
-                  <div class="cart-items__variants-wrapper">
+                  {% capture cart_line_details %}
                     {%- if item.product.has_only_default_variant == false
                       or item.properties.size != 0
                       or item.selling_plan_allocation != null
                     -%}
-                      {%- if item.product.has_only_default_variant == false and item.item_components.size == 0 -%}
+                      {%- if context != 'drawer' and item.product.has_only_default_variant == false and item.item_components.size == 0 -%}
                         <dl class="cart-items__variants">
                           {%- for option in item.options_with_values -%}
                             <div class="cart-items__variant">
@@ -323,7 +323,12 @@
                         </ul>
                       {%- endif -%}
                     {%- endif -%}
-                  </div>
+                  {% endcapture %}
+                  {% if context == 'drawer' %}
+                    {{ cart_line_details }}
+                  {% else %}
+                    <div class="cart-items__variants-wrapper">{{ cart_line_details }}</div>
+                  {% endif %}
 
                   {% assign cart_compare_at_price = item.variant.compare_at_price | default: 0 %}
                   {% unless cart_profile_image and item.quantity == 1 and item.original_price == item.final_price and cart_compare_at_price <= item.original_price %}
@@ -367,17 +372,6 @@
                   {% assign can_update_quantity = item.instructions.can_update_quantity
                     | default: true, allow_false: true
                   %}
-                  {% if cart_profile_image %}
-                    {% assign silhouette_filter = item.index | prepend: 'pq-cart-gold-chroma-' %}
-                    <svg class="pq-cart-item-card__silhouette" width="56" height="33" viewBox="0 333 1145 672" aria-hidden="true" focusable="false">
-                      <defs>
-                        <filter id="{{ silhouette_filter }}" color-interpolation-filters="sRGB">
-                          <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  4 0 -4 0 -.1" />
-                        </filter>
-                      </defs>
-                      <image href="{{ 'pq-quantity-bike.png' | asset_url }}" width="1145" height="1374" filter="url(#{{ silhouette_filter }})" />
-                    </svg>
-                  {% endif %}
                   <div class="cart-items__quantity-controls">
                     {% render 'volume-pricing-info',
                       variant: item.variant,
@@ -1111,7 +1105,8 @@
   .pq-cart-item-card__profile::before {
     position: absolute;
     z-index: -1;
-    inset: 14% 23%;
+    inset: 9% 10%;
+    border-radius: 8px;
     border: 1px solid color-mix(in srgb, var(--color-accent-solid) 82%, transparent);
     content: '';
     pointer-events: none;
@@ -1162,11 +1157,6 @@
 
   .pq-cart-item-card .cart-items__quantity-controls > .volume-pricing-info {
     margin-inline-start: 0;
-  }
-
-  .pq-cart-item-card__silhouette {
-    display: block;
-    margin-inline-start: 3px;
   }
 
   .pq-cart-item-card .cart-items__quantity .quantity-selector {
@@ -1228,9 +1218,106 @@
     color: var(--pq-muted);
   }
 
-  .pq-cart-item-card .cart-items__unit-price-wrapper,
-  .pq-cart-item-card .cart-items__variants-wrapper {
+  .pq-cart-item-card .cart-items__unit-price-wrapper {
     margin-block-start: 5px;
     font-size: 0.8125rem;
+  }
+
+  @container cart-items (min-width: 34rem) {
+    .cart-drawer__items .pq-cart-item-card {
+      grid-template:
+        'media details details' 1fr
+        'media quantity price' auto
+        'error error error' auto / minmax(0, 49%) auto minmax(0, 1fr);
+      column-gap: clamp(8px, 1.6cqi, 14px);
+      row-gap: 8px;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+    }
+
+    .cart-drawer__items .pq-cart-item-card:last-child {
+      padding-block-end: 12px;
+      border-block-end: 0;
+    }
+
+    .pq-cart-item-card .cart-items__media {
+      align-self: center;
+    }
+
+    .pq-cart-item-card .pq-cart-item-card__profile {
+      block-size: clamp(10rem, 32.5cqi, 15rem);
+    }
+
+    .pq-cart-item-card .cart-items__details {
+      align-self: start;
+      padding-block-start: clamp(14px, 4cqi, 30px);
+      padding-inline-end: 4px;
+    }
+
+    .pq-cart-item-card .cart-items__title {
+      font-family: var(--pq-body-font);
+      font-size: clamp(1.125rem, 3.95cqi, 1.875rem);
+      font-weight: 500;
+    }
+
+    .pq-cart-item-card .cart-items__title .pq-cart-item-card__model {
+      font-weight: 700;
+    }
+
+    .pq-cart-item-card .pq-cart-item-card__description {
+      margin-block-start: 12px;
+      font-size: 0.875rem;
+      line-height: 1.3;
+    }
+
+    .pq-cart-item-card .cart-items__quantity {
+      grid-area: quantity;
+      align-self: end;
+      padding-block-end: 7px;
+    }
+
+    .pq-cart-item-card .cart-items__quantity .quantity-selector {
+      inline-size: 120px;
+      gap: 5px;
+    }
+
+    .pq-cart-item-card .quantity-selector button:is(.quantity-minus, .quantity-plus) {
+      position: relative;
+      flex-basis: 34px;
+      inline-size: 34px;
+      border: 0;
+    }
+
+    .pq-cart-item-card .quantity-selector button::before {
+      position: absolute;
+      inset: 8px 3px;
+      border: 1px solid var(--pq-line);
+      border-radius: 50%;
+      content: '';
+      pointer-events: none;
+    }
+
+    .pq-cart-item-card .quantity-selector input[type='number'] {
+      flex-basis: 42px;
+      inline-size: 42px;
+      block-size: 42px;
+      font-size: 1rem;
+    }
+
+    .pq-cart-item-card .cart-items__price {
+      grid-area: price;
+      padding-block-end: 12px;
+      font-size: clamp(1.5rem, 5.4cqi, 2.5rem);
+      font-style: italic;
+    }
+  }
+
+  .pq-cart-item-card .cart-items__remove {
+    opacity: 0.62;
+  }
+
+  .pq-cart-item-card .cart-items__remove:is(:hover, :focus-visible) {
+    opacity: 1;
   }
 {% endstylesheet %}
