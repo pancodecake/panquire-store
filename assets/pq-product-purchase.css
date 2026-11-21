@@ -27,6 +27,18 @@
 .pq-purchase p, .pq-purchase h1, .pq-purchase h2 { margin: 0; }
 .pq-purchase .pq-purchase__tagline { display: table; padding: 5px 12px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--surface); color: var(--color-text-secondary); font-size: 12px; }
 .pq-storefront .product-details .pq-purchase .pq-purchase__title { margin: 14px 0 10px; font-family: var(--pq-heading-font); font-weight: 700; line-height: 1.12; letter-spacing: -.025em; text-transform: uppercase; text-wrap: pretty; color: var(--color-action-solid);}
+.pq-purchase__heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) fit-content(38%);
+  align-items: end;
+  gap: 0 10px;
+  margin-block: 14px 10px;
+}
+.pq-storefront .product-details .pq-purchase .pq-purchase__heading .pq-purchase__title {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.pq-purchase .pq-purchase__heading .pq-purchase__stock { margin: 0 0 2px; }
 .pq-purchase__reviews { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
 .pq-purchase__stars { position: relative; display: inline-block; color: var(--color-border); font-size: 18px; line-height: 1; letter-spacing: -1px; }
 .pq-purchase__stars-fill { position: absolute; inset: 0 auto 0 0; width: var(--rating-width); overflow: hidden; color: var(--color-accent-solid); white-space: nowrap; }
@@ -43,10 +55,16 @@
 .pq-purchase product-form-component, .pq-purchase add-to-cart-component { display: block; min-width: 0; }
 .pq-purchase__buttons { display: grid; grid-template-columns: minmax(112px, .42fr) minmax(0, 1fr); gap: 10px 8px; }
 .pq-purchase .quantity-selector-wrapper, .pq-purchase .quantity-selector { width: 100%; }
-.pq-purchase .quantity-selector { height: 48px; min-height: 48px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--surface); color: var(--color-text-primary); overflow: hidden; }
+.pq-purchase .quantity-selector { height: 48px; min-height: 48px; border: 1px solid var(--color-accent-solid); border-radius: 999px; background: var(--color-bg-page); color: var(--color-text-primary); overflow: hidden; }
 .pq-storefront .pq-purchase .quantity-selector button { width: 40px; min-width: 28px; height: 46px; min-height: 44px; padding: 10px; border: 0; border-radius: 0; background: transparent; color: var(--color-text-primary) !important; }
-.pq-storefront .pq-purchase .quantity-selector input { width: 36px; min-width: 24px; padding: 0; border: 0; background: transparent; color: var(--color-text-primary); font-size: 16px; }
+.pq-storefront .pq-purchase .quantity-selector input { width: 100%; min-width: 0; max-width: none; height: 26px; padding: 0; border: 0; border-inline: 1px solid var(--color-border); border-radius: 0; background: transparent; color: var(--color-text-primary); font-size: 20px; font-variant-numeric: tabular-nums; }
 .pq-storefront .pq-purchase .pq-purchase__add { width: 100%; height: 48px; min-height: 48px; padding: 10px 16px; border: 1px solid var(--color-action-solid); border-radius: 999px !important; background: var(--color-action-solid); color: var(--color-text-on-action) !important; font-family: var(--pq-heading-font); font-size: 14px; font-weight: 700; letter-spacing: .025em; text-transform: uppercase; }
+.pq-purchase__quantity-bike { grid-column: 1; grid-row: 1; justify-self: center; pointer-events: none; }
+.pq-purchase .pq-purchase__buttons > .quantity-selector-wrapper { grid-column: 1; grid-row: 2; align-content: start; }
+.pq-purchase__buttons > add-to-cart-component { grid-column: 2; grid-row: 2; }
+.pq-purchase .quantity-selector { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+.pq-storefront .pq-purchase .quantity-selector button { width: 100%; min-width: 0; padding: 0; }
+.pq-purchase .quantity-selector button:focus-visible { outline-offset: -3px; }
 .pq-purchase__checkout { grid-column: 1 / -1; width: 100%; }
 .pq-purchase__checkout .shopify-payment-button, .pq-purchase shopify-accelerated-checkout { display: block; width: 100%; }
 .pq-purchase shopify-accelerated-checkout { --shopify-accelerated-checkout-button-block-size: 48px; --shopify-accelerated-checkout-button-border-radius: 999px; --shopify-accelerated-checkout-button-box-shadow: none; }
