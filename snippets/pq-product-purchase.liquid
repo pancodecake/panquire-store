@@ -36,7 +36,21 @@
 %}
 
 <pq-purchase-panel class="pq-purchase" {{ block.shopify_attributes }}>
-  <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
+  {%- liquid
+    assign model_handle = product.handle
+    assign product_classification = product.type
+    if model_handle == 't-03'
+      assign product_classification = product_classification | remove_first: 'Mini '
+    endif
+  -%}
+  <h2 class="pq-purchase__title">
+    {%- if model_handle == 't-01' or model_handle == 't-02' or model_handle == 't-03' -%}
+      <span>Panquire {{ model_handle | upcase }}</span>
+      <span class="pq-purchase__classification">{{ product_classification | escape }}</span>
+    {%- else -%}
+      {{- product.title | escape -}}
+    {%- endif -%}
+  </h2>
   {% capture purchase_description %}{% render 'pq-model-description', model_handle: product.handle %}{% endcapture %}
   {% if purchase_description != blank %}
     <p class="pq-purchase__description">{{ purchase_description | escape }}</p>

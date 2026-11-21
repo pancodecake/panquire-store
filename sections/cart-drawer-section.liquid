@@ -1,5 +1,6 @@
 {% # SRA target for /cart endpoints. The Section Rendering API provides the section wrapper. %}
 {% render 'cart-drawer', render_wrapper: false %}
+<template data-pq-cart-snapshot>{{ cart | json | escape }}</template>
 
 {% schema %}
 {

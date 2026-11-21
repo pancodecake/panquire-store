@@ -14,6 +14,8 @@ const ERROR_BUTTON_REENABLE_DELAY = 1000;
 // Success message display duration for screen readers
 const SUCCESS_MESSAGE_DISPLAY_DURATION = 5000;
 
+let latestCartAdd = 0;
+
 /**
  * @typedef {HTMLElement & {
  *   source: Element,
@@ -323,6 +325,31 @@ class ProductFormComponent extends Component {
   }
 
   /**
+   * @param {Record<string, string | null> | undefined} sections
+   * @returns {Promise<Cart>}
+   */
+  async #cartAfterAdd(sections) {
+    const drawer = sections?.['cart-drawer-section'];
+    if (drawer) {
+      const fragment = new DOMParser().parseFromString(drawer, 'text/html');
+      const snapshot = fragment.querySelector('template[data-pq-cart-snapshot]')?.content.textContent;
+      if (snapshot) {
+        try {
+          const cart = JSON.parse(snapshot);
+          if (Array.isArray(cart?.items) && cart.items.length > 0
+            && Number.isInteger(cart.item_count) && cart.item_count > 0 && typeof cart.currency === 'string') {
+            return cart;
+          }
+        } catch {
+          // Use the Cart API when bundled cart data is unreadable.
+        }
+      }
+    }
+
+    return this.#refreshCart();
+  }
+
+  /**
    * @param {string} [overrideVariantId]
    * @param {number} [overrideQuantity]
    * @param {Event} [event]
@@ -418,10 +445,13 @@ class ProductFormComponent extends Component {
       if (item instanceof HTMLElement && item.dataset.sectionId) {
         cartItemComponentsSectionIds.push(item.dataset.sectionId);
       }
-      formData.append('sections', cartItemComponentsSectionIds.join(','));
     });
+    if (cartItemComponentsSectionIds.length) {
+      formData.set('sections', cartItemComponentsSectionIds.join(','));
+    }
 
     const itemCount = Number(formData.get('quantity')) || Number(this.dataset.quantityDefault);
+    const addSequence = ++latestCartAdd;
     const deferredEventPromise = CartLinesUpdateEvent.createPromise();
 
     this.dispatchEvent(
@@ -527,7 +557,7 @@ class ProductFormComponent extends Component {
           }
 
           // Fetch the updated cart to get the actual total quantity for this variant
-          const cart = await this.#refreshCart()
+          await this.#cartAfterAdd(addSequence === latestCartAdd ? response.sections : undefined)
             .then((ajaxCart) => {
               deferredEventPromise.resolve({
                 cart: CartLinesUpdateEvent.createCartFromAjaxResponse(ajaxCart),
@@ -537,7 +567,7 @@ class ProductFormComponent extends Component {
                   sourceId: this.id.toString(),
                   itemCount,
                   productId: this.dataset.productId,
-                  sections: response.sections,
+                  sections: addSequence === latestCartAdd ? response.sections : undefined,
                   didError: false,
                 },
               });
@@ -600,6 +630,7 @@ class ProductFormComponent extends Component {
     }
 
     const totalQuantity = items.reduce((sum, item) => sum + item.quantity, 0);
+    const addSequence = ++latestCartAdd;
     const deferredEventPromise = CartLinesUpdateEvent.createPromise();
 
     this.dispatchEvent(
@@ -691,7 +722,7 @@ class ProductFormComponent extends Component {
           setTimeout(() => this.#clearLiveRegionText(), SUCCESS_MESSAGE_DISPLAY_DURATION);
         }
 
-        const cart = await this.#refreshCart();
+        const cart = await this.#cartAfterAdd(addSequence === latestCartAdd ? response.sections : undefined);
         deferredEventPromise.resolve({
           cart: CartLinesUpdateEvent.createCartFromAjaxResponse(cart),
           detail: {
@@ -700,7 +731,7 @@ class ProductFormComponent extends Component {
             sourceId: this.id.toString(),
             itemCount: totalQuantity,
             productId: this.dataset.productId,
-            sections: response.sections,
+            sections: addSequence === latestCartAdd ? response.sections : undefined,
             didError: false,
           },
         });
