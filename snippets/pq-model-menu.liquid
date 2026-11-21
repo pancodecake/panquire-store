@@ -15,7 +15,11 @@
         {% assign model_price = model_product.selected_or_first_available_variant.price | default: model_product.price %}
         <a class="pq-model-menu-card" href="{{ model_product.url }}"{% if product.handle == model %} aria-current="page"{% endif %}>
           <span class="pq-model-menu-image">
+            {% if model == 't-03' %}
+              <img src="{{ 'panquire-t03-product.png' | file_img_url: '800x' }}" width="1448" height="1086" alt="" loading="lazy">
+            {% else %}
             <img src="{{ image | strip | escape }}" width="3200" height="2560" alt="" loading="lazy">
+            {% endif %}
           </span>
           <strong>{{ model | upcase }}</strong>
           <span class="pq-model-menu-price">{% render 'pq-local-money', amount: model_price, product_handle: model, with_currency: true %}</span>
