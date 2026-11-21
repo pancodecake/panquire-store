@@ -36,21 +36,7 @@
 %}
 
 <pq-purchase-panel class="pq-purchase" {{ block.shopify_attributes }}>
-  {% capture purchase_stock %}
-    <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
-      <span aria-hidden="true"></span>
-      {%- if can_purchase or has_stock_without_delivery -%}
-        {{ 'content.inventory_in_stock' | t }}
-        {%- if has_stock_without_delivery %}. {% render 'pq-purchase-copy', key: 'delivery_unavailable' %}{% endif -%}
-      {%- else -%}
-        {{ unavailable_label }}
-      {%- endif -%}
-    </p>
-  {% endcapture %}
-  <div class="pq-purchase__heading">
-    <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
-    {% if can_purchase %}{{ purchase_stock }}{% endif %}
-  </div>
+  <h1 class="pq-purchase__title">{% unless product.title contains 'Panquire' or product.title contains 'PANQUIRE' %}Panquire {% endunless %}{{ product.title | escape }}{% if product.title.size < 24 %} {% render 'pq-purchase-copy', key: 'title_suffix' %}{% endif %}</h1>
   {% if rating != blank and rating_count > 0 %}
     <div class="pq-purchase__reviews">
       <span class="pq-purchase__stars" role="img" aria-label="{% render 'pq-purchase-copy', key: 'rating', rating: rating %}" style="--rating-width: {{ rating_width }}%"><span aria-hidden="true">★★★★★</span><span class="pq-purchase__stars-fill" aria-hidden="true">★★★★★</span></span>
@@ -65,22 +51,21 @@
       <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
   </div>
-  {% unless can_purchase %}{{ purchase_stock }}{% endunless %}
+  <p class="pq-purchase__stock{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
+    <span aria-hidden="true"></span>
+    {%- if can_purchase or has_stock_without_delivery -%}
+      {{ 'content.inventory_in_stock' | t }}
+      {%- if has_stock_without_delivery %}. {% render 'pq-purchase-copy', key: 'delivery_unavailable' %}{% endif -%}
+    {%- else -%}
+      {{ unavailable_label }}
+    {%- endif -%}
+  </p>
   {% if can_purchase %}
     <product-form-component data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-url="{{ product.url }}" data-quantity-default="{{ minimum }}" data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}" on:submit="/handleSubmit">
       <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>
       {% form 'product', product, id: form_id, data-type: 'add-to-cart-form' %}
         <input type="hidden" name="id" ref="variantId" value="{{ variant.id }}">
         <div class="pq-purchase__buttons" ref="productFormButtons">
-          {% assign bike_filter_id = 'pq-bike-chroma-' | append: section.id | append: '-' | append: product.id %}
-          <svg class="pq-purchase__quantity-bike" width="92" height="54" viewBox="0 333 1145 672" aria-hidden="true" focusable="false">
-            <defs>
-              <filter id="{{ bike_filter_id }}" color-interpolation-filters="sRGB">
-                <feColorMatrix type="matrix" values="0 0 0 0 .67  0 0 0 0 .45  0 0 0 0 .16  4 0 -4 0 -.1" />
-              </filter>
-            </defs>
-            <image href="{{ 'pq-quantity-bike.png' | asset_url }}" width="1145" height="1374" filter="url(#{{ bike_filter_id }})" />
-          </svg>
           {% render 'quantity-selector', product: product, variant: variant, can_update_quantity: true, max: maximum %}
           {% assign add_text = 'products.product.add_to_cart' | t %}
           {% assign add_id = 'BuyButtons-ProductSubmitButton-' | append: section.id %}
