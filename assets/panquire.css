@@ -132,7 +132,8 @@
 .pq-model-menu-card[aria-current='page'] .pq-model-menu-image { background: color-mix(in srgb, var(--color-accent-solid) 80%, var(--surface)); }
 .pq-header-actions { display: flex; gap: 4px; margin-inline-start: auto; }
 .pq-icon-button { display: grid; place-items: center; width: 40px; min-height: 44px; position: relative; }
-.pq-cart-count { position: absolute; top: -2px; inset-inline-end: 0; min-width: 16px; text-align: center; border-radius: 50%; background: var(--color-accent-solid); color: var(--color-text-on-accent); font-size: 11px; }
+.pq-header .pq-icon-button[aria-controls="cart-drawer"] { overflow: visible; color: inherit; }
+.pq-cart-count { position: absolute; top: 2px; inset-inline-end: 0; min-width: 16px; text-align: center; border-radius: 50%; background: var(--color-accent-solid); color: var(--color-text-on-accent); font-size: 11px; }
 .pq-mobile-menu { display: none; }
 .pq-hero { position: relative; isolation: isolate; }
 .pq-hero-slide { min-height: var(--pq-hero-height, 680px); position: relative; display: grid; align-items: center; overflow: hidden; }
