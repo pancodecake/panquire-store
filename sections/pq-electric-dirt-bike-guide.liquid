@@ -1,0 +1,160 @@
+<section class="pq pq-section pq-electric-dirt-bike-guide" lang="en" aria-labelledby="ElectricDirtBikeGuide-{{ section.id }}">
+  <div class="pq-container">
+    <h2 class="pq-section-title" id="ElectricDirtBikeGuide-{{ section.id }}">
+      Electric Dirt Bikes &amp; Panquire
+    </h2>
+
+    <pq-electric-dirt-bike-guide class="pq-electric-dirt-bike-guide__cards">
+      <article class="pq-electric-dirt-bike-guide__card">
+        <h3>What is an electric dirt bike?</h3>
+        <p>An electric dirt bike is an off-road motorcycle powered by a battery and an electric motor. It’s built for riding on dirt trails, climbing hills, and handling uneven terrain.</p>
+      </article>
+
+      <article class="pq-electric-dirt-bike-guide__card">
+        <h3>What’s the difference between an electric dirt bike, an E-Bike, and an electric motorcycle?</h3>
+        <ul>
+          <li><strong>Electric dirt bikes</strong> are a type of electric motorcycle built for off-road riding. They typically have knobby tires, sturdy frames, and long-travel suspension to handle rough terrain.</li>
+          <li><strong>E-Bikes</strong> are bicycles with pedals and an electric motor. Common types include commuter eBikes and electric mountain bikes.</li>
+          <li><strong>Electric motorcycles</strong> are the broader category. It includes off-road dirt bikes and street models designed for paved roads.</li>
+        </ul>
+      </article>
+
+      <article class="pq-electric-dirt-bike-guide__card">
+        <h3>Are electric dirt bikes suitable for teenagers?</h3>
+        <p>Yes, some electric dirt bikes are suitable for teenagers. The right model depends on the rider’s size and experience. Look for a bike they can comfortably balance and maneuver, with manageable power, predictable throttle response, and brakes they can operate easily.</p>
+      </article>
+
+      <article class="pq-electric-dirt-bike-guide__card">
+        <h3>How to choose an electric dirt bike</h3>
+        <p>Start with where you ride and how long you plan to be out. For steep climbs and rough trails, look for enough motor power to climb at a pace you can control, suspension that can absorb bumps, and a durable frame. For longer rides, compare battery range under conditions similar to your own. Steep terrain and faster riding can reduce how far you get on a charge.</p>
+      </article>
+
+      <article class="pq-electric-dirt-bike-guide__card">
+        <h3>Panquire Electric Dirt Bikes over Alternatives</h3>
+        <p>Every brand’s electric motorcycles have their own strengths and weaknesses. There is no such thing as the perfect model. So what model should you choose if there is no such thing as the best? You go for the most balanced option. From price to performance, from battery to reliability, that electric vehicle should be the perfect middle ground that leaves you with no regrets. And that’s exactly what Panquire is aiming to achieve. Panquire is more than an alternative to Surron, Stark Future, and Qronge. We are the upgrade.</p>
+      </article>
+    </pq-electric-dirt-bike-guide>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pq-electric-dirt-bike-guide__cards {
+    --guide-columns: 1;
+    --guide-gap: 14px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--guide-gap);
+  }
+
+  .pq-electric-dirt-bike-guide__card {
+    padding: clamp(20px, 2.5vw, 26px);
+    border-radius: 14px;
+    background-color: var(--bronze-500, #ba8842);
+    color: #08090b;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+    text-wrap: pretty;
+  }
+
+  .pq-electric-dirt-bike-guide__card:nth-child(even) {
+    background-color: #08090b;
+    color: var(--pq-muted);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 9%), inset 0 0 18px rgb(255 255 255 / 5%);
+  }
+
+  .pq-electric-dirt-bike-guide .pq-electric-dirt-bike-guide__card h3 {
+    margin-block: 0 8px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .pq-electric-dirt-bike-guide__card ul {
+    margin: 0;
+    padding-inline-start: 1.2em;
+    list-style: disc;
+  }
+
+  .pq-electric-dirt-bike-guide__card li + li {
+    margin-block-start: 8px;
+  }
+
+  @media (min-width: 768px) {
+    .pq-electric-dirt-bike-guide__cards {
+      --guide-columns: 2;
+      display: block;
+      column-count: var(--guide-columns);
+      column-gap: var(--guide-gap);
+    }
+
+    .pq-electric-dirt-bike-guide__card {
+      break-inside: avoid;
+      margin-block-end: var(--guide-gap);
+    }
+
+    .pq-electric-dirt-bike-guide__cards[data-masonry] {
+      display: grid;
+      grid-template-columns: repeat(var(--guide-columns), minmax(0, 1fr));
+      align-items: start;
+    }
+
+    .pq-electric-dirt-bike-guide__cards[data-masonry] > article {
+      grid-row: 1;
+      grid-column: var(--guide-column, 1);
+      margin-block: var(--guide-offset, 0px) 0;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .pq-electric-dirt-bike-guide__cards {
+      --guide-columns: 3;
+    }
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class ElectricDirtBikeGuide extends HTMLElement {
+    connectedCallback() {
+      const cards = Array.from(this.children);
+      this.resizeObserver = new ResizeObserver(() => this.layout(cards));
+      cards.forEach(card => this.resizeObserver.observe(card));
+      this.layout(cards);
+    }
+
+    disconnectedCallback() {
+      this.resizeObserver.disconnect();
+    }
+
+    layout(cards) {
+      const style = getComputedStyle(this);
+      const columns = Number(style.getPropertyValue('--guide-columns'));
+      if (columns < 2) return;
+
+      this.dataset.masonry = '';
+      const gap = parseFloat(style.columnGap);
+      const laneOffsets = Array(columns).fill(0);
+      const cardHeights = cards.map(card => card.getBoundingClientRect().height);
+
+      cards.forEach((card, index) => {
+        const offset = Math.min(...laneOffsets);
+        const column = laneOffsets.indexOf(offset);
+        card.style.setProperty('--guide-column', column + 1);
+        card.style.setProperty('--guide-offset', `${offset}px`);
+        laneOffsets[column] += cardHeights[index] + gap;
+      });
+    }
+  }
+
+  customElements.define('pq-electric-dirt-bike-guide', ElectricDirtBikeGuide);
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Electric dirt bike guide",
+  "limit": 1,
+  "enabled_on": { "templates": ["index"] },
+  "presets": [{ "name": "Electric dirt bike guide" }]
+}
+{% endschema %}
