@@ -10,7 +10,7 @@
         <p>An electric dirt bike is an off-road motorcycle powered by a battery and an electric motor. It’s built for riding on dirt trails, climbing hills, and handling uneven terrain.</p>
       </article>
 
-      <article class="pq-electric-dirt-bike-guide__card">
+      <article class="pq-electric-dirt-bike-guide__card pq-electric-dirt-bike-guide__card--dark">
         <h3>What’s the difference between an electric dirt bike, an E-Bike, and an electric motorcycle?</h3>
         <ul>
           <li><strong>Electric dirt bikes</strong> are a type of electric motorcycle built for off-road riding. They typically have knobby tires, sturdy frames, and long-travel suspension to handle rough terrain.</li>
@@ -19,14 +19,14 @@
         </ul>
       </article>
 
-      <article class="pq-electric-dirt-bike-guide__card">
-        <h3>Are electric dirt bikes suitable for teenagers?</h3>
-        <p>Yes, some electric dirt bikes are suitable for teenagers. The right model depends on the rider’s size and experience. Look for a bike they can comfortably balance and maneuver, with manageable power, predictable throttle response, and brakes they can operate easily.</p>
+      <article class="pq-electric-dirt-bike-guide__card pq-electric-dirt-bike-guide__card--dark">
+        <h3>How to choose an electric dirt bike</h3>
+        <p>Start with where you ride and how long you plan to be out. For steep climbs and rough trails, look for enough motor power to climb at a pace you can control, suspension that can absorb bumps, and a durable frame. For longer rides, compare battery range under conditions similar to your own. Steep terrain and faster riding can reduce how far you get on a charge.</p>
       </article>
 
       <article class="pq-electric-dirt-bike-guide__card">
-        <h3>How to choose an electric dirt bike</h3>
-        <p>Start with where you ride and how long you plan to be out. For steep climbs and rough trails, look for enough motor power to climb at a pace you can control, suspension that can absorb bumps, and a durable frame. For longer rides, compare battery range under conditions similar to your own. Steep terrain and faster riding can reduce how far you get on a charge.</p>
+        <h3>Are electric dirt bikes suitable for teenagers?</h3>
+        <p>Yes, some electric dirt bikes are suitable for teenagers. The right model depends on the rider’s size and experience. Look for a bike they can comfortably balance and maneuver, with manageable power, predictable throttle response, and brakes they can operate easily.</p>
       </article>
 
       <article class="pq-electric-dirt-bike-guide__card">
@@ -52,12 +52,13 @@
     border-radius: 14px;
     background-color: #a97832;
     color: #fff;
+    box-shadow: 0 0 0 2px rgb(255 199 112 / 58%), 0 0 20px 5px rgb(186 136 66 / 48%);
     line-height: 1.45;
     overflow-wrap: anywhere;
     text-wrap: pretty;
   }
 
-  .pq-electric-dirt-bike-guide__card:nth-child(even) {
+  .pq-electric-dirt-bike-guide__card--dark {
     background-color: #151619;
     color: #9ca2ad;
     box-shadow: inset 0 0 0 1px rgb(255 255 255 / 9%), inset 0 0 18px rgb(255 255 255 / 5%);
@@ -72,7 +73,7 @@
     max-inline-size: 72ch;
   }
 
-  .pq-electric-dirt-bike-guide__card:nth-child(odd) p {
+  .pq-electric-dirt-bike-guide__card:not(.pq-electric-dirt-bike-guide__card--dark) p {
     text-shadow: 0 1px 2px rgb(0 0 0 / 60%);
   }
 
