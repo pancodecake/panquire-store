@@ -224,6 +224,10 @@
         "spacing": 90
       }
     },
+    "electricDirtBikeGuide": {
+      "type": "pq-electric-dirt-bike-guide",
+      "settings": {}
+    },
     "diagonal_promo": {
       "type": "panquire-diagonal-promo",
       "settings": {
@@ -320,6 +324,7 @@
     "feature",
     "motorcycle_details",
     "experts",
+    "electricDirtBikeGuide",
     "diagonal_promo"
   ]
 }
