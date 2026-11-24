@@ -67,8 +67,13 @@
     {% if request.page_type == 'index' %}
       {% style %}
         .pq-storefront h2,
-        .pq-storefront h2 :is(a, span, small, strong, em) {
+        .pq-storefront h2 :is(a, span, strong, em) {
           color: var(--color-heading-accent, #A97832) !important;
+        }
+
+        .pq-storefront h2 small,
+        .pq-storefront h2 small :is(a, span, strong, em) {
+          color: #fff !important;
         }
 
         #MainContent h3:not(.pq-hero *),
