@@ -83,6 +83,10 @@
       ],
       "settings": {}
     },
+    "black_friday": {
+      "type": "pq-black-friday",
+      "settings": {}
+    },
     "feature": {
       "type": "pq-feature",
       "blocks": {
@@ -321,6 +325,7 @@
   "order": [
     "hero",
     "benefits",
+    "black_friday",
     "feature",
     "motorcycle_details",
     "experts",

@@ -1,0 +1,143 @@
+{% style %}
+  @font-face {
+    font-family: 'Jost';
+    src: url('{{ 'jost-black-italic.otf' | asset_url }}') format('opentype');
+    font-style: italic;
+    font-weight: 900;
+    font-display: swap;
+  }
+{% endstyle %}
+
+<section class="pq-black-friday" aria-labelledby="BlackFriday-{{ section.id }}">
+  <img
+    class="pq-black-friday__treads"
+    src="{{ 'pq-black-friday-treads.webp' | asset_url }}"
+    width="1672"
+    height="941"
+    alt=""
+    loading="lazy"
+    decoding="async"
+  >
+  <div class="pq-black-friday__content">
+    <img
+      class="pq-black-friday__logo"
+      src="{{ 'pq-black-friday-logo.webp' | asset_url }}"
+      width="960"
+      height="720"
+      alt="Panquire — Electric Dirt Bikes &amp; Motorcycles"
+      loading="lazy"
+      decoding="async"
+    >
+    <h2 class="pq-black-friday__heading" id="BlackFriday-{{ section.id }}">
+      {{ section.settings.heading | escape }}
+    </h2>
+    <p class="pq-black-friday__offer">
+      <span>{{ section.settings.offer | escape }}</span>
+      <span>{{ section.settings.offer_scope | escape }}</span>
+    </p>
+  </div>
+</section>
+
+{% stylesheet %}
+  .pq-black-friday {
+    --pq-sale-gold: #bd8a43;
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    background: #131416;
+    text-align: center;
+  }
+
+  .pq-black-friday__treads {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pq-black-friday__content {
+    display: grid;
+    justify-items: center;
+    position: relative;
+    max-width: 120rem;
+    margin-inline: auto;
+    padding: clamp(1rem, 2.15cqw, 2.6rem) 5% clamp(1.5rem, 3.5cqw, 4.25rem);
+    background: radial-gradient(ellipse at center, rgb(10 11 12 / 38%), transparent 76%);
+  }
+
+  .pq-black-friday::after {
+    content: '';
+    position: absolute;
+    inset: clamp(0.375rem, 1%, 1.25rem);
+    border: clamp(0.125rem, 0.55vw, 0.6875rem) solid var(--pq-sale-gold);
+    pointer-events: none;
+  }
+
+  .pq-black-friday__logo {
+    display: block;
+    width: clamp(7.5rem, 24cqw, 28.8rem);
+    height: auto;
+  }
+
+  .pq-black-friday__heading {
+    display: grid;
+    justify-items: center;
+    gap: clamp(0.625rem, 1.65cqw, 2rem);
+    max-width: 100%;
+    margin: clamp(0.25rem, 0.85cqw, 1rem) 0 0;
+    color: var(--pq-sale-gold);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(1.5rem, 11.75cqw, 14.1rem);
+    font-style: normal;
+    font-weight: 700;
+    line-height: 0.9;
+    overflow-wrap: anywhere;
+    text-transform: uppercase;
+  }
+
+  @supports (-webkit-text-stroke: 1px black) {
+    .pq-black-friday__heading {
+      -webkit-text-stroke: clamp(1px, 0.44cqw, 8.5px) var(--pq-sale-gold);
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .pq-black-friday__heading::before,
+  .pq-black-friday__heading::after {
+    content: '';
+    inline-size: min(41cqw, 48rem);
+    block-size: clamp(1px, 0.22cqw, 4px);
+    background: var(--pq-sale-gold);
+  }
+
+  .pq-black-friday__offer {
+    display: grid;
+    gap: clamp(0.375rem, 1cqw, 1.2rem);
+    max-width: 100%;
+    margin: clamp(0.75rem, 2.1cqw, 2.5rem) 0 0;
+    color: #fff;
+    font-family: "Jost", var(--pq-heading-font);
+    font-size: clamp(1.125rem, 7.1cqw, 8.52rem);
+    font-style: italic;
+    font-weight: 900;
+    line-height: .96;
+    overflow-wrap: anywhere;
+    text-shadow: 0 2px 10px rgb(10 11 12 / 80%);
+    text-transform: uppercase;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Black Friday banner",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Black Friday" },
+    { "type": "text", "id": "offer", "label": "Offer", "default": "32% off" },
+    { "type": "text", "id": "offer_scope", "label": "Offer second line", "default": "On everything" }
+  ],
+  "presets": [{ "name": "Black Friday banner" }]
+}
+{% endschema %}
