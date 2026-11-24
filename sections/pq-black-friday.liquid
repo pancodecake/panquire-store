@@ -41,10 +41,13 @@
 {% stylesheet %}
   .pq-black-friday {
     --pq-sale-gold: #bd8a43;
+    --pq-sale-background: #030405;
+    display: grid;
+    align-items: center;
+    min-height: 680px;
     position: relative;
     isolation: isolate;
-    container-type: inline-size;
-    background: #131416;
+    background: var(--pq-sale-background);
     text-align: center;
   }
 
@@ -60,11 +63,10 @@
   .pq-black-friday__content {
     display: grid;
     justify-items: center;
-    position: relative;
-    max-width: 120rem;
+    container-type: inline-size;
+    width: min(100%, 77.5rem);
     margin-inline: auto;
-    padding: clamp(1rem, 2.15cqw, 2.6rem) 5% clamp(1.5rem, 3.5cqw, 4.25rem);
-    background: radial-gradient(ellipse at center, rgb(10 11 12 / 38%), transparent 76%);
+    padding-block: 1.5rem;
   }
 
   .pq-black-friday::after {
@@ -85,7 +87,7 @@
     display: grid;
     justify-items: center;
     gap: clamp(0.625rem, 1.65cqw, 2rem);
-    max-width: 100%;
+    max-width: 90%;
     margin: clamp(0.25rem, 0.85cqw, 1rem) 0 0;
     color: var(--pq-sale-gold);
     font-family: Arial, Helvetica, sans-serif;
@@ -100,7 +102,7 @@
   @supports (-webkit-text-stroke: 1px black) {
     .pq-black-friday .pq-black-friday__heading {
       -webkit-text-stroke: clamp(1px, 0.44cqw, 8.5px) var(--pq-sale-gold);
-      -webkit-text-fill-color: #161719;
+      -webkit-text-fill-color: var(--pq-sale-background);
     }
   }
 
@@ -115,7 +117,7 @@
   .pq-black-friday__offer {
     display: grid;
     gap: clamp(0.375rem, 1cqw, 1.2rem);
-    max-width: 100%;
+    max-width: 90%;
     margin: clamp(0.75rem, 2.1cqw, 2.5rem) 0 0;
     color: #fff;
     font-family: "Jost", var(--pq-heading-font);
@@ -126,6 +128,12 @@
     overflow-wrap: anywhere;
     text-shadow: 0 2px 10px rgb(10 11 12 / 80%);
     text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .pq-black-friday {
+      min-height: 460px;
+    }
   }
 {% endstylesheet %}
 
