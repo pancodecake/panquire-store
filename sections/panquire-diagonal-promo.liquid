@@ -3,8 +3,8 @@
   {% if artwork != blank %}
     <div style="--promo-height: {{ section.settings.desktop_height }}px;">
       <picture>
-        <source media="(max-width: 989px)" srcset="{{ 'panquire-banner-small.webp' | asset_url }}">
-      {{ artwork | image_url: width: 2880 | image_tag: class: 'pq-diagonal-promo__artwork', widths: '640, 960, 1280, 1600, 1920, 2400, 2880', sizes: '100vw', loading: 'lazy', alt: 'Panquire electric dirt bikes on a rocky trail. Your ride to freedom can start right now.' }}
+        <source media="(max-width: 990px)" srcset="{{ 'panquire-banner-small.webp' | asset_url }}">
+      {{ artwork | image_url: width: 2880 | image_tag: class: 'pq-diagonal-promo__artwork', widths: '640, 960, 1280, 1600, 1920, 2400, 2880', sizes: '100vw', loading: 'lazy', alt: 'Panquire electric dirt bikes on a rocky trail.' }}
       </picture>
     </div>
   {% endif %}
