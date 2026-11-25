@@ -69,7 +69,7 @@
       <span class="pq-purchase__discount">{% render 'pq-purchase-copy', key: 'discount', percent: discount %}</span>
     {% endif %}
   </div>
-  {% render 'pq-stock-counter', can_purchase: can_purchase, has_stock_without_delivery: has_stock_without_delivery, unavailable_label: unavailable_label, demo_mode: request.design_mode %}
+  {% render 'pq-stock-counter', can_purchase: can_purchase, has_stock_without_delivery: has_stock_without_delivery, unavailable_label: unavailable_label, theme_editor: request.design_mode %}
   {% if can_purchase %}
     <product-form-component data-section-id="{{ section.id }}" data-product-id="{{ product.id }}" data-product-url="{{ product.url }}" data-quantity-default="{{ minimum }}" data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}" on:submit="/handleSubmit">
       <div class="visually-hidden" aria-live="assertive" role="status" aria-atomic="true" ref="liveRegion"></div>

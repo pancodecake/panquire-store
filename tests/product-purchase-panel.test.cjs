@@ -44,8 +44,11 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   for (const handle of ['t-01', 't-02', 't-03']) {
     const html = await render({}, handle);
     assert.match(html, /ref="variantId"\s+value="123"/);
-    assert.match(html, /In stock/);
-    assert.doesNotMatch(html, /<pq-stock-counter|Simulated stock|pq-stock-counter__notice/);
+    assert.match(html, /<pq-stock-counter[^>]*data-demo-minimum="10"/);
+    assert.match(html, /Simulated stock and purchases<\/p>\s*<div class="pq-stock-counter__notice-slot">/);
+    assert.match(html, /pq-stock-counter__number">30<\/p>/);
+    assert.match(html, /Units Remaining in Stock/);
+    assert.doesNotMatch(html, /pq-purchase__stock--status/);
     assert.match(html, /data-pq-cart-pending role="status" hidden>Adding/);
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
@@ -54,7 +57,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
     assert.doesNotMatch(html, /type="checkbox"|available for pre[- ]?order|stock is expected to reach|two-year/i);
     assert.match(html, /aria-label="american_express"/);
     assert.doesNotMatch(html, /pq-purchase__review-count/);
-    assert.doesNotMatch(html, /BLACK FRIDAY|pq-purchase__campaign|<a\b[^>]*>17 reviews/i);
+    assert.doesNotMatch(html, /pq-purchase__campaign|<a\b[^>]*>17 reviews/i);
   }
   for (const overrides of [
     { available: false, inventory_quantity: 0 },
@@ -64,25 +67,24 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   ]) {
     const html = await render(overrides);
     assert.match(html, /Unavailable/);
-    assert.doesNotMatch(html, /<product-form-component|payment-button__button/);
+    assert.doesNotMatch(html, /<product-form-component|payment-button__button|<pq-stock-counter/);
   }
   const noDelivery = await render({ available: false });
   assert.match(noDelivery, /In stock\. Delivery is unavailable in your country/);
-  assert.doesNotMatch(noDelivery, /Sold out|<product-form-component/);
+  assert.doesNotMatch(noDelivery, /Sold out|<product-form-component|<pq-stock-counter/);
   const untracked = await render({ inventory_management: null, inventory_quantity: 0 });
   assert.match(untracked, /<product-form-component/);
-  assert.match(untracked, /In stock/);
-  assert.doesNotMatch(untracked, /<pq-stock-counter/);
-  const preview = await render({ inventory_quantity: 6 }, 't-01', {}, { design_mode: true });
+  assert.match(untracked, /pq-stock-counter__number">30<\/p>/);
+  const preview = await render({ available: false, inventory_quantity: 0 }, 't-01', {}, { design_mode: true });
   assert.match(preview, /data-demo-minimum="10"/);
-  assert.match(preview, /Simulated stock and purchases · theme preview/);
+  assert.match(preview, /Simulated stock and purchases/);
   assert.match(preview, /pq-stock-counter__number">30<\/p>/);
   assert.match(preview, /pq-stock-counter__fill/);
   assert.match(preview, /Black Friday · Limited Stock/);
   assert.match(preview, /Units Remaining in Stock/);
   const outsideEditor = await render({ inventory_quantity: 6 }, 't-01', {}, { design_mode: false, visual_preview_mode: true });
-  assert.match(outsideEditor, /In stock/);
-  assert.doesNotMatch(outsideEditor, /<pq-stock-counter|Simulated stock|pq-stock-counter__notice/);
+  assert.match(outsideEditor, /pq-stock-counter__number">30<\/p>/);
+  assert.match(outsideEditor, /max="6"/);
   const normal = await render();
   const multipleVariants = await render({}, 't-01', { has_only_default_variant: false });
   assert.doesNotMatch(multipleVariants, /pq-purchase__variants|PurchaseVariant-|<select\b/);
@@ -104,7 +106,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   });
   assert.match(fallback, /17 reviews/);
   assert.match(fallback, /30% OFF/);
-  assert.doesNotMatch(fallback, /BLACK FRIDAY|BF /i);
+  assert.doesNotMatch(fallback, /BF /i);
   assert.match(fallback, /NFC Smart Key Fobs/);
   assert.match(fallback, /one year warranty protection/);
   assert.doesNotMatch(fallback, /translation missing|panquire\.purchase\./i);

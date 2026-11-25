@@ -1,17 +1,18 @@
 {% doc %}
-  Renders the simulated stock counter in the theme editor and availability text on the storefront.
+  Renders the labeled campaign simulation for purchasable products.
   @param {boolean} can_purchase - Whether the purchase panel permits purchase.
   @param {boolean} has_stock_without_delivery - Whether stock exists but cannot be shipped.
   @param {string} unavailable_label - Translated unavailability notice.
-  @param {boolean} [demo_mode] - Enabled only by Shopify's server-side theme editor flag.
+  @param {boolean} [theme_editor] - Shows the simulation in the editor regardless of availability.
 {% enddoc %}
 
-{%- if demo_mode -%}
+{%- if can_purchase or theme_editor -%}
   {%- assign initial_stock = 30 -%}
   {%- assign minimum_demo_stock = 10 -%}
   <pq-stock-counter class="pq-purchase__stock pq-stock-counter" data-demo-minimum="{{ minimum_demo_stock }}">
     <div class="pq-stock-counter__panel">
       <p class="pq-stock-counter__heading">Black Friday · Limited Stock</p>
+      <p class="pq-stock-counter__mode">Simulated stock and purchases</p>
       <div class="pq-stock-counter__notice-slot">
         <span class="pq-stock-counter__notice"></span>
       </div>
@@ -21,14 +22,12 @@
       </div>
       <p class="pq-stock-counter__label">Units Remaining in Stock</p>
     </div>
-    <p class="pq-stock-counter__mode">Simulated stock and purchases · theme preview</p>
   </pq-stock-counter>
 {%- else -%}
-  <p class="pq-purchase__stock pq-purchase__stock--status{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">
+  <p class="pq-purchase__stock pq-purchase__stock--status pq-purchase__stock--unavailable">
     <span aria-hidden="true"></span>
-    {%- if can_purchase or has_stock_without_delivery -%}
-      {{ 'content.inventory_in_stock' | t }}
-      {%- if has_stock_without_delivery %}. {% render 'pq-purchase-copy', key: 'delivery_unavailable' %}{% endif -%}
+    {%- if has_stock_without_delivery -%}
+      {{ 'content.inventory_in_stock' | t }}. {% render 'pq-purchase-copy', key: 'delivery_unavailable' %}
     {%- else -%}
       {{ unavailable_label }}
     {%- endif -%}

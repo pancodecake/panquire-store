@@ -69,7 +69,8 @@
   background: var(--pq-stock-background);
 }
 .pq-purchase .pq-stock-counter__mode {
-  margin: 6px 0 1px;
+  margin: 3px 0 0;
+  color: var(--color-text-secondary);
   font-size: 11px;
   line-height: 1.35;
 }
