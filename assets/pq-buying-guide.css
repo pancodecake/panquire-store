@@ -1,6 +1,6 @@
 .pq-buying-guide { padding-block: clamp(36px, 6vw, 76px); }
 .pq-buying-guide__heading { max-width: 22ch; font-size: clamp(26px, 3vw, 40px); margin-bottom: 20px !important; }
-.pq-buying-guide p { max-width: 72ch; color: var(--pq-muted); line-height: 1.75; }
+.pq-buying-guide p { color: var(--pq-muted); line-height: 1.75; }
 .pq-buying-guide p + p { margin-top: 16px; }
 .pq-buying-guide a:not(.pq-button), .pq-breadcrumbs a { text-decoration: underline; text-underline-offset: 4px; }
 .pq-buying-guide a:hover { color: var(--pq-text); }
