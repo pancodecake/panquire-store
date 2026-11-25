@@ -531,10 +531,10 @@
 @media(max-width:600px) { .pq-header .pq-wordmark { gap:7px; } .pq-brand-emblem { width:60px; height:60px; } }
 
 .pq-black-friday-sale-price {
-  display: inline-grid;
-  justify-items: center;
-  gap: .32em;
-  padding: 0 .8em 1em;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .16em .22em;
   line-height: 1.15;
   vertical-align: middle;
   white-space: nowrap;
@@ -543,28 +543,30 @@
   position: relative;
   color: white;
   font-size: .72em;
-  font-weight: 700;
+  font-weight: 400;
 }
 .pq-sale-future::after {
   content: "";
   position: absolute;
-  inset-inline: -.28em;
+  inset-inline: 0;
   inset-block-start: 50%;
   block-size: max(2px, .09em);
-  background: #A97832;
-  transform: translateY(-50%) rotate(7deg);
+  background: #f4a000;
+  transform: translateY(-50%) rotate(-11deg);
   pointer-events: none;
 }
-.pq-sale-current { position: relative; isolation: isolate; color: #080808; padding: .25em .75em; font-weight: 800; }
-.pq-sale-current::before { content: ""; position: absolute; inset: 0 .15em; z-index: -1; transform: skewX(-22deg); background: #A97832; }
-
-.pq-sale-badge {
-  position: absolute;
-  inset-block-end: 0;
-  left: 0;
-  inline-size: 1.8em;
-  max-inline-size: none;
-  block-size: 1.8em;
-  transform: translate(-50%, 50%);
-  pointer-events: none;
+.pq-sale-current {
+  display: inline-flex;
+  align-items: center;
+  gap: .15em;
+  color: #f4a000;
+  font-weight: 800;
+}
+.pq-sale-current::before {
+  content: "";
+  flex: none;
+  inline-size: 1.35em;
+  block-size: 1em;
+  background: #e9a23c;
+  clip-path: polygon(evenodd, 0 0, 52% 0, 100% 50%, 52% 100%, 0 100%, 48% 50%, 0 0, 12% 6%, 55% 50%, 12% 94%, 50% 94%, 93% 50%, 50% 6%, 12% 6%);
 }

@@ -17,13 +17,6 @@
       <span class="pq-sale-current">
         <span class="visually-hidden">Black Friday sale price </span>
         {% render 'pq-money-value', amount: sale_total, euro_amount: sale_eur, with_currency: with_currency %}
-        <img
-          class="pq-sale-badge"
-          src="{{ '32-percent-badge-longer-minus.svg' | asset_url }}"
-          width="220"
-          height="220"
-          alt="32% off"
-        >
       </span>
     </span>
   {%- else -%}
