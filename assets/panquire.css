@@ -534,7 +534,7 @@
   display: inline-flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: .16em .22em;
+  gap: .16em .6em;
   font-size: min(1em, 6vw);
   line-height: 1.15;
   vertical-align: middle;
@@ -542,7 +542,7 @@
 .pq-sale-future {
   position: relative;
   color: white;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 400;
 }
 .pq-sale-future::after {
@@ -561,6 +561,6 @@
   gap: .15em;
   margin-block-end: .2em;
   color: #f4a000;
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 800;
 }
