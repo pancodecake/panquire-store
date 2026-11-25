@@ -533,16 +533,16 @@
 .pq-black-friday-sale-price {
   display: inline-flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   gap: .16em .22em;
+  font-size: min(1em, 6vw);
   line-height: 1.15;
   vertical-align: middle;
-  white-space: nowrap;
 }
 .pq-sale-future {
   position: relative;
   color: white;
-  font-size: .72em;
+  font-size: 2em;
   font-weight: 400;
 }
 .pq-sale-future::after {
@@ -557,16 +557,10 @@
 }
 .pq-sale-current {
   display: inline-flex;
-  align-items: center;
+  align-items: baseline;
   gap: .15em;
+  margin-block-end: .2em;
   color: #f4a000;
+  font-size: 2em;
   font-weight: 800;
-}
-.pq-sale-current::before {
-  content: "";
-  flex: none;
-  inline-size: 1.35em;
-  block-size: 1em;
-  background: #e9a23c;
-  clip-path: polygon(evenodd, 0 0, 52% 0, 100% 50%, 52% 100%, 0 100%, 48% 50%, 0 0, 12% 6%, 55% 50%, 12% 94%, 50% 94%, 93% 50%, 50% 6%, 12% 6%);
 }
