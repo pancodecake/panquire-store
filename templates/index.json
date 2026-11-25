@@ -254,7 +254,7 @@
     "motorcycle_details": {
       "type": "pq-product-features",
       "settings": {
-        "heading": "Bike details",
+        "heading": "Inside the Panquire T-01 and T-02 electric dirt bikes",
         "spacing": 70
       },
       "blocks": {
@@ -264,8 +264,8 @@
             "image": "shopify://shop_images/panquire-t02-closeup-_Battery_Frame_Closeup.png",
             "image_alt": "Battery inside the frame of a Panquire T-02 electric motorcycle.",
             "label": "Battery",
-            "heading": "The T-02 battery",
-            "text": "The Panquire T-02 carries a 72V 41Ah battery inside an aluminum frame. That is 2,952 watt-hours of capacity, with a stated range of up to 90 km in Eco mode. A full charge takes approximately four hours, so the bike can be ready again between rides. Range varies with terrain, speed, rider weight and conditions.",
+            "heading": "How far can the T-02 go in Eco mode?",
+            "text": "A trail loop with a long climb asks more of the battery than the same distance on level ground. Inside the T-02's aluminum frame, the 72 V, 41 Ah battery stores 2,952 watt-hours of energy. Panquire lists up to 90 km in Eco mode. When you plan the return leg, allow for terrain, speed, rider weight and conditions. Back at home, a full charge takes about four hours.",
             "detail": "72 V / 41 Ah"
           }
         },
@@ -275,8 +275,8 @@
             "image": "shopify://shop_images/panquire-t02-closeup-_Rear_Shock_Suspension_Closeup.png",
             "image_alt": "Rear coil shock and suspension on a Panquire T-02 electric motorcycle.",
             "label": "Rear suspension",
-            "heading": "A rear shock you can set for the ride.",
-            "text": "The adjustable rear shock helps the wheel respond to bumps and changing ground. Set the suspension for your weight and riding conditions, whether you are taking on a rough trail or finding your way through a technical section. It is there to keep the ride controlled when the surface is not.",
+            "heading": "How the T-02 rear shock follows the trail",
+            "text": "When the rear tire rolls over a root, the coil spring compresses as the wheel rises. The shock controls how quickly the suspension moves, so the wheel can settle again before the next bump. On the Panquire T-02, you can adjust the rear suspension to suit your weight and the ground you ride.",
             "detail": "Adjustable rear shock"
           }
         },
@@ -286,8 +286,8 @@
             "image": "shopify://shop_images/panquire-t02-closeup-Panquire_Handlebar_Controls_Closeup.png",
             "image_alt": "Panquire T-02 electric motorcycle handlebar controls and brake lever.",
             "label": "Controls",
-            "heading": "Three power levels at the handlebar",
-            "text": "Select low, medium or high electronic power from the handlebar controls. Both T-01 and T-02 use three selectable power levels with no clutch. Choose the setting for your riding conditions and experience.",
+            "heading": "Choosing a power level on the T-01 and T-02",
+            "text": "At the entrance to a tight section of trail, you can choose low power from the handlebar. Both electric dirt bikes have three electronic power levels (low, medium and high). The switch changes how much motor power you can call on with the throttle. Pick the level that suits the terrain and your experience. There’s no clutch lever to work.",
             "detail": "3 electronic power levels | Handlebar controls | No clutch"
           }
         },
@@ -297,8 +297,8 @@
             "image": "shopify://shop_images/panquire-t01-closeup-Motor.png",
             "image_alt": "Motor cover and chain drive on a Panquire T-01 electric motorcycle.",
             "label": "Motor",
-            "heading": "9.5 kW peak, in a lighter package.",
-            "text": "The Panquire T-01 pairs a 9.5 kW peak motor with a stated net weight of 55 kg. It delivers electric power in a bike designed to be manageable on the trail. A chain drive carries power to the rear wheel.",
+            "heading": "How the T-01 sends power to the rear wheel",
+            "text": "As you roll on the throttle out of a bend, the T-01's electric motor turns a sprocket. The chain carries that rotation to the rear wheel. Panquire rates the motor at 9.5 kW peak, its highest output for a short burst. When you step off to turn the bike around on a narrow trail, you’re handling a bike with a stated net weight of 55 kg.",
             "detail": "9.5 kW peak power"
           }
         },
@@ -308,8 +308,8 @@
             "image": "shopify://shop_images/Electric_Scooter_Dashboard_Cockpit.png",
             "image_alt": "Panquire T-01 electric motorcycle digital dashboard showing speed, battery level and trip distance.",
             "label": "Dashboard",
-            "heading": "What the dashboard shows",
-            "text": "The digital dashboard puts speed, battery level, selected mode and trip distance in front of you. The large central speed readout is easy to find, while the rest of the information stays close by when you need to check it."
+            "heading": "Reading the T-01 dashboard at the turnaround",
+            "text": "Stop where the trail forks and the trip distance tells you how far you've come. Read it alongside the battery level to help decide when to head back. Speed takes the largest spot in the middle of the T-01 digital dashboard. The selected riding mode is on the same display, so you can check it before pulling away."
           }
         }
       },
