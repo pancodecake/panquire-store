@@ -76,7 +76,7 @@ if (!customElements.get('pq-stock-counter')) {
     decrementMax: 3,
     delayMin: 5000,
     delayMax: 10000,
-    names: ['James M.', 'Oliver K.', 'Daniel R.', 'Maya L.', 'Eva T.', 'Noah S.'],
+    names: ['David M.', 'James M.', 'Oliver K.', 'Daniel R.', 'Maya L.', 'Eva T.', 'Noah S.'],
   };
   const randomInteger = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
 
@@ -85,7 +85,6 @@ if (!customElements.get('pq-stock-counter')) {
       if (!this.hasAttribute('data-demo-minimum')) return;
       this.minimum = Number(this.dataset.demoMinimum);
       this.number = this.querySelector('.pq-stock-counter__number');
-      this.previous = this.querySelector('.pq-stock-counter__previous');
       this.fill = this.querySelector('.pq-stock-counter__fill');
       this.notice = this.querySelector('.pq-stock-counter__notice');
       this.stock = Number(this.number.textContent);
@@ -114,7 +113,6 @@ if (!customElements.get('pq-stock-counter')) {
 
     decrement() {
       const amount = Math.min(randomInteger(demo.decrementMin, demo.decrementMax), this.stock - this.minimum);
-      this.previous.textContent = this.stock;
       this.stock -= amount;
       this.number.textContent = this.stock;
       this.fill.style.setProperty('--pq-stock-ratio', this.stock / this.initialStock);
@@ -122,7 +120,8 @@ if (!customElements.get('pq-stock-counter')) {
       // Skip the previous name without drawing again.
       const nameIndex = randomInteger(0, demo.names.length - (this.lastNameIndex == null ? 1 : 2));
       this.lastNameIndex = nameIndex >= this.lastNameIndex ? nameIndex + 1 : nameIndex;
-      this.notice.textContent = `${demo.names[this.lastNameIndex]} just purchased ${amount} ${amount === 1 ? 'unit' : 'units'}`;
+      const bikes = amount === 1 ? 'an e-dirt bike' : `${amount} e-dirt bikes`;
+      this.notice.textContent = `${demo.names[this.lastNameIndex]} just purchased ${bikes}`;
       this.setAttribute('data-updating', '');
     }
 

@@ -44,8 +44,8 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   for (const handle of ['t-01', 't-02', 't-03']) {
     const html = await render({}, handle);
     assert.match(html, /ref="variantId"\s+value="123"/);
-    assert.match(html, /pq-stock-counter__number">10<\/span>/);
-    assert.doesNotMatch(html, /data-demo-minimum|Simulated stock|pq-stock-counter__notice|--pq-stock-ratio/);
+    assert.match(html, /In stock/);
+    assert.doesNotMatch(html, /<pq-stock-counter|Simulated stock|pq-stock-counter__notice/);
     assert.match(html, /data-pq-cart-pending role="status" hidden>Adding/);
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
@@ -73,20 +73,16 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   assert.match(untracked, /<product-form-component/);
   assert.match(untracked, /In stock/);
   assert.doesNotMatch(untracked, /<pq-stock-counter/);
-  const preview = await render({}, 't-01', {}, { design_mode: true });
+  const preview = await render({ inventory_quantity: 6 }, 't-01', {}, { design_mode: true });
   assert.match(preview, /data-demo-minimum="10"/);
-  assert.match(preview, /Simulated stock · theme preview/);
-  assert.match(preview, /pq-stock-counter__number">30<\/span>/);
-  assert.match(preview, /--pq-stock-ratio: 1"/);
-  const production = await render({
-    inventory_quantity: 6,
-    metafields: { custom: { stock_counter_capacity: { value: 24 } } },
-  }, 't-01', {}, { design_mode: false, visual_preview_mode: true });
-  assert.match(production, /pq-stock-counter__number">6<\/span>/);
-  assert.match(production, /--pq-stock-ratio: 0\.25"/);
-  assert.doesNotMatch(production, /data-demo-minimum|Simulated stock|pq-stock-counter__notice/);
-  const exceededCapacity = await render({ metafields: { custom: { stock_counter_capacity: { value: 8 } } } });
-  assert.doesNotMatch(exceededCapacity, /--pq-stock-ratio/);
+  assert.match(preview, /Simulated stock and purchases · theme preview/);
+  assert.match(preview, /pq-stock-counter__number">30<\/p>/);
+  assert.match(preview, /pq-stock-counter__fill/);
+  assert.match(preview, /Black Friday · Limited Stock/);
+  assert.match(preview, /Units Remaining in Stock/);
+  const outsideEditor = await render({ inventory_quantity: 6 }, 't-01', {}, { design_mode: false, visual_preview_mode: true });
+  assert.match(outsideEditor, /In stock/);
+  assert.doesNotMatch(outsideEditor, /<pq-stock-counter|Simulated stock|pq-stock-counter__notice/);
   const normal = await render();
   const multipleVariants = await render({}, 't-01', { has_only_default_variant: false });
   assert.doesNotMatch(multipleVariants, /pq-purchase__variants|PurchaseVariant-|<select\b/);

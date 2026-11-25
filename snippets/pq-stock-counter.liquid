@@ -1,42 +1,27 @@
 {% doc %}
-  Renders a tracked stock count or the existing availability status.
-  @param {variant} variant - Current variant.
+  Renders the simulated stock counter in the theme editor and availability text on the storefront.
   @param {boolean} can_purchase - Whether the purchase panel permits purchase.
   @param {boolean} has_stock_without_delivery - Whether stock exists but cannot be shipped.
   @param {string} unavailable_label - Translated unavailability notice.
   @param {boolean} [demo_mode] - Enabled only by Shopify's server-side theme editor flag.
 {% enddoc %}
 
-{%- liquid
-  assign stock = variant.inventory_quantity
-  assign capacity = variant.metafields.custom.stock_counter_capacity.value | default: 0 | plus: 0
-  if demo_mode
-    assign stock = 30
-    assign capacity = stock
-    assign minimum_demo_stock = 10
-  endif
--%}
-
-{%- if demo_mode or can_purchase and variant.inventory_management != blank -%}
-  <pq-stock-counter class="pq-purchase__stock pq-stock-counter"{% if demo_mode %} data-demo-minimum="{{ minimum_demo_stock }}"{% endif %}>
-    {%- if demo_mode -%}
-      <p class="pq-stock-counter__mode">Simulated stock · theme preview</p>
+{%- if demo_mode -%}
+  {%- assign initial_stock = 30 -%}
+  {%- assign minimum_demo_stock = 10 -%}
+  <pq-stock-counter class="pq-purchase__stock pq-stock-counter" data-demo-minimum="{{ minimum_demo_stock }}">
+    <div class="pq-stock-counter__panel">
+      <p class="pq-stock-counter__heading">Black Friday · Limited Stock</p>
       <div class="pq-stock-counter__notice-slot">
         <span class="pq-stock-counter__notice"></span>
       </div>
-    {%- endif -%}
-    <p class="pq-stock-counter__count">
-      {%- if demo_mode -%}
-        <span class="pq-stock-counter__previous" aria-hidden="true"></span>
-      {%- endif -%}
-      <span class="pq-stock-counter__number">{{ stock }}</span>
-    </p>
-    {%- if capacity > 0 and capacity >= stock -%}
+      <p class="pq-stock-counter__number">{{ initial_stock }}</p>
       <div class="pq-stock-counter__track" aria-hidden="true">
-        <div class="pq-stock-counter__fill" style="--pq-stock-ratio: {{ stock | times: 1.0 | divided_by: capacity }}"></div>
+        <div class="pq-stock-counter__fill"></div>
       </div>
-    {%- endif -%}
-    <p class="pq-stock-counter__label">Units remaining</p>
+      <p class="pq-stock-counter__label">Units Remaining in Stock</p>
+    </div>
+    <p class="pq-stock-counter__mode">Simulated stock and purchases · theme preview</p>
   </pq-stock-counter>
 {%- else -%}
   <p class="pq-purchase__stock pq-purchase__stock--status{% unless can_purchase %} pq-purchase__stock--unavailable{% endunless %}">

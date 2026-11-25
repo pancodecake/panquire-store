@@ -47,82 +47,75 @@
 .pq-purchase .pq-purchase__stock--unavailable { color: var(--color-text-secondary); }
 .pq-purchase__stock--unavailable > span { background: var(--color-text-secondary); }
 .pq-stock-counter {
-  --pq-stock-background: #08090b;
-  --pq-stock-accent: #ba8842;
+  --pq-stock-frame: #34363b;
+  --pq-stock-background: #0b0b0d;
+  --pq-stock-accent: #c89447;
   --pq-stock-track: #35312b;
   --pq-stock-notice: #e4c28e;
   --pq-stock-fill-duration: 1200ms;
   --pq-stock-notice-duration: 2800ms;
-  --pq-stock-notice-rise: 30px;
-  display: grid;
-  justify-items: center;
-  gap: 6px;
+  display: block;
   margin-bottom: 14px;
-  padding: 10px 12px 12px;
-  border-radius: 8px;
-  background: var(--pq-stock-background);
-  color: var(--color-text-secondary);
+  padding: 8px;
+  background: var(--pq-stock-frame);
+  color: var(--color-text-primary);
   text-align: center;
 }
-.pq-stock-counter__mode, .pq-stock-counter__label {
-  font-size: 11px;
-  line-height: 1.4;
+.pq-stock-counter__panel {
+  display: grid;
+  justify-items: center;
+  padding: clamp(18px, 4vw, 24px) clamp(16px, 7.5%, 55px);
+  border-block: 1px solid var(--pq-stock-frame);
+  background: var(--pq-stock-background);
 }
-.pq-stock-counter__label {
+.pq-purchase .pq-stock-counter__mode {
+  margin: 6px 0 1px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+.pq-stock-counter__heading, .pq-stock-counter__label {
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: .075em;
+  letter-spacing: .18em;
+  line-height: 1.4;
   text-transform: uppercase;
 }
-.pq-stock-counter__count {
-  display: grid;
+.pq-purchase .pq-stock-counter__number {
+  margin: 9px 0 20px;
   color: var(--pq-stock-accent);
-  font-size: clamp(30px, 4vw, 40px);
-  font-weight: 700;
+  font-size: clamp(48px, 9vw, 66px);
+  font-weight: 800;
   font-variant-numeric: tabular-nums;
   line-height: 1;
 }
-.pq-stock-counter__count > span { grid-area: 1 / 1; }
-.pq-stock-counter__previous { opacity: 0; }
 .pq-stock-counter__track {
-  width: min(100%, 224px);
-  height: 4px;
+  width: 100%;
+  height: 5px;
+  margin-bottom: 13px;
   overflow: hidden;
   border-radius: 999px;
   background: var(--pq-stock-track);
 }
 .pq-stock-counter__fill {
   height: 100%;
-  border-radius: inherit;
-  background: var(--pq-stock-accent);
-  transform: scaleX(var(--pq-stock-ratio));
+  background: linear-gradient(90deg, #956b30, #e8ac55);
+  transform: scaleX(var(--pq-stock-ratio, 1));
   transform-origin: left center;
   transition: transform var(--pq-stock-fill-duration) ease-out;
 }
 .pq-stock-counter__notice-slot {
-  position: relative;
-  width: 100%;
-  height: calc(var(--pq-stock-notice-rise) + 2lh);
+  display: grid;
+  place-items: center;
+  min-height: 2lh;
   color: var(--pq-stock-notice);
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 13px;
+  line-height: 1.3;
 }
-.pq-stock-counter__notice { position: absolute; inset: auto 0 0; opacity: 0; text-wrap: pretty; }
+.pq-stock-counter__notice { opacity: 0; text-wrap: pretty; }
 .pq-stock-counter[data-updating] .pq-stock-counter__notice { animation: pq-stock-notice var(--pq-stock-notice-duration) ease-out; }
-.pq-stock-counter[data-updating] .pq-stock-counter__number { animation: pq-stock-number-in 320ms ease-out; }
-.pq-stock-counter[data-updating] .pq-stock-counter__previous { animation: pq-stock-number-out 320ms ease-out; }
 @keyframes pq-stock-notice {
-  0% { opacity: 0; transform: translateY(0); }
-  12% { opacity: 1; transform: translateY(calc(var(--pq-stock-notice-rise) * -4 / 30)); }
-  35% { opacity: .9; transform: translateY(calc(var(--pq-stock-notice-rise) * -10 / 30)); }
-  100% { opacity: 0; transform: translateY(calc(-1 * var(--pq-stock-notice-rise))); }
-}
-@keyframes pq-stock-number-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes pq-stock-number-out {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-6px); }
+  0%, 18% { opacity: 1; }
+  100% { opacity: 0; }
 }
 @keyframes pq-stock-notice-still {
   0%, 99% { opacity: 1; }
@@ -130,8 +123,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .pq-stock-counter__fill { transition: none; }
-  .pq-stock-counter[data-updating] .pq-stock-counter__number,
-  .pq-stock-counter[data-updating] .pq-stock-counter__previous { animation: none; }
   .pq-stock-counter[data-updating] .pq-stock-counter__notice { animation-name: pq-stock-notice-still; }
 }
 .pq-purchase product-form-component, .pq-purchase add-to-cart-component { display: block; min-width: 0; }
