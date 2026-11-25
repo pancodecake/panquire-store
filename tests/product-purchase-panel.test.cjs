@@ -35,16 +35,17 @@ engine.registerFilter('money_with_currency', value => '$' + (value / 100).toFixe
 engine.registerFilter('payment_button', () => '<button class="shopify-payment-button__button--unbranded">Buy now</button>');
 engine.registerFilter('payment_type_svg_tag', value => `<svg aria-label="${value}"></svg>`);
 const source = prepare(fs.readFileSync(path.join(root, 'snippets/pq-product-purchase.liquid'), 'utf8'));
-async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
+async function render(overrides = {}, handle = 't-01', productOverrides = {}, request = {}) {
   const variant = { id: 123, available: true, price: 200000, inventory_management: 'shopify', inventory_quantity: 10, inventory_policy: 'deny', quantity_rule: { min: 1, increment: 1 }, ...overrides };
   const product = { id: 1, title: handle.toUpperCase(), handle, url: '/products/' + handle, has_only_default_variant: true, selected_or_first_available_variant: variant, metafields: {}, ...productOverrides };
-  return engine.parseAndRender(source, { product, section: { id: 'template-test__main' }, block: { id: 'product-details' }, form: {}, settings: {}, routes: {} });
+  return engine.parseAndRender(source, { product, section: { id: 'template-test__main' }, block: { id: 'product-details' }, form: {}, settings: {}, routes: {}, request });
 }
 (async () => {
   for (const handle of ['t-01', 't-02', 't-03']) {
     const html = await render({}, handle);
     assert.match(html, /ref="variantId"\s+value="123"/);
-    assert.match(html, /In stock/);
+    assert.match(html, /pq-stock-counter__number">10<\/span>/);
+    assert.doesNotMatch(html, /data-demo-minimum|Simulated stock|pq-stock-counter__notice|--pq-stock-ratio/);
     assert.match(html, /data-pq-cart-pending role="status" hidden>Adding/);
     assert.equal((html.match(/class="pq-purchase__accessory"/g) || []).length, 7);
     assert.equal((html.match(/class="pq-purchase__policy"/g) || []).length, 4);
@@ -70,6 +71,22 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}) {
   assert.doesNotMatch(noDelivery, /Sold out|<product-form-component/);
   const untracked = await render({ inventory_management: null, inventory_quantity: 0 });
   assert.match(untracked, /<product-form-component/);
+  assert.match(untracked, /In stock/);
+  assert.doesNotMatch(untracked, /<pq-stock-counter/);
+  const preview = await render({}, 't-01', {}, { design_mode: true });
+  assert.match(preview, /data-demo-minimum="10"/);
+  assert.match(preview, /Simulated stock · theme preview/);
+  assert.match(preview, /pq-stock-counter__number">30<\/span>/);
+  assert.match(preview, /--pq-stock-ratio: 1"/);
+  const production = await render({
+    inventory_quantity: 6,
+    metafields: { custom: { stock_counter_capacity: { value: 24 } } },
+  }, 't-01', {}, { design_mode: false, visual_preview_mode: true });
+  assert.match(production, /pq-stock-counter__number">6<\/span>/);
+  assert.match(production, /--pq-stock-ratio: 0\.25"/);
+  assert.doesNotMatch(production, /data-demo-minimum|Simulated stock|pq-stock-counter__notice/);
+  const exceededCapacity = await render({ metafields: { custom: { stock_counter_capacity: { value: 8 } } } });
+  assert.doesNotMatch(exceededCapacity, /--pq-stock-ratio/);
   const normal = await render();
   const multipleVariants = await render({}, 't-01', { has_only_default_variant: false });
   assert.doesNotMatch(multipleVariants, /pq-purchase__variants|PurchaseVariant-|<select\b/);

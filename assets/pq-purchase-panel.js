@@ -69,3 +69,73 @@ if (!customElements.get('pq-purchase-panel')) {
     }
   });
 }
+
+if (!customElements.get('pq-stock-counter')) {
+  const demo = {
+    decrementMin: 1,
+    decrementMax: 3,
+    delayMin: 5000,
+    delayMax: 10000,
+    names: ['James M.', 'Oliver K.', 'Daniel R.', 'Maya L.', 'Eva T.', 'Noah S.'],
+  };
+  const randomInteger = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
+
+  customElements.define('pq-stock-counter', class extends HTMLElement {
+    connectedCallback() {
+      if (!this.hasAttribute('data-demo-minimum')) return;
+      this.minimum = Number(this.dataset.demoMinimum);
+      this.number = this.querySelector('.pq-stock-counter__number');
+      this.previous = this.querySelector('.pq-stock-counter__previous');
+      this.fill = this.querySelector('.pq-stock-counter__fill');
+      this.notice = this.querySelector('.pq-stock-counter__notice');
+      this.stock = Number(this.number.textContent);
+      this.initialStock ??= this.stock;
+      if (this.stock <= this.minimum) return;
+
+      this.demoController = new AbortController();
+      const options = { signal: this.demoController.signal };
+      this.notice.addEventListener('animationend', () => this.clearNotice(), options);
+      document.addEventListener('visibilitychange', () => {
+        clearTimeout(this.timer);
+        if (document.hidden) this.clearNotice();
+        this.schedule();
+      }, options);
+      this.schedule();
+    }
+
+    schedule() {
+      if (document.hidden || this.stock <= this.minimum) return;
+      this.timer = setTimeout(() => {
+        if (document.hidden) return;
+        this.decrement();
+        this.schedule();
+      }, randomInteger(demo.delayMin, demo.delayMax));
+    }
+
+    decrement() {
+      const amount = Math.min(randomInteger(demo.decrementMin, demo.decrementMax), this.stock - this.minimum);
+      this.previous.textContent = this.stock;
+      this.stock -= amount;
+      this.number.textContent = this.stock;
+      this.fill.style.setProperty('--pq-stock-ratio', this.stock / this.initialStock);
+
+      // Skip the previous name without drawing again.
+      const nameIndex = randomInteger(0, demo.names.length - (this.lastNameIndex == null ? 1 : 2));
+      this.lastNameIndex = nameIndex >= this.lastNameIndex ? nameIndex + 1 : nameIndex;
+      this.notice.textContent = `${demo.names[this.lastNameIndex]} just purchased ${amount} ${amount === 1 ? 'unit' : 'units'}`;
+      this.setAttribute('data-updating', '');
+    }
+
+    clearNotice() {
+      this.removeAttribute('data-updating');
+      this.notice.textContent = '';
+    }
+
+    disconnectedCallback() {
+      if (!this.demoController) return;
+      clearTimeout(this.timer);
+      this.demoController.abort();
+      this.clearNotice();
+    }
+  });
+}
