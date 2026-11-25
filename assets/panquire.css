@@ -529,3 +529,8 @@
 .pq-header .pq-wordmark { display:inline-flex; align-items:center; gap:10px; flex-shrink:0; }
 .pq-brand-emblem { display:block; width:72px; height:72px; object-fit:contain; flex-shrink:0; }
 @media(max-width:600px) { .pq-header .pq-wordmark { gap:7px; } .pq-brand-emblem { width:60px; height:60px; } }
+
+.pq-black-friday-sale-price { display: inline-grid; justify-items: center; gap: .32em; line-height: 1.15; vertical-align: middle; white-space: nowrap; }
+.pq-sale-future { background: #151619; color: white; padding: .25em .55em; font-size: .72em; }
+.pq-sale-current { position: relative; isolation: isolate; color: #080808; padding: .25em .75em; font-weight: 800; }
+.pq-sale-current::before { content: ""; position: absolute; inset: 0 .15em; z-index: -1; transform: skewX(-22deg); background: #A97832; }

@@ -3,8 +3,6 @@ import { currencyForCountry, isEuCountry } from '@theme/pq-country-currencies';
 const target = '[data-pq-usd-cents]';
 const maximumRateAge = 7 * 86400000;
 const locale = document.documentElement.lang || 'en';
-const fixedEuroPrices = new Map([['t-01', 2999], ['t-02', 3399], ['t-03', 2999]]);
-const higherPriceCountries = new Set(['US', 'CA', 'MX', 'AU', 'NZ', 'GB']);
 const euros = new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR', currencyDisplay: 'code' });
 const originals = new WeakMap();
 const estimates = new Map();
@@ -45,12 +43,11 @@ function updatePrice(element) {
     ? usd.format(Number(cents) / 100)
     : hasEstimate ? previous.original : element.dataset.pqOriginalPrice ?? element.innerHTML;
 
-  const modelPrice = fixedEuroPrices.get(element.dataset.pqProductHandle);
-  const regionalPrice = document.body.dataset.pqCartCurrency === 'USD' ? modelPrice : undefined;
-  const fixedPrice = showFixedEuroPrices ? regionalPrice : undefined;
+  const fixedPrice = showFixedEuroPrices && element.hasAttribute('data-pq-eur-amount')
+    ? Number(element.dataset.pqEurAmount) : undefined;
   element.toggleAttribute('data-pq-fixed-eur', fixedPrice !== undefined);
 
-  if (regionalPrice === undefined && !estimate) {
+  if (fixedPrice === undefined && !estimate) {
     if (hasEstimate) element.innerHTML = original;
     originals.delete(element);
     return;
@@ -59,9 +56,6 @@ function updatePrice(element) {
   let rendered;
   if (fixedPrice !== undefined) {
     rendered = euros.format(fixedPrice);
-  } else if (regionalPrice !== undefined) {
-    const dollars = higherPriceCountries.has(activeCountry) ? regionalPrice : regionalPrice - 200;
-    rendered = estimate ? estimate.formatter.format(dollars * estimate.rate) : usd.format(dollars);
   } else {
     const { rate, formatter, amounts } = estimate;
     if (!amounts.has(cents)) amounts.set(cents, formatter.format(Number(cents) * rate / 100));
@@ -111,5 +105,5 @@ new MutationObserver((records) => {
   childList: true,
   subtree: true,
   attributes: true,
-  attributeFilter: ['data-pq-usd-cents', 'data-pq-product-handle'],
+  attributeFilter: ['data-pq-usd-cents', 'data-pq-eur-amount'],
 });

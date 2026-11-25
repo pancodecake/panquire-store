@@ -162,9 +162,10 @@
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
+  {% capture sale_price %}{% render 'pq-black-friday-sale-cents', amount: product.price, product_handle: product.handle %}{% endcapture %}
   <meta
     property="og:price:amount"
-    content="{{ product.price | money_without_currency | strip_html }}"
+    content="{{ sale_price | default: product.price | divided_by: 100.0 }}"
   >
   <meta
     property="og:price:currency"

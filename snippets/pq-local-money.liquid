@@ -1,29 +1,22 @@
-{%- doc -%}
-  Renders a Shopify price and exposes its USD amount for display-only conversion.
-  @param {number} amount - Shopify price in minor units.
-  @param {string} [product_handle] - Product handle for a main merchandise price.
-  @param {boolean} [with_currency] - Include the currency code in the original price.
-  @param {string} [formatted] - Existing formatted price text.
-{%- enddoc -%}
-{%- liquid
-  assign eu_members = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE' | split: ' '
-  if cart.currency.iso_code == 'USD' and eu_members contains localization.country.iso_code
-    case product_handle
-      when 't-01', 't-03'
-        assign eu_price = '€2,999'
-      when 't-02'
-        assign eu_price = '€3,399'
-    endcase
-  endif
--%}
 {%- if amount != blank -%}
-  {%- if cart.currency.iso_code == 'USD' -%}<span {% if eu_price %}data-pq-fixed-eur data-pq-original-price="{{ amount | money_with_currency | escape }}" {% endif %}data-pq-usd-cents="{{ amount }}"{% if product_handle != blank %} data-pq-product-handle="{{ product_handle | escape }}"{% endif %}>{%- endif -%}
-  {%- if eu_price -%}{{ eu_price }}{%- elsif formatted != blank -%}
-    {{- formatted -}}
-  {%- elsif with_currency -%}
-    {{- amount | money_with_currency -}}
+  {%- capture campaign_price -%}{% render 'pq-black-friday-sale-cents', amount: amount, product_handle: product_handle %}{%- endcapture -%}
+  {%- liquid
+    assign eu_members = 'AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE' | split: ' '
+    assign models = 't-01 t-02 t-03' | split: ' '
+    assign units = quantity | default: 1
+    if cart.currency.iso_code == 'USD' and eu_members contains localization.country.iso_code and models contains product_handle
+      assign regular_eur = amount | divided_by: 109.92 | round | times: units
+      assign sale_eur = campaign_price | plus: 0 | divided_by: 109.92 | round | times: units
+    endif
+    assign regular_total = amount | times: units
+  -%}
+  {%- if campaign_price != blank -%}
+    {%- assign sale_total = campaign_price | times: units -%}
+    <span class="pq-black-friday-sale-price">
+      <span class="pq-sale-future">Price from <time datetime="2027-01-01">Jan 1</time> <b>{% render 'pq-money-value', amount: regular_total, euro_amount: regular_eur, with_currency: with_currency %}</b></span>
+      <span class="pq-sale-current"><span class="visually-hidden">Black Friday sale price </span>{% render 'pq-money-value', amount: sale_total, euro_amount: sale_eur, with_currency: with_currency %}</span>
+    </span>
   {%- else -%}
-    {{- amount | money -}}
+    {%- render 'pq-money-value', amount: regular_total, euro_amount: regular_eur, formatted: formatted, with_currency: with_currency -%}
   {%- endif -%}
-  {%- if cart.currency.iso_code == 'USD' -%}</span>{%- endif -%}
 {%- endif -%}

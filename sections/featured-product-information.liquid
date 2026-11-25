@@ -1,7 +1,7 @@
 
 
 <script type="application/ld+json">
-  {{ section.settings.product | structured_data }}
+  {% render 'pq-product-structured-data', product: section.settings.product %}
 </script>
 
 {% capture media_gallery %}

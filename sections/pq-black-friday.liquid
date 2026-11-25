@@ -8,6 +8,8 @@
   }
 {% endstyle %}
 
+{% assign campaign_now = 'now' | date: '%s' | plus: 0 %}
+{% if campaign_now < 1798790400 %}
 <section class="pq-black-friday" aria-labelledby="BlackFriday-{{ section.id }}">
   <img
     class="pq-black-friday__treads"
@@ -55,6 +57,7 @@
     </p>
   </div>
 </section>
+{% endif %}
 
 {% stylesheet %}
   .pq-black-friday {

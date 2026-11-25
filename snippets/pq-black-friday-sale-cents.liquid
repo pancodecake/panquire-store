@@ -1,0 +1,25 @@
+{%- liquid
+  assign timestamp = 'now' | date: '%s' | plus: 0
+  if cart.currency.iso_code == 'USD' and timestamp < 1798790400
+    case product_handle
+      when 't-01', 't-03'
+        case amount
+          when 436382
+            echo 296674
+          when 397000
+            echo 269900
+          when 371000
+            echo 251900
+        endcase
+      when 't-02'
+        case amount
+          when 494640
+            echo 336245
+          when 450000
+            echo 305900
+          when 424000
+            echo 287900
+        endcase
+    endcase
+  endif
+-%}

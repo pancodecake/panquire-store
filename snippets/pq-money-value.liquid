@@ -1,0 +1,9 @@
+{%- if cart.currency.iso_code == 'USD' -%}
+  <span data-pq-usd-cents="{{ amount }}"{% if euro_amount %} data-pq-fixed-eur data-pq-eur-amount="{{ euro_amount }}" data-pq-original-price="{{ amount | money_with_currency | strip_html | escape }}"{% endif %}>
+{%- endif -%}
+{%- if euro_amount -%}€{{ euro_amount | times: 100 | money_without_currency }}
+{%- elsif formatted != blank -%}{{ formatted }}
+{%- elsif with_currency -%}{{ amount | money_with_currency }}
+{%- else -%}{{ amount | money }}
+{%- endif -%}
+{%- if cart.currency.iso_code == 'USD' -%}</span>{%- endif -%}
