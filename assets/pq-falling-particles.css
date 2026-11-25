@@ -80,52 +80,12 @@
   to { rotate: var(--particle-turn); }
 }
 
-.pq-particle-toggle {
-  position: fixed;
-  right: calc(var(--pq-particle-edge) + (var(--pq-particle-right) - 44px) / 2);
-  bottom: max(92px, env(safe-area-inset-bottom, 0px));
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid #A97832;
-  border-radius: 50%;
-  background: #08090B;
-  color: #DF9F44;
-  cursor: pointer;
-}
-
-.pq-particle-toggle:hover {
-  background: #21180f;
-}
-
-.pq-particle-toggle:focus-visible {
-  outline: 2px solid #DF9F44;
-  outline-offset: 3px;
-}
-
-.pq-particle-toggle span {
-  width: 12px;
-  height: 13px;
-  border-inline: 3px solid currentColor;
-}
-
-.pq-particle-toggle[aria-pressed='true'] span {
-  width: 0;
-  height: 0;
-  border: 0;
-  border-block: 7px solid transparent;
-  border-left: 11px solid currentColor;
-  margin-left: 2px;
-}
-
-#PanquireParticles:is([data-paused], [data-tab-hidden]) .pq-particle-layer,
+#PanquireParticles[data-tab-hidden] .pq-particle-layer,
 body:has(.page-wrapper--drawer-open, dialog[open]) #PanquireParticles {
   visibility: hidden;
 }
 
-#PanquireParticles:is([data-paused], [data-tab-hidden]) :is(.pq-particle, .pq-particle img),
+#PanquireParticles[data-tab-hidden] :is(.pq-particle, .pq-particle img),
 body:has(.page-wrapper--drawer-open, dialog[open]) #PanquireParticles :is(.pq-particle, .pq-particle img) {
   animation-play-state: paused;
 }

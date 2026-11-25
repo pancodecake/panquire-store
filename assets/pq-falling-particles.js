@@ -2,7 +2,7 @@
 const motion = {
   minimumGutter: 60,
   edge: 8,
-  size: [22, 44],
+  size: [88, 176],
   speed: [32, 61],
   spinTime: [11, 23],
   swayTime: [8, 16],
@@ -31,22 +31,12 @@ function initialize() {
   if (!containers.length) return;
 
   const rails = [...root.querySelectorAll('.pq-particle-rail')];
-  const toggle = root.querySelector('.pq-particle-toggle');
   const assets = JSON.parse(root.querySelector('[data-particle-assets]').textContent);
   const preference = window.matchMedia('(min-width: 990px) and (prefers-reduced-motion: no-preference)');
-  const storageKey = 'panquire-pause-decorative-motion';
   const maxCount = Number(root.dataset.count);
-  let paused = false;
   let frame = 0;
   let lastGeometry = '';
   root.style.setProperty('--pq-particle-edge', motion.edge + 'px');
-
-  try { paused = localStorage.getItem(storageKey) === 'true'; } catch { /* Storage can be disabled. */ }
-
-  function syncPause() {
-    root.toggleAttribute('data-paused', paused);
-    toggle.setAttribute('aria-pressed', String(paused));
-  }
 
   function sizeRails() {
     frame = 0;
@@ -74,7 +64,6 @@ function initialize() {
 
     root.style.setProperty('--pq-particle-left', widths[0] + 'px');
     root.style.setProperty('--pq-particle-right', widths[1] + 'px');
-    if (paused) return;
 
     const geometry = [...widths, window.innerHeight].join(':');
     if (geometry === lastGeometry) return;
@@ -99,18 +88,10 @@ function initialize() {
     if (!frame) frame = window.requestAnimationFrame(sizeRails);
   }
 
-  toggle.addEventListener('click', () => {
-    paused = !paused;
-    try { localStorage.setItem(storageKey, String(paused)); } catch { /* Still applies to this page. */ }
-    syncPause();
-    if (!paused) scheduleMeasure();
-  });
-
   function syncVisibility() {
     root.toggleAttribute('data-tab-hidden', document.hidden);
   }
 
-  syncPause();
   syncVisibility();
   document.addEventListener('visibilitychange', syncVisibility);
   preference.addEventListener('change', scheduleMeasure);
@@ -155,8 +136,9 @@ function createParticle(src, rail) {
 
 function configureParticle(particle, width, phase) {
   const fall = particle.fall;
-  const maxSize = Math.min(motion.size[1], width * 0.56);
-  const size = motion.size[0] + (maxSize - motion.size[0]) * fall.size;
+  const [minSize, maxSize] = motion.size;
+  const scale = Math.min(1, width * 0.70 / maxSize);
+  const size = (minSize + (maxSize - minSize) * fall.size) * scale;
   const rotatedSize = size * Math.SQRT2;
   const drift = Math.min(fall.drift, (width - rotatedSize) / 3);
   const clearance = drift + (rotatedSize - size) / 2;
