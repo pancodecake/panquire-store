@@ -64,6 +64,11 @@
       </script>
     {% endif %}
     {{ content_for_header }}
+    {% unless request.design_mode %}
+      {% if request.page_type == 'index' or request.page_type == 'product' or template.name == 'page' and template.suffix == 'compare' %}
+        {% render 'pq-google-ads-page-view' %}
+      {% endif %}
+    {% endunless %}
     {% if request.page_type == 'index' %}
       {% style %}
         .pq-storefront h2,
