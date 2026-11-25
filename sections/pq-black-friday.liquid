@@ -18,6 +18,24 @@
     loading="lazy"
     decoding="async"
   >
+  <img
+    class="pq-black-friday__badge pq-black-friday__badge--sale"
+    src="{{ 'pq-black-friday-sale.svg' | asset_url }}"
+    width="512"
+    height="512"
+    alt=""
+    loading="lazy"
+    decoding="async"
+  >
+  <img
+    class="pq-black-friday__badge pq-black-friday__badge--discount"
+    src="{{ 'pq-black-friday-discount.svg' | asset_url }}"
+    width="24"
+    height="24"
+    alt=""
+    loading="lazy"
+    decoding="async"
+  >
   <div class="pq-black-friday__content">
     <img
       class="pq-black-friday__logo"
@@ -40,7 +58,7 @@
 
 {% stylesheet %}
   .pq-black-friday {
-    --pq-sale-gold: #bd8a43;
+    --pq-sale-gold: #A97832;
     --pq-sale-background: #030405;
     display: grid;
     place-items: center;
@@ -68,10 +86,26 @@
     padding-block: 1.5rem;
   }
 
+  .pq-black-friday__badge {
+    position: absolute;
+    width: clamp(3rem, 15.5vw, 18.75rem);
+    height: auto;
+  }
+
+  .pq-black-friday__badge--sale {
+    top: 7.75%;
+    right: max(1.5rem, 3.4%);
+  }
+
+  .pq-black-friday__badge--discount {
+    bottom: max(1rem, 2%);
+    left: max(1.5rem, 3%);
+  }
+
   .pq-black-friday::after {
     content: '';
     position: absolute;
-    inset: clamp(0.375rem, 1%, 1.25rem);
+    inset: clamp(0.625rem, 1.6%, 1.75rem);
     border: clamp(0.125rem, 0.55vw, 0.6875rem) solid var(--pq-sale-gold);
     pointer-events: none;
   }
@@ -132,6 +166,10 @@
   @media (max-width: 700px) {
     .pq-black-friday {
       min-height: 460px;
+    }
+
+    .pq-black-friday__badge {
+      width: clamp(3rem, 13vw, 5rem);
     }
   }
 {% endstylesheet %}
