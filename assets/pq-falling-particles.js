@@ -60,7 +60,7 @@ function initialize() {
     let contentRight = 0;
     for (const container of containers) {
       const bounds = container.getBoundingClientRect();
-      if (bounds.width <= 0 || bounds.height <= 0) continue;
+      if (bounds.width <= 0 || bounds.height <= 0 || bounds.right <= 0 || bounds.left >= viewport) continue;
       contentLeft = Math.min(contentLeft, bounds.left);
       contentRight = Math.max(contentRight, bounds.right);
     }
