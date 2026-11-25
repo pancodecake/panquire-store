@@ -71,6 +71,7 @@ if (!customElements.get('pq-purchase-panel')) {
 }
 
 if (!customElements.get('pq-stock-counter')) {
+  const storageKey = 'panquire:black-friday:stock';
   const demo = {
     decrementMin: 1,
     decrementMax: 3,
@@ -87,10 +88,7 @@ if (!customElements.get('pq-stock-counter')) {
       this.number = this.querySelector('.pq-stock-counter__number');
       this.fill = this.querySelector('.pq-stock-counter__fill');
       this.notice = this.querySelector('.pq-stock-counter__notice');
-      this.initialStock ??= randomInteger(this.minimum, Number(this.dataset.demoMaximum));
-      this.stock ??= this.initialStock;
-      this.number.textContent = this.stock;
-      if (this.stock <= this.minimum) return;
+      this.maximum = Number(this.dataset.demoMaximum);
 
       this.demoController = new AbortController();
       const options = { signal: this.demoController.signal };
@@ -104,12 +102,58 @@ if (!customElements.get('pq-stock-counter')) {
     }
 
     schedule() {
-      if (document.hidden || this.stock <= this.minimum) return;
+      if (document.hidden) return;
+      const now = new Date();
+      this.loadStock(now);
+      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      const delay = this.stock > this.minimum ? randomInteger(demo.delayMin, demo.delayMax) : Infinity;
       this.timer = setTimeout(() => {
         if (document.hidden) return;
-        this.decrement();
+        const day = this.stockDay;
+        this.loadStock(new Date());
+        if (this.stockDay === day && this.stock > this.minimum) this.decrement();
         this.schedule();
-      }, randomInteger(demo.delayMin, demo.delayMax));
+      }, Math.min(delay, midnight - now));
+    }
+
+    loadStock(now) {
+      const day = now.toDateString();
+      let saved;
+      try {
+        saved = JSON.parse(localStorage.getItem(storageKey));
+      } catch {
+        // Storage can be unavailable in restricted browsing contexts.
+      }
+      if (saved?.day === day && Number.isInteger(saved.initialStock) && Number.isInteger(saved.stock)
+        && saved.stock >= this.minimum && saved.stock <= saved.initialStock && saved.initialStock <= this.maximum) {
+        this.initialStock = saved.initialStock;
+        this.stock = saved.stock;
+      } else if (this.stockDay !== day) {
+        this.clearNotice();
+        this.initialStock = randomInteger(this.minimum, this.maximum);
+        this.stock = this.initialStock;
+        this.stockDay = day;
+        this.saveStock();
+      }
+      this.stockDay = day;
+      this.renderStock();
+    }
+
+    saveStock() {
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({
+          day: this.stockDay,
+          initialStock: this.initialStock,
+          stock: this.stock,
+        }));
+      } catch {
+        // The counter can still run for this page visit.
+      }
+    }
+
+    renderStock() {
+      this.number.textContent = this.stock;
+      this.fill.style.setProperty('--pq-stock-ratio', this.stock / this.initialStock);
     }
 
     decrement() {
@@ -120,8 +164,8 @@ if (!customElements.get('pq-stock-counter')) {
       }
       const amount = Math.min(randomInteger(demo.decrementMin, demo.decrementMax), this.stock - this.minimum);
       this.stock -= amount;
-      this.number.textContent = this.stock;
-      this.fill.style.setProperty('--pq-stock-ratio', this.stock / this.initialStock);
+      this.saveStock();
+      this.renderStock();
 
       // Skip the previous name without drawing again.
       const nameIndex = randomInteger(0, demo.names.length - (this.lastNameIndex == null ? 1 : 2));
