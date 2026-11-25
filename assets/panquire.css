@@ -531,36 +531,64 @@
 @media(max-width:600px) { .pq-header .pq-wordmark { gap:7px; } .pq-brand-emblem { width:60px; height:60px; } }
 
 .pq-black-friday-sale-price {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: .16em .6em;
-  font-size: min(1em, 6vw);
+  display: inline-grid;
+  justify-items: center;
+  gap: .32em;
+  padding: 0 .8em 1em;
   line-height: 1.15;
   vertical-align: middle;
+  white-space: nowrap;
 }
 .pq-sale-future {
   position: relative;
   color: white;
-  font-size: 1.5em;
-  font-weight: 400;
+  font-size: .72em;
+  font-weight: 700;
 }
 .pq-sale-future::after {
   content: "";
   position: absolute;
-  inset-inline: 0;
+  inset-inline: -.28em;
   inset-block-start: 50%;
   block-size: max(2px, .09em);
-  background: #f4a000;
-  transform: translateY(-50%) rotate(-11deg);
+  background: #A97832;
+  transform: translateY(-50%) rotate(7deg);
   pointer-events: none;
 }
-.pq-sale-current {
+.pq-sale-current { position: relative; isolation: isolate; color: #080808; padding: .25em .75em; font-weight: 800; }
+.pq-sale-current::before { content: ""; position: absolute; inset: 0 .15em; z-index: -1; transform: skewX(-22deg); background: #A97832; }
+
+.pq-sale-badge {
+  position: absolute;
+  inset-block-end: 0;
+  left: 0;
+  inline-size: 1.8em;
+  max-inline-size: none;
+  block-size: 1.8em;
+  transform: translate(-50%, 50%);
+  pointer-events: none;
+}
+
+.pq-model-menu-panel .pq-black-friday-sale-price {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .16em .45em;
+  padding: 0;
+  font-size: min(1.5em, 5vw);
+}
+.pq-model-menu-panel .pq-sale-future { font-size: 1em; font-weight: 400; }
+.pq-model-menu-panel .pq-sale-future::after {
+  inset-inline: 0;
+  block-size: 2px;
+  background: #f4a000;
+  transform: translateY(-50%) rotate(-11deg);
+}
+.pq-model-menu-panel .pq-sale-current {
   display: inline-flex;
   align-items: baseline;
   gap: .15em;
-  margin-block-end: .2em;
+  padding: 0;
   color: #f4a000;
-  font-size: 1.5em;
-  font-weight: 800;
 }
+.pq-model-menu-panel .pq-sale-current::before { content: none; }

@@ -22,7 +22,7 @@
             {% endif %}
           </span>
           <strong>{{ model | upcase }}</strong>
-          <span class="pq-model-menu-price">{% render 'pq-local-money', amount: model_price, product_handle: model, with_currency: true %}</span>
+          <span class="pq-model-menu-price">{% render 'pq-local-money', amount: model_price, product_handle: model, with_currency: true, model_menu_price: true %}</span>
           <span class="pq-model-menu-spec">{% render 'pq-model-data', model: model, field: 'Maximum speed' %} | {% render 'pq-model-data', model: model, field: 'Peak motor power' %} {{ 'panquire.model.peak' | t }}</span>
         </a>
       {% endfor %}
