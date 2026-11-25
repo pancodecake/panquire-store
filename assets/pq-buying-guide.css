@@ -62,7 +62,6 @@
 }
 .pq-storefront .pq-product-guide--t02 h2 { color: var(--pq-guide-gold) !important; }
 .pq-product-guide__lead {
-  display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(24px, 4vw, 56px);
