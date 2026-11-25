@@ -1,0 +1,261 @@
+{% assign campaign_now = 'now' | date: '%s' | plus: 0 %}
+{% if campaign_now < 1798790400 %}
+  <section class="pq-black-friday-story" aria-labelledby="BlackFridayStory-{{ section.id }}">
+    <header class="pq-black-friday-story__header">
+      <h2 id="BlackFridayStory-{{ section.id }}">
+        <span class="pq-black-friday-story__brand">Panquire's</span>
+        <span class="pq-black-friday-story__headline">Black Friday</span>
+        <span class="pq-black-friday-story__subtitle">Electric Dirt Bike Sale</span>
+      </h2>
+      <p class="pq-black-friday-story__live">— Is Now LIVE —</p>
+    </header>
+
+    <div class="pq-black-friday-story__panels">
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--opening">
+        <p>
+          This is our brand Panquire's <em class="pq-black-friday-story__accent">first-ever Black Friday sale,</em>
+          so we decided to <strong class="pq-black-friday-story__statement">MAKE IT COUNT.</strong>
+        </p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--stock">
+        <p>
+          We decided to dedicate a limited, discounted stock of
+          <span class="pq-black-friday-story__allocation">
+            <strong>250</strong>
+            <span><strong>e-dirt bikes</strong><br>per model</span>
+          </span>
+          to actual <strong class="pq-black-friday-story__accent">RIDERS.</strong>
+        </p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--discount">
+        <p>
+          We calculated the maximum discount we could afford while managing to
+          <em class="pq-black-friday-story__accent">break even,</em> and this was the raw number:
+        </p>
+        <p class="pq-black-friday-story__rate"><strong>32%</strong></p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--deadline">
+        <p>
+          And the discount <strong class="pq-black-friday-story__statement">WON'T END</strong>
+          until the whole dedicated stock is <strong class="pq-black-friday-story__statement">FINISHED.</strong>
+        </p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--riders">
+        <p>So, we hope that this discount will give teen and adult riders a chance to take their first electric dirt bike for an off-road spin.</p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--comparison">
+        <p>
+          Our electric dirt bikes might not have the branding of Sur-Ron or the price of Qronge, but we prefer to stay right in the middle,
+          <em class="pq-black-friday-story__accent">just within your reach.</em>
+        </p>
+      </div>
+
+      <div class="pq-black-friday-story__panel pq-black-friday-story__panel--closing">
+        <p>
+          <em class="pq-black-friday-story__accent">Happy Black Friday, everyone!</em>
+          We hope that our bikes can ride with you soon.
+        </p>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% stylesheet %}
+  .pq-black-friday-story {
+    --pq-story-gold: #d3a15b;
+    --pq-story-edge: #695132;
+    --pq-story-dark: #0c0d0e;
+    --pq-story-charcoal: #18181a;
+    --pq-story-serif: Georgia, "Times New Roman", serif;
+    --pq-story-display: var(--pq-heading-font, var(--font-heading--family, Arial, sans-serif));
+    padding: clamp(2.5rem, 6vw, 5rem) max(1rem, 4vw);
+    background: linear-gradient(180deg, var(--color-bg-page, #101113), #080809 24%, #080809 76%, var(--color-bg-page, #101113));
+    color: #f5f2eb;
+    font: 1.125rem/1.5 var(--pq-story-serif);
+    text-align: center;
+  }
+
+  .pq-black-friday-story :is(h2, p) {
+    margin: 0;
+    color: inherit;
+  }
+
+  .pq-black-friday-story__header {
+    width: min(100%, 43rem);
+    margin-inline: auto;
+    padding: clamp(1.5rem, 4vw, 2.75rem) 1rem;
+    border: 1px solid var(--pq-story-edge);
+    background: linear-gradient(150deg, var(--pq-story-charcoal), var(--pq-story-dark) 65%);
+  }
+
+  .pq-black-friday-story__header h2 {
+    display: grid;
+    gap: .2em;
+    font: 700 clamp(1.35rem, 3vw, 2rem)/1.15 var(--pq-story-serif);
+    text-wrap: balance;
+  }
+
+  .pq-black-friday-story__brand,
+  .pq-black-friday-story__accent { color: var(--pq-story-gold); }
+
+  .pq-black-friday-story__brand {
+    font-size: .9em;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .pq-black-friday-story__headline,
+  .pq-black-friday-story__statement,
+  .pq-black-friday-story__allocation strong,
+  .pq-black-friday-story__rate strong {
+    font-family: var(--pq-story-display);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -.035em;
+  }
+
+  .pq-black-friday-story__headline {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-transform: uppercase;
+  }
+
+  .pq-black-friday-story .pq-black-friday-story__live {
+    margin-top: 1rem;
+    color: var(--pq-story-gold);
+    font: 600 clamp(.78rem, 1.7vw, 1rem)/1.4 var(--pq-story-display);
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+
+  .pq-black-friday-story__panels {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+    max-width: 53rem;
+    margin-inline: auto;
+  }
+
+  .pq-black-friday-story__panel {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: .75rem;
+    padding: clamp(1.15rem, 3vw, 2rem);
+    border: 1px solid #ffffff0b;
+    background: linear-gradient(145deg, var(--pq-story-charcoal), var(--pq-story-dark) 76%);
+    text-wrap: pretty;
+  }
+
+  .pq-black-friday-story__statement {
+    display: block;
+    margin-block: .2em;
+    font-size: clamp(1.5rem, 3.6vw, 2.65rem);
+    text-wrap: balance;
+  }
+
+  .pq-black-friday-story__panel--opening em {
+    display: block;
+    font-size: 1.24em;
+  }
+
+  .pq-black-friday-story__panel--opening::after,
+  .pq-black-friday-story__panel--closing::before {
+    content: "";
+    width: min(9rem, 54%);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pq-story-gold), transparent);
+  }
+
+  .pq-black-friday-story__panel--stock {
+    background: linear-gradient(125deg, #1c1b1b, var(--pq-story-charcoal) 70%, var(--pq-story-dark));
+  }
+
+  .pq-black-friday-story__allocation {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem .8rem;
+    margin-block: .4rem;
+  }
+
+  .pq-black-friday-story__allocation > strong {
+    color: var(--pq-story-gold);
+    font-size: clamp(3rem, 6vw, 4.75rem);
+  }
+
+  .pq-black-friday-story__allocation > span {
+    padding-inline-start: .8rem;
+    border-inline-start: 1px solid var(--pq-story-edge);
+    text-align: start;
+  }
+
+  .pq-black-friday-story__rate {
+    position: relative;
+    isolation: isolate;
+    padding: .15em .58em;
+    font-size: clamp(3rem, 8vw, 5rem);
+    line-height: 1;
+  }
+
+  .pq-black-friday-story__rate strong { color: var(--pq-story-gold); }
+
+  .pq-black-friday-story__rate::before,
+  .pq-black-friday-story__rate::after {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    clip-path: polygon(10% 0, 90% 0, 100% 50%, 90% 100%, 10% 100%, 0 50%);
+    content: "";
+  }
+
+  .pq-black-friday-story__rate::before { background: var(--pq-story-gold); }
+  .pq-black-friday-story__rate::after { inset: 2px; background: var(--pq-story-dark); }
+
+  .pq-black-friday-story__panel--deadline {
+    background: linear-gradient(140deg, #d2a15e, #b4803f 82%);
+    color: #15100b;
+  }
+
+  .pq-black-friday-story__panel--riders {
+    grid-column: 1 / -1;
+    background: linear-gradient(110deg, var(--pq-story-dark), #1a1714 55%, var(--pq-story-dark));
+  }
+
+  .pq-black-friday-story__panel--riders p { max-width: 58ch; }
+
+  .pq-black-friday-story__panel--comparison {
+    text-align: start;
+    background: linear-gradient(145deg, #121314, var(--pq-story-dark) 66%, #080809);
+  }
+
+  .pq-black-friday-story__panel--comparison p {
+    padding-inline-start: 1rem;
+    border-inline-start: 1px solid var(--pq-story-edge);
+  }
+
+  .pq-black-friday-story__panel--comparison em,
+  .pq-black-friday-story__panel--closing em {
+    display: block;
+    margin-block: .15em;
+    font-size: clamp(1.25rem, 2.8vw, 1.65rem);
+    line-height: 1.25;
+  }
+
+  @media (max-width: 42rem) {
+    .pq-black-friday-story__panels { grid-template-columns: minmax(0, 1fr); }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Black Friday announcement",
+  "enabled_on": { "templates": ["index"] },
+  "settings": [],
+  "presets": [{ "name": "Black Friday announcement" }]
+}
+{% endschema %}

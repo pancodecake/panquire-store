@@ -162,6 +162,10 @@
         "spacing": 70
       }
     },
+    "black_friday_story": {
+      "type": "pq-black-friday-story",
+      "settings": {}
+    },
     "motorcycle_details": {
       "type": "pq-product-features",
       "blocks": {
@@ -328,6 +332,7 @@
     "benefits",
     "black_friday",
     "feature",
+    "black_friday_story",
     "motorcycle_details",
     "experts",
     "electricDirtBikeGuide",
