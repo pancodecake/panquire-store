@@ -14,7 +14,17 @@
     {%- assign sale_total = campaign_price | times: units -%}
     <span class="pq-black-friday-sale-price">
       <span class="pq-sale-future"><span class="visually-hidden">Price from Jan 1 </span>{% render 'pq-money-value', amount: regular_total, euro_amount: regular_eur, with_currency: true %}</span>
-      <span class="pq-sale-current"><span class="visually-hidden">Black Friday sale price </span>{% render 'pq-money-value', amount: sale_total, euro_amount: sale_eur, with_currency: with_currency %}</span>
+      <span class="pq-sale-current">
+        <span class="visually-hidden">Black Friday sale price </span>
+        {% render 'pq-money-value', amount: sale_total, euro_amount: sale_eur, with_currency: with_currency %}
+        <img
+          class="pq-sale-badge"
+          src="{{ '32-percent-badge-longer-minus.svg' | asset_url }}"
+          width="220"
+          height="220"
+          alt="32% off"
+        >
+      </span>
     </span>
   {%- else -%}
     {%- render 'pq-money-value', amount: regular_total, euro_amount: regular_eur, formatted: formatted, with_currency: with_currency -%}

@@ -1,0 +1,5 @@
+<svg viewBox="0 0 24 24" width="220px" xmlns="http://www.w3.org/2000/svg" aria-label="minus 32 percent discount badge">
+  <path d="M12 1.5 C13.5 1.5 14.2 3.5 15.5 3.7 S18.5 3.6 19.43 4.57 S20 7.5 20.34 8.56 S22.5 10.5 22.5 12 S20.6 14.5 20.34 15.44 S20.4 18.5 19.43 19.43 S16.5 20 15.44 20.34 S13.5 22.5 12 22.5 S9.5 20.6 8.56 20.34 S5.5 20.4 4.57 19.43 S4 16.5 3.66 15.44 S1.5 13.5 1.5 12 S3.4 9.5 3.66 8.56 S3.6 5.5 4.57 4.57 S7.5 4 8.56 3.66 S10.5 1.5 12 1.5 Z" fill="#ffffff"/>
+  <rect x="3.7" y="11.55" width="2.1" height="0.9" fill="#000000"/>
+  <text x="13.1" y="12" dominant-baseline="central" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="6.9" font-weight="900" font-style="italic" fill="#000000">32%</text>
+</svg>
