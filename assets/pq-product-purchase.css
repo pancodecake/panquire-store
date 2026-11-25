@@ -102,7 +102,7 @@
   transition: transform var(--pq-stock-fill-duration) ease-out;
 }
 .pq-stock-counter__notice-slot {
-  position: relative;
+  position: absolute;
   display: grid;
   place-items: center;
   width: 100%;
