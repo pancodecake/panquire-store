@@ -113,6 +113,11 @@ if (!customElements.get('pq-stock-counter')) {
     }
 
     decrement() {
+      if (this.hasAttribute('data-updating')) {
+        this.clearNotice();
+        // Apply the cancellation before starting another notice at the five-second boundary.
+        this.notice.getAnimations();
+      }
       const amount = Math.min(randomInteger(demo.decrementMin, demo.decrementMax), this.stock - this.minimum);
       this.stock -= amount;
       this.number.textContent = this.stock;
