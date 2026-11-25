@@ -3,7 +3,7 @@
   #shopify-section-{{ section.id }} { position: sticky; top: 0; z-index: 30; }
 {% endstyle %}
 <header class="pq pq-header">
-  {% if section.settings.announcement != blank %}<div class="pq-announcement">{{ section.settings.announcement | escape }}</div>{% endif %}
+  {% if section.settings.announcement != blank %}<div class="pq-announcement">Panquire Electric Dirt Bike Black Friday Sale is LiVE</div>{% endif %}
   <div class="pq-header-row pq-container">
     <a class="pq-wordmark" href="{{ routes.root_url }}"><img class="pq-brand-emblem" src="{{ 'panquire-logo-transparent.svg' | asset_url }}" width="36" height="36" alt="{{ settings.pq_store_name | default: 'Panquire' | escape }}"></a>
     <nav class="pq-desktop-nav" aria-label="{{ 'panquire.main_navigation' | t }}">{% render 'pq-navigation', menu: section.settings.menu %}</nav>
