@@ -1,0 +1,36 @@
+<!-- Google Ads page-view conversion -->
+<script>
+  (() => {
+    const adsId = 'AW-18561418166';
+
+    function trackPageView() {
+      if (!window.Shopify?.customerPrivacy?.marketingAllowed()) return;
+      document.removeEventListener('visitorConsentCollected', trackPageView);
+
+      if (typeof window.gtag !== 'function') {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () {
+          window.dataLayer.push(arguments);
+        };
+        const tag = document.createElement('script');
+        tag.async = true;
+        tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + adsId;
+        document.head.appendChild(tag);
+        window.gtag('js', new Date());
+      }
+
+      window.gtag('config', adsId, { send_page_view: false });
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-18561418166/NDPXCKKNib8dELaH45JF',
+        value: 1.0,
+        currency: 'USD'
+      });
+    }
+
+    window.Shopify?.loadFeatures?.([{ name: 'consent-tracking-api', version: '1.0' }], (error) => {
+      if (error) return;
+      document.addEventListener('visitorConsentCollected', trackPageView);
+      trackPageView();
+    });
+  })();
+</script>
