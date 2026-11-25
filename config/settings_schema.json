@@ -2204,9 +2204,9 @@
         "id": "pq_particles_count",
         "label": "Maximum particles per side",
         "min": 2,
-        "max": 6,
+        "max": 12,
         "step": 1,
-        "default": 4
+        "default": 8
       },
       {
         "type": "range",

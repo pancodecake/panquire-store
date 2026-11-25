@@ -71,7 +71,7 @@ function initialize() {
 
     rails.forEach((rail, side) => {
       const width = widths[side];
-      const count = Math.min(maxCount, Math.max(2, Math.round(width / motion.pixelsPerParticle)));
+      const count = Math.min(maxCount, Math.max(4, 2 * Math.round(width / motion.pixelsPerParticle)));
       for (let index = 0; index < count; index++) {
         const assetIndex = (index + side * 2) % assets.length;
         const particle = rail.children[index] ?? createParticle(assets[assetIndex], rail);
