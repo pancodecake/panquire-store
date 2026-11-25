@@ -1,0 +1,38 @@
+{%- liquid
+  assign now_seconds = 'now' | date: '%s' | plus: 0
+  assign campaign_end = 1798790400
+  assign show_particles = false
+  if request.page_type == 'index'
+    assign show_particles = true
+  elsif settings.pq_particles_pages == 'campaign'
+    if request.page_type == 'product' or template.name == 'page' and template.suffix == 'compare'
+      assign show_particles = true
+    endif
+  endif
+-%}
+{% if settings.pq_particles_enabled and show_particles and now_seconds < campaign_end %}
+  <link rel="stylesheet" href="{{ 'pq-falling-particles.css' | asset_url }}" media="(min-width: 990px) and (prefers-reduced-motion: no-preference)">
+  <div
+    id="PanquireParticles"
+    hidden
+    data-count="{{ settings.pq_particles_count }}"
+    style="--pq-particle-glow: {{ settings.pq_particles_glow_color }}; --pq-particle-glow-opacity: {{ settings.pq_particles_glow | divided_by: 100.0 }};"
+  >
+    <div class="pq-particle-layer" aria-hidden="true">
+      <div class="pq-particle-rail pq-particle-rail--left"></div>
+      <div class="pq-particle-rail pq-particle-rail--right"></div>
+    </div>
+    <button class="pq-particle-toggle" type="button" aria-pressed="false" aria-label="{{ 'panquire.storefront.pause_decorative_motion' | t | escape }}" title="{{ 'panquire.storefront.pause_decorative_motion' | t | escape }}">
+      <span aria-hidden="true"></span>
+    </button>
+    <script type="application/json" data-particle-assets>
+      [
+        {{ 'pq-particle-sale.svg' | asset_url | json }},
+        {{ 'pq-particle-discount.svg' | asset_url | json }},
+        {{ 'pq-particle-32-percent.svg' | asset_url | json }},
+        {{ 'pq-particle-gift.svg' | asset_url | json }}
+      ]
+    </script>
+  </div>
+  <script src="{{ 'pq-falling-particles.js' | asset_url }}" type="module"></script>
+{% endif %}

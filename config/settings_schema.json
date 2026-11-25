@@ -2173,5 +2173,57 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Seasonal particles",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "pq_particles_enabled",
+        "label": "Enable falling particles",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "pq_particles_pages",
+        "label": "Show on",
+        "options": [
+          {
+            "value": "campaign",
+            "label": "Homepage, products and comparison"
+          },
+          {
+            "value": "home",
+            "label": "Homepage only"
+          }
+        ],
+        "default": "campaign"
+      },
+      {
+        "type": "range",
+        "id": "pq_particles_count",
+        "label": "Maximum particles per side",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "pq_particles_glow",
+        "label": "Glow intensity",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "unit": "%",
+        "default": 16
+      },
+      {
+        "type": "color",
+        "id": "pq_particles_glow_color",
+        "label": "Glow color",
+        "default": "#BA8842"
+      }
+    ]
   }
 ]
