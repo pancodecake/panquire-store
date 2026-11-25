@@ -7,16 +7,16 @@
 {% enddoc %}
 
 {%- if can_purchase or theme_editor -%}
-  {%- assign initial_stock = 30 -%}
-  {%- assign minimum_demo_stock = 10 -%}
-  <pq-stock-counter class="pq-purchase__stock pq-stock-counter" data-demo-minimum="{{ minimum_demo_stock }}">
+  {%- assign minimum_demo_stock = 30 -%}
+  {%- assign maximum_demo_stock = 250 -%}
+  <pq-stock-counter class="pq-purchase__stock pq-stock-counter" data-demo-minimum="{{ minimum_demo_stock }}" data-demo-maximum="{{ maximum_demo_stock }}">
     <div class="pq-stock-counter__panel">
       <p class="pq-stock-counter__heading">Black Friday · Limited Stock</p>
       <p class="pq-stock-counter__mode">Simulated stock and purchases</p>
       <div class="pq-stock-counter__notice-slot">
         <span class="pq-stock-counter__notice"></span>
       </div>
-      <p class="pq-stock-counter__number">{{ initial_stock }}</p>
+      <p class="pq-stock-counter__number">{{ minimum_demo_stock }}</p>
       <div class="pq-stock-counter__track" aria-hidden="true">
         <div class="pq-stock-counter__fill"></div>
       </div>

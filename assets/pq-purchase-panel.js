@@ -87,8 +87,9 @@ if (!customElements.get('pq-stock-counter')) {
       this.number = this.querySelector('.pq-stock-counter__number');
       this.fill = this.querySelector('.pq-stock-counter__fill');
       this.notice = this.querySelector('.pq-stock-counter__notice');
-      this.stock = Number(this.number.textContent);
-      this.initialStock ??= this.stock;
+      this.initialStock ??= randomInteger(this.minimum, Number(this.dataset.demoMaximum));
+      this.stock ??= this.initialStock;
+      this.number.textContent = this.stock;
       if (this.stock <= this.minimum) return;
 
       this.demoController = new AbortController();

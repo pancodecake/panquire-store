@@ -44,7 +44,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   for (const handle of ['t-01', 't-02', 't-03']) {
     const html = await render({}, handle);
     assert.match(html, /ref="variantId"\s+value="123"/);
-    assert.match(html, /<pq-stock-counter[^>]*data-demo-minimum="10"/);
+    assert.match(html, /<pq-stock-counter[^>]*data-demo-minimum="30" data-demo-maximum="250"/);
     assert.match(html, /Simulated stock and purchases<\/p>\s*<div class="pq-stock-counter__notice-slot">/);
     assert.match(html, /pq-stock-counter__number">30<\/p>/);
     assert.match(html, /Units Remaining in Stock/);
@@ -76,7 +76,7 @@ async function render(overrides = {}, handle = 't-01', productOverrides = {}, re
   assert.match(untracked, /<product-form-component/);
   assert.match(untracked, /pq-stock-counter__number">30<\/p>/);
   const preview = await render({ available: false, inventory_quantity: 0 }, 't-01', {}, { design_mode: true });
-  assert.match(preview, /data-demo-minimum="10"/);
+  assert.match(preview, /data-demo-minimum="30" data-demo-maximum="250"/);
   assert.match(preview, /Simulated stock and purchases/);
   assert.match(preview, /pq-stock-counter__number">30<\/p>/);
   assert.match(preview, /pq-stock-counter__fill/);
