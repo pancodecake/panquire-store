@@ -107,6 +107,7 @@ function createParticle(src, rail) {
   particle.className = 'pq-particle';
 
   const image = document.createElement('img');
+  image.fetchPriority = 'low';
   image.src = src;
   image.alt = '';
   image.decoding = 'async';
