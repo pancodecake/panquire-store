@@ -189,7 +189,8 @@
     const price = new Intl.NumberFormat('en-US', {
       style: 'currency', currency, minimumFractionDigits: 0, maximumFractionDigits: 2
     }).format(listing.amount);
-    return listing.from ? 'From ' + price : price;
+    const display = listing.from ? 'From ' + price : price;
+    return listing.note ? display + ' (' + listing.note + ')' : display;
   }
 
   function regionalColumns(columns, bikes) {
