@@ -16,7 +16,7 @@
         <a class="pq-model-menu-card" href="{{ model_product.url }}"{% if product.handle == model %} aria-current="page"{% endif %}>
           <span class="pq-model-menu-image">
             {% if model == 't-03' %}
-              <img src="{{ 'panquire-t03-product.png' | file_img_url: '800x' }}" width="1448" height="1086" alt="" loading="lazy">
+              <img src="{{ 'pq-showdown-t03-side.webp' | asset_url }}" width="760" height="570" alt="" loading="lazy" decoding="async">
             {% else %}
             <img src="{{ image | strip | escape }}" width="3200" height="2560" alt="" loading="lazy">
             {% endif %}

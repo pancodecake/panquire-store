@@ -17,6 +17,7 @@
 {
   "defaults": {"panquire": {{ default_product | json }}, "competitor": {{ default_competitor | json }}},
   "count": {{ section.settings.difference_count | json }},
+  "productImages": {"t-03": {{ 'pq-showdown-t03-side.webp' | asset_url | json }}},
   {% if regional_tables != blank %}
     "regionalTables": {{ regional_tables | json }},
     "regionalCurrency": {{ comparison_currency | json }},

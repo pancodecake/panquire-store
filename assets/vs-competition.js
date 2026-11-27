@@ -45,6 +45,24 @@
       return ['https:', 'http:'].includes(url.protocol) ? url.href : null;
     } catch { return null; }
   };
+  const imageSizes = '(max-width: 700px) calc(100vw - 40px), (max-width: 1500px) 44vw, 640px';
+
+  function setComparisonImage(image, source) {
+    const url = safeUrl(source?.src);
+    const srcset = url && source.small && source.medium
+      ? [`${safeUrl(source.small)} 400w`, `${safeUrl(source.medium)} 700w`, `${url} 1000w`].join(', ')
+      : '';
+    if (srcset) {
+      image.sizes = imageSizes;
+      if (image.srcset !== srcset) image.srcset = srcset;
+    } else {
+      image.removeAttribute('srcset');
+    }
+    if (url && image.src !== url) image.src = url;
+    if (!url) image.removeAttribute('src');
+    return !!url;
+  }
+
   const parseDetails = (value) => {
     if (!value) return {};
     if (typeof value === 'object') return value;
@@ -328,6 +346,12 @@
       this.trigger.addEventListener('click', () => this.isOpen ? this.close() : this.open(false), { signal });
       this.trigger.addEventListener('keydown', (event) => this.onTriggerKey(event), { signal });
       this.list.addEventListener('keydown', (event) => this.onListKey(event), { signal });
+      for (const type of ['pointerover', 'focusin']) {
+        this.list.addEventListener(type, (event) => {
+          const option = event.target.closest('[role="option"]');
+          if (option) this.owner.warmImage(this.root.dataset.selector, option.dataset.value);
+        }, { signal });
+      }
       this.list.addEventListener('click', (event) => {
         const option = event.target.closest('[role="option"]');
         if (option) this.choose(option.dataset.value);
@@ -394,6 +418,9 @@
       this.root.classList.add('open');
       this.list.style.maxHeight = `${Math.min(420, Math.max(100, window.innerHeight - this.trigger.getBoundingClientRect().bottom - 24))}px`;
       this.trigger.setAttribute('aria-expanded', 'true');
+      for (const record of this.records.filter((item) => item.handle !== this.value).slice(0, 2)) {
+        this.owner.warmImage(this.root.dataset.selector, record.handle);
+      }
       if (fromKeyboard) (this.list.querySelector('[aria-selected="true"]') || this.list.firstElementChild)?.focus();
     }
 
@@ -455,6 +482,7 @@
           name: pairs[0].bikes[0].name
         }));
       }
+      this.warmedImages = new Set();
       this.selects = {};
       for (const side of ['panquire', 'competitor']) {
         const root = this.querySelector(`[data-selector="${side}"]`);
@@ -534,6 +562,23 @@
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && node.animate) node.animate([{ opacity: .45, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 220, easing: 'cubic-bezier(.23,1,.32,1)' });
     }
 
+    comparisonImage(side, handle, record) {
+      const asset = side === 'panquire' ? this.config.productImages?.[handle] : this.config.regionalImages?.[handle];
+      return asset ? { src: asset } : record?.image;
+    }
+
+    warmImage(side, handle) {
+      if (this.selects[side].value === handle || navigator.connection?.saveData) return;
+      const source = this.comparisonImage(side, handle, this.records[side].find((record) => record.handle === handle));
+      const url = safeUrl(source?.src);
+      if (!url || this.warmedImages.has(url)) return;
+      this.warmedImages.add(url);
+      const image = new Image();
+      image.fetchPriority = 'low';
+      image.addEventListener('error', () => this.warmedImages.delete(url), { once: true });
+      setComparisonImage(image, source);
+    }
+
     render(animate) {
       this.selected = {};
       const pair = this.regionalModels?.[this.selects.panquire.value]?.find(({ handle }) => handle === this.selects.competitor.value);
@@ -544,11 +589,9 @@
         if (pair) {
           const competitor = side === 'competitor';
           const bike = pair.bikes[Number(competitor)];
-          const asset = competitor && this.config.regionalImages?.[pair.handle];
           record = {
             ...record,
             name: bike.name,
-            image: asset ? { src: asset, alt: bike.name } : record.image,
             sourceUrl: safeUrl(bike.links[currency]),
             specs: regionalRadarSpecs(bike.specs),
             regionalSpecs: { ...bike.specs, name: bike.name, price: regularPrice(bike, currency, competitor) }
@@ -557,14 +600,11 @@
         this.selected[side] = record;
         const product = this.querySelector(`[data-product="${side}"]`);
         const image = product.querySelector('[data-image]');
-        const imageUrl = safeUrl(record.image?.src);
-        image.hidden = !imageUrl;
-        product.querySelector('[data-placeholder]').hidden = !!imageUrl;
-        if (imageUrl) {
-          image.alt = record.image.alt || record.name;
-          image.srcset = [record.image.small && `${safeUrl(record.image.small)} 400w`, record.image.medium && `${safeUrl(record.image.medium)} 700w`, `${imageUrl} 1000w`].filter(Boolean).join(', ');
-          image.src = imageUrl;
-        } else { image.removeAttribute('src'); image.removeAttribute('srcset'); }
+        const sourceImage = this.comparisonImage(side, this.selects[side].value, record);
+        const hasImage = setComparisonImage(image, sourceImage);
+        image.alt = hasImage ? sourceImage.alt || record.name : '';
+        image.hidden = !hasImage;
+        product.querySelector('[data-placeholder]').hidden = hasImage;
         const price = product.querySelector('[data-price]');
         if (price && pair) {
           price.textContent = record.regionalSpecs.price;
