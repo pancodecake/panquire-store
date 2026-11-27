@@ -7,11 +7,33 @@
   assign third_product = all_products['t-03']
   assign default_product = section.settings.default_product.handle | default: 't-01'
   assign default_competitor = section.settings.default_competitor.system.handle
+  assign regional_tables = page.metafields.comparison.regional_tables.value
+  assign comparison_currency = 'USD'
+  if regional_tables.euCountries contains localization.country.iso_code
+    assign comparison_currency = 'EUR'
+  endif
 -%}
 {% capture comparison_data %}
 {
   "defaults": {"panquire": {{ default_product | json }}, "competitor": {{ default_competitor | json }}},
   "count": {{ section.settings.difference_count | json }},
+  {% if regional_tables != blank %}
+    "regionalTables": {{ regional_tables | json }},
+    "regionalCurrency": {{ comparison_currency | json }},
+    "regionalCountry": {{ localization.country.iso_code | json }},
+    "regionalImages": {
+      {%- assign first_image = true -%}
+      {%- for model in regional_tables.models -%}
+        {%- for pairing in model[1] -%}
+          {%- if pairing.asset != blank -%}
+            {%- unless first_image -%},{%- endunless -%}
+            {{ pairing.handle | json }}: {{ pairing.asset | asset_url | json }}
+            {%- assign first_image = false -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+    },
+  {% endif %}
   "products": [
     {% render 'comparison-record', record: first_product, kind: 'product', fallback_name: 'T-01', fallback_handle: 't-01', competitors: section.settings.t01_competitors %},
     {% render 'comparison-record', record: second_product, kind: 'product', fallback_name: 'T-02', fallback_handle: 't-02', competitors: section.settings.t02_competitors %},
@@ -35,7 +57,11 @@
     </header>
     <section class="pq-compare__methodology" aria-labelledby="Methodology-{{ section.id }}">
       <h2 id="Methodology-{{ section.id }}">{{ 'panquire.storefront.comparison_methodology' | t | escape_once }}</h2>
-      <p>{{ 'panquire.storefront.panquire_models_are_compared_with_similar_electric' | t | escape_once }}</p>
+      {% if regional_tables != blank %}
+        <p>Prices reflect the regular U.S. or EU listings used for this comparison. Where an EU competitor price is unavailable, we show the U.S. amount in euros as a comparison reference.</p>
+      {% else %}
+        <p>{{ 'panquire.storefront.panquire_models_are_compared_with_similar_electric' | t | escape_once }}</p>
+      {% endif %}
       <p>{{ 'panquire.storefront.we_aim_to_keep_every_comparison_accurate' | t | escape_once }} <strong>{{ 'panquire.storefront.source' | t | escape_once }}</strong> {{ 'panquire.storefront.for_the_latest_information_if_you_identify' | t | escape_once }} <a href="mailto:support@panquire.com">support@panquire.com</a>.</p>
       <p><strong>{{ 'panquire.storefront.competitor_brands_are_not_affiliated_with_or' | t | escape_once }}</strong></p>
     </section>
@@ -61,7 +87,7 @@
           </div>
           <div class="pq-compare__pill" {% unless section.settings.show_price or section.settings.show_source %}hidden{% endunless %}>
             {% if section.settings.show_price %}<span data-price>—</span>{% endif %}
-            {% if section.settings.show_source %}<span class="pq-compare__source" data-source tabindex="0" aria-describedby="Source-tooltip-{{ side }}-{{ section.id }}" hidden><span class="pq-compare__source-label">{{ 'panquire.storefront.source' | t | escape_once }}</span><span class="pq-compare__source-icon" aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Source-tooltip-{{ side }}-{{ section.id }}" role="tooltip" data-source-tooltip></span></span>{% endif %}
+            {% if section.settings.show_source %}<a class="pq-compare__source" data-source target="_blank" rel="noopener noreferrer" aria-describedby="Source-tooltip-{{ side }}-{{ section.id }}" hidden><span class="pq-compare__source-label">{{ 'panquire.storefront.source' | t | escape_once }}</span><span class="pq-compare__source-icon" aria-hidden="true">ⓘ</span><span class="pq-compare__source-tooltip" id="Source-tooltip-{{ side }}-{{ section.id }}" role="tooltip" data-source-tooltip></span></a>{% endif %}
           </div>
           <p class="pq-compare__availability" data-availability></p>
         </div>
@@ -69,12 +95,16 @@
     </div>
     <section class="pq-compare__showdown" aria-labelledby="Showdown-{{ section.id }}">
       <header class="pq-compare__heading">
-        <h2 id="Showdown-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
-        <p>{{ section.settings.supporting_text | escape }}</p>
-        <div class="pq-compare__legend"><span data-legend="panquire">T-01</span><span data-legend="competitor">E Ride Pro S (17&quot;)</span></div>
+        {% if regional_tables != blank %}
+          <h2 id="Showdown-{{ section.id }}">Spec Showdown</h2>
+        {% else %}
+          <h2 id="Showdown-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+          <p>{{ section.settings.supporting_text | escape }}</p>
+          <div class="pq-compare__legend"><span data-legend="panquire">T-01</span><span data-legend="competitor">E Ride Pro S (17&quot;)</span></div>
+        {% endif %}
       </header>
-      <div class="pq-compare__analysis {% unless section.settings.show_radar %}pq-compare__analysis--table-only{% endunless %}">
-        {% if section.settings.show_radar %}
+      <div class="pq-compare__analysis {% if regional_tables != blank or section.settings.show_radar == false %}pq-compare__analysis--table-only{% endif %}">
+        {% if regional_tables == blank and section.settings.show_radar %}
           <div class="pq-compare__chart">
             <svg data-radar viewBox="0 0 440 400" role="img" aria-label="Comparison radar. Exact values are available in the specification tables."></svg>
             <div class="pq-compare__metrics" aria-label="{{ 'panquire.storefront.explore_specifications' | t | escape_once }}" data-metrics></div>
@@ -82,9 +112,9 @@
           </div>
         {% endif %}
         <div class="pq-compare__differences">
-          <div class="pq-compare__table-title"><h3 data-table-title>{{ 'panquire.storefront.biggest_differences' | t | escape_once }}</h3><button type="button" data-reset hidden>{{ 'panquire.storefront.reset' | t | escape_once }}</button></div>
-          <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.comparison_differences' | t | escape_once }}" tabindex="0"><table data-differences></table></div>
-          <p class="pq-compare__margin-note">{{ 'panquire.storefront.difference_panquire_competition_accent_highlights_follow_each' | t | escape_once }}</p>
+          {% if regional_tables == blank %}<div class="pq-compare__table-title"><h3 data-table-title>{{ 'panquire.storefront.biggest_differences' | t | escape_once }}</h3><button type="button" data-reset hidden>{{ 'panquire.storefront.reset' | t | escape_once }}</button></div>{% endif %}
+          <div class="pq-compare__table-scroll" role="region" aria-labelledby="Showdown-{{ section.id }}" tabindex="0"><table data-differences{% if regional_tables != blank %} class="pq-compare__regional-table"{% endif %}></table></div>
+          {% if regional_tables == blank %}<p class="pq-compare__margin-note">{{ 'panquire.storefront.difference_panquire_competition_accent_highlights_follow_each' | t | escape_once }}</p>{% endif %}
           <details class="pq-compare__full" {% if section.settings.specs_expanded %}open{% endif %}>
             <summary>{{ 'panquire.storefront.view_all_specifications' | t | escape_once }} <span aria-hidden="true">↓</span></summary>
             <div class="pq-compare__table-scroll" role="region" aria-label="{{ 'panquire.storefront.complete_specifications' | t | escape_once }}" tabindex="0"><table data-full-specs></table></div>
@@ -94,9 +124,24 @@
     </section>
     <p class="visually-hidden" role="status" aria-live="polite" data-status></p>
     <noscript><p>{{ 'panquire.storefront.the_panquire_model_selection_table_below_is' | t | escape_once }}</p></noscript>
-    {% render 'pq-comparison-guide' %}
+    {% render 'pq-comparison-guide', section_id: section.id, regional_tables: regional_tables, comparison_currency: comparison_currency %}
   </div>
 </pq-comparison>
+{% stylesheet %}
+  .pq-compare .pq-compare__regional-table thead th {
+    box-shadow: none;
+    color: var(--color-text-secondary);
+  }
+  .pq-compare .pq-compare__regional-table tbody th {
+    width: auto;
+    min-width: 125px;
+    font-weight: 650;
+    color: var(--color-text-primary);
+  }
+  .pq-compare .pq-compare__pill[hidden], .pq-compare .pq-compare__source[hidden] {
+    display: none;
+  }
+{% endstylesheet %}
 {% schema %}
 {
   "name": "VS Competition",
