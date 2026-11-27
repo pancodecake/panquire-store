@@ -142,7 +142,6 @@ pq-comparison { display: block; }
 .pq-compare__radar-area { stroke-width: 3; stroke-linejoin: round; }
 .pq-compare__radar-area--panquire { fill: color-mix(in srgb,var(--compare-bronze) 8%,transparent); stroke: var(--compare-bronze); }
 .pq-compare__radar-area--competitor { fill: color-mix(in srgb,var(--compare-red) 8%,transparent); stroke: var(--compare-red); }
-.pq-compare__radar-point { stroke: var(--color-bg-page); stroke-width: 1.5; }
 .pq-compare__radar-point--panquire { fill: var(--compare-bronze); }
 .pq-compare__radar-point--competitor { fill: var(--compare-red); }
 .pq-compare__chart-label { fill: var(--color-text-primary); font: 650 11px var(--pq-body-font); }
