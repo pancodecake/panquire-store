@@ -47,6 +47,72 @@
   };
   const imageSizes = '(max-width: 700px) calc(100vw - 40px), (max-width: 1500px) 44vw, 640px';
 
+  const imageBounds = new Map();
+
+  function visibleImageBounds(image) {
+    const source = image.currentSrc || image.src;
+    if (imageBounds.has(source)) return imageBounds.get(source);
+
+    const canvas = document.createElement('canvas');
+    const ratio = Math.min(1, 160 / Math.max(image.naturalWidth, image.naturalHeight));
+    const width = canvas.width = Math.max(1, Math.round(image.naturalWidth * ratio));
+    const height = canvas.height = Math.max(1, Math.round(image.naturalHeight * ratio));
+    let bounds = { width: 1, height: 1, centerX: 0.5, centerY: 0.5 };
+
+    try {
+      const context = canvas.getContext('2d', { willReadFrequently: true });
+      if (context) {
+        context.drawImage(image, 0, 0, width, height);
+        const pixels = context.getImageData(0, 0, width, height).data;
+        let left = width, right = -1, top = height, bottom = -1;
+        for (let y = 0; y < height; y++) {
+          for (let x = 0; x < width; x++) {
+            if (pixels[(y * width + x) * 4 + 3] < 80) continue;
+            left = Math.min(left, x);
+            right = Math.max(right, x);
+            top = Math.min(top, y);
+            bottom = Math.max(bottom, y);
+          }
+        }
+        if (right >= left && bottom >= top) {
+          bounds = {
+            width: (right - left + 1) / width,
+            height: (bottom - top + 1) / height,
+            centerX: (left + right + 1) / (2 * width),
+            centerY: (top + bottom + 1) / (2 * height)
+          };
+        }
+      }
+    } catch {
+      // Images that prevent pixel access still fit inside the same frame.
+    }
+    imageBounds.set(source, bounds);
+    return bounds;
+  }
+
+  function balanceImage(image) {
+    if (image.hidden || !image.complete || !image.naturalWidth) return;
+    const frameWidth = image.clientWidth;
+    const frameHeight = image.clientHeight;
+    if (!frameWidth || !frameHeight) return;
+
+    const bounds = visibleImageBounds(image);
+    const contain = Math.min(frameWidth / image.naturalWidth, frameHeight / image.naturalHeight);
+    const width = image.naturalWidth * contain;
+    const height = image.naturalHeight * contain;
+    const bikeWidth = bounds.width * width;
+    const bikeHeight = bounds.height * height;
+    // Match visible area while keeping wide and tall silhouettes within the card.
+    const scale = Math.min(
+      frameWidth * 0.94 / bikeWidth,
+      frameHeight * 0.88 / bikeHeight,
+      Math.sqrt(frameWidth * frameHeight * 0.64 / (bikeWidth * bikeHeight))
+    );
+    const shiftX = (0.5 - bounds.centerX) * width * scale;
+    const shiftY = (0.5 - bounds.centerY) * height * scale;
+    image.style.transform = 'translate(' + shiftX + 'px, ' + shiftY + 'px) scale(' + scale + ')';
+  }
+
   function setComparisonImage(image, source) {
     const url = safeUrl(source?.src);
     const srcset = url && source.small && source.medium
@@ -483,11 +549,16 @@
         }));
       }
       this.warmedImages = new Set();
+      this.imageObserver = typeof ResizeObserver === 'function'
+        ? new ResizeObserver((entries) => entries.forEach(({ target }) => balanceImage(target)))
+        : null;
       this.selects = {};
       for (const side of ['panquire', 'competitor']) {
         const root = this.querySelector(`[data-selector="${side}"]`);
         this.selects[side] = new ComparisonSelect(root, this, () => this.handleSelection(side), signal);
         const image = this.querySelector(`[data-product="${side}"] [data-image]`);
+        image.addEventListener('load', () => balanceImage(image), { signal });
+        this.imageObserver?.observe(image);
         image.addEventListener('error', () => {
           image.hidden = true;
           this.querySelector(`[data-product="${side}"] [data-placeholder]`).hidden = false;
@@ -514,7 +585,11 @@
       this.readUrl();
     }
 
-    disconnectedCallback() { this.abort?.abort(); cancelAnimationFrame(this.radarFrame); }
+    disconnectedCallback() {
+      this.abort?.abort();
+      this.imageObserver?.disconnect();
+      cancelAnimationFrame(this.radarFrame);
+    }
 
     closeSelects(except) {
       Object.values(this.selects).forEach((select) => { if (select !== except) select.close(); });
@@ -605,6 +680,7 @@
         image.alt = hasImage ? sourceImage.alt || record.name : '';
         image.hidden = !hasImage;
         product.querySelector('[data-placeholder]').hidden = hasImage;
+        if (hasImage) balanceImage(image);
         const price = product.querySelector('[data-price]');
         if (price && pair) {
           price.textContent = record.regionalSpecs.price;
