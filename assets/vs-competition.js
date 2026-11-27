@@ -888,9 +888,12 @@
             });
             const nodes = [svgElement('polygon', { points: positions.map((position) => position.join(',')).join(' '), class: `pq-compare__radar-area pq-compare__radar-area--${side}` })];
             positions.forEach((position, index) => {
-              const dot = svgElement('circle', { cx: position[0], cy: position[1], r: 5, class: `pq-compare__radar-point pq-compare__radar-point--${side}` });
-              dot.append(svgElement('title', {}, tooltips[metrics[index].area]));
-              nodes.push(dot);
+              const corner = svgElement('rect', {
+                x: position[0] - 6, y: position[1] - 6, width: 12, height: 12,
+                fill: 'transparent', 'pointer-events': 'all', 'data-radar-vertex': side
+              });
+              corner.append(svgElement('title', {}, tooltips[metrics[index].area]));
+              nodes.push(corner);
             });
             layers[side].replaceChildren(...nodes);
           }
