@@ -1,6 +1,11 @@
-{% doc %}Editorial buying context below the existing interactive model comparison.{% enddoc %}
-<section class="pq pq-buying-guide" aria-labelledby="CompareBuying-{{ section.id }}">
-  <h2 class="pq-buying-guide__heading" id="CompareBuying-{{ section.id }}">{{ 'panquire.storefront.choosing_an_electric_dirt_bike_alternative' | t | escape_once }}</h2>
+{% doc %}
+  Editorial buying context below the interactive model comparison.
+  @param {string} section_id - ID used to associate the buying guide and its heading.
+  @param {object} [regional_tables] - Comparison page data.
+  @param {string} [comparison_currency] - Currency code for the selected country.
+{% enddoc %}
+<section class="pq pq-buying-guide" aria-labelledby="CompareBuying-{{ section_id }}">
+  <h2 class="pq-buying-guide__heading" id="CompareBuying-{{ section_id }}">{{ 'panquire.storefront.choosing_an_electric_dirt_bike_alternative' | t | escape_once }}</h2>
   <div class="pq-buying-guide__columns">
     <div><h3>{{ 'panquire.storefront.start_with_the_bike_you_need' | t | escape_once }}</h3><p>{{ 'panquire.storefront.when_considering_a_sur_ron_alternative_compare' | t | escape_once }}</p></div>
     <div><h3>{{ 'panquire.storefront.compare_the_complete_battery_system' | t | escape_once }}</h3><p>{{ 'panquire.storefront.voltage_and_amp_hours_describe_different_things' | t | escape_once }}</p></div>
@@ -9,6 +14,46 @@
   </div>
   <h2 class="pq-buying-guide__heading">{{ 'panquire.storefront.t_01_or_t_02' | t | escape_once }}</h2>
   <p>{{ 'panquire.storefront.t_01_is_panquire_s_lower_priced' | t | escape_once }}</p>
-  {% render 'pq-dirt-bike-selection' %}
+  {% if regional_tables != blank %}
+    {% assign model_handles = 't-01,t-02' | split: ',' %}
+    {% assign comparison_columns = 'weight,peakPower,topSpeed,battery,maxLoad' | split: ',' %}
+    {% assign comparison_labels = 'Weight,Peak Power,Top Speed,Battery,Max Load' | split: ',' %}
+    {% assign first_bike = regional_tables.models['t-01'].first.bikes.first %}
+    {% assign second_bike = regional_tables.models['t-02'].first.bikes.first %}
+    {% assign first_price = first_bike.prices[comparison_currency].amount %}
+    {% assign second_price = second_bike.prices[comparison_currency].amount %}
+    <table class="pq-buying-guide__table">
+      <caption>{{ 'panquire.storefront.t_01_and_t_02_manufacturer_stated' | t | escape_once }}</caption>
+      <thead>
+        <tr>
+          <th scope="col">{{ 'panquire.storefront.compare' | t | escape_once }}</th>
+          {% for handle in model_handles %}
+            {% assign product = all_products[handle] %}
+            <th scope="col"><a href="{{ product.url }}">{{ handle | upcase }}</a></th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+        {% if first_price != blank and second_price != blank %}
+          {% assign symbol = '$' %}
+          {% if comparison_currency == 'EUR' %}{% assign symbol = '€' %}{% endif %}
+          <tr>
+            <th scope="row">Regular price</th>
+            <td>{{ symbol }}{{ first_price | times: 100 | money_without_currency | remove: '.00' }}</td>
+            <td>{{ symbol }}{{ second_price | times: 100 | money_without_currency | remove: '.00' }}</td>
+          </tr>
+        {% endif %}
+        {% for key in comparison_columns %}
+          {% assign left = first_bike.specs[key] %}
+          {% assign right = second_bike.specs[key] %}
+          {% if left != blank and right != blank and left != 'Not specified' and right != 'Not specified' %}
+            <tr><th scope="row">{{ comparison_labels[forloop.index0] }}</th><td>{{ left | escape }}</td><td>{{ right | escape }}</td></tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    {% render 'pq-dirt-bike-selection' %}
+  {% endif %}
   <div class="pq-buying-guide__links"><a href="{{ all_products['t-01'].url }}">{{ 'panquire.storefront.explore_the_t_01' | t | escape_once }}</a><a href="{{ all_products['t-02'].url }}">{{ 'panquire.storefront.explore_the_t_02' | t | escape_once }}</a><a href="{{ pages.contact.url | default: '/pages/contact' }}">{{ 'panquire.storefront.ask_a_comparison_question' | t | escape_once }}</a></div>
 </section>

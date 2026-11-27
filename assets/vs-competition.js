@@ -51,6 +51,75 @@
     try { return JSON.parse(value); } catch { return {}; }
   };
 
+  const regionalShowdown = [
+    ['price', 'Price'], ['weight', 'Weight'], ['peakPower', 'Peak Power'],
+    ['topSpeed', 'Top Speed'], ['battery', 'Battery'], ['maxLoad', 'Max Load']
+  ];
+  const regionalDetails = [
+    ['ratedPower', 'Continuous / Rated Motor Power'], ['voltage', 'Battery Voltage'],
+    ['capacity', 'Battery Capacity'], ['removable', 'Removable Battery'],
+    ['range', 'Published Range'], ['wheels', 'Wheel Size'], ['brakes', 'Brakes'],
+    ['seatHeight', 'Seat Height'], ['groundClearance', 'Ground Clearance'],
+    ['warranty', 'Warranty'], ['market', 'Market']
+  ];
+
+  function regularPrice(bike, currency, competitor) {
+    const listing = bike.prices[currency] ?? (currency === 'EUR' && competitor ? bike.prices.USD : null);
+    if (!Number.isFinite(listing?.amount) || listing.amount <= 0) return '';
+    const price = new Intl.NumberFormat('en-US', {
+      style: 'currency', currency, minimumFractionDigits: 0, maximumFractionDigits: 2
+    }).format(listing.amount);
+    return listing.from ? 'From ' + price : price;
+  }
+
+  function regionalColumns(columns, bikes) {
+    return columns.filter(([key]) => bikes.every((bike) => {
+      const value = bike[key];
+      return typeof value === 'string' && !/^(?:|[-–—]|TBD|N\/A|Not specified)$/i.test(value.trim());
+    }));
+  }
+
+  function renderRegionalTables(showdown, details, bikes) {
+    const heading = (tag, label, scope) => {
+      const cell = element(tag, label);
+      if (scope) cell.scope = scope;
+      return cell;
+    };
+    const showColumns = regionalColumns(regionalShowdown, bikes);
+    const showHead = element('thead');
+    const showHeader = element('tr');
+    showHeader.append(heading('th', 'Model', 'col'));
+    for (const [, label] of showColumns) showHeader.append(heading('th', label, 'col'));
+    showHead.append(showHeader);
+    const showBody = element('tbody');
+    for (const bike of bikes) {
+      const row = element('tr');
+      row.append(heading('th', bike.name, 'row'));
+      for (const [key] of showColumns) {
+        const cell = heading('td', key === 'price' ? undefined : bike[key]);
+        if (key === 'price') cell.append(element('strong', bike[key]));
+        row.append(cell);
+      }
+      showBody.append(row);
+    }
+    showdown.replaceChildren(showHead, showBody);
+
+    const detailHead = element('thead');
+    const detailHeader = element('tr');
+    for (const name of ['Specification', ...bikes.map((bike) => bike.name)]) {
+      detailHeader.append(heading('th', name, 'col'));
+    }
+    detailHead.append(detailHeader);
+    const detailBody = element('tbody');
+    for (const [key, label] of regionalColumns(regionalDetails, bikes)) {
+      const row = element('tr');
+      row.append(heading('th', label, 'row'), ...bikes.map((bike) => heading('td', bike[key])));
+      detailBody.append(row);
+    }
+    details.replaceChildren(detailHead, detailBody);
+    details.closest('details').hidden = !detailBody.rows.length;
+  }
+
   function productSpecifications(record) {
     const rows = new Map();
     for (const line of `${record.specificationRows}\n${record.specificationAdditions || ''}`.split(/\r?\n/)) {
@@ -364,6 +433,14 @@
       try { this.config = JSON.parse(this.querySelector('[data-comparison-data]').textContent); }
       catch { this.querySelector('[data-status]').textContent = 'Comparison data is unavailable. Please try again later.'; return; }
       this.records = { panquire: this.config.products.map(normalize).filter((record) => record.ready !== false), competitor: this.config.competitors.map(normalize).filter((record) => record.ready !== false) };
+      this.regionalModels = this.config.regionalTables?.models;
+      if (this.regionalModels) {
+        this.records.panquire = Object.entries(this.regionalModels).map(([handle, pairs]) => ({
+          ...this.records.panquire.find((record) => record.handle === handle),
+          handle,
+          name: pairs[0].bikes[0].name
+        }));
+      }
       this.selects = {};
       for (const side of ['panquire', 'competitor']) {
         const root = this.querySelector(`[data-selector="${side}"]`);
@@ -402,6 +479,9 @@
     }
 
     allowedCompetitors(product) {
+      if (this.regionalModels) {
+        return (this.regionalModels[product?.handle] || []).map(({ handle, bikes }) => ({ handle, name: bikes[1].name }));
+      }
       return (product?.competitorHandles || []).map((handle) => this.records.competitor.find((record) => record.handle === handle)).filter(Boolean);
     }
 
@@ -442,9 +522,23 @@
 
     render(animate) {
       this.selected = {};
+      const pair = this.regionalModels?.[this.selects.panquire.value]?.find(({ handle }) => handle === this.selects.competitor.value);
+      const currency = this.config.regionalCurrency;
       for (const side of ['panquire', 'competitor']) {
         let record = this.records[side].find((item) => item.handle === this.selects[side].value) || normalize({ name: 'No comparison available', fields: {} });
         if (side === 'competitor') record = applyProfile(record, this.selects.panquire.value);
+        if (pair) {
+          const competitor = side === 'competitor';
+          const bike = pair.bikes[Number(competitor)];
+          const asset = competitor && this.config.regionalImages?.[pair.handle];
+          record = {
+            ...record,
+            name: bike.name,
+            image: asset ? { src: asset, alt: bike.name } : record.image,
+            sourceUrl: safeUrl(bike.links[currency]),
+            regionalSpecs: { ...bike.specs, name: bike.name, price: regularPrice(bike, currency, competitor) }
+          };
+        }
         this.selected[side] = record;
         const product = this.querySelector(`[data-product="${side}"]`);
         const image = product.querySelector('[data-image]');
@@ -457,7 +551,10 @@
           image.src = imageUrl;
         } else { image.removeAttribute('src'); image.removeAttribute('srcset'); }
         const price = product.querySelector('[data-price]');
-        if (price) {
+        if (price && pair) {
+          price.textContent = record.regionalSpecs.price;
+          price.hidden = !price.textContent;
+        } else if (price) {
           price.replaceChildren();
           if (record.price.amount === null || record.price.amount <= 0 || !record.price.currency) price.textContent = '—';
           else {
@@ -475,10 +572,14 @@
         const source = product.querySelector('[data-source]');
         if (source) {
           source.hidden = !record.sourceUrl;
+          if (record.sourceUrl) source.href = record.sourceUrl;
+          else source.removeAttribute('href');
           source.querySelector('[data-source-tooltip]').textContent = record.sourceUrl || '';
         }
-        this.querySelector(`[data-legend="${side}"]`).textContent = record.name;
-        product.querySelector('[data-availability]').textContent = this.hasSpecifications(record) ? '' : 'Specifications coming soon';
+        const legend = this.querySelector(`[data-legend="${side}"]`);
+        if (legend) legend.textContent = record.name;
+        product.querySelector('[data-availability]').textContent = pair || this.hasSpecifications(record) ? '' : 'Specifications coming soon';
+        if (pair) product.querySelector('.pq-compare__pill').hidden = (!price || price.hidden) && (!source || source.hidden);
       }
       this.renderTables();
       this.renderRadar(animate);
@@ -505,6 +606,10 @@
 
     renderTables() {
       const left = this.selected.panquire, right = this.selected.competitor;
+      if (left.regionalSpecs && right.regionalSpecs) {
+        renderRegionalTables(this.querySelector('[data-differences]'), this.querySelector('[data-full-specs]'), [left.regionalSpecs, right.regionalSpecs]);
+        return;
+      }
       const present = this.sharedSpecifications();
       const rows = showdownSpecs(present);
       const metric = radarMetrics.find((item) => item.area === this.area);
