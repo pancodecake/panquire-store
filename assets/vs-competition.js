@@ -18,14 +18,22 @@
   ];
   // Fixed visualization ranges keep comparisons stable when a model changes.
   const radarMetrics = [
-    { area: 'power', label: 'POWER', key: 'peak_motor_power', min: 0, max: 15000 },
-    { area: 'rated-power', label: 'RATED POWER', key: 'continuous_motor_power', min: 0, max: 15000 },
-    { area: 'speed', label: 'SPEED', key: 'maximum_speed', min: 0, max: 120 },
-    { area: 'battery', label: 'BATTERY', key: 'battery_energy', min: 0, max: 5 },
-    { area: 'weight', label: 'WEIGHT', key: 'ready_to_ride_weight', min: 0, max: 150, lowerIsBetter: true },
+    { area: 'power', label: 'POWER', key: 'peak_motor_power', min: 4000, max: 21000, rangeUnit: 'kW', rangeDivisor: 1000 },
+    { area: 'rated-power', label: 'RATED POWER', key: 'continuous_motor_power', min: 1500, max: 13000, rangeUnit: 'kW', rangeDivisor: 1000 },
+    { area: 'speed', label: 'SPEED', key: 'maximum_speed', min: 55, max: 120, rangeUnit: 'km/h' },
+    { area: 'battery', label: 'BATTERY', key: 'battery_energy', min: 0.8, max: 6.2, rangeUnit: 'kWh' },
+    { area: 'weight', label: 'WEIGHT', key: 'ready_to_ride_weight', min: 38, max: 200, rangeUnit: 'kg', lowerIsBetter: true },
     { area: 'charging', label: 'CHARGING', key: 'chargingTime', min: 0, max: 12, lowerIsBetter: true, needsBasis: true },
     { area: 'acceleration', label: 'ACCELERATION', key: 'acceleration', min: 0, max: 15, lowerIsBetter: true, needsBasis: true }
   ];
+  // Fixed bands reflect comparable compact off-road, full-size off-road, and road-focused e-motos.
+  // Every matchup for the same Panquire model keeps the same scale.
+  const radarBenchmarks = {
+    't-01': { power: [4000, 13000], 'rated-power': [1500, 7000], speed: [55, 105], battery: [0.8, 3.2], weight: [38, 75] },
+    't-02': { power: [5000, 21000], 'rated-power': [2500, 11000], speed: [70, 115], battery: [2, 6.2], weight: [40, 125] },
+    't-03': { power: [4000, 19000], 'rated-power': [3000, 13000], speed: [70, 120], battery: [1.4, 6], weight: [45, 200] }
+  };
+
   const showdownKeys = ['ready_to_ride_weight', 'netBikeWeight', 'curbWeight', 'bikeWeight', 'unitWeight', 'battery_energy', 'peak_motor_power', 'continuous_motor_power', 'maximum_speed', 'chargingTime', 'acceleration', 'suspension', 'brakes', 'seatHeight', 'wheels'];
   const available = (entry) => !!entry && typeof entry.display === 'string' && !/^(?:\s*|—|TBD|N\/A|Not specified)$/i.test(entry.display.trim());
   const matchingBasis = (a, b) => !!a?.basis && a.basis === b?.basis;
@@ -377,7 +385,7 @@
   }
   function score(metric, record) {
     const value = record.specs[metric.key]?.plotValue;
-    if (value === null || value === undefined) return null;
+    if (!Number.isFinite(value)) return null;
     const result = Math.max(0, Math.min(100, (value - metric.min) / (metric.max - metric.min) * 100));
     return metric.lowerIsBetter ? 100 - result : result;
   }
@@ -397,9 +405,9 @@
     if (text !== undefined) node.textContent = text;
     return node;
   };
-  const point = (index, percent, count) => {
+  const point = (index, percent, count, radius = 141) => {
     const angle = -Math.PI / 2 + index * Math.PI * 2 / count;
-    return [220 + Math.cos(angle) * 128 * percent / 100, 195 + Math.sin(angle) * 128 * percent / 100];
+    return [220 + Math.cos(angle) * radius * percent / 100, 195 + Math.sin(angle) * radius * percent / 100];
   };
 
   class ComparisonSelect {
@@ -822,9 +830,28 @@
       const visibleKeys = this.regionalModels
         ? Object.keys(regionalRadarFields)
         : showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
-      const metrics = radarMetrics.filter((metric) => visibleKeys.includes(metric.key) && score(metric, this.selected.panquire) !== null && score(metric, this.selected.competitor) !== null && (!metric.needsBasis || matchingBasis(this.selected.panquire.specs[metric.key], this.selected.competitor.specs[metric.key])));
+      const benchmarks = radarBenchmarks[this.selects.panquire.value];
+      const metrics = radarMetrics
+        .filter((metric) => visibleKeys.includes(metric.key) && score(metric, this.selected.panquire) !== null && score(metric, this.selected.competitor) !== null && (!metric.needsBasis || matchingBasis(this.selected.panquire.specs[metric.key], this.selected.competitor.specs[metric.key])))
+        .map((metric) => {
+          const range = benchmarks?.[metric.area];
+          return range ? { ...metric, min: range[0], max: range[1] } : metric;
+        });
       this.renderMetricButtons(metrics);
       const target = Object.fromEntries(['panquire', 'competitor'].map((side) => [side, Object.fromEntries(metrics.map((metric) => [metric.area, score(metric, this.selected[side])]))]));
+      const tooltips = Object.fromEntries(metrics.map((metric) => {
+        const divisor = metric.rangeDivisor || 1;
+        const unit = metric.rangeUnit || this.selected.panquire.specs[metric.key].unit;
+        const lines = [
+          metric.label,
+          ...['panquire', 'competitor'].map((side) => {
+            const record = this.selected[side];
+            return record.name + ': ' + record.specs[metric.key].display + ' (' + Math.round(target[side][metric.area]) + '/100)';
+          }),
+          'Benchmark: ' + format(metric.min / divisor) + '–' + format(metric.max / divisor) + (unit ? ' ' + unit : '')
+        ];
+        return [metric.area, lines.join('\n')];
+      }));
       const previous = this.radarScores || target;
       this.radarScores = target;
       svg.replaceChildren(svgElement('title', {}, `${this.selected.panquire.name} vs ${this.selected.competitor.name}`));
@@ -838,16 +865,18 @@
             const barY = y + 18 + sideIndex * 22;
             svg.append(svgElement('line', { x1: 50, y1: barY, x2: 390, y2: barY, class: 'pq-compare__radar-grid' }));
             const bar = svgElement('rect', { x: 50, y: barY - 4, width: target[side][metric.area] * 3.4, height: 8, rx: 4, class: `pq-compare__radar-point--${side}` });
-            bar.append(svgElement('title', {}, `${this.selected[side].name}: ${this.selected[side].specs[metric.key].display}`));
+            bar.append(svgElement('title', {}, tooltips[metric.area]));
             svg.append(bar);
           });
         });
       } else {
         for (const level of [20, 40, 60, 80, 100]) svg.append(svgElement('polygon', { points: metrics.map((_, index) => point(index, level, metrics.length).join(',')).join(' '), class: 'pq-compare__radar-grid' }));
         metrics.forEach((metric, index) => {
-          const [x, y] = point(index, 100, metrics.length), [tx, ty] = point(index, 126, metrics.length);
+          const [x, y] = point(index, 100, metrics.length), [tx, ty] = point(index, 100, metrics.length, 164);
           svg.append(svgElement('line', { x1: 220, y1: 195, x2: x, y2: y, class: 'pq-compare__radar-grid' }));
-          svg.append(svgElement('text', { x: tx, y: ty + 4, 'text-anchor': 'middle', class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label));
+          const label = svgElement('text', { x: tx, y: ty + 4, 'text-anchor': 'middle', class: 'pq-compare__chart-label', 'data-metric': metric.area, cursor: 'pointer' }, metric.label);
+          label.append(svgElement('title', {}, tooltips[metric.area]));
+          svg.append(label);
         });
         const layers = Object.fromEntries(['panquire', 'competitor'].map((side) => { const layer = svgElement('g'); svg.append(layer); return [side, layer]; }));
         const draw = (progress) => {
@@ -859,8 +888,8 @@
             });
             const nodes = [svgElement('polygon', { points: positions.map((position) => position.join(',')).join(' '), class: `pq-compare__radar-area pq-compare__radar-area--${side}` })];
             positions.forEach((position, index) => {
-              const dot = svgElement('circle', { cx: position[0], cy: position[1], r: 3.5, class: `pq-compare__radar-point--${side}` });
-              dot.append(svgElement('title', {}, `${this.selected[side].name}: ${this.selected[side].specs[metrics[index].key].display}`));
+              const dot = svgElement('circle', { cx: position[0], cy: position[1], r: 5, class: `pq-compare__radar-point pq-compare__radar-point--${side}` });
+              dot.append(svgElement('title', {}, tooltips[metrics[index].area]));
               nodes.push(dot);
             });
             layers[side].replaceChildren(...nodes);
@@ -872,9 +901,10 @@
           this.radarFrame = requestAnimationFrame(tick);
         } else draw(1);
       }
-      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Only shared numeric specs are plotted on the fixed scales.'];
-      if (metrics.some(metric => metric.lowerIsBetter)) notes.push('Lower values use reversed scales for weight and comparable times.');
-      notes.push('Qualitative specs remain in the table.');
+      const notes = ['Normalized performance scores (0–100). Both bikes use the same fixed benchmark for each metric.'];
+      if (metrics.some((metric) => metric.area === 'weight')) notes.push('Lighter bikes score higher on weight.');
+      notes.push('Tooltips show the original specs and scale limits.');
+      if (metrics.length > 0 && metrics.length < 3) notes.push('Shared metrics appear as bars when fewer than three can be plotted.');
       for (const side of ['panquire', 'competitor']) {
         for (const metric of metrics) {
           const entry = this.selected[side].specs[metric.key];
