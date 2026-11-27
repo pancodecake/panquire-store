@@ -56,12 +56,48 @@
     ['topSpeed', 'Top Speed'], ['battery', 'Battery'], ['maxLoad', 'Max Load']
   ];
   const regionalDetails = [
-    ['ratedPower', 'Continuous / Rated Motor Power'], ['voltage', 'Battery Voltage'],
-    ['capacity', 'Battery Capacity'], ['removable', 'Removable Battery'],
-    ['range', 'Published Range'], ['wheels', 'Wheel Size'], ['brakes', 'Brakes'],
-    ['seatHeight', 'Seat Height'], ['groundClearance', 'Ground Clearance'],
-    ['warranty', 'Warranty'], ['market', 'Market']
+    ['ratedPower', 'Continuous / Rated Motor Power', 'Performance'],
+    ['voltage', 'Battery Voltage', 'Battery & range'],
+    ['capacity', 'Battery Capacity', 'Battery & range'],
+    ['removable', 'Removable Battery', 'Battery & range'],
+    ['range', 'Published Range', 'Battery & range'],
+    ['wheels', 'Wheel Size', 'Chassis'],
+    ['brakes', 'Brakes', 'Chassis'],
+    ['seatHeight', 'Seat Height', 'Chassis'],
+    ['groundClearance', 'Ground Clearance', 'Chassis'],
+    ['warranty', 'Warranty', 'Additional details'],
+    ['market', 'Market', 'Additional details']
   ];
+  const regionalRadarFields = {
+    peak_motor_power: 'peakPower',
+    continuous_motor_power: 'ratedPower',
+    maximum_speed: 'topSpeed',
+    battery_energy: 'battery',
+    ready_to_ride_weight: 'weight'
+  };
+
+  function radarMeasurement(display, units) {
+    const measurement = display?.trim().match(/^([\d,]+(?:\.\d+)?)\s*(\S+)$/);
+    const factor = measurement && units[measurement[2]];
+    return typeof factor === 'number' ? Number(measurement[1].replaceAll(',', '')) * factor : null;
+  }
+
+  function regionalRadarSpecs(bike) {
+    const voltage = radarMeasurement(bike.voltage, { V: 1 });
+    const capacity = radarMeasurement(bike.capacity, { Ah: 1 });
+    const batteryEnergy = radarMeasurement(bike.battery, { Wh: 0.001, kWh: 1 })
+      ?? (voltage !== null && capacity !== null ? voltage * capacity / 1000 : null);
+    const values = {
+      peak_motor_power: radarMeasurement(bike.peakPower, { W: 1, kW: 1000 }),
+      continuous_motor_power: radarMeasurement(bike.ratedPower, { W: 1, kW: 1000 }),
+      maximum_speed: radarMeasurement(bike.topSpeed, { 'km/h': 1, mph: 1.609344 }),
+      battery_energy: batteryEnergy,
+      ready_to_ride_weight: radarMeasurement(bike.weight, { kg: 1, lb: 0.45359237, lbs: 0.45359237 })
+    };
+    return Object.fromEntries(Object.entries(values).map(([key, value]) => [key, {
+      value, plotValue: value, display: bike[regionalRadarFields[key]]
+    }]));
+  }
 
   function regularPrice(bike, currency, competitor) {
     const listing = bike.prices[currency] ?? (currency === 'EUR' && competitor ? bike.prices.USD : null);
@@ -79,7 +115,7 @@
     }));
   }
 
-  function renderRegionalTables(showdown, details, bikes) {
+  function renderRegionalTables(showdown, details, bikes, activeSpec) {
     const heading = (tag, label, scope) => {
       const cell = element(tag, label);
       if (scope) cell.scope = scope;
@@ -89,7 +125,11 @@
     const showHead = element('thead');
     const showHeader = element('tr');
     showHeader.append(heading('th', 'Model', 'col'));
-    for (const [, label] of showColumns) showHeader.append(heading('th', label, 'col'));
+    for (const [key, label] of showColumns) {
+      const cell = heading('th', label, 'col');
+      cell.classList.toggle('is-focused', key === activeSpec);
+      showHeader.append(cell);
+    }
     showHead.append(showHeader);
     const showBody = element('tbody');
     for (const bike of bikes) {
@@ -98,6 +138,7 @@
       for (const [key] of showColumns) {
         const cell = heading('td', key === 'price' ? undefined : bike[key]);
         if (key === 'price') cell.append(element('strong', bike[key]));
+        cell.classList.toggle('is-focused', key === activeSpec);
         row.append(cell);
       }
       showBody.append(row);
@@ -111,13 +152,27 @@
     }
     detailHead.append(detailHeader);
     const detailBody = element('tbody');
-    for (const [key, label] of regionalColumns(regionalDetails, bikes)) {
+    const disclosure = details.closest('details');
+    let group;
+    for (const [key, label, category] of regionalColumns(regionalDetails, bikes)) {
+      if (group !== category) {
+        group = category;
+        const groupRow = element('tr', undefined, 'pq-compare__group');
+        const groupHeading = heading('th', group, 'colgroup');
+        groupHeading.colSpan = bikes.length + 1;
+        groupRow.append(groupHeading);
+        detailBody.append(groupRow);
+      }
       const row = element('tr');
+      if (key === activeSpec) {
+        row.classList.add('is-focused');
+        disclosure.open = true;
+      }
       row.append(heading('th', label, 'row'), ...bikes.map((bike) => heading('td', bike[key])));
       detailBody.append(row);
     }
     details.replaceChildren(detailHead, detailBody);
-    details.closest('details').hidden = !detailBody.rows.length;
+    disclosure.hidden = !detailBody.rows.length;
   }
 
   function productSpecifications(record) {
@@ -463,7 +518,7 @@
         this.area = target.hasAttribute('data-reset') || this.area === target.dataset.metric ? null : target.dataset.metric;
         this.renderTables();
         this.updateMetricButtons();
-        this.querySelector('[data-status]').textContent = this.area ? `${this.area} specifications shown.` : 'Biggest differences shown.';
+        this.querySelector('[data-status]').textContent = this.area ? `${this.area} specifications highlighted.` : 'Highlight cleared.';
       }, { signal });
       this.querySelector('details').addEventListener('toggle', () => {
         if (this.querySelector('details').open) this.animateChange(this.querySelector('[data-full-specs]'));
@@ -536,6 +591,7 @@
             name: bike.name,
             image: asset ? { src: asset, alt: bike.name } : record.image,
             sourceUrl: safeUrl(bike.links[currency]),
+            specs: regionalRadarSpecs(bike.specs),
             regionalSpecs: { ...bike.specs, name: bike.name, price: regularPrice(bike, currency, competitor) }
           };
         }
@@ -606,15 +662,20 @@
 
     renderTables() {
       const left = this.selected.panquire, right = this.selected.competitor;
+      const metric = radarMetrics.find((item) => item.area === this.area);
+      this.querySelector('[data-reset]').hidden = !metric;
       if (left.regionalSpecs && right.regionalSpecs) {
-        renderRegionalTables(this.querySelector('[data-differences]'), this.querySelector('[data-full-specs]'), [left.regionalSpecs, right.regionalSpecs]);
+        renderRegionalTables(
+          this.querySelector('[data-differences]'),
+          this.querySelector('[data-full-specs]'),
+          [left.regionalSpecs, right.regionalSpecs],
+          regionalRadarFields[metric?.key]
+        );
         return;
       }
       const present = this.sharedSpecifications();
       const rows = showdownSpecs(present);
-      const metric = radarMetrics.find((item) => item.area === this.area);
       this.querySelector('[data-table-title]').textContent = 'SPEC SHOWDOWN';
-      this.querySelector('[data-reset]').hidden = !this.area;
       this.fillTable(this.querySelector('[data-differences]'), rows, true);
       this.fillTable(this.querySelector('[data-full-specs]'), present, false);
     }
@@ -677,7 +738,9 @@
       const svg = this.querySelector('[data-radar]');
       if (!svg) return;
       cancelAnimationFrame(this.radarFrame);
-      const visibleKeys = showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
+      const visibleKeys = this.regionalModels
+        ? Object.keys(regionalRadarFields)
+        : showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
       const metrics = radarMetrics.filter((metric) => visibleKeys.includes(metric.key) && score(metric, this.selected.panquire) !== null && score(metric, this.selected.competitor) !== null && (!metric.needsBasis || matchingBasis(this.selected.panquire.specs[metric.key], this.selected.competitor.specs[metric.key])));
       this.renderMetricButtons(metrics);
       const target = Object.fromEntries(['panquire', 'competitor'].map((side) => [side, Object.fromEntries(metrics.map((metric) => [metric.area, score(metric, this.selected[side])]))]));
@@ -728,7 +791,7 @@
           this.radarFrame = requestAnimationFrame(tick);
         } else draw(1);
       }
-      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Fixed scales; only shared numeric showdown specs are plotted.'];
+      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Only shared numeric specs are plotted on the fixed scales.'];
       if (metrics.some(metric => metric.lowerIsBetter)) notes.push('Lower values use reversed scales for weight and comparable times.');
       notes.push('Qualitative specs remain in the table.');
       for (const side of ['panquire', 'competitor']) {
@@ -743,4 +806,3 @@
   }
   customElements.define('pq-comparison', Comparison);
 })();
-
