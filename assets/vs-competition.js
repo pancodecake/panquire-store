@@ -51,6 +51,89 @@
     try { return JSON.parse(value); } catch { return {}; }
   };
 
+  const regionalShowdown = [
+    ['price', 'Price', 'lower'], ['weight', 'Weight', 'lower'], ['peakPower', 'Peak Power', 'higher'],
+    ['topSpeed', 'Top Speed', 'higher'], ['battery', 'Battery', 'higher'], ['maxLoad', 'Max Load', 'higher']
+  ];
+  const regionalDetails = [
+    ['ratedPower', 'Continuous / Rated Motor Power', 'Performance'],
+    ['voltage', 'Battery Voltage', 'Battery & range'],
+    ['capacity', 'Battery Capacity', 'Battery & range'],
+    ['removable', 'Removable Battery', 'Battery & range'],
+    ['range', 'Published Range', 'Battery & range'],
+    ['wheels', 'Wheel Size', 'Chassis'],
+    ['brakes', 'Brakes', 'Chassis'],
+    ['seatHeight', 'Seat Height', 'Chassis'],
+    ['groundClearance', 'Ground Clearance', 'Chassis'],
+    ['warranty', 'Warranty', 'Additional details'],
+    ['market', 'Market', 'Additional details']
+  ];
+  const regionalRadarFields = {
+    peak_motor_power: 'peakPower',
+    continuous_motor_power: 'ratedPower',
+    maximum_speed: 'topSpeed',
+    battery_energy: 'battery',
+    ready_to_ride_weight: 'weight'
+  };
+
+  function radarMeasurement(display, units) {
+    const measurement = display?.trim().match(/^([\d,]+(?:\.\d+)?)\s*(\S+)$/);
+    const factor = measurement && units[measurement[2]];
+    return typeof factor === 'number' ? Number(measurement[1].replaceAll(',', '')) * factor : null;
+  }
+
+  function regionalRadarSpecs(bike) {
+    const voltage = radarMeasurement(bike.voltage, { V: 1 });
+    const capacity = radarMeasurement(bike.capacity, { Ah: 1 });
+    const batteryEnergy = radarMeasurement(bike.battery, { Wh: 0.001, kWh: 1 })
+      ?? (voltage !== null && capacity !== null ? voltage * capacity / 1000 : null);
+    const values = {
+      peak_motor_power: radarMeasurement(bike.peakPower, { W: 1, kW: 1000 }),
+      continuous_motor_power: radarMeasurement(bike.ratedPower, { W: 1, kW: 1000 }),
+      maximum_speed: radarMeasurement(bike.topSpeed, { 'km/h': 1, mph: 1.609344 }),
+      battery_energy: batteryEnergy,
+      ready_to_ride_weight: radarMeasurement(bike.weight, { kg: 1, lb: 0.45359237, lbs: 0.45359237 })
+    };
+    return Object.fromEntries(Object.entries(values).map(([key, value]) => [key, {
+      value, plotValue: value, display: bike[regionalRadarFields[key]]
+    }]));
+  }
+
+  function regularPrice(bike, currency, competitor) {
+    const listing = bike.prices[currency] ?? (currency === 'EUR' && competitor ? bike.prices.USD : null);
+    if (!Number.isFinite(listing?.amount) || listing.amount <= 0) return '';
+    const price = new Intl.NumberFormat('en-US', {
+      style: 'currency', currency, minimumFractionDigits: 0, maximumFractionDigits: 2
+    }).format(listing.amount);
+    return listing.from ? 'From ' + price : price;
+  }
+
+  function regionalColumns(columns, bikes) {
+    return columns.filter(([key]) => bikes.every((bike) => {
+      const value = bike[key];
+      return typeof value === 'string' && !/^(?:|[-–—]|TBD|N\/A|Not specified)$/i.test(value.trim());
+    }));
+  }
+
+  function regionalTableRecord(record, currency) {
+    const displayed = record.regionalSpecs;
+    const plotted = record.specs;
+    const price = displayed.price.match(/^[$€]([\d,]+(?:\.\d+)?)$/);
+    const measurements = {
+      price: [price ? Number(price[1].replaceAll(',', '')) : null, currency],
+      weight: [plotted.ready_to_ride_weight.value, 'kg'],
+      peakPower: [plotted.peak_motor_power.value === null ? null : plotted.peak_motor_power.value / 1000, 'kW'],
+      topSpeed: [plotted.maximum_speed.value, 'km/h'],
+      battery: [plotted.battery_energy.value, 'kWh'],
+      maxLoad: [radarMeasurement(displayed.maxLoad, { kg: 1, lb: 0.45359237, lbs: 0.45359237 }), 'kg']
+    };
+    const specs = Object.fromEntries(Object.entries(displayed).map(([key, display]) => {
+      const [value, unit] = measurements[key] || [null, null];
+      return [key, { value, unit, display }];
+    }));
+    return { name: record.name, specs };
+  }
+
   function productSpecifications(record) {
     const rows = new Map();
     for (const line of `${record.specificationRows}\n${record.specificationAdditions || ''}`.split(/\r?\n/)) {
@@ -364,6 +447,14 @@
       try { this.config = JSON.parse(this.querySelector('[data-comparison-data]').textContent); }
       catch { this.querySelector('[data-status]').textContent = 'Comparison data is unavailable. Please try again later.'; return; }
       this.records = { panquire: this.config.products.map(normalize).filter((record) => record.ready !== false), competitor: this.config.competitors.map(normalize).filter((record) => record.ready !== false) };
+      this.regionalModels = this.config.regionalTables?.models;
+      if (this.regionalModels) {
+        this.records.panquire = Object.entries(this.regionalModels).map(([handle, pairs]) => ({
+          ...this.records.panquire.find((record) => record.handle === handle),
+          handle,
+          name: pairs[0].bikes[0].name
+        }));
+      }
       this.selects = {};
       for (const side of ['panquire', 'competitor']) {
         const root = this.querySelector(`[data-selector="${side}"]`);
@@ -386,7 +477,7 @@
         this.area = target.hasAttribute('data-reset') || this.area === target.dataset.metric ? null : target.dataset.metric;
         this.renderTables();
         this.updateMetricButtons();
-        this.querySelector('[data-status]').textContent = this.area ? `${this.area} specifications shown.` : 'Biggest differences shown.';
+        this.querySelector('[data-status]').textContent = this.area ? `${this.area} specifications highlighted.` : 'Highlight cleared.';
       }, { signal });
       this.querySelector('details').addEventListener('toggle', () => {
         if (this.querySelector('details').open) this.animateChange(this.querySelector('[data-full-specs]'));
@@ -402,6 +493,9 @@
     }
 
     allowedCompetitors(product) {
+      if (this.regionalModels) {
+        return (this.regionalModels[product?.handle] || []).map(({ handle, bikes }) => ({ handle, name: bikes[1].name }));
+      }
       return (product?.competitorHandles || []).map((handle) => this.records.competitor.find((record) => record.handle === handle)).filter(Boolean);
     }
 
@@ -442,9 +536,24 @@
 
     render(animate) {
       this.selected = {};
+      const pair = this.regionalModels?.[this.selects.panquire.value]?.find(({ handle }) => handle === this.selects.competitor.value);
+      const currency = this.config.regionalCurrency;
       for (const side of ['panquire', 'competitor']) {
         let record = this.records[side].find((item) => item.handle === this.selects[side].value) || normalize({ name: 'No comparison available', fields: {} });
         if (side === 'competitor') record = applyProfile(record, this.selects.panquire.value);
+        if (pair) {
+          const competitor = side === 'competitor';
+          const bike = pair.bikes[Number(competitor)];
+          const asset = competitor && this.config.regionalImages?.[pair.handle];
+          record = {
+            ...record,
+            name: bike.name,
+            image: asset ? { src: asset, alt: bike.name } : record.image,
+            sourceUrl: safeUrl(bike.links[currency]),
+            specs: regionalRadarSpecs(bike.specs),
+            regionalSpecs: { ...bike.specs, name: bike.name, price: regularPrice(bike, currency, competitor) }
+          };
+        }
         this.selected[side] = record;
         const product = this.querySelector(`[data-product="${side}"]`);
         const image = product.querySelector('[data-image]');
@@ -457,7 +566,10 @@
           image.src = imageUrl;
         } else { image.removeAttribute('src'); image.removeAttribute('srcset'); }
         const price = product.querySelector('[data-price]');
-        if (price) {
+        if (price && pair) {
+          price.textContent = record.regionalSpecs.price;
+          price.hidden = !price.textContent;
+        } else if (price) {
           price.replaceChildren();
           if (record.price.amount === null || record.price.amount <= 0 || !record.price.currency) price.textContent = '—';
           else {
@@ -475,10 +587,14 @@
         const source = product.querySelector('[data-source]');
         if (source) {
           source.hidden = !record.sourceUrl;
+          if (record.sourceUrl) source.href = record.sourceUrl;
+          else source.removeAttribute('href');
           source.querySelector('[data-source-tooltip]').textContent = record.sourceUrl || '';
         }
-        this.querySelector(`[data-legend="${side}"]`).textContent = record.name;
-        product.querySelector('[data-availability]').textContent = this.hasSpecifications(record) ? '' : 'Specifications coming soon';
+        const legend = this.querySelector(`[data-legend="${side}"]`);
+        if (legend) legend.textContent = record.name;
+        product.querySelector('[data-availability]').textContent = pair || this.hasSpecifications(record) ? '' : 'Specifications coming soon';
+        if (pair) product.querySelector('.pq-compare__pill').hidden = (!price || price.hidden) && (!source || source.hidden);
       }
       this.renderTables();
       this.renderRadar(animate);
@@ -505,17 +621,31 @@
 
     renderTables() {
       const left = this.selected.panquire, right = this.selected.competitor;
-      const present = this.sharedSpecifications();
-      const rows = showdownSpecs(present);
       const metric = radarMetrics.find((item) => item.area === this.area);
       this.querySelector('[data-table-title]').textContent = 'SPEC SHOWDOWN';
-      this.querySelector('[data-reset]').hidden = !this.area;
+      this.querySelector('[data-reset]').hidden = !metric;
+      if (left.regionalSpecs && right.regionalSpecs) {
+        const bikes = [left.regionalSpecs, right.regionalSpecs];
+        const activeSpec = regionalRadarFields[metric?.key];
+        const records = [left, right].map((bike) => regionalTableRecord(bike, this.config.regionalCurrency));
+        const showdown = regionalColumns(regionalShowdown, bikes).map(([key, label, comparisonMode]) => ({ key, label, comparisonMode }));
+        const details = regionalColumns(regionalDetails, bikes).map(([key, label, group]) => ({ key, label, group }));
+        const fullTable = this.querySelector('[data-full-specs]');
+        const disclosure = fullTable.closest('details');
+        this.fillTable(this.querySelector('[data-differences]'), showdown, true, records, activeSpec);
+        this.fillTable(fullTable, details, false, records, activeSpec);
+        disclosure.hidden = !details.length;
+        if (details.some((spec) => spec.key === activeSpec)) disclosure.open = true;
+        return;
+      }
+      const present = this.sharedSpecifications();
+      const rows = showdownSpecs(present);
       this.fillTable(this.querySelector('[data-differences]'), rows, true);
       this.fillTable(this.querySelector('[data-full-specs]'), present, false);
     }
 
-    fillTable(table, rows, margins) {
-      const left = this.selected.panquire, right = this.selected.competitor;
+    fillTable(table, rows, margins, records = [this.selected.panquire, this.selected.competitor], activeSpec) {
+      const [left, right] = records;
       const caption = element('caption', `${left.name} vs ${right.name}: ${margins ? 'selected specifications' : 'all shared specifications'}`, 'visually-hidden');
       const head = element('thead');
       const header = element('tr');
@@ -534,7 +664,7 @@
         const row = element('tr'), heading = element('th', spec.label);
         row.dataset.spec = spec.key;
         const activeMetric = radarMetrics.find((metric) => metric.area === this.area);
-        if (activeMetric && (activeMetric.key === spec.key || (this.area === 'power' && spec.area === 'power'))) row.classList.add('is-focused');
+        if (activeSpec === spec.key || (activeMetric && (activeMetric.key === spec.key || (this.area === 'power' && spec.area === 'power')))) row.classList.add('is-focused');
         heading.scope = 'row';
         const winningSide = winner(spec, left, right);
         const display = (entry) => margins && spec.unit === 'W' && entry.value !== null ? `${withUnit(entry.value / 1000, 'kW')} (${entry.display})` : entry.display;
@@ -572,7 +702,9 @@
       const svg = this.querySelector('[data-radar]');
       if (!svg) return;
       cancelAnimationFrame(this.radarFrame);
-      const visibleKeys = showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
+      const visibleKeys = this.regionalModels
+        ? Object.keys(regionalRadarFields)
+        : showdownSpecs(this.sharedSpecifications()).map((spec) => spec.key);
       const metrics = radarMetrics.filter((metric) => visibleKeys.includes(metric.key) && score(metric, this.selected.panquire) !== null && score(metric, this.selected.competitor) !== null && (!metric.needsBasis || matchingBasis(this.selected.panquire.specs[metric.key], this.selected.competitor.specs[metric.key])));
       this.renderMetricButtons(metrics);
       const target = Object.fromEntries(['panquire', 'competitor'].map((side) => [side, Object.fromEntries(metrics.map((metric) => [metric.area, score(metric, this.selected[side])]))]));
@@ -623,7 +755,7 @@
           this.radarFrame = requestAnimationFrame(tick);
         } else draw(1);
       }
-      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Fixed scales; only shared numeric showdown specs are plotted.'];
+      const notes = [metrics.length > 0 && metrics.length < 3 ? 'Fewer than three shared numeric specs: shown as bars on the same fixed scales.' : 'Only shared numeric specs are plotted on the fixed scales.'];
       if (metrics.some(metric => metric.lowerIsBetter)) notes.push('Lower values use reversed scales for weight and comparable times.');
       notes.push('Qualitative specs remain in the table.');
       for (const side of ['panquire', 'competitor']) {
@@ -638,4 +770,3 @@
   }
   customElements.define('pq-comparison', Comparison);
 })();
-
