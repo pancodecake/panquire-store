@@ -41,24 +41,26 @@
         <input id="{{ form_id }}-search" type="search" autocomplete="off" placeholder="{{ 'content.search' | t | escape_once }}" aria-controls="{{ form_id }}-countries">
       </div>
       <ul class="pq-header-location__countries" id="{{ form_id }}-countries" role="list">
-        {% for batch in (1..batches) %}
-          {% assign country_offset = forloop.index0 | times: 50 %}
-          {% for country in countries offset: country_offset limit: 50 %}
-            {% assign currency_code = country.currency.iso_code | default: shop.currency %}
-            {% assign currency_symbol = country.currency.symbol %}
-            {% assign market_languages = country.available_languages | map: 'iso_code' %}
-            {% if currency_symbol == blank and currency_code == 'USD' %}
-              {% assign currency_symbol = '$' %}
-            {% endif %}
+        {%- for batch in (1..batches) -%}
+          {%- assign country_offset = forloop.index0 | times: 50 -%}
+          {%- for country in countries offset: country_offset limit: 50 -%}
+            {%- liquid
+              assign currency_code = country.currency.iso_code | default: shop.currency
+              assign currency_symbol = country.currency.symbol
+              assign market_languages = country.available_languages | map: 'iso_code'
+              if currency_symbol == blank and currency_code == 'USD'
+                assign currency_symbol = '$'
+              endif
+            -%}
             <li>
               <button type="submit" name="country_code" value="{{ country.iso_code | escape }}" class="pq-header-location__option" data-currency="{{ currency_code | escape }}" data-languages="{{ market_languages | join: ',' | escape }}"{% if country.iso_code == active_country.iso_code %} aria-current="true"{% endif %}>
-                {{ country | image_url: width: 48 | image_tag: width: 24, height: 24, class: 'pq-header-location__flag', alt: '', loading: 'lazy' }}
+                <img class="pq-header-location__flag" src="{{ country | image_url: width: 48 | escape }}" width="24" height="24" alt="" loading="lazy">
                 <span>{{ country.name | replace: '&amp;', '&' | escape }}</span>
                 <span class="pq-header-location__currency">{{ currency_code | escape }}{% if currency_symbol != blank %} / {{ currency_symbol | escape }}{% endif %}</span>
               </button>
             </li>
-          {% endfor %}
-        {% endfor %}
+          {%- endfor -%}
+        {%- endfor -%}
       </ul>
       <button type="button" class="pq-header-location__full" data-location-full aria-controls="{{ form_id }}-countries" aria-expanded="false" hidden>{{ 'panquire.storefront.full_location_list' | t | escape_once }}</button>
       <p class="pq-header-location__empty" role="status" data-location-empty hidden>{{ 'content.no_results_found' | t }}</p>

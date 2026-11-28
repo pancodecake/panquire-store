@@ -8,6 +8,7 @@
   @param {boolean} [arrows_on_media] - Whether the controls will display as floating icons on the media
   @param {boolean} [controls_on_media] - Whether the controls will display as floating controls on the media
   @param {media[]} [thumbnails] - Array of media to be displayed as thumbnails, sorted.
+  @param {object} [thumbnail_product] - Product used for gallery thumbnail descriptions.
   @param {string[]} [custom_thumbnails] - Theme asset filenames appended after product media thumbnails.
   @param {string} [thumbnail_alt] - Product title used for custom thumbnail alt text.
   @param {string} [pagination_position] - { 'left' | 'center' | 'right' } Sets the pagination position, defaults to 'center' if none passed
@@ -125,11 +126,14 @@
                   if media.presentation.focal_point != blank
                     assign focal_point_style = 'object-position: ' | append: media.presentation.focal_point | append: ';'
                   endif
+                  capture media_thumbnail_alt
+                    render 'pq-product-media-alt', media: media, gallery_product: thumbnail_product
+                  endcapture
                 %}
                 {{
                   media.preview_image
                   | image_url: width: 144
-                  | image_tag: loading: 'lazy', alt: media.alt, style: focal_point_style
+                  | image_tag: loading: 'lazy', alt: media_thumbnail_alt, style: focal_point_style
                 }}
 
                 {% if media.media_type == 'video' or media.media_type == 'external_video' %}

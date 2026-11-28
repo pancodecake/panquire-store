@@ -381,10 +381,10 @@
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div
               class="product-media-constraint-wrapper">
-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              {%- render 'product-media', media: media, selected_product: selected_product, sizes: media_sizes, is_main_product_media: forloop.first -%}
             </div>
           {% else %}
-            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {%- render 'product-media', media: media, selected_product: selected_product, sizes: media_sizes, is_main_product_media: forloop.first -%}
           {% endif %}
         {% endcapture %}
         {% capture class %}
@@ -420,6 +420,7 @@
             style: slideshow_controls_style,
             item_count: sorted_media.size,
             thumbnails: sorted_media,
+            thumbnail_product: selected_product,
             controls_on_media: controls_on_media,
             pagination_position: pagination_position,
             aspect_ratio: block_settings.aspect_ratio,
@@ -433,6 +434,7 @@
             style: block_settings.slideshow_mobile_controls_style,
             item_count: sorted_media.size,
             thumbnails: sorted_media,
+            thumbnail_product: selected_product,
             controls_on_media: mobile_controls_on_media,
             pagination_position: 'center',
             aspect_ratio: block_settings.aspect_ratio,
@@ -495,10 +497,10 @@
             -%}
             {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
               <div class="product-media-constraint-wrapper">
-                {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+                {%- render 'product-media', media: media, selected_product: selected_product, sizes: media_sizes, is_main_product_media: forloop.first -%}
               </div>
             {% else %}
-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              {%- render 'product-media', media: media, selected_product: selected_product, sizes: media_sizes, is_main_product_media: forloop.first -%}
             {% endif %}
           </li>
         {% endfor %}
@@ -537,11 +539,14 @@
                     if block_settings.aspect_ratio == 'adapt'
                       assign aspect_ratio = media.preview_image.aspect_ratio | default: 1.0
                     endif
+                    capture thumbnail_alt
+                      render 'pq-product-media-alt', media: media, gallery_product: selected_product
+                    endcapture
                   %}
                   <button
                     type="button"
                     class="button button-unstyled dialog-thumbnails-list__thumbnail"
-                    aria-label="{{ 'accessibility.scroll_to' | t: title: media.alt | default: media.media_type }}"
+                    aria-label="{{ 'accessibility.scroll_to' | t: title: thumbnail_alt | escape_once }}"
                     on:click="/handleThumbnailClick/{{ forloop.index0 }}"
                     on:pointerenter="/handleThumbnailPointerEnter/{{ forloop.index0 }}"
                     style="--aspect-ratio: {{ aspect_ratio }}; --gallery-aspect-ratio: {{ aspect_ratio }};"
@@ -562,7 +567,7 @@
                         loading: 'lazy',
                         sizes: '(min-width: 750px) 160px, 110px',
                         widths: '110, 160, 220, 320',
-                        alt: media.alt,
+                        alt: thumbnail_alt,
                         style: focal_point_style
                     }}
                   </button>
@@ -587,6 +592,7 @@
                   <drag-zoom-wrapper class="product-media__drag-zoom-wrapper">
                     {%- render 'product-media',
                       media: media,
+                      selected_product: selected_product,
                       sizes: '100vw',
                       loading: 'lazy',
                       is_main_product_media: forloop.first,
@@ -596,6 +602,7 @@
                 {% else %}
                   {%- render 'product-media',
                     media: media,
+                    selected_product: selected_product,
                     sizes: '100vw',
                     loading: 'lazy',
                     is_main_product_media: forloop.first

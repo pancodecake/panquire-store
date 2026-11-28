@@ -231,8 +231,12 @@ class PredictiveSearchComponent extends Component {
           event.preventDefault();
           this.#currentItem?.querySelector('a')?.click();
         } else {
+          event.preventDefault();
+          const query = this.refs.searchInput.value.trim();
+          if (!query) return;
+
           const searchUrl = new URL(Theme.routes.search_url, location.origin);
-          searchUrl.searchParams.set('q', this.refs.searchInput.value);
+          searchUrl.searchParams.set('q', query);
           window.location.href = searchUrl.toString();
         }
         break;

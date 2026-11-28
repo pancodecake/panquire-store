@@ -19,10 +19,10 @@
 {% liquid
   assign widths = widths | default: '240, 352, 832, 1200, 1600, 1920, 2560, 3840'
   assign ref_image_to_transition = ''
-  assign image_alt = media.alt
-  if template.suffix == 'panquire' and image_alt == blank
-    assign image_alt = selected_product.title | append: ' — product detail view'
-  endif
+  assign gallery_product = selected_product | default: product
+  capture image_alt
+    render 'pq-product-media-alt', media: media, gallery_product: gallery_product
+  endcapture
   if settings.transition_to_main_product
     assign ref_image_to_transition = 'imagesToTransition[]'
   endif

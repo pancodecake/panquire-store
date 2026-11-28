@@ -1,0 +1,22 @@
+{%- doc -%}
+  Returns the plain-text alternative for a gallery image.
+
+  @param {object} media - Gallery media.
+  @param {object} gallery_product - Product shown in the gallery.
+{%- enddoc -%}
+{%- liquid
+  assign alt_text = media.alt | strip | default: media.preview_image.alt | strip
+  if alt_text == blank and gallery_product.handle == 't-02' and media.media_type == 'image'
+    assign filename = media.preview_image.src | split: '/' | last | downcase
+    if filename contains 'front_three_quarter_view'
+      assign alt_text = 'Panquire T-02 electric dirt bike from the front three-quarter angle'
+    elsif filename contains 'right_side_profile'
+      assign alt_text = 'Right side profile of the Panquire T-02 electric dirt bike'
+    elsif filename contains 'rear_left_three_quarter_view'
+      assign alt_text = 'Panquire T-02 electric dirt bike viewed from the rear left'
+    elsif filename contains 'rear_right_three_quarter_view'
+      assign alt_text = 'Panquire T-02 electric dirt bike viewed from the rear right'
+    endif
+  endif
+  echo alt_text | default: gallery_product.title
+-%}

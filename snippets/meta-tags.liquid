@@ -77,6 +77,10 @@
   endif
   endif
 
+  if seo_language == 'en' and request.page_type == 'page' and page.handle == 'terms' and page_description.size > 160
+    assign og_description = 'Read Panquire’s terms of purchase for electric dirt bikes and motorcycles, including orders, payment, delivery, returns, warranty and consumer rights.'
+  endif
+
   if seo_language == 'en' and page_description == blank
     case request.page_type
       when 'search'
@@ -97,6 +101,8 @@
       when 'policy'
         assign policy_handle = request.path | split: '/' | last
         case policy_handle
+          when 'terms-of-service'
+            assign og_description = 'Read Panquire’s terms of purchase for electric dirt bikes and motorcycles, including orders, payment, delivery, returns, warranty and consumer rights.'
           when 'shipping-policy'
             assign og_description = 'Read Panquire’s shipping policy for delivery destinations, shipping costs, tracking and order delivery information.'
           when 'refund-policy'
