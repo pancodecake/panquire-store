@@ -1268,8 +1268,7 @@
   @container cart-items (min-width: 34rem) {
     .cart-drawer__items .pq-cart-item-card {
       grid-template:
-        'media details' min-content
-        'media price' minmax(0, 1fr)
+        'media details' auto
         'quantity price' auto
         'error error' auto / minmax(0, 33%) minmax(0, 1fr);
       column-gap: clamp(8px, 1.6cqi, 14px);
