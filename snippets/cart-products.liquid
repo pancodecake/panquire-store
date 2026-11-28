@@ -327,9 +327,22 @@
                   {% endif %}
 
                   {% capture expected_sale %}{% render 'pq-black-friday-sale-cents', amount: item.original_price, product_handle: item.product.handle %}{% endcapture %}
-                  {% assign expected_sale_cents = expected_sale | plus: 0 %}
-                  {% assign cart_compare_at_price = item.variant.compare_at_price | default: 0 %}
-                  {% unless cart_profile_image and item.quantity == 1 and item.original_price == item.final_price and cart_compare_at_price <= item.original_price %}
+                  {% liquid
+                    assign expected_sale_cents = expected_sale | plus: 0
+                    assign expected_line = item.final_price | times: item.quantity
+                    assign show_campaign_line_price = false
+                    if expected_sale != blank and expected_sale_cents == item.final_price and expected_line == item.final_line_price
+                      assign show_campaign_line_price = true
+                    endif
+                    assign cart_compare_at_price = item.variant.compare_at_price | default: 0
+                    assign hide_unit_price = false
+                    if context == 'drawer' and show_campaign_line_price
+                      assign hide_unit_price = true
+                    elsif cart_profile_image and item.quantity == 1 and item.original_price == item.final_price and cart_compare_at_price <= item.original_price
+                      assign hide_unit_price = true
+                    endif
+                  %}
+                  {% unless hide_unit_price %}
                     <div class="cart-items__unit-price-wrapper">
                       <div>
                         {% if expected_sale != blank and expected_sale_cents == item.final_price %}
@@ -436,8 +449,7 @@
                   role="cell"
                   headers="productTotal"
                 >
-                  {% assign expected_line = item.final_price | times: item.quantity %}
-                  {% if expected_sale != blank and expected_sale_cents == item.final_price and expected_line == item.final_line_price %}
+                  {% if show_campaign_line_price %}
                     {% render 'pq-local-money', amount: item.original_price, product_handle: item.product.handle, quantity: item.quantity, with_currency: true %}
                   {% else %}
                   <text-component value="{{ price | strip_html }}"{% if cart.currency.iso_code == 'USD' %} data-pq-usd-cents="{{ item.final_line_price }}"{% endif %}>{{ price }}</text-component>
@@ -1233,6 +1245,10 @@
     color: var(--pq-muted);
   }
 
+  .pq-cart-item-card .cart-items__price .pq-black-friday-sale-price {
+    font-size: 0.7em;
+  }
+
   .pq-cart-item-card .cart-items__unit-price-wrapper {
     margin-block-start: 5px;
     font-size: 0.8125rem;
@@ -1252,9 +1268,10 @@
   @container cart-items (min-width: 34rem) {
     .cart-drawer__items .pq-cart-item-card {
       grid-template:
-        'media details details' 1fr
-        'media quantity price' auto
-        'error error error' auto / minmax(0, 1fr) auto minmax(max-content, 31%);
+        'media details' min-content
+        'media price' minmax(0, 1fr)
+        'quantity price' auto
+        'error error' auto / minmax(0, 33%) minmax(0, 1fr);
       column-gap: clamp(8px, 1.6cqi, 14px);
       row-gap: 8px;
       padding: 12px;
@@ -1295,7 +1312,7 @@
 
     .pq-cart-item-card .cart-items__quantity {
       grid-area: quantity;
-      align-self: end;
+      place-self: start center;
       padding-block-end: 7px;
     }
 
@@ -1329,6 +1346,7 @@
 
     .pq-cart-item-card .cart-items__price {
       grid-area: price;
+      align-self: start;
       padding-block-end: 12px;
     }
   }
